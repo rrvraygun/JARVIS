@@ -844,15 +844,24 @@ def dispatch(name: str, args: dict[str, Any]) -> dict[str, Any]:
             operation = args.get("operation")
             operation_target = str(Path(root).resolve())
             arguments = dict(args.get("arguments") or {})
+            # The specialist naturally describes a push target as ``branch``;
+            # the registered workflow uses the lower-level ``ref`` field.
+            # Normalize that alias before validation so a clear push request
+            # reaches the exact review screen.
+            if operation == "push" and "ref" not in arguments and "branch" in arguments:
+                arguments["ref"] = arguments.pop("branch")
             if args.get("target") is not None:
                 arguments["requested_target"] = args.get("target")
             if not isinstance(operation, str) or not isinstance(arguments, dict):
                 return content({"error": "invalid_github_operation_plan"}, True)
             return content(operations.propose("github", operation, operation_target, arguments))
-        except (OSError, RuntimeError, TypeError, ValueError, TimeoutError):
+        except (OSError, RuntimeError, TypeError, ValueError, TimeoutError) as exc:
             return content(
                 {
                     "error": f"{name}_failed",
+                    "reason": str(exc)
+                    if str(exc).replace("_", "").isalnum()
+                    else type(exc).__name__,
                     "read_only": name != "github_operation_plan",
                 },
                 True,
