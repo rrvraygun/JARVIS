@@ -2,7 +2,7 @@
 
 **Current product state:** [`docs/current-product-state.md`](docs/current-product-state.md)
 
-**Spanish documentation:** [`README.es.md`](README.es.md) · [`docs/es/`](docs/es/README.md)
+**Spanish documentation:** [`docs/es/`](docs/es/LEEME-PROYECTO.md)
 
 JARVIS is a local Fedora workstation TUI with bounded host inspection,
 package/power/lighting workflows, Codex App Server conversation, and audited

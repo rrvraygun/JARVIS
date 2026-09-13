@@ -1,56 +1,52 @@
-# Entrega recuperada — 11 de septiembre de 2026
+# Entrega recuperada - 11 de septiembre de 2026
 
-Estado: candidato persistente probado; no activado ni instalado como actualización
-del sistema. La versión activa anterior se conserva y no necesita rollback.
+Estado: candidato persistente probado; no activado o instalado como sistema
+actualizar. La versión activa anterior se conserva y no es necesario revertirla.
 
 ## Evidencia de esta copia
 
-- Recuperados los cambios de código desde las llamadas de edición del historial
-  de esta tarea; no se ejecutaron comandos históricos ni se copiaron credenciales.
-- Suite TUI: 350 pruebas en 69,213 segundos, 349 correctas y un error ambiental
-  al crear un socket local dentro de la sandbox. Las dos pruebas del módulo de
-  socket pasaron fuera de ella. No se atribuye ese error a Textual.
-- Después se recuperaron los dos tests de recovery_plan que faltaban y pasaron
-  junto a los de especialistas y root (17 pruebas en ese momento).
-- Tras revisión independiente se añadieron controles de cambio de estado antes
-  de efectos root y tres regresiones: 13 pruebas root correctas.
-- Prueba visible real: printf ejecutado una vez, salida 0 y regreso a la interfaz.
-  Capturas y recibo en runtime/validation/visible-y5i3l9cl/.
-- Ruff pasó; mypy pasó en los tres módulos nuevos de ejecución.
-- Validación del bundle pasó con 817 entradas antes de añadir este informe.
+- Los cambios de código se recuperaron de las llamadas de edición registradas para esta tarea;
+  Los comandos históricos no se ejecutaron y las credenciales no se copiaron.
+- Suite TUI: 350 pruebas en 69.213 segundos, 349 aprobadas y un error ambiental
+  mientras se crea un socket local dentro del sandbox. Ambas pruebas del módulo de socket
+  Pasó fuera de la caja de arena. El error no se atribuye a Textual.
+- Las dos pruebas `recovery_plan` faltantes fueron restablecidas y aprobadas con un especialista
+  y pruebas de raíz (17 pruebas en ese momento).
+- La revisión independiente agregó controles de cambio de estado antes de los efectos raíz y tres
+  pruebas de regresión; Se pasaron 13 pruebas de raíz.
+- Prueba visible: `printf` se ejecutó una vez, salió de 0 y regresó a la interfaz.
+  Las capturas y el recibo están en `runtime/validation/visible-y5i3l9cl/`.
+- Ruff pasó; mypy pasó para los tres nuevos módulos de ejecución.
+- La validación del paquete fue aprobada con 817 entradas antes de que se agregara este informe. el
   El manifiesto final se regenera después del informe.
 
-Los logs están en la carpeta superior con prefijo
-jarvis-2026-09-11-recovered-. La repetición conjunta fuera de la sandbox fue
-rechazada antes de ejecutarse por límite de uso del revisor automático.
-No se afirma que esa repetición haya pasado.
+Los registros se almacenan en el directorio principal con el
+Prefijo `jarvis-2026-09-11-recovered-`. Se realizó una repetición combinada fuera del sandbox.
+rechazado antes de la ejecución por la cuota de revisión automática; no se reporta como
+pasado.
 
 ## Correcciones adicionales
 
-El inventario y manifiesto ahora excluyen rutas relativas al candidato: una
-carpeta antecesora llamada runtime ya no produce una entrega vacía. El verificador
-rechaza manifiestos vacíos. La prueba visible guarda evidencia persistente.
+La generación de inventario y manifiesto ahora excluye las rutas relativas al candidato:
+un directorio principal llamado `runtime` ya no crea una entrega vacía. el
+El verificador rechaza manifiestos vacíos. La prueba visible guarda evidencia persistente.
 
-## Pendiente para instalación completa
+## Pendiente de instalación completa
 
-La instalación de helpers/políticas root, provisión independiente de aprobaciones,
-prueba autenticada y activación de release no se han realizado. El plan completo
-no está finalizado. El ensayo de restauración tampoco demuestra arranque de
-recuperación ni una copia actual completa del equipo.
+Instalación de política/ayudante raíz, aprovisionamiento de aprobación independiente, el
+La prueba autenticada y la activación de la versión no se realizaron. el completo
+El plan no está terminado. El ensayo de restauración tampoco prueba el arranque de recuperación o
+una copia completa de la estación de trabajo actual.
 
-El despliegue root debe garantizar mantenimiento exclusivo y publicación inmutable
-de las transacciones preparadas: el lock del helper no controla otras herramientas
-de administración. Revalidar hashes reduce cambios concurrentes pero no elimina
-la carrera con otro administrador root. No se promociona este candidato como
-ejecutor privilegiado listo para producción.
+El despliegue raíz debe garantizar un mantenimiento exclusivo y una publicación inmutable.
+de transacciones preparadas: el bloqueo auxiliar no serializa otras operaciones administrativas
+herramientas. Volver a verificar los hashes reduce el riesgo de cambios simultáneos pero no elimina las carreras
+con otro administrador raíz. Este candidato no es promovido como productor.
+software de ejecución privilegiado listo.
 
-## Probar la terminal
+## Pruebe el terminal
 
-Desde esta carpeta:
-
-```bash
+Desde este directorio:```bash
 .venv/bin/python scripts/smoke-normal-terminal.py --approve-printf-smoke
-```
-
-Esta prueba usa un modelo simulado y únicamente ejecuta el printf fijo mostrado.
-La guía de capacidades está en docs/PARCHE-GUIDE-2026-09.md.
+```Esta prueba utiliza un modelo simulado y ejecuta solo el `printf` fijo mostrado.
+La guía de capacidades es `docs/PATCH-GUIDE-2026-09.md`.

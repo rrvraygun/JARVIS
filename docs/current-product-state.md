@@ -345,4 +345,4 @@ processes cannot use this route. Only foreground exit is attested.
 The earlier claim of a permanently hung Textual suite was not supported:
 the retained log completed 36 tests in 109.777 seconds. A new real PTY smoke
 exercised the review button, one printf and UI resumption. See
-`sessions/2026-09-11-validation-closeout.md` and `PARCHE-GUIDE-2026-09.md`.
+`sessions/2026-09-11-validation-closeout.md` and `PATCH-GUIDE-2026-09.md`.

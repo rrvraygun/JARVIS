@@ -6,6 +6,321 @@
       "size": 92
     },
     {
+      "path": ".git/COMMIT_EDITMSG",
+      "sha256": "65306dc422cbca1458632173b9ea62e334f3190bae6bd69a17502bf1c1be88e1",
+      "size": 49
+    },
+    {
+      "path": ".git/HEAD",
+      "sha256": "28d25bf82af4c0e2b72f50959b2beb859e3e60b9630a5e8c603dad4ddb2b6e80",
+      "size": 21
+    },
+    {
+      "path": ".git/config",
+      "sha256": "16e037e04af2a7d78ea2b432370ee1d41501d3354f355d0d33121773d10d8e94",
+      "size": 256
+    },
+    {
+      "path": ".git/description",
+      "sha256": "85ab6c163d43a17ea9cf7788308bca1466f1b0a8d1cc92e26e9bf63da4062aee",
+      "size": 73
+    },
+    {
+      "path": ".git/hooks/applypatch-msg.sample",
+      "sha256": "8bf35846bc3d90db12f711dd961292eb1c617b6f62c2c4e702706b71f2a897b2",
+      "size": 482
+    },
+    {
+      "path": ".git/hooks/commit-msg.sample",
+      "sha256": "01fa6ffa6b38523d58ff05cac0caaa8e76ef48db467749921395519b43b495af",
+      "size": 1976
+    },
+    {
+      "path": ".git/hooks/fsmonitor-watchman.sample",
+      "sha256": "9159720099ad5595b8e66645cbfd47763c1e920f46e0b50ae75e642bbec57ef0",
+      "size": 4611
+    },
+    {
+      "path": ".git/hooks/post-update.sample",
+      "sha256": "d0d00b057e31fbe8207f3a1496797050fcadad75df883842e979a965bd6a298f",
+      "size": 193
+    },
+    {
+      "path": ".git/hooks/pre-applypatch.sample",
+      "sha256": "0e01aa4a2a7387a2d06a058113c18faa58e8191b840b45529db82c8ab39521c2",
+      "size": 428
+    },
+    {
+      "path": ".git/hooks/pre-commit.sample",
+      "sha256": "4d44c83bc3c0271d2ecd328b1d08d9af89f928511c02dcd4a4e81b761b6df1f6",
+      "size": 1653
+    },
+    {
+      "path": ".git/hooks/pre-merge-commit.sample",
+      "sha256": "6e9d4320214965de9ec5bf4a94cde33d9f0c32c8085926277664d0f494fef7cc",
+      "size": 420
+    },
+    {
+      "path": ".git/hooks/pre-push.sample",
+      "sha256": "329a5f4509a242b8d1916ec617f85a5383190b34ac35d414224091ed9ceb2dd6",
+      "size": 1378
+    },
+    {
+      "path": ".git/hooks/pre-rebase.sample",
+      "sha256": "c1dd258307167752e34fc068c7c00cb2579341fea2b345fde037e718f53158ba",
+      "size": 4902
+    },
+    {
+      "path": ".git/hooks/pre-receive.sample",
+      "sha256": "f6db83ee6e0153ace9f9de7a0a15f4902e33ebd3051b5f4d4587c9a5c8a07659",
+      "size": 548
+    },
+    {
+      "path": ".git/hooks/prepare-commit-msg.sample",
+      "sha256": "cc523274bd28fe45bbc580bbb5a9312fe88b2bb5ae5b845919c20618a34e1b03",
+      "size": 1496
+    },
+    {
+      "path": ".git/hooks/push-to-checkout.sample",
+      "sha256": "e1acad23702af2ad4c58bd616d399ab8f0fe5a470f044f20ac497aded0f45ec5",
+      "size": 2787
+    },
+    {
+      "path": ".git/hooks/sendemail-validate.sample",
+      "sha256": "23a33477f01ffe5246b46a9d1db7c39d73d193ce19ed4116e00cbb031ec5f2eb",
+      "size": 2312
+    },
+    {
+      "path": ".git/hooks/update.sample",
+      "sha256": "1b21448c0c321a3004d8db76adc43d14b8b3c948dadc57795ffe8e5f0726aae1",
+      "size": 3654
+    },
+    {
+      "path": ".git/index",
+      "sha256": "5405ab92eca21e195339cdbc6105de71f225b10ca8f13a1485ec55122faf5f54",
+      "size": 112950
+    },
+    {
+      "path": ".git/info/exclude",
+      "sha256": "6671fe83b7a07c8932ee89164d1f2793b2318058eb8b98dc5c06ee0a5a3b0ec1",
+      "size": 240
+    },
+    {
+      "path": ".git/info/refs",
+      "sha256": "d1a55ad81ccfd691212595d58d7cb50f373b0fb56720fe30bea133dcfda26895",
+      "size": 59
+    },
+    {
+      "path": ".git/logs/HEAD",
+      "sha256": "1ac132fc3db529b21d48b8625dad9729d70594163979f9241ad79294532f21b9",
+      "size": 1089
+    },
+    {
+      "path": ".git/logs/refs/heads/main",
+      "sha256": "bab2969f99b55f455b8e06dd4a31575476bde0f95b9e08598094bca3d65f363d",
+      "size": 721
+    },
+    {
+      "path": ".git/logs/refs/remotes/origin/main",
+      "sha256": "6b6ed599119e62f6e834f4c8de016bb941adbcddc24bb181c1295a2d32cf4be0",
+      "size": 294
+    },
+    {
+      "path": ".git/objects/0c/7689261003c4fbb008c06bcc5599177c8a5c07",
+      "sha256": "ab29c2653a87afb6a554e8620a5b763d48d40812c50c0fabdf7f9a8def8f401d",
+      "size": 1924
+    },
+    {
+      "path": ".git/objects/1d/0cab66a17a63d14c9fd79f0cf1ab7e29a3ac3d",
+      "sha256": "d43de5bc98dc7bd7b5da4c77fe57df03dc022c2034b61855ed43f03f6af82dc1",
+      "size": 2842
+    },
+    {
+      "path": ".git/objects/26/a41d0e3ea2de9133f5286803aaea1129c5bbd5",
+      "sha256": "2c99655c387c2be7b90758327fc774032c2b90972f32ad4112f40648324ce1b1",
+      "size": 2112
+    },
+    {
+      "path": ".git/objects/3b/79824b1a19db9e3a2d1f3e045166357b008fa6",
+      "sha256": "dd9a94ee2d7ef9e347b305d03013126e801faa0ed87ca3c98f1a65ca2855e664",
+      "size": 186
+    },
+    {
+      "path": ".git/objects/49/19d5670a21f4a43bfdd7aa748cf82f49a6555b",
+      "sha256": "bb88f58cddbaebcc3005f5732ad124c647d91f094aebe93a57adeb8858fb5bfb",
+      "size": 9767
+    },
+    {
+      "path": ".git/objects/57/6dbc684c655f5d714968f2f331f793021a2c76",
+      "sha256": "e429be4300a15b2354f9bc3ef97d9edb7621249f32843e84d3f7b323c8f5a604",
+      "size": 2011
+    },
+    {
+      "path": ".git/objects/5b/3f428053a9052eb8ec0361c6fb01a4707c7e80",
+      "sha256": "4cd4f22ce160011665bac8c4988830c6bb74dc50b0be067ce543834052335719",
+      "size": 6472
+    },
+    {
+      "path": ".git/objects/71/4eb9339786b66af04dafa32b453deb66890d76",
+      "sha256": "a51d1a290a55b77acb8289364b44f5846862d0075fa75914c3e64a61a944a467",
+      "size": 681
+    },
+    {
+      "path": ".git/objects/75/e11694ca2ba68b4c85593c054760c9ed32d618",
+      "sha256": "29580058eb3edd5ef5f64852dfc2579b3f913f71f108c55666e840bb361771ce",
+      "size": 935
+    },
+    {
+      "path": ".git/objects/76/9262ca691b2812cd29225ebd96b0353c1cb988",
+      "sha256": "202c2a1d6330f9f64c83d2233ea933b606a9af869ff772aca2d0b6e0e0c499d3",
+      "size": 31
+    },
+    {
+      "path": ".git/objects/78/be081bb949c613e46dd8e1e0dda05018a72d30",
+      "sha256": "805ed6591f00dd8f320d88406c1a611195bcbbb4efb1f42b5eb52f54ae956e14",
+      "size": 1357
+    },
+    {
+      "path": ".git/objects/82/8ecf1c66e7bdf172578ca7b9cf8c56e17235d6",
+      "sha256": "cce1b87d95bca8f9a8ac3b7c865ba6fc7f5d400c620cde6822cd33269266d271",
+      "size": 1506
+    },
+    {
+      "path": ".git/objects/87/24fadc9c1a9d5d28612c2c70bd42a91e27cd4d",
+      "sha256": "69848a3be18781e6bc2303beb3588ecd8456d06d452c72ad69d77752ed8b7e11",
+      "size": 1893
+    },
+    {
+      "path": ".git/objects/97/997453612f2160f50c5c5b4bdc975fec0fafc5",
+      "sha256": "c2150ae101259e5cbb63f003e513fe3b633598dad1b8731e02341db6834877ec",
+      "size": 865
+    },
+    {
+      "path": ".git/objects/9d/61ce82d38a31576a0c2275fd34cbca362f39d4",
+      "sha256": "d3798ee57c2b620e9c20934f4c7bc5f93a8fb8d4c4531cd4dcc3c61d4e2936bc",
+      "size": 862
+    },
+    {
+      "path": ".git/objects/a2/34dc9aa8f8dcc090017079da9ca9340c3229d1",
+      "sha256": "c5902e1d7398e1973bc523e8c15fb21051dd70f393ac4e904b5b92e6137fb5b2",
+      "size": 2020
+    },
+    {
+      "path": ".git/objects/a5/45632dc53fa47630048f8b33deafae97220de0",
+      "sha256": "0cec1f6b5eac15803b8dde8f0b0d634640209a6f9469015c1f0c3d7818229d79",
+      "size": 1092
+    },
+    {
+      "path": ".git/objects/ab/c21ed65376226b90de407ec6ace53cd5ec5f0b",
+      "sha256": "791c5f65f43d252b464226816714690235fb3d03d40c338f2249a47a6a2022ee",
+      "size": 1040
+    },
+    {
+      "path": ".git/objects/b3/2554368bbc6022ff0c61d5fb869ddcca78f76c",
+      "sha256": "5e1f37b05d5df01262c6abedae05b831445fe546e780b047c698cae74762f6d3",
+      "size": 2007
+    },
+    {
+      "path": ".git/objects/b6/4024a4760b67fc7de5e3eb58a60b5f1361ee4b",
+      "sha256": "c6008f23416486d428b70330d41044a8464d013194c3c80ac873dacf8c10bff2",
+      "size": 5201
+    },
+    {
+      "path": ".git/objects/bb/afcc11d85b737f065e0dd10f7f0a172f6904f3",
+      "sha256": "9f06086fcf30e8b8765e62a166fc629834b5c3e470736e1f91441a809a93815a",
+      "size": 590
+    },
+    {
+      "path": ".git/objects/be/607dd7c073702a157cdc55ab4794e9f5167209",
+      "sha256": "44dc7f5ab0f058d8d906ca40217f832ffdafc082cdead1a7c8a9c7a2600bef02",
+      "size": 659
+    },
+    {
+      "path": ".git/objects/c0/c84a606a69e8b28e00cf1dc779f1b6770b06a3",
+      "sha256": "25bb713ef0e6941111e3be9e08426c27a5d53210efc88ab7b0863a27d0b7fd14",
+      "size": 8318
+    },
+    {
+      "path": ".git/objects/c2/2b96a885dd8e5a5210557721dc6802f1049a4e",
+      "sha256": "ce9c0aeb74bb18bfb977569705c3ceea73de0ac4962ea0cb89022a25b56896a9",
+      "size": 3221
+    },
+    {
+      "path": ".git/objects/c3/5ffb08ba869a35c3ad36f1292252b32ca24ecd",
+      "sha256": "43213b17d6ccdb1e65f00da8457302e9d19de63f269edcf66d7b702f3870e865",
+      "size": 2296
+    },
+    {
+      "path": ".git/objects/e9/6e39d438eb3c0e09ed2a69c88ac1a39ff61510",
+      "sha256": "b073e0eae79cab2ad187e440f5cb7e67fcf2aef6167769990a7ba8cb16c44bc0",
+      "size": 1358
+    },
+    {
+      "path": ".git/objects/ec/b750cbb0738db0fd37be08322469a359f9d0de",
+      "sha256": "c33a3bc1e671992eb1de33bbf04dc8935106e7982ac842d98a08912d9ef46dbc",
+      "size": 3467
+    },
+    {
+      "path": ".git/objects/ee/d1d9c186ca8e5e97e458e3e3f5314203866aa9",
+      "sha256": "6c72d9fe71aece82d214a638dd2af76aad308a3644d6790d0f2d014ecb2df7d4",
+      "size": 3688
+    },
+    {
+      "path": ".git/objects/f2/9ceb101f0b5cf476c860009c7978503c90dfd1",
+      "sha256": "a2418c5bbdf0b478f9578aa82613899477e45d52935c6f17479fcc9591fbaec2",
+      "size": 827
+    },
+    {
+      "path": ".git/objects/f3/3285cb12c5834d4ba55e4aeb243322772fcbd3",
+      "sha256": "1ab913f38297c14b8f37022dc4e9b53c2ec3bbde0830edb7320d083d6706ca1b",
+      "size": 3225
+    },
+    {
+      "path": ".git/objects/info/packs",
+      "sha256": "09cd3e7440dc26bacce8ec517e36efed2f0d206ce0e9c06f86d6fa8be27b9a6d",
+      "size": 54
+    },
+    {
+      "path": ".git/objects/pack/multi-pack-index",
+      "sha256": "d12464b9796a0065ddc7dc0382eb7be72fc333d6658caaf9a427d627fed604e0",
+      "size": 28328
+    },
+    {
+      "path": ".git/objects/pack/pack-0fe56e52d576bfeb2b29d179fbffd7f4629acf75.idx",
+      "sha256": "c20038da39061727a6047318aa580693bababb7695643cea5f05c4291a1dfb57",
+      "size": 28232
+    },
+    {
+      "path": ".git/objects/pack/pack-0fe56e52d576bfeb2b29d179fbffd7f4629acf75.pack",
+      "sha256": "fe57f6728029aa123d8e9c4b25812c8c403f4362abc1f7944231cfdfabc67e81",
+      "size": 1270415
+    },
+    {
+      "path": ".git/objects/pack/pack-0fe56e52d576bfeb2b29d179fbffd7f4629acf75.rev",
+      "sha256": "c062aa147918a9c7ddea0b47fd0da9d2b714604bfcb76ebb530e87add8be1837",
+      "size": 3932
+    },
+    {
+      "path": ".git/refs/codex/turn-diffs/captures/1789293912579/4ce59e28-100a-44a9-891d-7456356b25e6/base",
+      "sha256": "cea5ec128f6653429f8f9560fc433cd1487f531109ee8aba1e3e067e34f8048e",
+      "size": 41
+    },
+    {
+      "path": ".git/refs/codex/turn-diffs/checkpoints/2616047e588821dcd1dca9e4f7f67e33785b03053cf8c9eb3298f61120fdd499/743aea18a026770441643496fbb8e817325671020add5a88a353d63069a96014/1789293891176/7b22d9c1-e865-44cb-b6ae-1e57affbbd8f",
+      "sha256": "cea5ec128f6653429f8f9560fc433cd1487f531109ee8aba1e3e067e34f8048e",
+      "size": 41
+    },
+    {
+      "path": ".git/refs/heads/main",
+      "sha256": "75c92b1682ba7d7257ff9b818a90dc765933a2f7a7135fad77bb6cd950ac5c1b",
+      "size": 41
+    },
+    {
+      "path": ".git/refs/remotes/origin/main",
+      "sha256": "75c92b1682ba7d7257ff9b818a90dc765933a2f7a7135fad77bb6cd950ac5c1b",
+      "size": 41
+    },
+    {
       "path": ".gitignore",
       "sha256": "e13f0b6107f0cfdaf911d96862bdaf7a39f3a6e741eac0291e0b3772315437c7",
       "size": 45
@@ -17,23 +332,23 @@
     },
     {
       "path": "CHANGELOG.md",
-      "sha256": "d7bf3daa7f6aa4b78d7c5cce5e5e644727bc091ae8fd39d9b6c40bf298d59cd4",
-      "size": 3609
+      "sha256": "68ab38cf2ff58f0d8d421c0ec28e4bc32aa945f2d9d6e128876d8a43ea0c12a7",
+      "size": 3683
     },
     {
-      "path": "GUIA-JARVIS-ACTUALIZACION-Y-ARRANQUE.md",
-      "sha256": "375258130d5be503ba7909fb249857bebb66da9e4f2ed5db96b77106bac96734",
-      "size": 14673
+      "path": "JARVIS-UPDATE-AND-STARTUP-GUIDE.md",
+      "sha256": "a30da4b310eb138f392bb94c5896669edb007237706186e544258a375da2f707",
+      "size": 11664
     },
     {
       "path": "README.md",
-      "sha256": "14eaa4d544be4bbbd912f39622c431313d9fa416980a1a869b1caa8951225eaa",
-      "size": 6897
+      "sha256": "daccdd1be68da2ca7410dc8b95ed4ef1fbcdb26dfa395a7ef1e0d61d0bce94b2",
+      "size": 6965
     },
     {
-      "path": "VALIDACION.md",
-      "sha256": "4bec88ee6cc9c199880e507d09d97c06b3930f1c3edae8732c1a950911fd828b",
-      "size": 2783
+      "path": "VALIDATION.md",
+      "sha256": "fb9a6d2b3ecf0e8a9a9328ca9dbfacf9916badac3ac610369d52ee709b4ce783",
+      "size": 2585
     },
     {
       "path": "VERSION",
@@ -426,14 +741,14 @@
       "size": 40747
     },
     {
-      "path": "docs/PARCHE-GUIDE-2026-09.md",
-      "sha256": "3ab4c0c55fad1685ea0508beb387adc8a81651f9c595c212548ab685cb1cdad8",
-      "size": 6585
+      "path": "docs/PATCH-GUIDE-2026-09.md",
+      "sha256": "e86e3bc2f44bb08b6673461fb33a1890c924f0fa528bbb277dfb2dce7a362d8d",
+      "size": 5816
     },
     {
       "path": "docs/README.md",
-      "sha256": "8affa10ad23c4044fde3b76162323cd1f1813be43fe9f8983456585f35396348",
-      "size": 1929
+      "sha256": "9b5d522b8ef23f0e780b74f59fbc38bc2c376681db1519b5b86c3d4f5df76059",
+      "size": 2172
     },
     {
       "path": "docs/adapter-contract.md",
@@ -467,8 +782,8 @@
     },
     {
       "path": "docs/current-product-state.md",
-      "sha256": "06701f81e2c8fccc63500aee6b781e0ff281a52a766055fc518505d7802d0f51",
-      "size": 23076
+      "sha256": "4a2632d1264971137afdabb80fc8bc845171f218b5f11ba44d86eda80d891a4f",
+      "size": 23075
     },
     {
       "path": "docs/data-lifecycle.md",
@@ -484,6 +799,361 @@
       "path": "docs/direct-host-deployment-and-recovery.md",
       "sha256": "69417f7d0c73a709a958c3268d9ecd585a12dd72beefe9bb7cc845676bea51d2",
       "size": 12753
+    },
+    {
+      "path": "docs/es/GUIA-JARVIS-ACTUALIZACION-Y-ARRANQUE.md",
+      "sha256": "8dcb8a1ef05c7adec16349b851283d90e6225fc28074c888352a51970c9c073a",
+      "size": 13286
+    },
+    {
+      "path": "docs/es/GUIA-PARCHE-2026-09.md",
+      "sha256": "e1d09fea93cd2b525e14e9d2fb6a4d9fed6389aab8f1062cb2970132a3866cd5",
+      "size": 6612
+    },
+    {
+      "path": "docs/es/LEEME-PROYECTO.md",
+      "sha256": "05194af35e6b6f03d90c0599611295536d9b3eb52c2546312eb20d9f7ca1fe4e",
+      "size": 1110
+    },
+    {
+      "path": "docs/es/LEEME.md",
+      "sha256": "01b841acebbf50550db2c605fa01d56c23dcecc13459cab8939b8c70e5f441e4",
+      "size": 2001
+    },
+    {
+      "path": "docs/es/REGISTRO-DE-CAMBIOS.md",
+      "sha256": "a8a570a776748beba998285175a414d9e5f6a2cd84af969b7290c0061a933ff3",
+      "size": 4540
+    },
+    {
+      "path": "docs/es/VALIDACION.md",
+      "sha256": "6a166da00f7465134f892a754874621214d5b800b745162d15e394d90914c092",
+      "size": 2959
+    },
+    {
+      "path": "docs/es/administrador-sistema.md",
+      "sha256": "05142e8fe542b7fd79e4fc28a367efd31e085c854614ec5e2c3d64456ea20911",
+      "size": 4882
+    },
+    {
+      "path": "docs/es/ampliacion-experto-energia.md",
+      "sha256": "62bbeaca011d576f9d9a05f6e1c579abddce55543905b15291b33927ed4da871",
+      "size": 5964
+    },
+    {
+      "path": "docs/es/arquitecto-jarvis-y-experto-energia.md",
+      "sha256": "7053dd4430b5fb40f61ce1dcf3c60b2ae72c6366b81fbd8ebde3e6a79224c2c9",
+      "size": 2365
+    },
+    {
+      "path": "docs/es/arquitectura-agentes-modulares.md",
+      "sha256": "950b49bfd77901aca2245f3d2fcaabf768847c4adaf9abaaba662882e441aa2e",
+      "size": 5808
+    },
+    {
+      "path": "docs/es/arquitectura-plataforma.md",
+      "sha256": "2b80468a6a5143969c49196db1b3f0185f0de7354270e40782e0348ada225edd",
+      "size": 7370
+    },
+    {
+      "path": "docs/es/auditoria-y-estado.md",
+      "sha256": "5a5d72a1763dba637979cbab5bd6835ec6e392ab6e1933d7240ce0637ee3f3b5",
+      "size": 5038
+    },
+    {
+      "path": "docs/es/auditorias/2026-08-28-auditoria-codigo.md",
+      "sha256": "886f02f0a69eeb3a6b7ae652d7c4ce794c2d7fde2e4c5b4240c1d9cc42795ce2",
+      "size": 6957
+    },
+    {
+      "path": "docs/es/automatizacion.md",
+      "sha256": "78ee839e026370de56352d626bc459fd2ecf46a840268fed8bd2b268e1db050e",
+      "size": 1156
+    },
+    {
+      "path": "docs/es/base-funcionalidades-openai.md",
+      "sha256": "3626d52403c25a367df4598fc6d9036c87f3b3c16691ba22adb6c7c4c666db4b",
+      "size": 2595
+    },
+    {
+      "path": "docs/es/caso-uso-controles-iluminacion.md",
+      "sha256": "5bb03395bdfc7cc398196ccbf7c2ea312e9d7b7b037157c34c2effc1b3e7072b",
+      "size": 18476
+    },
+    {
+      "path": "docs/es/causa-raiz-latencia-preflight-tui.md",
+      "sha256": "0fda670bb208d98e21b3f0aaf62c453f0937bcccee9de97b429c6ba5746d6505",
+      "size": 9213
+    },
+    {
+      "path": "docs/es/ciclo-vida-datos.md",
+      "sha256": "5be0e04ff807b2dfb828fb3d28f4cb0aaf8f5562feafc4eda1968862563640da",
+      "size": 2362
+    },
+    {
+      "path": "docs/es/conjunto-recuperacion-sistema-r2.md",
+      "sha256": "d2780a718d85879ba09796f5addd3bad00fcf86a7c8ca216dc2a4b7e57d5885c",
+      "size": 11515
+    },
+    {
+      "path": "docs/es/conocimiento-y-aprendizaje.md",
+      "sha256": "84f8a080c1eaa3110168c3d40f0e3ee9e0a46addecd5170a197b48cd1c5ad4d6",
+      "size": 8994
+    },
+    {
+      "path": "docs/es/contrato-adaptador.md",
+      "sha256": "2338598253f446ee9c8055375ea2eb04b77735222e358c71782ccf66d173b48c",
+      "size": 1025
+    },
+    {
+      "path": "docs/es/contrato-compartido.md",
+      "sha256": "264767b4d996a9215c43e52f26786a19f6d8ce16f0599014cf8e20762ac1b18a",
+      "size": 3485
+    },
+    {
+      "path": "docs/es/contrato-multiagente.md",
+      "sha256": "640fc66496ca3ce502c4acbbe0df84807a5c0428562d2c15a2632db84b3472c6",
+      "size": 1610
+    },
+    {
+      "path": "docs/es/contrato-tui.md",
+      "sha256": "2af14d15995a4bb0fcd6bedbf022ea97cf62dde5e3ac9d998a6fab408916029e",
+      "size": 18329
+    },
+    {
+      "path": "docs/es/despliegue-directo-anfitrion-y-recuperacion.md",
+      "sha256": "8b6a25f2c6c3eee51dd68d74ed169d36edd879ed32aedd50a516d00852e3f1f2",
+      "size": 15763
+    },
+    {
+      "path": "docs/es/ejecutor-inspeccion-anfitrion.md",
+      "sha256": "d74c62bc8f9f1872cc5dfc8658301763538858d4fa48dd43d94392c96bec4b5b",
+      "size": 4506
+    },
+    {
+      "path": "docs/es/ejecutor-mutacion-tui.md",
+      "sha256": "4a4bccc4f18935b941a8434a1a60d676487edcd9cd5bcc388d5723910f18f2c6",
+      "size": 10883
+    },
+    {
+      "path": "docs/es/estado-actual-producto.md",
+      "sha256": "d3302e6ebf725df4b0ff071686aa897075e78357066c693500f85b3c1ad53a70",
+      "size": 28504
+    },
+    {
+      "path": "docs/es/evaluacion.md",
+      "sha256": "f137f5c15b00367dc51b0ffcd31a7f985226dd0fd6644f4df639dc9a2cae7754",
+      "size": 2499
+    },
+    {
+      "path": "docs/es/fase-1-intermediario-solo-lectura.md",
+      "sha256": "7233287a9f9a67838a258cf584f88b901e16b464db4964ade441b4903fdac89c",
+      "size": 8730
+    },
+    {
+      "path": "docs/es/fase-2-tui-hibrida.md",
+      "sha256": "24eadb30503f72576db4f113171e511e5f910dead70000c4216fb4cde57fb82d",
+      "size": 11280
+    },
+    {
+      "path": "docs/es/fase-4-inscripcion-controlador-l1.md",
+      "sha256": "f6d307182f4f78fc5e5b8c26402a33a992bcca7f22d613bd834c356a1fbbf190",
+      "size": 7085
+    },
+    {
+      "path": "docs/es/fase-4-plano-vm-completa-l2.md",
+      "sha256": "285f3e0c0aa597ac85d489b12e5af4da5c52bd12a1043beadad5db51bc1a8d8e",
+      "size": 9829
+    },
+    {
+      "path": "docs/es/fase-4-requisito-laboratorio-vm.md",
+      "sha256": "a6a40f27358287f1078c12bd99584cceb9c6e5ab3a01dbd562b048e5e3985e7a",
+      "size": 4849
+    },
+    {
+      "path": "docs/es/fase-5-base-mutacion-supervisada.md",
+      "sha256": "ac26b490d8b1db3a7f950e3842e977834a4e0a6a4af44b65af5a88f5be0ab420",
+      "size": 2207
+    },
+    {
+      "path": "docs/es/fase-5-candidato-perfil-energia-adaptador-anfitrion.md",
+      "sha256": "ccf7526e5c1bcca4ad434fc6bb3cd26e7b1fe12f5ed7e409eba70b39198d8ba0",
+      "size": 7007
+    },
+    {
+      "path": "docs/es/fase-5-marcador-ensayo-candidato-adaptador.md",
+      "sha256": "1bade6fcc1557c2a88c4623d6c630cf34b6fadf3c5681f3aa439f30eb14310c4",
+      "size": 2947
+    },
+    {
+      "path": "docs/es/fase-5-puente-ejecutor-perfil-energia.md",
+      "sha256": "6af99b2d953d6938c049d61ecb0435e1bdfa878334df92eab4d36889ca00d5eb",
+      "size": 1966
+    },
+    {
+      "path": "docs/es/fase-6-observacion-y-operaciones-acotadas-anfitrion.md",
+      "sha256": "ecbf49c29994ab9ede0af8184f37bb520dc46e00102df3423aca2bbbffc0b65a",
+      "size": 1623
+    },
+    {
+      "path": "docs/es/generado/inventario-codigo.md",
+      "sha256": "e84f3ce7bd562568541abe3abe08c93b9a8c2c8bafad0581d1bf6ec097860586",
+      "size": 2372
+    },
+    {
+      "path": "docs/es/guia-diseno-instrucciones.md",
+      "sha256": "63ecb9075db43898e7853984c343a4bd86d1dd8820f95ffccd15e2fe2f44d4c4",
+      "size": 4469
+    },
+    {
+      "path": "docs/es/historial/LEEME.md",
+      "sha256": "c1212ef00f6d03548e2cab250c5d4fd46d0bbfb1fd3bdf803c6ac8b49354abd5",
+      "size": 940
+    },
+    {
+      "path": "docs/es/hoja-ruta-principal-jarvis.md",
+      "sha256": "ab70c520a3bb6bc508e108280290adfcf9b90c99fd93888980a6163116200829",
+      "size": 53886
+    },
+    {
+      "path": "docs/es/investigador-profundo.md",
+      "sha256": "f3986d4623bb86da8794f2f453765229c0eee51e23db894675b0bf08d564ee75",
+      "size": 1363
+    },
+    {
+      "path": "docs/es/lanzamiento-y-autoactualizacion.md",
+      "sha256": "7e9ceda0ba88c4499725cee939ea81947e6fe9bcce386e2a537dbfb584d88ce2",
+      "size": 1338
+    },
+    {
+      "path": "docs/es/lista-estabilizacion.md",
+      "sha256": "ca1e97e9a46c4da630614b19b9abbe71e70e64a08d4aea2705188a623cba902c",
+      "size": 1897
+    },
+    {
+      "path": "docs/es/madurez-capacidades.md",
+      "sha256": "aa8c96c7b87f80ba44802a2c2a074e667708be933908147be1d4ed9f5b767428",
+      "size": 1820
+    },
+    {
+      "path": "docs/es/manual-operativo.md",
+      "sha256": "900049a72255a58de24246c75511dfd9076149ad8747a32b30ec4bfa6156d17f",
+      "size": 9300
+    },
+    {
+      "path": "docs/es/mapa-codigo.md",
+      "sha256": "986c5b8b1f38596a1e6d7c10dc02a8256cd2c1d9ec07fa0b721eb9c27fad08f4",
+      "size": 4954
+    },
+    {
+      "path": "docs/es/modelo-amenazas.md",
+      "sha256": "52c16fa7e736779d3858de06f6ea1c95e28ffc0015da9d2f78754c3c3cd7a559",
+      "size": 4442
+    },
+    {
+      "path": "docs/es/operaciones-gobernadas.md",
+      "sha256": "60439aa677645bccc4d2d4efa29e388d40952517dc37f7782b51f5c15c4b35ee",
+      "size": 14272
+    },
+    {
+      "path": "docs/es/plan-correccion-latencia-preflight-tui.md",
+      "sha256": "f0a1b9052d4340a3d275f1d61136452decaa85438aadb2eb420f1738771dae38",
+      "size": 22995
+    },
+    {
+      "path": "docs/es/plan-disponibilidad-y-compatibilidad-paquetes.md",
+      "sha256": "84d2b77ffddd6b6a3ad2a0f0ccbd41b48e5eb3bcf1668b848d325fa427147289",
+      "size": 8686
+    },
+    {
+      "path": "docs/es/plan-implementacion-tui.md",
+      "sha256": "04e2a37f83d7584bef2549bf638f1c5cf414adf223b105d19ac6f9ba6cc77073",
+      "size": 44177
+    },
+    {
+      "path": "docs/es/registro-decision-requisitos.md",
+      "sha256": "ffe43d21b59152f4488b520856a1c2267a4e0f0cacc3f18f9fa7152e6b4f95c1",
+      "size": 10875
+    },
+    {
+      "path": "docs/es/sesiones/2026-08-28-estabilizacion.md",
+      "sha256": "c83a9a5cc2ccb07263cee221fc59b15e2d67c07b2013b4e728bc04c91e645253",
+      "size": 3370
+    },
+    {
+      "path": "docs/es/sesiones/2026-08-29-validacion-final.md",
+      "sha256": "b0abd912c4f7458417f506ef1b543d398f5a85880fc0099a7731c8f5f2c17793",
+      "size": 8278
+    },
+    {
+      "path": "docs/es/sesiones/2026-08-30-energia-dirigida-agente.md",
+      "sha256": "507b978791dec0d2262ab059074609d0a417eb820d509c301a6d341854c272fe",
+      "size": 3218
+    },
+    {
+      "path": "docs/es/sesiones/2026-08-30-puntos-control-conversacion.md",
+      "sha256": "bb9e6b8b86cc201815192bbbdafe5b3595fcf8bb36d5fe8f0aae89fb761847a5",
+      "size": 2152
+    },
+    {
+      "path": "docs/es/sesiones/2026-08-30-resultados-perfil-energia.md",
+      "sha256": "ce4845f6865ee7958f59da9c844b121430f73ac36950119d946b072c8f0f1a8b",
+      "size": 2046
+    },
+    {
+      "path": "docs/es/sesiones/2026-09-08-destino-copia-externa.md",
+      "sha256": "98eabfd6c1f12de9e249e7e753d209c08c5bb5b75d17403b0e87d2c142678d6f",
+      "size": 4408
+    },
+    {
+      "path": "docs/es/sesiones/2026-09-08-implementacion.md",
+      "sha256": "02c7467f05d247fcd43e2f6f21ffa3041490e7921fce2a18e8f9c57e3da8cbc1",
+      "size": 10241
+    },
+    {
+      "path": "docs/es/sesiones/2026-09-09-decisiones-cuestionario.md",
+      "sha256": "6c48ca1e5307367c79df2488b3a4199aa661bb7d6d3f5006df614f63b17118a7",
+      "size": 3650
+    },
+    {
+      "path": "docs/es/sesiones/2026-09-09-implementacion-cuestionario.md",
+      "sha256": "87be490a7997c2e78b8177458a0ac4ca61fddcb7878d927c367c843ece66b77d",
+      "size": 5286
+    },
+    {
+      "path": "docs/es/sesiones/2026-09-11-cierre-validacion.md",
+      "sha256": "141f8aa2a1db457443470b2d853d9d9ac3f7e603a8800a1a44a4456663cbb519",
+      "size": 5292
+    },
+    {
+      "path": "docs/es/sesiones/2026-09-12-actividad-viva-inspeccion.md",
+      "sha256": "7e7f515397372b39ce2a36e1ba191fa7a7624169686201084dd1bef2d5170ee8",
+      "size": 2828
+    },
+    {
+      "path": "docs/es/sesiones/2026-09-12-clic-punto-control.md",
+      "sha256": "40bfc2cce1ec639213ce647cceb911ae0c1f95a511d9e36de8041108d5ec8d29",
+      "size": 1166
+    },
+    {
+      "path": "docs/es/sesiones/2026-09-12-despacho-especialistas.md",
+      "sha256": "ccce8584e3dd3d4b999aaa25b487e1bc6a42e28e96fb069f6010a280c18615d1",
+      "size": 1510
+    },
+    {
+      "path": "docs/es/sesiones/2026-09-12-modelo-global.md",
+      "sha256": "d7a667047ce7af7de11c4cec8a16bd80cd16a9c83db167ba1d549adbbf0cae1d",
+      "size": 881
+    },
+    {
+      "path": "docs/es/sesiones/2026-09-12-protocolo-preflight.md",
+      "sha256": "ab2e6a5b5cf8baacdaeefaf0ead64e25fc806beab46f0241103a50d278769e5b",
+      "size": 1557
+    },
+    {
+      "path": "docs/es/sesiones/2026-09-13-revision-lanzamiento.md",
+      "sha256": "7aeb0446759c68c5412901239112839f671e8d71db5db42d2f6fce48d13feb21",
+      "size": 2640
     },
     {
       "path": "docs/evaluation.md",
@@ -667,8 +1337,8 @@
     },
     {
       "path": "docs/sessions/2026-09-09-questionnaire-decisions.md",
-      "sha256": "9704b6b0be8fa1ed98e5ff46a2ff895e78997808962b3df734af808c4888a16b",
-      "size": 3531
+      "sha256": "3dabf8ebf5a12bf6776829219ac75a6fe6604f68d7cf6615bbce7985f1acc52a",
+      "size": 3202
     },
     {
       "path": "docs/sessions/2026-09-09-questionnaire-implementation.md",
@@ -677,8 +1347,8 @@
     },
     {
       "path": "docs/sessions/2026-09-11-validation-closeout.md",
-      "sha256": "95d242d38983d2d8f97e6049b82d9bdba6560baaddd2007e600d44fa1b4cc75f",
-      "size": 5041
+      "sha256": "c24db6ac8637cb4de29d47078bdca0f010679ceb6f79d1c5fededa6882007c41",
+      "size": 4570
     },
     {
       "path": "docs/sessions/2026-09-12-checkpoint-click.md",

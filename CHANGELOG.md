@@ -7,9 +7,8 @@ time where the source record supplied local timestamps.
 
 ### Added
 
-- English is now the primary documentation language. A mirrored documentation
-  tree is available under `docs/es/`, with `README.es.md` as the Spanish
-  repository entry point.
+- English is now the primary documentation language. A mirrored Spanish
+  documentation tree is available under `docs/es/`.
 - Clean domain views for Health, Development, Network, Security and Recovery,
   with a Raw JSON view retained behind a per-domain selector.
 - Per-field `[i]` explanations that open a short floating information dialog.
