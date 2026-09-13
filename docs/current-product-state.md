@@ -54,6 +54,15 @@ same exact graphical command approval as other external effects.
 
 ## Available Behavior
 
+### Explicit full-access profile
+
+The active isolated profile may use `danger-full-access` only when paired with
+`approval_policy=on-request`. The TUI shows every generic command or file-change
+request and permits only a one-use decision; no session-wide approval is exposed.
+The default project and MCP boundaries, sanitization, audit records, and
+registered-operation reviews remain active. Full access is explicit configuration
+and is never inferred from a model request.
+
 ### Global agent settings and context views
 
 The Agents view exposes one global model selector, one reasoning-effort selector

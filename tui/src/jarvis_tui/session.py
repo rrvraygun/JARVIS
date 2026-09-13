@@ -39,6 +39,7 @@ from .preflight import (
     preflight_prompt,
 )
 from .runtime_profile import check as check_runtime_profile
+from .runtime_profile import execution_policy
 from .specialists import Specialist
 from .tool_scope import has_observation
 from .tool_scope import publish as publish_scope
@@ -465,6 +466,7 @@ class AppServerSessionController:
 
     async def start_thread(self) -> str:
         self._require_authenticated()
+        sandbox_mode, approval_policy = execution_policy(self.workspace)
         if self.snapshot.thread_id:
             if self.snapshot.thread_status in {"not_loaded", "closed"}:
                 # A recovered reference is only an identifier from a prior
@@ -504,8 +506,8 @@ class AppServerSessionController:
             "thread/start",
             {
                 "cwd": str(self.workspace),
-                "approvalPolicy": "never",
-                "sandbox": "read-only",
+                "approvalPolicy": approval_policy,
+                "sandbox": sandbox_mode,
                 "serviceName": "jarvis_tui",
                 "model": self.model,
                 "config": {
@@ -665,14 +667,15 @@ class AppServerSessionController:
 
     async def resume_thread(self, thread_id: str) -> str:
         self._require_authenticated()
+        sandbox_mode, approval_policy = execution_policy(self.workspace)
         if not thread_id:
             raise ValueError("thread_id cannot be empty")
         result = await self.client.request(
             "thread/resume",
             {
                 "threadId": thread_id,
-                "approvalPolicy": "never",
-                "sandbox": "read-only",
+                "approvalPolicy": approval_policy,
+                "sandbox": sandbox_mode,
             },
         )
         thread = result.get("thread") if isinstance(result, dict) else None

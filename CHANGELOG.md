@@ -7,6 +7,9 @@ time where the source record supplied local timestamps.
 
 ### Added
 
+- The isolated JARVIS profile now supports the explicitly selected
+  `danger-full-access` mode with `approval_policy=on-request`; generic command
+  and file approvals remain one-use and visible in the TUI.
 - GitHub Agent, selectable in Agents and Conversation, with bounded local Git
   inspection, publication preflight, and exact operation plans.
 - Exact GitHub Agent plans can open the existing one-use TUI review for local

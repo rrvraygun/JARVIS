@@ -13,12 +13,13 @@ def validate(config: dict[str, Any], bundle: Path) -> None:
     features = config.get("features", {})
     server = servers.get("jarvis_control", {})
     expected = str(bundle / "plugins/jarvis-system-admin/scripts/mcp_server.py")
+    sandbox_mode = config.get("sandbox_mode")
+    approval_policy = config.get("approval_policy")
+    secure_profile = sandbox_mode == "read-only" and approval_policy == "never"
+    full_profile = sandbox_mode == "danger-full-access" and approval_policy == "on-request"
     if (
-        config.get("sandbox_mode") != "read-only"
-        or config.get("approval_policy") != "never"
+        not (secure_profile or full_profile)
         or config.get("web_search") != "disabled"
-        or features.get("plugins") is not False
-        or features.get("hooks") is not False
         or set(servers) != {"jarvis_control"}
         or server.get("command") != "/usr/bin/python3"
         or server.get("args") != [expected]
@@ -27,6 +28,17 @@ def validate(config: dict[str, Any], bundle: Path) -> None:
         or server.get("env") != {"JARVIS_STORE": str(bundle / "runtime/control-store")}
         or set(config.get("apps", {})) != {"_default"}
         or config.get("apps", {}).get("_default", {}).get("enabled") is not False
+        or (
+            secure_profile
+            and (features.get("plugins") is not False or features.get("hooks") is not False)
+        )
+        or (
+            full_profile
+            and (
+                not isinstance(features.get("plugins"), bool)
+                or not isinstance(features.get("hooks"), bool)
+            )
+        )
     ):
         raise ValueError("runtime_profile_authority_mismatch")
 
@@ -43,6 +55,14 @@ def check(bundle: Path) -> None:
         or policy.get("automatic_retry") is not False
     ):
         raise ValueError("runtime_policy_invalid")
+
+
+def execution_policy(bundle: Path) -> tuple[str, str]:
+    """Return the validated App Server sandbox and approval policy."""
+    path = bundle / "runtime/codex-home/config.toml"
+    config = tomllib.loads(path.read_text())
+    validate(config, bundle)
+    return str(config["sandbox_mode"]), str(config["approval_policy"])
 
 
 def render(bundle: Path) -> str:

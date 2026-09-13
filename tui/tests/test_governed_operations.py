@@ -486,7 +486,7 @@ class GovernedOperationTests(unittest.TestCase):
             (restored / "Cargo.toml").read_bytes(), (self.project / "Cargo.toml").read_bytes()
         )
 
-    def test_runtime_profile_rejects_extra_mcp_and_full_access(self):
+    def test_runtime_profile_rejects_extra_mcp_and_accepts_explicit_full_access(self):
         import tomllib
 
         from jarvis_tui.runtime_profile import render, validate
@@ -498,8 +498,10 @@ class GovernedOperationTests(unittest.TestCase):
             validate(config, self.root)
         config = tomllib.loads(render(self.root))
         config["sandbox_mode"] = "danger-full-access"
-        with self.assertRaises(ValueError):
-            validate(config, self.root)
+        config["approval_policy"] = "on-request"
+        config["features"]["plugins"] = True
+        config["features"]["hooks"] = True
+        validate(config, self.root)
 
     def test_transcript_rejects_reasoning_and_redacts_output(self):
         from jarvis_tui.transcript_store import append, read

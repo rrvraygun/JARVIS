@@ -50,6 +50,16 @@ La misma aprobación de comando gráfico exacta que otros efectos externos.
 
 ## Comportamiento disponible
 
+### Perfil explícito de acceso completo
+
+El perfil aislado activo puede usar `danger-full-access` únicamente junto con
+`approval_policy=on-request`. La TUI muestra cada solicitud genérica de comando
+o cambio de archivo y solo permite una decisión de un uso; no existe aprobación
+para toda la sesión. Se mantienen los límites del proyecto y MCP, la
+desinfección, los registros de auditoría y las revisiones de operaciones
+registradas. El acceso completo es configuración explícita y nunca se deduce de
+una petición del modelo.
+
 ### Configuración global del agente y vistas contextuales
 
 La vista Agentes expone un selector de modelo global, un selector de esfuerzo de razonamiento

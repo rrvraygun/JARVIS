@@ -192,23 +192,24 @@ class StdioAppServerClient:
             environment["CODEX_HOME"] = str(self.codex_home)
         overrides: list[str] = []
         if self.codex_home is not None:
-            from .runtime_profile import check
+            from .runtime_profile import check, execution_policy
 
             bundle = self.codex_home.parent.parent
             check(bundle)
+            sandbox_mode, approval_policy = execution_policy(bundle)
             server = bundle / "plugins/jarvis-system-admin/scripts/mcp_server.py"
             overrides = [
                 "-c",
-                'sandbox_mode="read-only"',
+                f'sandbox_mode="{sandbox_mode}"',
                 "-c",
-                'approval_policy="never"',
+                f'approval_policy="{approval_policy}"',
                 "-c",
                 'mcp_servers.jarvis_control.command="/usr/bin/python3"',
                 "-c",
                 "mcp_servers.jarvis_control.args="
                 + json.dumps([str(server), "--scope-id", self.scope_id]),
             ]
-        if self.codex_home is not None:
+        if self.codex_home is not None and sandbox_mode == "read-only":
             overrides.extend(
                 [
                     "-c",

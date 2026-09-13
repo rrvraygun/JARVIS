@@ -136,6 +136,7 @@ from .session import (
     AppServerSessionController,
     ConnectionState,
     ConversationContextSyncError,
+    execution_policy,
 )
 from .specialists import Specialist
 from .terminal_safety import sanitize_terminal_text
@@ -454,16 +455,26 @@ class CodexApprovalReviewScreen(ModalScreen[str]):
     #codex-approval-buttons Button { margin-right: 1; }
     """
 
-    def __init__(self, details: str) -> None:
+    def __init__(self, details: str, *, allow_approve: bool = False) -> None:
         super().__init__()
         self.details = details
+        self.allow_approve = allow_approve
 
     def compose(self) -> ComposeResult:
         with Vertical(id="codex-approval"):
-            yield Label("Generic execution is blocked; use a registered operation proposal")
+            yield Label(
+                "Review exact command or file change"
+                if self.allow_approve
+                else "Generic execution is blocked; use a registered operation proposal"
+            )
             yield Static(self.details, markup=False)
             with Horizontal(id="codex-approval-buttons"):
-                yield Button("Approve once", id="codex-accept", variant="warning", disabled=True)
+                yield Button(
+                    "Approve once",
+                    id="codex-accept",
+                    variant="warning",
+                    disabled=not self.allow_approve,
+                )
                 yield Button("Decline", id="codex-decline")
                 yield Button("Cancel turn", id="codex-cancel", variant="error")
 
@@ -1028,6 +1039,13 @@ class JarvisTui(App[None]):
     ) -> None:
         super().__init__()
         self.bundle_root = bundle_root.resolve()
+        try:
+            sandbox_mode, approval_policy = execution_policy(self.bundle_root)
+            self._danger_full_access = (
+                sandbox_mode == "danger-full-access" and approval_policy == "on-request"
+            )
+        except (OSError, ValueError, KeyError, TypeError):
+            self._danger_full_access = False
         self.connect_app_server = connect_app_server
         self.enable_live_turns = enable_live_turns
         self.plain_mode = plain_mode
@@ -3976,7 +3994,7 @@ class JarvisTui(App[None]):
                     )
                 )
                 self.push_screen(
-                    CodexApprovalReviewScreen(details),
+                    CodexApprovalReviewScreen(details, allow_approve=self._danger_full_access),
                     lambda decision, request_id=event.request_id: self.run_worker(
                         self._answer_codex_approval(request_id, decision),
                         group="codex-approval",
