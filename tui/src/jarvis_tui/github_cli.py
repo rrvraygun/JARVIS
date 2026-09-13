@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 import os
 import re
 import shutil
@@ -25,6 +26,7 @@ REMOTE_OPERATIONS = frozenset(
         "delete_repository",
     }
 )
+REMOTE_VIEWS = frozenset({"repository", "pull_requests", "issues", "runs", "releases"})
 DESTRUCTIVE = frozenset({"merge_pull_request", "delete_branch", "delete_repository"})
 SLUG_RE = re.compile(r"^(?:github\.com/)?[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$")
 NAME_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]{0,99}$")
@@ -376,6 +378,12 @@ def prepare(
             expected_effect=f"Request one rerun of Actions run {run_id} in {repository}.",
             blockers=blockers,
         )
+    if operation not in {"force_push", "modify_repository_settings", "delete_branch"}:
+        plan["repository"] = repository
+    if operation in {"clone_repository", "download_artifact"}:
+        plan["destination"] = destination
+    if operation in {"create_pull_request", "create_issue", "create_release"}:
+        plan["result_kind"] = operation
     if args:
         raise ValueError("github_operation_arguments_invalid")
     return plan
@@ -406,15 +414,149 @@ def execute(plan: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def verify(plan: dict[str, Any], result: dict[str, Any]) -> dict[str, Any]:
-    # A successful CLI exit is retained, but remote state still needs an
-    # independent readback before it can be called verified.
-    passed = result.get("status") == "completed" and result.get("exit_code") == 0
+def inspect(repository: object, view: object = "repository") -> dict[str, Any]:
+    """Read bounded GitHub metadata through allowlisted gh commands."""
+    repo = _slug(repository)
+    if not isinstance(view, str) or view not in REMOTE_VIEWS:
+        raise ValueError("github_remote_view_invalid")
+    executable = _gh()
+    commands = {
+        "repository": [
+            "repo",
+            "view",
+            repo,
+            "--json",
+            "nameWithOwner,isPrivate,defaultBranchRef,url,description",
+        ],
+        "pull_requests": [
+            "pr",
+            "list",
+            "--repo",
+            repo,
+            "--limit",
+            "50",
+            "--json",
+            "number,title,state,headRefName,baseRefName,isDraft,url",
+        ],
+        "issues": [
+            "issue",
+            "list",
+            "--repo",
+            repo,
+            "--limit",
+            "50",
+            "--json",
+            "number,title,state,url",
+        ],
+        "runs": [
+            "run",
+            "list",
+            "--repo",
+            repo,
+            "--limit",
+            "50",
+            "--json",
+            "databaseId,name,status,conclusion,headBranch,url",
+        ],
+        "releases": [
+            "release",
+            "list",
+            "--repo",
+            repo,
+            "--limit",
+            "50",
+            "--json",
+            "tagName,name,isDraft,isLatest,url",
+        ],
+    }
+    result = subprocess.run(
+        [executable, *commands[view]],
+        check=False,
+        cwd=None,
+        stdin=subprocess.DEVNULL,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+        timeout=30,
+        env={**os.environ, "GH_PROMPT_DISABLED": "1", "LC_ALL": "C"},
+    )
+    if result.returncode != 0:
+        return {
+            "available": True,
+            "read_only": True,
+            "network_accessed": True,
+            "repository": repo,
+            "view": view,
+            "error": "github_remote_read_failed",
+        }
+    try:
+        data = json.loads(result.stdout)
+    except json.JSONDecodeError as exc:
+        raise ValueError("github_remote_response_invalid") from exc
     return {
-        "verdict": "unknown",
+        "available": True,
+        "read_only": True,
+        "network_accessed": True,
+        "repository": repo,
+        "view": view,
+        "data": data,
+    }
+
+
+def verify(plan: dict[str, Any], result: dict[str, Any]) -> dict[str, Any]:
+    # Remote state is read back with one allowlisted command after the mutation.
+    passed = result.get("status") == "completed" and result.get("exit_code") == 0
+    operation = plan.get("github_operation")
+    repository = plan.get("repository")
+    command_completed = passed
+    checks = {name: False for name in plan.get("postconditions", ())}
+    readback: dict[str, Any] = {}
+    try:
+        if operation == "create_repository":
+            readback = inspect(repository, "repository")
+            data = readback.get("data", {})
+            checks["remote_operation_receipt"] = data.get("nameWithOwner") == repository
+        elif operation in {"create_pull_request", "create_issue", "create_release"}:
+            output = result.get("stdout", "")
+            urls = re.findall(
+                r"https://github\.com/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+/(?:pull|issues|releases/tag)/[^\s]+",
+                output,
+            )
+            readback = {"url_detected": bool(urls)}
+            checks["remote_operation_receipt"] = bool(urls) and command_completed
+        elif operation == "clone_repository":
+            destination = plan.get("destination")
+            readback = {
+                "destination_exists": isinstance(destination, str) and Path(destination).is_dir()
+            }
+            checks["remote_operation_receipt"] = (
+                readback["destination_exists"] and command_completed
+            )
+        elif operation == "download_artifact":
+            destination = plan.get("destination")
+            readback = {
+                "destination_exists": isinstance(destination, str) and Path(destination).is_dir()
+            }
+            checks["remote_operation_receipt"] = (
+                readback["destination_exists"] and command_completed
+            )
+        elif operation == "rerun_workflow":
+            readback = {"command_completed": command_completed}
+        elif operation == "delete_repository":
+            readback = inspect(repository, "repository")
+            checks["remote_operation_receipt"] = (
+                readback.get("error") == "github_remote_read_failed"
+            )
+    except (OSError, ValueError, TypeError, KeyError):
+        readback = {"verification": "unavailable"}
+    return {
+        "verdict": "pass" if all(checks.values()) and checks else "unknown",
         "id": plan.get("id"),
         "digest": plan.get("digest"),
-        "checks": {name: False for name in plan.get("postconditions", ())},
+        "checks": checks,
         "command_completed": passed,
-        "limitation": "Remote state readback is not yet implemented.",
+        "readback": readback,
+        "limitation": "Some operations expose command completion only until a resource-specific readback is available.",
     }

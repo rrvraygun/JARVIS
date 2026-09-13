@@ -265,6 +265,19 @@ TOOLS = [
         },
     },
     {
+        "name": "github_remote_inspect",
+        "description": "Read bounded repository, pull-request, issue, release, or Actions metadata through the configured GitHub CLI. It never writes remote state.",
+        "inputSchema": {
+            "type": "object",
+            "required": ["repository"],
+            "properties": {
+                "repository": {"type": "string"},
+                "view": {"enum": ["repository", "pull_requests", "issues", "runs", "releases"]},
+            },
+            "additionalProperties": False,
+        },
+    },
+    {
         "name": "github_operation_plan",
         "description": "Prepare one exact GitHub operation plan. It never executes, contacts GitHub, commits, pushes, merges, creates repositories, or changes settings.",
         "inputSchema": {
@@ -826,6 +839,13 @@ def dispatch(name: str, args: dict[str, Any]) -> dict[str, Any]:
                 },
                 True,
             )
+    if name == "github_remote_inspect":
+        try:
+            return content(
+                github_tools.inspect(args.get("repository"), args.get("view", "repository"))
+            )
+        except (OSError, RuntimeError, TypeError, ValueError, TimeoutError):
+            return content({"error": "github_remote_inspect_failed", "read_only": True}, True)
     if name in {"package_catalog", "package_search", "inspect_packages"}:
         query = args.get("query", "")
         if not isinstance(query, str) or len(query) > 500:
@@ -976,6 +996,7 @@ def call(name: str, args: dict[str, Any]) -> dict[str, Any]:
         "development_project_inspect",
         "github_inspect",
         "github_preflight",
+        "github_remote_inspect",
         "network_inventory",
         "security_inventory",
         "recovery_inventory",

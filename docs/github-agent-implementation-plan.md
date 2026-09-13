@@ -23,6 +23,7 @@ credentials are never copied into the project, displayed, or persisted.
 | --- | --- | --- |
 | github_inspect | Branch, status, diffs, history, ignored paths, conflicts, remotes, Git version | Read-only |
 | github_preflight | Changed paths, ignored paths, likely sensitive filenames, large files, conflicts | Read-only |
+| github_remote_inspect | Repository, pull-request, issue, release and Actions metadata | Read-only; configured CLI network |
 | github_operation_plan | Init, clone, branch, commit, pull/push, repository, issue, PR, release, Actions, deletion and settings operations | Plan only; fresh exact approval required |
 
 GitHub CLI is installed and authenticated through the user's SSH Git protocol.

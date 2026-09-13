@@ -23,6 +23,7 @@ las credenciales nunca se copian, muestran ni guardan en el proyecto.
 | --- | --- | --- |
 | github_inspect | Rama, estado, diferencias, historial, rutas ignoradas, conflictos, remotos y versión de Git | Solo lectura |
 | github_preflight | Rutas modificadas e ignoradas, nombres potencialmente sensibles, archivos grandes y conflictos | Solo lectura |
+| github_remote_inspect | Metadatos de repositorios, PR, issues, releases y Actions | Solo lectura; red CLI configurada |
 | github_operation_plan | Init, clonación, ramas, commit, pull/push, repositorios, issues, PR, release, Actions, borrado y configuración | Solo plan; exige aprobación exacta nueva |
 
 GitHub CLI está instalado y autenticado mediante el protocolo Git SSH del usuario.

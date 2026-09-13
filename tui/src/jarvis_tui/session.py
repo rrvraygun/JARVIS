@@ -967,7 +967,11 @@ class AppServerSessionController:
                     "jarvis-network-specialist": ("network_inventory",),
                     "jarvis-security-specialist": ("security_inventory",),
                     "jarvis-recovery-specialist": ("recovery_inventory",),
-                    "jarvis-github-agent": ("github_inspect", "github_preflight"),
+                    "jarvis-github-agent": (
+                        "github_inspect",
+                        "github_preflight",
+                        "github_remote_inspect",
+                    ),
                 }.get(specialist.id, ("no_registered_current_state_evidence",))
                 evidence_arguments: dict[str, object] = {}
                 if (

@@ -6,6 +6,8 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from types import SimpleNamespace
+from unittest import mock
 
 ROOT = Path(__file__).resolve().parents[1]
 TOOLS_PATH = ROOT.parent / "plugins/jarvis-github-agent/scripts/github_tools.py"
@@ -56,6 +58,25 @@ class GitHubToolsTests(unittest.TestCase):
         self.assertTrue(result["approval_required"])
         self.assertFalse(result["execution_authorized"])
         self.assertTrue(result["network_required"])
+
+    def test_remote_inspection_is_read_only_and_bounded(self) -> None:
+        from jarvis_tui import github_cli
+
+        with mock.patch.object(github_cli, "_gh", return_value="/usr/bin/gh"):
+            with mock.patch.object(
+                github_cli.subprocess,
+                "run",
+                return_value=SimpleNamespace(
+                    returncode=0,
+                    stdout='{"nameWithOwner":"rrvraygun/JARVIS"}',
+                    stderr="",
+                ),
+            ):
+                result = github_cli.inspect("rrvraygun/JARVIS", "repository")
+
+        self.assertTrue(result["read_only"])
+        self.assertTrue(result["network_accessed"])
+        self.assertEqual(result["data"]["nameWithOwner"], "rrvraygun/JARVIS")
 
     def test_subdirectory_is_rejected_as_repository_root(self) -> None:
         with self._repository() as directory:

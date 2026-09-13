@@ -16,6 +16,8 @@ time where the source record supplied local timestamps.
 - A guarded GitHub CLI adapter with structured validation for repositories, PRs,
   issues, releases, Actions artifacts and reruns; unavailable connectors fail
   closed without a remote request.
+- Read-only remote inspection for repository, pull-request, issue, release, and
+  Actions metadata through bounded `gh` JSON queries.
 - English is now the primary documentation language. A mirrored Spanish
   documentation tree is available under `docs/es/`.
 - Clean domain views for Health, Development, Network, Security and Recovery,

@@ -92,6 +92,7 @@ with tempfile.TemporaryDirectory() as directory:
         "development_project_inspect",
         "github_inspect",
         "github_preflight",
+        "github_remote_inspect",
         "github_operation_plan",
         "network_inventory",
         "security_inventory",
