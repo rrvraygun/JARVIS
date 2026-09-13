@@ -102,7 +102,6 @@ class GitHubOperationWorkflowTests(unittest.TestCase):
                 str(repository),
                 {"requested_target": "owner/repo"},
             )
-            self.assertIn("github_cli_unavailable", plan["blockers"])
             self.assertIn("github_operation_adapter_not_implemented", plan["blockers"])
             with self.assertRaises(ValueError):
                 workflow.approve(plan["id"], plan["digest"])

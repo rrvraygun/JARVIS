@@ -147,8 +147,8 @@ no heredar el historial de conversaciones anteriores.
   contenido de archivos ni contacta GitHub durante la inspección. Puede preparar
   operaciones locales de init, rama, commit, pull y push para la revisión TUI de
   un solo uso; cada escritura exige una aprobación exacta nueva. Las operaciones
-  remotas siguen siendo planes hasta que el conector acotado esté disponible y
-  comprobado de forma independiente.
+  remotas siguen siendo planes hasta comprobar de forma independiente el conector
+  acotado configurado para el perfil activo.
 - Proporciona evidencia limitada de inspección del host a una solicitud de conversación. el
   El modelo recibe evidencia formateada, no acceso de terminal o raíz.
 

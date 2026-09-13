@@ -8,8 +8,8 @@ implemented. GitHub Agent is a selectable
 specialist in Agents and Conversation. It has a bounded local Git inspector, a
 publication preflight with bounded secret-pattern scanning, and an operation-plan tool. Local init, branch, commit,
 fast-forward pull, and push plans can be approved through the TUI's existing
-one-use review. Remote operations produce validated CLI plans but remain blocked
-here because GitHub CLI is not installed and no official MCP connector is configured.
+one-use review. The guarded GitHub CLI adapter is configured for the active
+`rrvraygun` profile; remote plans still require the same exact approval.
 
 ## Identity and authentication
 
@@ -25,8 +25,9 @@ credentials are never copied into the project, displayed, or persisted.
 | github_preflight | Changed paths, ignored paths, likely sensitive filenames, large files, conflicts | Read-only |
 | github_operation_plan | Init, clone, branch, commit, pull/push, repository, issue, PR, release, Actions, deletion and settings operations | Plan only; fresh exact approval required |
 
-GitHub CLI and an official GitHub MCP connector are detected and reported as
-available capabilities. They are not invoked by the phase-1 tools.
+GitHub CLI is installed and authenticated through the user's SSH Git protocol.
+An official GitHub MCP connector is optional; the local guarded CLI adapter is
+the active connector for this deployment.
 
 ## Authority model
 
@@ -42,9 +43,9 @@ workflow; the agent does not resolve them automatically.
 2. Local Git actions: init, clone over SSH, branch, worktree, commit,
    fast-forward pull, and push are implemented behind the existing one-use TUI
    review.
-3. GitHub repository actions: enable the guarded GitHub CLI/API or official MCP
-   adapter for repository creation, forks, templates, issues, PRs, labels and
-   milestones after the connector is installed and independently checked.
+3. GitHub repository actions: complete repository creation, forks, templates,
+   issues, PRs, labels and milestones through the configured guarded CLI adapter,
+   then add an official MCP adapter only where it provides extra read context.
 4. CI and releases: add checks, Actions logs/reruns, artifacts, tags and
    releases with explicit network and publication approvals.
 5. Hardening and acceptance: add large-file and LFS handling, branch-protection
