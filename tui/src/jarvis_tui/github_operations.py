@@ -142,7 +142,10 @@ def _name(value: object, pattern: re.Pattern[str], error: str) -> str:
 def prepare(bundle: Path, operation: str, target: str, arguments: dict[str, Any]) -> dict[str, Any]:
     if operation not in SUPPORTED_OPERATIONS:
         raise ValueError("github_operation_not_implemented")
-    root = _repo(target, allow_uninitialized=operation == "initialize_repository")
+    root = _repo(
+        target,
+        allow_uninitialized=operation in {"initialize_repository", "clone_repository"},
+    )
     args = dict(arguments)
     requested_target = args.pop("requested_target", "")
     if not isinstance(requested_target, str) or len(requested_target) > 500:
@@ -155,7 +158,9 @@ def prepare(bundle: Path, operation: str, target: str, arguments: dict[str, Any]
         "privilege": "current-user",
         "risk": 1,
         "attempt_limit": 1,
-        "pre_state": _state(root, allow_uninitialized=operation == "initialize_repository"),
+        "pre_state": _state(
+            root, allow_uninitialized=operation in {"initialize_repository", "clone_repository"}
+        ),
         "postconditions": ["repository_state_recorded"],
         "expected_effect": "",
         "rollback": "No automatic rollback. A separate reviewed inverse operation is required.",
@@ -246,10 +251,13 @@ def prepare(bundle: Path, operation: str, target: str, arguments: dict[str, Any]
 def apply(bundle: Path, plan: dict[str, Any]) -> dict[str, Any]:
     root = _repo(
         plan.get("target"),
-        allow_uninitialized=plan.get("github_operation") == "initialize_repository",
+        allow_uninitialized=plan.get("github_operation")
+        in {"initialize_repository", "clone_repository"},
     )
     if _state(
-        root, allow_uninitialized=plan.get("github_operation") == "initialize_repository"
+        root,
+        allow_uninitialized=plan.get("github_operation")
+        in {"initialize_repository", "clone_repository"},
     ) != plan.get("pre_state"):
         raise ValueError("github_pre_state_drift")
     operation = plan.get("github_operation")

@@ -144,9 +144,11 @@ no heredar el historial de conversaciones anteriores.
   inspeccionan el estado Git local de un repositorio elegido por el usuario, riesgos
   de publicación, rutas ignoradas, conflictos, remotos, nombres de archivo con
   posible información sensible y archivos modificados grandes. En esta fase no lee
-  contenido de archivos ni contacta GitHub. Puede preparar, pero nunca ejecutar,
-  operaciones de commit, push, repositorio, issue, pull request, release o Actions;
-  cada escritura futura exige una aprobación exacta nueva.
+  contenido de archivos ni contacta GitHub durante la inspección. Puede preparar
+  operaciones locales de init, rama, commit, pull y push para la revisión TUI de
+  un solo uso; cada escritura exige una aprobación exacta nueva. Las operaciones
+  remotas siguen siendo planes hasta que el conector acotado esté disponible y
+  comprobado de forma independiente.
 - Proporciona evidencia limitada de inspección del host a una solicitud de conversación. el
   El modelo recibe evidencia formateada, no acceso de terminal o raíz.
 

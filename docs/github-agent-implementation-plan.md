@@ -2,12 +2,14 @@
 
 ## Current phase
 
-Phase 1 is implemented and fixture-validated, and phase 2 local Git execution is
-implemented and fixture-validated. GitHub Agent is a selectable
+Phase 1 is implemented and fixture-validated, phase 2 local Git execution is
+implemented and fixture-validated, and the guarded GitHub CLI adapter is now
+implemented. GitHub Agent is a selectable
 specialist in Agents and Conversation. It has a bounded local Git inspector, a
 publication preflight, and an operation-plan tool. Local init, branch, commit,
 fast-forward pull, and push plans can be approved through the TUI's existing
-one-use review. Remote GitHub API operations do not execute yet.
+one-use review. Remote operations produce validated CLI plans but remain blocked
+here because GitHub CLI is not installed and no official MCP connector is configured.
 
 ## Identity and authentication
 
@@ -40,8 +42,9 @@ workflow; the agent does not resolve them automatically.
 2. Local Git actions: init, branch, commit, fast-forward pull, and push are
    implemented behind the existing one-use TUI review. Clone and worktree
    execution remain next in this phase.
-3. GitHub repository actions: add GitHub CLI/API or official MCP adapters for
-   repository creation, forks, templates, issues, PRs, labels and milestones.
+3. GitHub repository actions: enable the guarded GitHub CLI/API or official MCP
+   adapter for repository creation, forks, templates, issues, PRs, labels and
+   milestones after the connector is installed and independently checked.
 4. CI and releases: add checks, Actions logs/reruns, artifacts, tags and
    releases with explicit network and publication approvals.
 5. Hardening and acceptance: add content-aware secret scanning, large-file

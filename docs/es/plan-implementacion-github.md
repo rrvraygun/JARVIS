@@ -2,12 +2,15 @@
 
 ## Fase actual
 
-La fase 1 está implementada y validada con fixtures, y la fase 2 de ejecución Git
-local también está implementada y validada. GitHub Agent se puede
+La fase 1 está implementada y validada con fixtures, la fase 2 de ejecución Git
+local también está implementada y validada, y el adaptador GitHub CLI acotado ya
+está implementado. GitHub Agent se puede
 seleccionar en Agents y Conversation. Dispone de un inspector Git local acotado,
 un preflight de publicación y una herramienta que prepara planes de operación.
 Init, ramas, commit, pull rápido y push locales pasan por la revisión TUI de un
-solo uso. Las operaciones API remotas todavía no se ejecutan.
+solo uso. Las operaciones remotas producen planes CLI validados, pero aquí siguen
+bloqueadas porque GitHub CLI no está instalado y no hay un conector MCP oficial
+configurado.
 
 ## Identidad y autenticación
 
@@ -39,8 +42,9 @@ nueva. Un conflicto detiene el flujo; el agente no lo resuelve automáticamente.
 1. Inspección: completada.
 2. Acciones Git locales: init, ramas, commit, pull rápido y push detrás de la
    revisión TUI de un solo uso. Clonación y worktrees quedan siguientes.
-3. Acciones de repositorio GitHub: adaptadores GitHub CLI/API o MCP oficial
-   para repositorios, forks, plantillas, issues, PR, etiquetas y milestones.
+3. Acciones de repositorio GitHub: habilitar el adaptador GitHub CLI/API acotado o
+   MCP oficial para repositorios, forks, plantillas, issues, PR, etiquetas y
+   milestones después de instalarlo y comprobarlo de forma independiente.
 4. CI y releases: checks, logs y reejecuciones de Actions, artefactos, tags y
    releases con autorización explícita de red y publicación.
 5. Endurecimiento: detección de secretos por contenido, archivos grandes y

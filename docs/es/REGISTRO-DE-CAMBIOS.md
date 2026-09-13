@@ -8,7 +8,9 @@ hora en la que el registro de origen proporcionó marcas de tiempo locales.
 ### Agregado
 
 - GitHub Agent, seleccionable en Agents y Conversation, con inspección Git local
-  acotada, preflight de publicación y planes de operación GitHub no ejecutables.
+  acotada, preflight de publicación y planes de operación exactos.
+- El adaptador GitHub CLI acotado valida repositorios, PR, issues, releases y
+  artefactos de Actions; si el conector no está disponible, falla de forma segura.
 - El inglés es ahora el idioma principal de la documentación. Un español reflejado
   El árbol de documentación está disponible en `docs/es/`.
 - Vistas de dominio limpias para Salud, Desarrollo, Red, Seguridad y Recuperación,

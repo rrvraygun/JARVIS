@@ -156,7 +156,7 @@ do not inherit previous conversation history.
   prepare local init, branch, commit, fast-forward pull, and push operations for
   the existing one-use TUI review; each write needs a fresh exact approval.
   Remote repository, issue, pull-request, release, and Actions operations remain
-  plans until their approved GitHub connector is integrated.
+  plans until the guarded connector is available and independently checked.
 - It supplies bounded host-inspection evidence to a conversation request. The
   model receives formatted evidence, not terminal or root access.
 
