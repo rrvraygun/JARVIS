@@ -271,6 +271,7 @@ def prepare(
             expected_effect=f"Merge pull request {number} in {repository}.",
             blockers=blockers,
         )
+        plan["pull_number"] = number
     elif operation == "create_issue":
         repository = _slug(target)
         title = _safe(args.pop("title"), 500)
@@ -331,6 +332,7 @@ def prepare(
             expected_effect=f"Create release {tag} in {repository} from an existing verified tag.",
             blockers=blockers,
         )
+        plan["tag"] = tag
     elif operation == "download_artifact":
         repository = _slug(target)
         run_id = _safe(args.pop("run_id"), 30)
@@ -505,6 +507,28 @@ def inspect(repository: object, view: object = "repository") -> dict[str, Any]:
     }
 
 
+def _readback(arguments: list[str]) -> dict[str, Any] | None:
+    result = subprocess.run(
+        [_gh(), *arguments],
+        check=False,
+        stdin=subprocess.DEVNULL,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+        timeout=30,
+        env={**os.environ, "GH_PROMPT_DISABLED": "1", "LC_ALL": "C"},
+    )
+    if result.returncode != 0:
+        return None
+    try:
+        value = json.loads(result.stdout)
+    except json.JSONDecodeError:
+        return None
+    return value if isinstance(value, dict) else None
+
+
 def verify(plan: dict[str, Any], result: dict[str, Any]) -> dict[str, Any]:
     # Remote state is read back with one allowlisted command after the mutation.
     passed = result.get("status") == "completed" and result.get("exit_code") == 0
@@ -518,14 +542,60 @@ def verify(plan: dict[str, Any], result: dict[str, Any]) -> dict[str, Any]:
             readback = inspect(repository, "repository")
             data = readback.get("data", {})
             checks["remote_operation_receipt"] = data.get("nameWithOwner") == repository
-        elif operation in {"create_pull_request", "create_issue", "create_release"}:
+        elif operation == "create_pull_request":
             output = result.get("stdout", "")
             urls = re.findall(
                 r"https://github\.com/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+/(?:pull|issues|releases/tag)/[^\s]+",
                 output,
             )
-            readback = {"url_detected": bool(urls)}
-            checks["remote_operation_receipt"] = bool(urls) and command_completed
+            readback = (
+                _readback(
+                    ["pr", "view", urls[0], "--json", "number,state,headRefName,baseRefName,url"]
+                )
+                if urls
+                else None
+            )
+            checks["remote_operation_receipt"] = bool(readback) and command_completed
+        elif operation == "create_issue":
+            output = result.get("stdout", "")
+            urls = re.findall(
+                r"https://github\.com/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+/issues/[^\s]+",
+                output,
+            )
+            readback = (
+                _readback(["issue", "view", urls[0], "--json", "number,state,url"])
+                if urls
+                else None
+            )
+            checks["remote_operation_receipt"] = bool(readback) and command_completed
+        elif operation == "create_release":
+            readback = _readback(
+                [
+                    "release",
+                    "view",
+                    plan.get("tag", ""),
+                    "--repo",
+                    repository,
+                    "--json",
+                    "tagName,isDraft,url",
+                ]
+            )
+            checks["remote_operation_receipt"] = bool(readback) and command_completed
+        elif operation == "merge_pull_request":
+            readback = _readback(
+                [
+                    "pr",
+                    "view",
+                    plan.get("pull_number", ""),
+                    "--repo",
+                    repository,
+                    "--json",
+                    "state,mergedAt,url",
+                ]
+            )
+            checks["remote_operation_receipt"] = (
+                bool(readback) and readback.get("state") == "MERGED" if readback else False
+            )
         elif operation == "clone_repository":
             destination = plan.get("destination")
             readback = {
