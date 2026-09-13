@@ -8,7 +8,11 @@ time where the source record supplied local timestamps.
 ### Added
 
 - GitHub Agent, selectable in Agents and Conversation, with bounded local Git
-  inspection, publication preflight, and non-executable GitHub operation plans.
+  inspection, publication preflight, and exact operation plans.
+- Exact GitHub Agent plans can open the existing one-use TUI review for local
+  repository initialization, branch creation, commits, fast-forward pulls, and
+  pushes. Remote GitHub API operations remain plan-only until their connector is
+  integrated.
 - English is now the primary documentation language. A mirrored Spanish
   documentation tree is available under `docs/es/`.
 - Clean domain views for Health, Development, Network, Security and Recovery,
