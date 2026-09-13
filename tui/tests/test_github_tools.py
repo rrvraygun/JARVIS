@@ -38,11 +38,13 @@ class GitHubToolsTests(unittest.TestCase):
         with self._repository() as directory:
             root = Path(directory)
             (root / ".gitignore").write_text(".env\n", encoding="utf-8")
-            (root / ".env").write_text("not-inspected\n", encoding="utf-8")
+            (root / ".env").write_text("GITHUB_TOKEN=github_pat_example_value\n", encoding="utf-8")
             result = github_tools.github_preflight(directory)
 
         self.assertIn(".env", result["sensitive_filename_candidates"])
         self.assertIn(".env", result["ignored_paths"])
+        self.assertEqual(result["secret_matches"][0]["path"], ".env")
+        self.assertNotIn("github_pat_example_value", str(result))
         self.assertFalse(result["publication_ready"])
         self.assertTrue(result["read_only"])
         self.assertFalse(result["network_accessed"])

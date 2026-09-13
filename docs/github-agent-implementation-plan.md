@@ -6,7 +6,7 @@ Phase 1 is implemented and fixture-validated, phase 2 local Git execution is
 implemented and fixture-validated, and the guarded GitHub CLI adapter is now
 implemented. GitHub Agent is a selectable
 specialist in Agents and Conversation. It has a bounded local Git inspector, a
-publication preflight, and an operation-plan tool. Local init, branch, commit,
+publication preflight with bounded secret-pattern scanning, and an operation-plan tool. Local init, branch, commit,
 fast-forward pull, and push plans can be approved through the TUI's existing
 one-use review. Remote operations produce validated CLI plans but remain blocked
 here because GitHub CLI is not installed and no official MCP connector is configured.
@@ -47,9 +47,9 @@ workflow; the agent does not resolve them automatically.
    milestones after the connector is installed and independently checked.
 4. CI and releases: add checks, Actions logs/reruns, artifacts, tags and
    releases with explicit network and publication approvals.
-5. Hardening and acceptance: add content-aware secret scanning, large-file
-   and LFS handling, branch-protection checks, audit projections, rollback
-   records, and full acceptance tests.
+5. Hardening and acceptance: add large-file and LFS handling, branch-protection
+   checks, audit projections, rollback records, and full acceptance tests. The
+   bounded path-and-kind secret-pattern scan is already implemented.
 
 ## Acceptance criteria
 

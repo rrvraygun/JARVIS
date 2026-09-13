@@ -47,8 +47,9 @@ nueva. Un conflicto detiene el flujo; el agente no lo resuelve automáticamente.
    milestones después de instalarlo y comprobarlo de forma independiente.
 4. CI y releases: checks, logs y reejecuciones de Actions, artefactos, tags y
    releases con autorización explícita de red y publicación.
-5. Endurecimiento: detección de secretos por contenido, archivos grandes y
-   LFS, protecciones de rama, auditoría, recuperación y pruebas de aceptación.
+5. Endurecimiento: archivos grandes y LFS, protecciones de rama, auditoría,
+   recuperación y pruebas de aceptación. El escaneo acotado de patrones de
+   secretos por ruta y tipo ya está implementado.
 
 ## Criterios de aceptación
 

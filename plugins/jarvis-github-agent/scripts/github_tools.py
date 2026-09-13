@@ -24,6 +24,16 @@ SENSITIVE_BASENAMES = frozenset(
     }
 )
 SENSITIVE_SUFFIXES = (".key", ".pem", ".p12", ".pfx")
+SECRET_PATTERNS = (
+    ("github_token", re.compile(r"(?:ghp|gho|ghu|ghs|ghr)_[A-Za-z0-9_]{20,}")),
+    ("github_pat", re.compile(r"github_pat_[A-Za-z0-9_]{20,}")),
+    ("private_key", re.compile(r"-----BEGIN [A-Z ]*PRIVATE KEY-----")),
+    ("cloud_access_key", re.compile(r"\bAKIA[0-9A-Z]{16}\b")),
+    (
+        "secret_assignment",
+        re.compile(r"(?:^|[_-])(?:token|secret|password|passwd)\s*[:=]", re.I | re.M),
+    ),
+)
 OPERATIONS = frozenset(
     {
         "initialize_repository",
@@ -207,6 +217,12 @@ def github_preflight(project_root: object) -> dict[str, Any]:
             path for path in [*changed, *evidence["ignored_paths"]] if _sensitive_path(path)
         )
     )
+    scan_paths = list(
+        dict.fromkeys(
+            [*changed, *[path for path in evidence["ignored_paths"] if _sensitive_path(path)]]
+        )
+    )
+    secret_matches = _secret_scan(repository, scan_paths)
     large: list[dict[str, Any]] = []
     for relative in changed:
         candidate = repository / relative
@@ -226,14 +242,41 @@ def github_preflight(project_root: object) -> dict[str, Any]:
         "conflicts": evidence["conflicts"],
         "ignored_paths": evidence["ignored_paths"],
         "sensitive_filename_candidates": sensitive,
+        "secret_matches": secret_matches,
         "large_changed_files": large,
         "limitations": [
             "No file contents or credentials were read.",
-            "Secret detection is filename-based in this phase.",
+            "Secret detection returns only path and pattern kind; it never returns values.",
             "Remote GitHub checks, CI, and Actions require a separately approved capability.",
         ],
-        "publication_ready": not evidence["conflicts"] and not sensitive and not large,
+        "publication_ready": not evidence["conflicts"]
+        and not sensitive
+        and not large
+        and not secret_matches,
     }
+
+
+def _secret_scan(repository: Path, paths: list[str]) -> list[dict[str, Any]]:
+    findings: list[dict[str, Any]] = []
+    total_bytes = 0
+    for relative in paths[:MAX_ITEMS]:
+        candidate = repository / relative
+        try:
+            info = candidate.lstat()
+            if not info.st_mode or not candidate.is_file() or candidate.is_symlink():
+                continue
+            if info.st_size > 1_048_576:
+                continue
+            total_bytes += info.st_size
+            if total_bytes > 32 * 1_048_576:
+                break
+            text = candidate.read_text(encoding="utf-8", errors="ignore")
+        except (OSError, UnicodeError):
+            continue
+        kinds = [kind for kind, pattern in SECRET_PATTERNS if pattern.search(text)]
+        if kinds:
+            findings.append({"path": relative, "kinds": kinds})
+    return findings
 
 
 def github_operation_plan(
