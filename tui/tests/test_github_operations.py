@@ -88,6 +88,25 @@ class GitHubOperationWorkflowTests(unittest.TestCase):
                 self.assertEqual(plan["risk"], 2)
                 self.assertIn("one Git network operation", plan["network"])
 
+    def test_remote_github_operations_are_catalogued_but_blocked_without_connector(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            repository = Path(directory) / "project"
+            repository.mkdir()
+            subprocess.run(
+                ["/usr/bin/git", "init", str(repository)], check=True, capture_output=True
+            )
+            workflow = OperationWorkflow(Path(directory))
+            plan = workflow.propose(
+                "github", "create_pull_request", str(repository), {"requested_target": "owner/repo"}
+            )
+            self.assertIn("github_connector_not_integrated", plan["blockers"])
+            self.assertEqual(
+                plan["network"],
+                "GitHub connector or GitHub CLI required; no remote request was made.",
+            )
+            with self.assertRaises(ValueError):
+                workflow.approve(plan["id"], plan["digest"])
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -19,7 +19,41 @@ SENSITIVE_NAMES = frozenset(
 )
 SENSITIVE_SUFFIXES = (".key", ".pem", ".p12", ".pfx")
 SUPPORTED_OPERATIONS = frozenset(
-    {"initialize_repository", "create_branch", "commit", "pull", "push"}
+    {
+        "initialize_repository",
+        "clone_repository",
+        "create_repository",
+        "create_branch",
+        "commit",
+        "pull",
+        "push",
+        "create_pull_request",
+        "merge_pull_request",
+        "create_issue",
+        "create_release",
+        "download_artifact",
+        "rerun_workflow",
+        "delete_branch",
+        "force_push",
+        "modify_repository_settings",
+        "delete_repository",
+    }
+)
+REMOTE_CONNECTOR_OPERATIONS = frozenset(
+    {
+        "clone_repository",
+        "create_repository",
+        "create_pull_request",
+        "merge_pull_request",
+        "create_issue",
+        "create_release",
+        "download_artifact",
+        "rerun_workflow",
+        "delete_branch",
+        "force_push",
+        "modify_repository_settings",
+        "delete_repository",
+    }
 )
 
 
@@ -141,7 +175,19 @@ def prepare(bundle: Path, operation: str, target: str, arguments: dict[str, Any]
         "blockers": [],
         "requested_target": requested_target,
     }
-    if operation == "initialize_repository":
+    if operation in REMOTE_CONNECTOR_OPERATIONS:
+        proposal.update(
+            network="GitHub connector or GitHub CLI required; no remote request was made.",
+            privilege="current-user GitHub profile",
+            risk=3
+            if operation in {"delete_repository", "force_push", "modify_repository_settings"}
+            else 2,
+            expected_effect=f"Prepare the exact {operation} request for a later approved GitHub connector.",
+            rollback="The connector is not integrated in this phase; no remote state has changed.",
+            blockers=["github_connector_not_integrated"],
+            postconditions=["remote_operation_receipt"],
+        )
+    elif operation == "initialize_repository":
         if args:
             branch = _name(args.pop("branch", "main"), BRANCH_RE, "github_branch_invalid")
         else:
