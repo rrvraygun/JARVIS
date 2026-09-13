@@ -1420,6 +1420,23 @@ class TextualHeadlessTests(unittest.IsolatedAsyncioTestCase):
             )
             scan_rpm_mock.assert_called_once_with()
 
+    async def test_login_button_reconnects_before_starting_managed_login(self):
+        app = self.app()
+
+        async def reconnect():
+            app.session.snapshot.connection = ConnectionState.LOGIN_REQUIRED
+
+        app.session.connect = mock.AsyncMock(side_effect=reconnect)
+        app.session.begin_chatgpt_login = mock.AsyncMock(
+            return_value={"type": "chatgpt", "authUrl": "https://chatgpt.com/login"}
+        )
+        with mock.patch("jarvis_tui.app.webbrowser.open", return_value=True):
+            async with app.run_test(size=(120, 42)):
+                await app._begin_chatgpt_login()
+
+        app.session.connect.assert_awaited_once()
+        app.session.begin_chatgpt_login.assert_awaited_once()
+
 
 if __name__ == "__main__":
     unittest.main()

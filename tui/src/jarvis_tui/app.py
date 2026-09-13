@@ -1721,6 +1721,24 @@ class JarvisTui(App[None]):
 
     async def _begin_chatgpt_login(self) -> None:
         try:
+            if not self.session.client.running:
+                await self.session.connect()
+            elif self.session.snapshot.connection in {
+                ConnectionState.OFFLINE,
+                ConnectionState.DISCONNECTED,
+                ConnectionState.FAILED,
+            }:
+                await self.session.refresh_account()
+            if self.session.snapshot.connection in {
+                ConnectionState.READY,
+                ConnectionState.CAPACITY_LIMITED,
+            }:
+                self._system_message(
+                    "ChatGPT session is already authenticated. Use Refresh session to reload it."
+                )
+                self._refresh_overview()
+                self._render_all()
+                return
             result = await self.session.begin_chatgpt_login()
             auth_url = result.get("authUrl") if isinstance(result, dict) else None
             opened = isinstance(auth_url, str) and webbrowser.open(auth_url, new=2)
