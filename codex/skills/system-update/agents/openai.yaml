@@ -1,0 +1,4 @@
+interface:
+  display_name: "System Update"
+  short_description: "Safely research and stage system updates"
+  default_prompt: "Use $system-update to verify update provenance, compatibility, risk, and rollback before execution."

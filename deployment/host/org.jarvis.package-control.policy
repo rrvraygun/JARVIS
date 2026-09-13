@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE policyconfig PUBLIC "-//freedesktop//DTD PolicyKit Policy Configuration 1.0//EN"
+ "http://www.freedesktop.org/standards/policykit-1/policyconfig.dtd">
+<policyconfig>
+  <action id="org.jarvis.package-control">
+    <description>Apply, undo, reconcile, or archive one reviewed Jarvis package transaction</description>
+    <message>Authentication is required for this exact Jarvis package install, removal, recovery, or archive.</message>
+    <defaults>
+      <allow_any>no</allow_any>
+      <allow_inactive>no</allow_inactive>
+      <allow_active>auth_admin</allow_active>
+    </defaults>
+    <annotate key="org.freedesktop.policykit.exec.path">/usr/libexec/jarvis-package-control</annotate>
+  </action>
+</policyconfig>

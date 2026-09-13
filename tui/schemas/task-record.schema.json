@@ -1,0 +1,278 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Jarvis TUI task record",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "task_id",
+    "session_id",
+    "intent",
+    "state",
+    "pipeline_version",
+    "created_at",
+    "updated_at",
+    "assessment",
+    "local_read_plan",
+    "local_mutation_plan",
+    "mutation_review",
+    "package_plan",
+    "codex"
+  ],
+  "properties": {
+    "schema_version": {"const": 1},
+    "task_id": {"type": "string", "minLength": 1},
+    "session_id": {"type": "string", "minLength": 1},
+    "intent": {"type": "object"},
+    "state": {
+      "enum": [
+        "captured",
+        "resolving_intent",
+        "needs_clarification",
+        "preflight",
+        "planning",
+        "blocked",
+        "awaiting_approval",
+        "approved",
+        "executing",
+        "verifying",
+        "diagnosing_unexpected_result",
+        "replanning",
+        "recovery_planning",
+        "awaiting_recovery_approval",
+        "completed",
+        "cancelled",
+        "failed"
+      ]
+    },
+    "pipeline_version": {"const": "3.0.0"},
+    "created_at": {"type": "string", "format": "date-time"},
+    "updated_at": {"type": "string", "format": "date-time"},
+    "action": {"type": ["object", "null"]},
+    "assessment": {
+      "oneOf": [
+        {"type": "null"},
+        {
+          "type": "object",
+          "required": [
+            "assessment_id", "decision", "intent_class", "operation", "targets",
+            "risk", "route", "reason", "clarification_question",
+            "clarification_options", "schema_version"
+          ],
+          "properties": {
+            "assessment_id": {"type": "string", "minLength": 1},
+            "decision": {"enum": ["execute", "clarify", "deny"]},
+            "intent_class": {"enum": ["explain", "inspect", "project_change", "host_change", "external_effect"]},
+            "operation": {"type": "string", "minLength": 1},
+            "targets": {"type": "array", "items": {"type": "string", "minLength": 1}},
+            "risk": {"type": "integer", "minimum": 0, "maximum": 4},
+            "route": {"enum": ["conversation", "registered_workflow", "reviewed_bash", "local_read", "local_mutation", "none"]},
+            "reason": {"type": "string", "minLength": 1},
+            "clarification_question": {"type": ["string", "null"]},
+            "clarification_options": {"type": "array", "items": {"type": "string"}, "maxItems": 3},
+            "schema_version": {"const": 1}
+          },
+          "anyOf": [
+            {
+              "properties": {
+                "decision": {"const": "execute"},
+                "intent_class": {"const": "explain"},
+                "route": {"const": "conversation"},
+                "clarification_question": {"const": null},
+                "clarification_options": {"maxItems": 0}
+              }
+            },
+            {
+              "properties": {
+                "decision": {"const": "execute"},
+                "intent_class": {"enum": ["inspect", "project_change", "host_change", "external_effect"]},
+                "targets": {"minItems": 1},
+                "route": {"enum": ["conversation", "registered_workflow", "reviewed_bash", "local_read", "local_mutation"]},
+                "clarification_question": {"const": null},
+                "clarification_options": {"maxItems": 0}
+              }
+            },
+            {
+              "properties": {
+                "decision": {"const": "clarify"},
+                "targets": {"maxItems": 0},
+                "route": {"const": "none"},
+                "clarification_question": {"type": "string", "minLength": 1},
+                "clarification_options": {"minItems": 2, "maxItems": 3}
+              }
+            },
+            {
+              "properties": {
+                "decision": {"const": "deny"},
+                "targets": {"maxItems": 0},
+                "route": {"const": "none"},
+                "clarification_question": {"const": null},
+                "clarification_options": {"maxItems": 0}
+              }
+            }
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "local_read_plan": {
+      "oneOf": [
+        {"type": "null"},
+        {
+          "type": "object",
+          "required": [
+            "schema_version", "plan_id", "operation", "original_target",
+            "requested_path", "canonical_path", "target_category", "target_digest",
+            "target_device", "target_inode", "target_mode", "search_mode", "query",
+            "query_digest", "recursive", "max_depth", "item_limit", "file_limit",
+            "byte_limit", "per_file_byte_limit", "match_limit", "deadline_seconds",
+            "include_hidden", "plan_digest"
+          ],
+          "properties": {
+            "schema_version": {"const": 1},
+            "plan_id": {"type": "string", "minLength": 1},
+            "operation": {"enum": ["list", "read", "search"]},
+            "original_target": {"type": "string", "minLength": 1},
+            "requested_path": {"type": "string", "minLength": 1},
+            "canonical_path": {"type": "string", "minLength": 1},
+            "target_category": {"type": "string", "minLength": 1},
+            "target_digest": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+            "target_device": {"type": "integer", "minimum": 0},
+            "target_inode": {"type": "integer", "minimum": 0},
+            "target_mode": {"type": "integer", "minimum": 0},
+            "search_mode": {"enum": ["filename", "content", null]},
+            "query": {"type": ["string", "null"]},
+            "query_digest": {"type": ["string", "null"], "pattern": "^[a-f0-9]{64}$"},
+            "recursive": {"type": "boolean"},
+            "max_depth": {"type": "integer", "minimum": 0, "maximum": 8},
+            "item_limit": {"type": "integer", "minimum": 1, "maximum": 500},
+            "file_limit": {"type": "integer", "minimum": 1, "maximum": 2000},
+            "byte_limit": {"type": "integer", "minimum": 1, "maximum": 65536},
+            "per_file_byte_limit": {"type": "integer", "minimum": 1, "maximum": 1048576},
+            "match_limit": {"type": "integer", "minimum": 1, "maximum": 200},
+            "deadline_seconds": {"type": "number", "exclusiveMinimum": 0, "maximum": 10},
+            "include_hidden": {"type": "boolean"},
+            "plan_digest": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+          },
+          "anyOf": [
+            {
+              "properties": {
+                "operation": {"const": "list"},
+                "search_mode": {"const": null},
+                "query": {"const": null},
+                "query_digest": {"const": null}
+              }
+            },
+            {
+              "properties": {
+                "operation": {"const": "read"},
+                "search_mode": {"const": null},
+                "query": {"const": null},
+                "query_digest": {"const": null},
+                "recursive": {"const": false},
+                "max_depth": {"const": 0}
+              }
+            },
+            {
+              "properties": {
+                "operation": {"const": "search"},
+                "search_mode": {"enum": ["filename", "content"]},
+                "query": {"type": "string", "minLength": 1, "maxLength": 1000},
+                "query_digest": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+              }
+            }
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "local_mutation_plan": {
+      "oneOf": [
+        {"type": "null"},
+        {
+          "type": "object",
+          "required": [
+            "schema_version", "plan_id", "operation", "original_target",
+            "target_path", "parent_path", "target_category", "target_digest",
+            "parent_device", "parent_inode", "parent_mode", "existing_device",
+            "existing_inode", "existing_mode", "content_digest", "content_bytes",
+            "rollback", "risk", "plan_digest"
+          ],
+          "properties": {
+            "schema_version": {"const": 1},
+            "plan_id": {"type": "string", "minLength": 1},
+            "operation": {"enum": ["create_directory", "create_text_file", "trash"]},
+            "original_target": {"type": "string", "minLength": 1},
+            "target_path": {"type": "string", "minLength": 1},
+            "parent_path": {"type": "string", "minLength": 1},
+            "target_category": {"type": "string", "minLength": 1},
+            "target_digest": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+            "parent_device": {"type": "integer", "minimum": 0},
+            "parent_inode": {"type": "integer", "minimum": 0},
+            "parent_mode": {"type": "integer", "minimum": 0},
+            "existing_device": {"type": ["integer", "null"], "minimum": 0},
+            "existing_inode": {"type": ["integer", "null"], "minimum": 0},
+            "existing_mode": {"type": ["integer", "null"], "minimum": 0},
+            "content_digest": {"type": ["string", "null"], "pattern": "^[a-f0-9]{64}$"},
+            "content_bytes": {"type": "integer", "minimum": 0, "maximum": 65536},
+            "rollback": {"type": "string", "minLength": 1},
+            "risk": {"enum": [1, 2]},
+            "plan_digest": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "mutation_review": {
+      "oneOf": [
+        {"type": "null"},
+        {
+          "type": "object",
+          "required": ["plan_digest", "decision", "code", "summary", "rollback", "review_digest", "schema_version"],
+          "properties": {
+            "plan_digest": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+            "decision": {"enum": ["allow_for_user_review", "deny"]},
+            "code": {"type": "string", "minLength": 1},
+            "summary": {"type": "string", "minLength": 1},
+            "rollback": {"type": "string", "minLength": 1},
+            "review_digest": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+            "schema_version": {"const": 1}
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "package_plan": {
+      "oneOf": [
+        {"type": "null"},
+        {
+          "type": "object",
+          "required": ["schema_version", "plan_id", "operation", "packages", "rollback", "risk", "plan_digest"],
+          "properties": {
+            "schema_version": {"const": 1},
+            "plan_id": {"type": "string", "minLength": 1},
+            "operation": {"enum": ["install", "remove"]},
+            "packages": {
+              "type": "array", "minItems": 1, "maxItems": 20, "uniqueItems": true,
+              "items": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9+_.:-]{0,199}$"}
+            },
+            "rollback": {"type": "string", "minLength": 1},
+            "risk": {"const": 3},
+            "plan_digest": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "codex": {
+      "type": "object",
+      "required": ["thread_id", "turn_id", "item_ids"],
+      "properties": {
+        "thread_id": {"type": ["string", "null"]},
+        "turn_id": {"type": ["string", "null"]},
+        "item_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

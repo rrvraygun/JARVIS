@@ -1,0 +1,4 @@
+interface:
+  display_name: "System Health"
+  short_description: "Assess system health without speculative repairs"
+  default_prompt: "Use $system-health to assess evidence, severity, and next diagnostic actions."

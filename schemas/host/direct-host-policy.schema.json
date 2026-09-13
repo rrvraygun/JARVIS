@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Jarvis single-Fedora direct-host policy",
+  "type": "object",
+  "required": ["schema_version", "policy_id", "version", "status", "target", "laboratory_relationship", "current_authority", "operating_modes", "recovery_levels", "backend_selection", "action_classes", "transaction_invariants", "gates", "next_gate"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "policy_id": {"const": "jarvis-single-fedora-direct-host"},
+    "version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+    "status": {"const": "prepared_unenrolled"},
+    "target": {"type": "object"},
+    "laboratory_relationship": {"type": "object"},
+    "current_authority": {"type": "object", "minProperties": 10, "additionalProperties": {"const": false}},
+    "operating_modes": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "items": {
+        "type": "object",
+        "required": ["id", "purpose", "host_reads", "host_mutations", "current_status"],
+        "properties": {
+          "id": {"enum": ["fixture", "shadow", "supervised", "earned_safe_list"]},
+          "purpose": {"type": "string"},
+          "host_reads": {"type": "boolean"},
+          "host_mutations": {"type": "boolean"},
+          "current_status": {"enum": ["available", "blocked_on_enrollment", "blocked_on_shadow_and_recovery", "disabled"]}
+        },
+        "additionalProperties": false
+      }
+    },
+    "recovery_levels": {"type": "array", "minItems": 4, "maxItems": 4, "items": {"type": "object"}},
+    "backend_selection": {"type": "object"},
+    "action_classes": {"type": "array", "minItems": 6, "maxItems": 6, "items": {"type": "object"}},
+    "transaction_invariants": {"type": "object"},
+    "gates": {
+      "type": "array",
+      "minItems": 8,
+      "maxItems": 8,
+      "items": {
+        "type": "object",
+        "required": ["id", "status", "user_decision_required"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^H[0-7]_[A-Za-z0-9_]+$"},
+          "status": {"enum": ["complete", "blocked_on_fresh_user_authorization", "blocked", "disabled"]},
+          "user_decision_required": {"type": "boolean"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "next_gate": {"const": "H1_bounded_read_only_enrollment"}
+  },
+  "additionalProperties": false
+}

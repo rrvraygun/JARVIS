@@ -1,0 +1,4 @@
+interface:
+  display_name: "System Maintenance"
+  short_description: "Plan reversible cleanup and maintenance"
+  default_prompt: "Use $system-maintenance to prepare a bounded maintenance change with approval and rollback."

@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "id": "health.lighting-observe",
+  "version": "1.0.0",
+  "capability": "health",
+  "risk": "low",
+  "mutates_host": false,
+  "requires_approval": false,
+  "inputs": ["include_graphics"],
+  "preconditions": ["fixed bounded collectors", "redaction before persistence"],
+  "steps": ["collect bounded lighting and graphics observations", "normalize evidence", "report unknowns"],
+  "validation": ["no device wake", "no write", "no network", "no credential collection"],
+  "rollback": null
+}

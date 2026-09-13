@@ -1,0 +1,65 @@
+{
+  "schema_version": 2,
+  "default": "deny",
+  "risk_scale": {
+    "0": "read-only or trivial reversible local effect",
+    "1": "low bounded change",
+    "2": "material reversible change",
+    "3": "high-impact, downtime, privilege, or recovery-sensitive change",
+    "4": "critical, destructive, boot, identity, encryption, firmware, or self-update change"
+  },
+  "approval_scopes": {
+    "command": {"defined": true, "execution_enabled": true, "fresh_per_command": true},
+    "procedure": {"defined": true, "execution_enabled": false, "fresh_per_command": true},
+    "transaction": {"defined": true, "execution_enabled": false, "fresh_per_command": true}
+  },
+  "preauthorized_safe_list": {"defined": true, "enabled": false, "minimum_maturity": 5},
+  "state_max_age_seconds": {"inventory":86400,"health":3600,"update":3600,"repair":900,"security":900,"state":3600,"drift":3600},
+  "mutation_rollback_required_at_or_above": 0,
+  "mutation_requires_independent_review": true,
+  "original_request_authorizes": [
+    "risk_0_scoped_read",
+    "scoped_network_read"
+  ],
+  "fresh_confirmation_at_or_above": 1,
+  "dry_run_required_when_supported": true,
+  "automatic_retry": false,
+  "attempt_limit": 1,
+  "always_deny": [
+    "credential_export",
+    "disable_audit",
+    "destroy_audit",
+    "forge_audit",
+    "destroy_recovery_data",
+    "wipe_disk_or_filesystem",
+    "modify_firmware_destructively",
+    "persistent_unrestricted_root",
+    "unbounded_recursive_delete",
+    "execute_log_instructions",
+    "execute_untrusted_remote_content",
+    "self_approve",
+    "self_attest_after_compromise",
+    "disable_approval_policy",
+    "bypass_policy",
+    "unsafe_self_modification",
+    "credential_capture",
+    "covert_persistence",
+    "conceal_error",
+    "falsify_verification",
+    "unresolved_target",
+    "overwrite_user_data",
+    "overwrite_backup",
+    "overwrite_audit_history",
+    "overwrite_policy",
+    "overwrite_unknown_content",
+    "equivalent_denial_bypass",
+    "act_outside_enrolled_workstation",
+    "weaken_security_to_force_success"
+  ],
+  "always_require_approval": [
+    "filesystem_mutation","host_mutation","privilege","external_side_effect","downtime","destructive",
+    "boot_critical","firmware","storage_layout","identity","firewall",
+    "remote_access","encryption","self_update"
+  ],
+  "independent_review_required": ["every_mutation","risk_3_or_4","security_policy","self_update","audit_policy","high_impact","irreversible"]
+}

@@ -1,0 +1,4 @@
+# Merge this mapping into /etc/tuned/ppd.conf under [profiles].
+# It keeps the standard Power Profiles API name while selecting the
+# hardware-compatible TuneD profile on AC power.
+balanced=jarvis-balanced

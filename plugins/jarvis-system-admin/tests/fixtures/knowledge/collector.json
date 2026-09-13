@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "fedora-readonly-inventory",
+  "version": "fixture-1",
+  "attempt_limit": 1,
+  "timeout_seconds": 2,
+  "max_output_bytes": 4096,
+  "collect_sensitive": false,
+  "commands": [
+    {"id":"fixture","argv":["printf","fixture-value"],"fact_key":"fixture.value","parser":"text"}
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "name": "jarvis-security-specialist",
+  "version": "0.1.0",
+  "description": "Bounded Fedora security posture diagnostics.",
+  "author": {"name": "Local developer"},
+  "interface": {"displayName": "Security Specialist", "shortDescription": "Inspect local security posture.", "category": "System"}
+}

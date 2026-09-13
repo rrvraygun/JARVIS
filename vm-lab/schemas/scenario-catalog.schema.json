@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Jarvis curated fixture scenario catalog",
+  "type": "object",
+  "required": ["schema_version", "catalog_id", "version", "execution_enabled", "scenarios"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "catalog_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]+$"},
+    "version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+    "execution_enabled": {"const": false},
+    "scenarios": {"type": "array", "minItems": 1, "items": {"type": "object"}}
+  },
+  "additionalProperties": false
+}

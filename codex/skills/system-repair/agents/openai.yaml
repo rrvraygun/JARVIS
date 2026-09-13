@@ -1,0 +1,4 @@
+interface:
+  display_name: "System Repair"
+  short_description: "Diagnose and repair systems with recovery gates"
+  default_prompt: "Use $system-repair to diagnose first and prepare the smallest recoverable repair."

@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "registry_id": "fedora-lighting-passive-readonly",
+  "status": "enabled_for_one_use_promotion",
+  "host_observation_enabled": true,
+  "execution_enabled": true,
+  "adapters": [
+    {
+      "id": "fedora.lighting.passive-readonly",
+      "version": "1.0.0",
+      "operation_id": "jarvis.lighting.observe",
+      "source_ids": ["graphics.backlight", "input.keyboard-led", "graphics.drm-topology"],
+      "expected_output": "ephemeral_lighting_observation",
+      "device_wake": false,
+      "mutation": false,
+      "network": false,
+      "credentials": false,
+      "protected_reads": false,
+      "attempt_limit": 1,
+      "output_limit_bytes": 32768
+    }
+  ]
+}

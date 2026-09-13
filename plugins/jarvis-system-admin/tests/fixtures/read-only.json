@@ -1,0 +1,22 @@
+{
+  "capability":"inventory",
+  "procedure":"inventory.collect",
+  "command_id":"fixture-uname",
+  "executable":"/usr/bin/uname",
+  "argv":["-rmo"],
+  "targets":["fixture-host"],
+  "mutation":false,
+  "privilege":false,
+  "network":false,
+  "external_effect":false,
+  "downtime":false,
+  "destructive":false,
+  "irreversible":false,
+  "self_update":false,
+  "risk":"low",
+  "risk_score":0,
+  "validation":["schema valid"],
+  "state_age_seconds":0,
+  "state_digest":"1111111111111111111111111111111111111111111111111111111111111111",
+  "approval_scope":"command"
+}

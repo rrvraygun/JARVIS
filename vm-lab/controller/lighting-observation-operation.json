@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "operation_id": "jarvis.lighting.observe",
+  "operation_revision": "1.0.0",
+  "status": "registered_one_use_readonly",
+  "execution_enabled": true,
+  "registered": true,
+  "sources": ["/sys/class/backlight", "/sys/class/leds/kbd_backlight", "/sys/class/drm"],
+  "network": false,
+  "credentials": false,
+  "protected_reads": false,
+  "device_wake": false,
+  "attempt_limit": 1,
+  "automatic_retry": false,
+  "output_limit_bytes": 32768,
+  "unexpected_output": "stop_and_report",
+  "independent_review_required": true,
+  "deployment_required": true,
+  "authorization_scope": "vm-lab/enrollment/lighting-approved-fact-scope.json",
+  "policy": "vm-lab/controller/lighting-observation-policy.json",
+  "registry": "vm-lab/controller/lighting-observation-registry.json"
+}

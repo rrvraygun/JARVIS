@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Jarvis future VM-controller policy",
+  "type": "object",
+  "required": ["schema_version", "policy_id", "version", "implementation_status", "transport", "service_process_exists", "operational_authority", "execution_enabled", "persistence_enabled", "host_observation_enabled", "virtualization_enabled", "network_enabled", "privilege_enabled", "device_access_enabled", "mutation_enabled", "current_capabilities", "never_exposed_to_tui_or_model", "request_invariants", "future_separation", "activation_gate"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "policy_id": {"type": "string", "minLength": 1},
+    "version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+    "implementation_status": {"enum": ["contract_only", "h1_tier0_enabled"]},
+    "transport": {"enum": ["none", "unix-user-private"]},
+    "service_process_exists": {"type": "boolean"},
+    "operational_authority": {"type": "boolean"},
+    "execution_enabled": {"const": false},
+    "persistence_enabled": {"const": false},
+    "host_observation_enabled": {"type": "boolean"},
+    "virtualization_enabled": {"const": false},
+    "network_enabled": {"const": false},
+    "privilege_enabled": {"const": false},
+    "device_access_enabled": {"const": false},
+    "mutation_enabled": {"const": false},
+    "current_capabilities": {"type": "array", "minItems": 1, "items": {"type": "string"}, "uniqueItems": true},
+    "never_exposed_to_tui_or_model": {"type": "array", "minItems": 1, "items": {"type": "string"}, "uniqueItems": true},
+    "request_invariants": {"type": "object"},
+    "future_separation": {"type": "object"},
+    "activation_gate": {"type": "object"}
+  },
+  "additionalProperties": false,
+  "anyOf": [
+    {
+      "properties": {
+        "implementation_status": {"const": "contract_only"},
+        "transport": {"const": "none"},
+        "service_process_exists": {"const": false},
+        "operational_authority": {"const": false},
+        "host_observation_enabled": {"const": false}
+      }
+    },
+    {
+      "properties": {
+        "implementation_status": {"const": "h1_tier0_enabled"},
+        "transport": {"const": "unix-user-private"},
+        "service_process_exists": {"const": true},
+        "operational_authority": {"const": true},
+        "host_observation_enabled": {"const": true}
+      }
+    }
+  ]
+}

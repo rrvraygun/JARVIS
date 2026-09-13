@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Jarvis action definition",
+  "type": "object",
+  "required": [
+    "id",
+    "version",
+    "title",
+    "summary",
+    "category",
+    "capability",
+    "procedure",
+    "mode",
+    "input_schema",
+    "required_facts",
+    "risk_floor",
+    "mutates_host",
+    "invokes_agent",
+    "availability",
+    "implementation_status"
+  ],
+  "properties": {
+    "id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9.-]+$"},
+    "version": {"type": "string", "minLength": 1},
+    "title": {"type": "string", "minLength": 1},
+    "summary": {"type": "string", "minLength": 1},
+    "category": {"type": "string", "minLength": 1},
+    "capability": {"type": "string", "minLength": 1},
+    "procedure": {"type": "string", "minLength": 1},
+    "mode": {
+      "enum": ["observe", "diagnose", "plan", "execute", "verify", "recover", "learn"]
+    },
+    "input_schema": {"type": "object"},
+    "required_facts": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "risk_floor": {"type": "integer", "minimum": 0, "maximum": 4},
+    "mutates_host": {"type": "boolean"},
+    "invokes_agent": {"type": "boolean"},
+    "availability": {"enum": ["enabled", "disabled", "unavailable"]},
+    "implementation_status": {"enum": ["ready", "prepared", "planned", "blocked", "registered_one_use_readonly"]},
+    "unavailable_reason": {"type": ["string", "null"]},
+    "tags": {"type": "array", "items": {"type": "string"}, "uniqueItems": true}
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "lock_id": "fedora-workstation-unresolved",
+  "version": "1.0.0",
+  "status": "unresolved",
+  "acquisition_enabled": false,
+  "publisher": "Fedora Project",
+  "release": {
+    "edition": "Workstation",
+    "version": null,
+    "architecture": null,
+    "supported_at_lock_time": null,
+    "release_date": null
+  },
+  "source": {
+    "official_download_page": null,
+    "image_locator": null,
+    "checksum_locator": null,
+    "signing_key_fingerprint": null,
+    "resolved_at": null
+  },
+  "verification": {
+    "signed_checksum_verified": false,
+    "image_sha256": null,
+    "checksum_document_sha256": null,
+    "verified_by": null,
+    "verified_at": null,
+    "minimum_gate": [
+      "official Fedora Project source",
+      "supported release",
+      "trusted signing-key fingerprint independently verified",
+      "signed checksum valid",
+      "image digest matches signed checksum"
+    ]
+  },
+  "virtualization": {
+    "stack": "future_kvm_qemu_libvirt",
+    "qemu_version": null,
+    "libvirt_version": null,
+    "machine_type": null,
+    "firmware_code_digest": null,
+    "domain_definition_digest": null,
+    "virtio_preferred": true,
+    "device_passthrough": false
+  },
+  "baseline": {
+    "state": "not_created",
+    "golden_base_digest": null,
+    "golden_base_writable": false,
+    "clean_shutdown_attested": false,
+    "scenario_disk_strategy": "external_overlay_per_run",
+    "snapshot_strategy": "offline_clean_only"
+  }
+}

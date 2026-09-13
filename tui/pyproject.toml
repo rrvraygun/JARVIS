@@ -1,0 +1,21 @@
+[build-system]
+requires = ["hatchling>=1.27,<2"]
+build-backend = "hatchling.build"
+
+[project]
+name = "jarvis-tui"
+version = "0.7.0.dev0"
+description = "Unprivileged terminal presentation and consent client for Jarvis"
+requires-python = ">=3.11"
+dependencies = [
+  "textual==8.2.8",
+]
+
+[project.scripts]
+jarvis-tui = "jarvis_tui.__main__:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/jarvis_tui"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

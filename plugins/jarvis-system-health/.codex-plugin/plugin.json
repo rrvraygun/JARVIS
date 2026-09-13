@@ -1,0 +1,13 @@
+{
+  "name": "jarvis-system-health",
+  "version": "0.1.0",
+  "description": "Bounded Fedora workstation health and performance diagnostics.",
+  "author": {"name": "Local developer"},
+  "interface": {
+    "displayName": "System Health Specialist",
+    "shortDescription": "Inspect workstation health, performance, and thermals.",
+    "longDescription": "Read-only Fedora diagnostics for CPU, memory, processes, services, storage, network, GPU, and thermal state.",
+    "developerName": "Local developer",
+    "category": "System"
+  }
+}

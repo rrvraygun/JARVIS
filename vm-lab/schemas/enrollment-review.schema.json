@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Jarvis pending workstation-enrollment review",
+  "type": "object",
+  "required": ["schema_version", "review_id", "proposal_binding", "source_catalog_binding", "status", "decision", "reviewed_at", "expires_at", "host_binding", "activated_tiers", "approved_group_ids", "approved_fact_ids", "approval_digest", "current_authority", "notes"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "review_id": {"type": "string", "minLength": 1},
+    "proposal_binding": {"type": "object"},
+    "source_catalog_binding": {"type": "object"},
+    "status": {"const": "pending"},
+    "decision": {"type": "null"},
+    "reviewed_at": {"type": "null"},
+    "expires_at": {"type": "null"},
+    "host_binding": {"type": "null"},
+    "activated_tiers": {"type": "array", "maxItems": 0},
+    "approved_group_ids": {"type": "array", "maxItems": 0},
+    "approved_fact_ids": {"type": "array", "maxItems": 0},
+    "approval_digest": {"type": "null"},
+    "current_authority": {"const": "none"},
+    "notes": {"type": "string", "minLength": 1}
+  },
+  "additionalProperties": false
+}

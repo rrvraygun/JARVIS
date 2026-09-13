@@ -1,0 +1,17 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "type":"object",
+  "required":["attempt_id","error_class","expected","observed","diagnosis_status"],
+  "properties":{
+    "error_id":{"type":"string"},
+    "attempt_id":{"type":"string"},
+    "created_at":{"type":"string","format":"date-time"},
+    "error_class":{"enum":["unexpected-output","unexpected-side-effect","syntax-error","permission-boundary","version-mismatch","validation-failure","collector-defect","other"]},
+    "expected":{},
+    "observed":{},
+    "diagnosis_status":{"enum":["unreviewed","diagnosed","resolved","superseded"]},
+    "candidate_cause":{"type":["string","null"]},
+    "working_solution_attempt_id":{"type":["string","null"]}
+  },
+  "additionalProperties":false
+}

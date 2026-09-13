@@ -1,0 +1,169 @@
+{
+  "schema_version": 1,
+  "plan_id": "jarvis-fedora-r2-system-set-v1",
+  "version": "1.0.0",
+  "status": "prepared_not_executed",
+  "target": {
+    "machine_scope": "single-enrolled-workstation",
+    "operating_system": "Fedora Workstation",
+    "host_identity_storage": "pseudonym-only"
+  },
+  "repository": {
+    "backend": "restic",
+    "repository_identity_prefix": "e372e10c",
+    "repository_format": 2,
+    "compression": "auto",
+    "destination_alias": "approved-external-backup-volume/JARVIS_BACKUP/restic-repository",
+    "destination_filesystem_class": "NTFS-through-fuseblk",
+    "encryption_initialized": true,
+    "password_handling": "interactive-user-terminal-only",
+    "persistent_local_cache": false,
+    "minimal_snapshot_identity_prefix": "00dfdb85",
+    "minimal_rehearsal": "passed-and-retained",
+    "system_recovery_set_present": false
+  },
+  "consistency_model": {
+    "btrfs_subvolumes": "read-only point-in-time snapshots created separately",
+    "cross_subvolume_atomicity": false,
+    "boot_and_efi": "bounded live capture after confirming no package, kernel, initramfs, bootloader, or firmware transaction is active",
+    "application_consistency": "crash-consistent unless an application-specific quiesce step is separately designed and approved",
+    "maximum_snapshot_skew_seconds": 120,
+    "claim_if_skew_exceeded": "invalid-system-set-stop-before-backup"
+  },
+  "boundaries": [
+    {
+      "id": "root",
+      "source_alias": "enrolled-root-subvolume",
+      "filesystem_class": "Btrfs-subvolume",
+      "capture_method": "btrfs_readonly_snapshot",
+      "included": ["root subvolume regular filesystem content"],
+      "excluded": ["nested home subvolume", "nested systemd-machines subvolume", "separate boot filesystem", "separate EFI filesystem", "runtime pseudo-filesystems"],
+      "validation": ["snapshot property ro=true", "snapshot subvolume identity recorded", "snapshot timestamp within skew budget", "nested boundaries not falsely claimed"],
+      "restore_scope": ["file-level restore", "offline root-subvolume reconstruction after independent procedure review"]
+    },
+    {
+      "id": "home",
+      "source_alias": "enrolled-home-subvolume",
+      "filesystem_class": "Btrfs-subvolume",
+      "capture_method": "btrfs_readonly_snapshot",
+      "included": ["home subvolume filesystem content"],
+      "excluded": ["mounted removable media", "runtime application state not flushed before snapshot"],
+      "validation": ["snapshot property ro=true", "snapshot subvolume identity recorded", "snapshot timestamp within skew budget"],
+      "restore_scope": ["selective user-data restore", "offline home-subvolume reconstruction after owner review"]
+    },
+    {
+      "id": "systemd_machines",
+      "source_alias": "enrolled-systemd-machines-subvolume",
+      "filesystem_class": "Btrfs-nested-subvolume",
+      "capture_method": "btrfs_readonly_snapshot",
+      "included": ["systemd machine-image subvolume content"],
+      "excluded": ["other future nested subvolumes not present in the reviewed graph"],
+      "validation": ["snapshot property ro=true", "snapshot subvolume identity recorded", "source boundary re-resolved immediately before capture"],
+      "restore_scope": ["selective machine-image restore", "subvolume reconstruction after service-state review"]
+    },
+    {
+      "id": "boot",
+      "source_alias": "enrolled-boot-filesystem",
+      "filesystem_class": "ext4-separate-filesystem",
+      "capture_method": "restic_live_filesystem_capture",
+      "included": ["boot filesystem content except nested EFI mount when captured separately"],
+      "excluded": ["EFI filesystem", "UEFI NVRAM variables", "firmware state"],
+      "validation": ["source resolves to reviewed ext4 boundary", "no boot-related transaction active", "snapshot inventory and hashes available after backup"],
+      "restore_scope": ["offline file restoration to a correctly prepared boot filesystem"]
+    },
+    {
+      "id": "efi",
+      "source_alias": "enrolled-efi-filesystem",
+      "filesystem_class": "vfat-separate-filesystem",
+      "capture_method": "restic_live_filesystem_capture",
+      "included": ["EFI System Partition file content"],
+      "excluded": ["UEFI NVRAM boot entries", "firmware settings", "Secure Boot signing keys outside captured files"],
+      "validation": ["source resolves to reviewed vfat boundary", "no firmware or bootloader transaction active", "snapshot inventory and hashes available after backup"],
+      "restore_scope": ["offline file restoration to a correctly created EFI System Partition"]
+    }
+  ],
+  "explicit_exclusions": [
+    "partition table",
+    "LUKS header and recovery material",
+    "filesystem superblock reconstruction guarantees",
+    "UEFI NVRAM variables",
+    "firmware configuration or firmware flash state",
+    "swap contents",
+    "live pseudo-filesystems such as proc sys dev and run",
+    "unmounted removable media",
+    "external backup repository itself",
+    "future nested subvolumes not present in the fresh preflight graph",
+    "application-consistent database state unless separately quiesced"
+  ],
+  "operations": [
+    {"sequence": 1, "id": "fresh-preflight", "effect": "read-only", "approval": "enrolled-read-only-policy", "status": "pending"},
+    {"sequence": 2, "id": "create-snapshot-set-parent", "effect": "one root-owned directory tree", "approval": "per-command", "status": "pending"},
+    {"sequence": 3, "id": "snapshot-root", "effect": "one read-only Btrfs subvolume snapshot", "approval": "per-command", "status": "pending"},
+    {"sequence": 4, "id": "snapshot-home", "effect": "one read-only Btrfs subvolume snapshot", "approval": "per-command", "status": "pending"},
+    {"sequence": 5, "id": "snapshot-systemd-machines", "effect": "one read-only Btrfs nested-subvolume snapshot", "approval": "per-command", "status": "pending"},
+    {"sequence": 6, "id": "validate-snapshot-set", "effect": "read-only", "approval": "enrolled-read-only-policy", "status": "pending"},
+    {"sequence": 7, "id": "backup-five-boundaries", "effect": "one encrypted Restic system snapshot", "approval": "per-command-interactive-password", "status": "pending"},
+    {"sequence": 8, "id": "check-all-pack-data", "effect": "repository lock plus full read", "approval": "per-command-interactive-password", "status": "pending"},
+    {"sequence": 9, "id": "inventory-system-snapshot", "effect": "read-only decrypted metadata review", "approval": "per-command-interactive-password", "status": "pending"},
+    {"sequence": 10, "id": "restore-proof-matrix", "effect": "writes only to an isolated approved target", "approval": "per-command-interactive-password", "status": "pending"},
+    {"sequence": 11, "id": "full-restore-rehearsal", "effect": "writes only to disposable VM or approved scratch target", "approval": "separately-designed-procedure-and-per-command", "status": "blocked-until-target-exists"},
+    {"sequence": 12, "id": "finalize-r2-evidence", "effect": "append-only project audit", "approval": "project-scope", "status": "pending"},
+    {"sequence": 13, "id": "snapshot-retention-decision", "effect": "none until separately approved", "approval": "future-per-command", "status": "deferred"}
+  ],
+  "proof_matrix": [
+    {"id": "regular-file-content", "required": true, "status": "minimal-scope-passed"},
+    {"id": "directory-tree", "required": true, "status": "minimal-scope-passed"},
+    {"id": "mode-owner-group", "required": true, "status": "system-scope-pending"},
+    {"id": "timestamps", "required": true, "status": "minimal-mtime-passed-system-scope-pending"},
+    {"id": "symlink", "required": true, "status": "pending"},
+    {"id": "hard-link", "required": true, "status": "pending"},
+    {"id": "acl", "required": true, "status": "pending"},
+    {"id": "extended-attributes", "required": true, "status": "pending"},
+    {"id": "selinux-label", "required": true, "status": "pending-host-selinux-disabled"},
+    {"id": "sparse-file", "required": true, "status": "pending"},
+    {"id": "boot-files", "required": true, "status": "pending"},
+    {"id": "efi-files", "required": true, "status": "pending"},
+    {"id": "root-home-boundary-separation", "required": true, "status": "pending"},
+    {"id": "nested-subvolume-separation", "required": true, "status": "pending"},
+    {"id": "full-restore-to-nonproduction-target", "required": true, "status": "blocked-no-approved-target"},
+    {"id": "bootability-or-offline-reconstruction", "required": true, "status": "blocked-full-vm-or-scratch-target-required"}
+  ],
+  "stop_conditions": [
+    "source or destination identity differs from the reviewed aliases",
+    "external destination is absent read-only unhealthy or below capacity margin",
+    "repository identity prefix differs",
+    "repository lock is already present",
+    "root home or systemd-machines boundary cannot be re-resolved",
+    "a new unclassified nested subvolume or mount appears",
+    "any snapshot is writable or exceeds the skew budget",
+    "package kernel initramfs bootloader firmware or filesystem transaction is active",
+    "any source read is denied or skipped",
+    "Restic reports warnings errors unreadable files or changed-during-read content",
+    "snapshot paths expand beyond the five approved boundaries",
+    "password would be exposed to the model environment history or audit",
+    "free-space estimate or snapshot-growth margin becomes unsafe",
+    "validation output contains an unexpected side effect or additional constraint",
+    "audit or knowledge integrity is unavailable"
+  ],
+  "approval_policy": {
+    "initial_scope": "command",
+    "procedure_scope_defined_but_executable": false,
+    "transaction_scope_defined_but_executable": false,
+    "preauthorized_scope_defined_but_executable": false,
+    "one_state_changing_attempt": true,
+    "automatic_retry": false,
+    "automatic_rollback": false,
+    "restore_requires_separate_approval": true,
+    "cleanup_requires_separate_approval": true,
+    "snapshot_deletion_requires_separate_approval": true
+  },
+  "claims": {
+    "current": "minimal-restic-mechanism-verified-system-set-not-created",
+    "r1_system_set": false,
+    "r2_system_artifact": false,
+    "r2_full_restore_rehearsed": false,
+    "r2_sufficient_for_a3": false,
+    "r3_available": false,
+    "must_not_claim": ["bare-metal recovery", "atomic cross-subvolume snapshot", "partition or encryption recovery", "firmware recovery", "production bootability"]
+  }
+}

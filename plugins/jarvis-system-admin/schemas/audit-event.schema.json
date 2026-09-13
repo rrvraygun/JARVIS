@@ -1,0 +1,12 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "type":"object",
+  "required":["schema_version","id","timestamp","event_type","actor","status","details"],
+  "properties":{
+    "schema_version":{"const":1},"id":{"type":"string"},"timestamp":{"type":"string"},
+    "event_type":{"type":"string"},"actor":{"type":"string"},
+    "status":{"type":"string"},"details":{"type":"object"},
+    "previous_hash":{"type":"string"},"event_hash":{"type":"string"}
+  },
+  "additionalProperties":true
+}

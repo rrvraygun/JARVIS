@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "registry_id": "fedora-l2-readiness-fixture-adapters",
+  "version": "1.0.0",
+  "implementation_status": "fixture_validated_parsers_only",
+  "execution_enabled": false,
+  "host_observation_enabled": false,
+  "live_backend_implemented": false,
+  "bindings": {
+    "source_catalog_sha256": "35b022ab1587428ae31953c5b51591b46fcfd1333fba198a94c5c4d56efbe038",
+    "proposal_sha256": "0c1fa4a163e0a72f47ea2f4e060f9e1475109d9e902e9be817174fe3532911af",
+    "tier0_adapter_registry_sha256": "90a3bf740ff6984fb6a3d6ebae9596a133167081f15feb09c2e91ff24f41c664",
+    "readiness_plan_sha256": "514819ed9539c28408d78b463fe2d76218a4cf4240e5c45b7643722719dcad51"
+  },
+  "invariants": {
+    "registered_synthetic_fixture_only": true,
+    "arbitrary_input_reference_allowed": false,
+    "network_allowed": false,
+    "privilege_allowed": false,
+    "mutation_allowed": false,
+    "device_wake_allowed": false,
+    "persistence_allowed": false,
+    "automatic_retry": false,
+    "attempt_limit": 1,
+    "unexpected_output_stops": true,
+    "candidate_results_are_not_host_results": true
+  },
+  "fixture_set": {
+    "id": "fedora-kvm-synthetic-v1",
+    "synthetic": true,
+    "represents_host": false,
+    "files": {
+      "virtualization_summary": "fixtures/readiness/fedora-kvm-synthetic-v1/virtualization-summary.json",
+      "storage_summary": "fixtures/readiness/fedora-kvm-synthetic-v1/storage-summary.json",
+      "selinux_summary": "fixtures/readiness/fedora-kvm-synthetic-v1/selinux-summary.json"
+    }
+  },
+  "existing_tier0_bindings": [
+    {"check_id": "readiness.os_family", "adapter_id": "fedora.platform.os-release", "fact_id": "os.id", "transform": "fedora_compatibility"},
+    {"check_id": "readiness.architecture", "adapter_id": "fedora.kernel.identity", "fact_id": "system.architecture", "transform": "identity"},
+    {"check_id": "readiness.cpu_virtualization", "adapter_id": "fedora.compute.cpu-summary", "fact_id": "cpu.virtualization_extension_class", "transform": "identity"},
+    {"check_id": "readiness.memory_capacity", "adapter_id": "fedora.compute.memory-summary", "fact_id": "memory.total_bytes", "transform": "workstation_capacity_class"}
+  ],
+  "adapters": [
+    {
+      "id": "fedora.virtualization.readiness-summary",
+      "version": "1.0.0",
+      "maturity_level": 1,
+      "implementation_status": "fixture_validated_parser_only",
+      "execution_enabled": false,
+      "source_id": "virtualization.readiness-summary",
+      "source_interface": "CPU extension summary, KVM interface presence/access, installed stack versions and inactive/active status; no guest start",
+      "parser_id": "virtualization_readiness_v1",
+      "fixture_input": "virtualization_summary",
+      "risk": {"tier": 1, "privilege": false, "network": false, "mutation": false, "device_wake": false},
+      "bounds": {"max_input_bytes": 32768, "max_output_results": 11, "attempt_limit": 1},
+      "expected_check_ids": [
+        "readiness.kvm_interface",
+        "readiness.kvm_kernel_support",
+        "readiness.qemu",
+        "readiness.libvirt",
+        "readiness.libvirt_service",
+        "readiness.virt_install",
+        "readiness.graphical_manager",
+        "readiness.uefi_firmware",
+        "readiness.current_user_access",
+        "readiness.cgroup_mode",
+        "readiness.conflict_summary"
+      ]
+    },
+    {
+      "id": "fedora.storage.vm-capacity-summary",
+      "version": "1.0.0",
+      "maturity_level": 1,
+      "implementation_status": "fixture_validated_parser_only",
+      "execution_enabled": false,
+      "source_id": "storage.mount-summary",
+      "source_interface": "/proc/self/mountinfo normalized without personal paths",
+      "parser_id": "storage_readiness_v1",
+      "fixture_input": "storage_summary",
+      "risk": {"tier": 1, "privilege": false, "network": false, "mutation": false, "device_wake": false},
+      "bounds": {"max_input_bytes": 8192, "max_output_results": 2, "attempt_limit": 1},
+      "expected_check_ids": ["readiness.storage_capacity", "readiness.storage_filesystem"]
+    },
+    {
+      "id": "fedora.security.selinux-summary",
+      "version": "1.0.0",
+      "maturity_level": 1,
+      "implementation_status": "fixture_validated_parser_only",
+      "execution_enabled": false,
+      "source_id": "security.selinux-state",
+      "source_interface": "SELinux mode, policy name/version and booleans count; custom values require separate review",
+      "parser_id": "selinux_readiness_v1",
+      "fixture_input": "selinux_summary",
+      "risk": {"tier": 1, "privilege": false, "network": false, "mutation": false, "device_wake": false},
+      "bounds": {"max_input_bytes": 4096, "max_output_results": 1, "attempt_limit": 1},
+      "expected_check_ids": ["readiness.selinux"]
+    }
+  ]
+}

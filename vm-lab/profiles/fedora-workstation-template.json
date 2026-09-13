@@ -1,0 +1,106 @@
+{
+  "schema_version": 1,
+  "profile_id": "fedora-workstation-unobserved-template",
+  "version": "1.0.0",
+  "status": "unobserved_template",
+  "enrollment": {
+    "host_scan_performed": false,
+    "host_binding": null,
+    "approved_at": null
+  },
+  "declared_scope": {
+    "source": "user_provided",
+    "workstation_count": 1,
+    "operating_system": "Fedora Workstation",
+    "interactive_shell": "Bash",
+    "included_domains": [
+      "inventory",
+      "health",
+      "packages_updates",
+      "services",
+      "storage_filesystems",
+      "boot_kernel",
+      "graphics_display_input",
+      "audio",
+      "power_thermal",
+      "security_selinux",
+      "backups_recovery",
+      "containers",
+      "virtualization",
+      "maintenance_cleanup",
+      "applications",
+      "logs",
+      "knowledge_audit"
+    ],
+    "excluded_domains": [
+      "gaming",
+      "networking_vpn"
+    ]
+  },
+  "fidelity_layers": [
+    {
+      "id": "contract_logic",
+      "target": "Exact schemas, policy decisions, approvals, stop rules, parsing, redaction, and audit transitions",
+      "current_evidence": "fixture",
+      "future_gate": "maturity_stage_1"
+    },
+    {
+      "id": "software_twin",
+      "target": "Matched Fedora release, kernel, packages, services, configuration classes, desktop stack, drivers, and filesystems where virtualization permits",
+      "current_evidence": "unknown",
+      "future_gate": "approved_host_enrollment_then_guest_provisioning"
+    },
+    {
+      "id": "virtual_hardware",
+      "target": "CPU topology, memory size, storage layout, firmware mode, virtual PCI/USB/input/display/audio devices, and device failure injection",
+      "current_evidence": "unknown",
+      "future_gate": "locked_domain_definition_and_vm_rehearsal"
+    },
+    {
+      "id": "physical_hardware",
+      "target": "Actual NVIDIA power state, panel routing, ACPI/EC behavior, firmware hotkeys, keyboard controller, battery, thermals, and vendor-specific devices",
+      "current_evidence": "unrepresentable_by_default_vm",
+      "future_gate": "separately_approved_physical_workstation_test"
+    }
+  ],
+  "actual_state": {
+    "profile_observed_at": null,
+    "freshness_deadline": null,
+    "hardware": {
+      "cpu": {"status": "unknown", "value": null},
+      "memory": {"status": "unknown", "value": null},
+      "gpu_topology": {"status": "unknown", "value": null},
+      "display_routing": {"status": "unknown", "value": null},
+      "keyboard_lighting_controller": {"status": "unknown", "value": null},
+      "storage": {"status": "unknown", "value": null},
+      "firmware": {"status": "unknown", "value": null},
+      "audio": {"status": "unknown", "value": null},
+      "power_thermal": {"status": "unknown", "value": null}
+    },
+    "software": {
+      "fedora_release": {"status": "unknown", "value": null},
+      "architecture": {"status": "unknown", "value": null},
+      "kernel": {"status": "unknown", "value": null},
+      "desktop": {"status": "unknown", "value": null},
+      "packages": {"status": "unknown", "value": null},
+      "services": {"status": "unknown", "value": null},
+      "drivers": {"status": "unknown", "value": null},
+      "boot_parameters": {"status": "unknown", "value": null},
+      "filesystems": {"status": "unknown", "value": null},
+      "selinux": {"status": "unknown", "value": null}
+    }
+  },
+  "sensitive_state": {
+    "collection_default": "deny",
+    "storage": "local_encrypted_only",
+    "access": "fresh_user_confirmation",
+    "never_collect": [
+      "credentials",
+      "tokens",
+      "private_keys",
+      "passwords",
+      "unredacted_secrets"
+    ],
+    "vm_transfer": "prohibited"
+  }
+}

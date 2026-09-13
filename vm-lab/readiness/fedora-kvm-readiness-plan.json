@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "plan_id": "fedora-kvm-readiness-observation",
+  "version": "1.0.0",
+  "status": "prepared_unapproved",
+  "implementation_status": "fixture_validated_parsers_only",
+  "execution_enabled": false,
+  "approval_granted": false,
+  "host_scan_performed": false,
+  "fixture_adapter_registry_complete": true,
+  "live_observation_backend_complete": false,
+  "target": {
+    "workstations": 1,
+    "operating_system_family": "Fedora Workstation",
+    "identity": "unresolved"
+  },
+  "authority": {
+    "risk_tier": 1,
+    "future_admission": "one_group_confirmation_after_adapter_review",
+    "privilege": false,
+    "network": false,
+    "mutation": false,
+    "device_wake": false,
+    "automatic_retry": false,
+    "attempt_limit_per_probe": 1,
+    "raw_output_persistence": false
+  },
+  "checks": [
+    {"id": "readiness.os_family", "source_id": "platform.os-release", "result_type": "fedora_or_incompatible", "required": true, "fixture_adapter_id": "fedora.platform.os-release", "live_backend_implemented": false},
+    {"id": "readiness.architecture", "source_id": "kernel.release", "result_type": "architecture_class", "required": true, "fixture_adapter_id": "fedora.kernel.identity", "live_backend_implemented": false},
+    {"id": "readiness.cpu_virtualization", "source_id": "kernel.cpu-summary", "result_type": "intel_vt_amd_v_none_or_unknown", "required": true, "fixture_adapter_id": "fedora.compute.cpu-summary", "live_backend_implemented": false},
+    {"id": "readiness.memory_capacity", "source_id": "kernel.memory-summary", "result_type": "bounded_capacity_class", "required": true, "fixture_adapter_id": "fedora.compute.memory-summary", "live_backend_implemented": false},
+    {"id": "readiness.kvm_interface", "source_id": "virtualization.readiness-summary", "result_type": "absent_present_inaccessible_or_accessible", "required": true, "fixture_adapter_id": "fedora.virtualization.readiness-summary", "live_backend_implemented": false},
+    {"id": "readiness.kvm_kernel_support", "source_id": "virtualization.readiness-summary", "result_type": "absent_available_active_or_unknown", "required": true, "fixture_adapter_id": "fedora.virtualization.readiness-summary", "live_backend_implemented": false},
+    {"id": "readiness.qemu", "source_id": "virtualization.readiness-summary", "result_type": "package_and_version_or_absent", "required": true, "fixture_adapter_id": "fedora.virtualization.readiness-summary", "live_backend_implemented": false},
+    {"id": "readiness.libvirt", "source_id": "virtualization.readiness-summary", "result_type": "package_and_version_or_absent", "required": true, "fixture_adapter_id": "fedora.virtualization.readiness-summary", "live_backend_implemented": false},
+    {"id": "readiness.libvirt_service", "source_id": "virtualization.readiness-summary", "result_type": "uninstalled_inactive_active_or_unknown", "required": true, "fixture_adapter_id": "fedora.virtualization.readiness-summary", "live_backend_implemented": false},
+    {"id": "readiness.virt_install", "source_id": "virtualization.readiness-summary", "result_type": "package_and_version_or_absent", "required": true, "fixture_adapter_id": "fedora.virtualization.readiness-summary", "live_backend_implemented": false},
+    {"id": "readiness.graphical_manager", "source_id": "virtualization.readiness-summary", "result_type": "optional_package_and_version_or_absent", "required": false, "fixture_adapter_id": "fedora.virtualization.readiness-summary", "live_backend_implemented": false},
+    {"id": "readiness.uefi_firmware", "source_id": "virtualization.readiness-summary", "result_type": "available_absent_or_unknown", "required": true, "fixture_adapter_id": "fedora.virtualization.readiness-summary", "live_backend_implemented": false},
+    {"id": "readiness.current_user_access", "source_id": "virtualization.readiness-summary", "result_type": "sufficient_insufficient_or_unknown_without_identity", "required": true, "fixture_adapter_id": "fedora.virtualization.readiness-summary", "live_backend_implemented": false},
+    {"id": "readiness.storage_capacity", "source_id": "storage.mount-summary", "result_type": "bounded_free_space_class_without_personal_path", "required": true, "fixture_adapter_id": "fedora.storage.vm-capacity-summary", "live_backend_implemented": false},
+    {"id": "readiness.storage_filesystem", "source_id": "storage.mount-summary", "result_type": "filesystem_capability_class_without_personal_path", "required": true, "fixture_adapter_id": "fedora.storage.vm-capacity-summary", "live_backend_implemented": false},
+    {"id": "readiness.selinux", "source_id": "security.selinux-state", "result_type": "mode_and_policy_class", "required": true, "fixture_adapter_id": "fedora.security.selinux-summary", "live_backend_implemented": false},
+    {"id": "readiness.cgroup_mode", "source_id": "virtualization.readiness-summary", "result_type": "v1_v2_hybrid_or_unknown", "required": true, "fixture_adapter_id": "fedora.virtualization.readiness-summary", "live_backend_implemented": false},
+    {"id": "readiness.conflict_summary", "source_id": "virtualization.readiness-summary", "result_type": "bounded_conflict_class_without_guest_names", "required": false, "fixture_adapter_id": "fedora.virtualization.readiness-summary", "live_backend_implemented": false}
+  ],
+  "explicit_exclusions": [
+    "guest names or definitions",
+    "hostnames, usernames, addresses or MAC addresses",
+    "hardware serials, UUIDs or storage WWNs",
+    "credentials, keys, tokens or environment values",
+    "personal paths or file contents",
+    "network connectivity tests",
+    "package repository refresh",
+    "service starts or reloads",
+    "kernel module loading",
+    "group membership or permission changes",
+    "device passthrough capability probing",
+    "performance benchmarks"
+  ],
+  "decision_outcomes": [
+    "ready_for_image_lock_planning",
+    "missing_packages_requires_separate_change_plan",
+    "service_or_access_requires_separate_change_plan",
+    "insufficient_safe_resources",
+    "hardware_virtualization_unavailable",
+    "configuration_conflict_requires_review",
+    "incompatible_or_unsupported",
+    "inconclusive"
+  ],
+  "completion_artifact": {
+    "normalized_facts_only": true,
+    "fact_revisions_and_timestamps_required": true,
+    "redaction_before_persistence": true,
+    "unexpected_output_stops": true,
+    "unexpected_effect_stops": true,
+    "unknown_remains_unknown": true,
+    "no_installation_or_configuration_change": true
+  },
+  "current_blockers": [
+    "No live L2 observation backend is implemented, reviewed, or VM-rehearsed.",
+    "No approval has been granted for a readiness observation.",
+    "The workstation identity and current virtualization state remain unknown."
+  ],
+  "next_decision": "fresh_user_authorization_required_before_any_live_readiness_backend_or_host_observation"
+}

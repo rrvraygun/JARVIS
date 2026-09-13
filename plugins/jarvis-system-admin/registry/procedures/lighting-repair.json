@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "id": "repair.lighting-restore",
+  "version": "1.0.0",
+  "capability": "repair",
+  "risk": "contextual",
+  "mutates_host": true,
+  "requires_approval": true,
+  "inputs": [
+    "verified_diagnosis",
+    "exact_intervention",
+    "display_validation",
+    "keyboard_validation",
+    "low_power_validation",
+    "rollback"
+  ],
+  "preconditions": [
+    "diagnosis distinguishes display and keyboard control paths",
+    "current system state and versions recorded",
+    "one causal intervention selected",
+    "pre-change files or settings captured",
+    "exact command approval",
+    "recovery path tested or limitation accepted"
+  ],
+  "steps": [
+    "capture exact pre-state",
+    "independently review command and recovery",
+    "approve one exact command",
+    "apply one bounded intervention",
+    "validate display brightness",
+    "validate keyboard lighting",
+    "validate low-power behavior and graphics availability",
+    "rollback on regression or unexpected output",
+    "record attempt diagnosis and outcome"
+  ],
+  "validation": [
+    "requested controls work across their supported ranges",
+    "GPU power behavior meets the approved objective",
+    "desktop session and suspend/resume remain healthy",
+    "no unrelated configuration changed"
+  ],
+  "rollback": "Exact intervention-specific rollback is mandatory before approval",
+  "execution_enabled": false
+}

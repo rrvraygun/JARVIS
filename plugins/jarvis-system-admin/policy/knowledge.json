@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "attempt_limit": 1,
+  "automatic_retry": false,
+  "lesson_candidate_success_threshold": 3,
+  "lesson_candidate_requires_independent_verification": true,
+  "lesson_activation_requires_user": true,
+  "lesson_scope": "enrolled-workstation",
+  "suspend_on": ["prerequisite_mismatch", "version_change", "official_conflict", "unexpected_output", "unexpected_effect", "validation_failure"],
+  "community_evidence_requires_user_confirmation": true,
+  "private_chain_of_thought_persistence": "forbidden",
+  "decision_summary_required": true,
+  "offline_documentation": "required",
+  "installed_version_matching": "required"
+}
+

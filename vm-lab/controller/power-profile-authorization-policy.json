@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "operation_id": "jarvis.powerprofile.select",
+  "operation_revision": "1.0.0",
+  "provider": {
+    "bus_name": "org.freedesktop.UPower.PowerProfiles",
+    "object_path": "/org/freedesktop/UPower/PowerProfiles",
+    "interface": "org.freedesktop.UPower.PowerProfiles",
+    "mutation": "org.freedesktop.DBus.Properties.Set:ActiveProfile",
+    "polkit_action": "org.freedesktop.UPower.PowerProfiles.switch-profile",
+    "target": "current-active-user-session"
+  },
+  "allowed_profiles": ["power-saver", "balanced", "performance"],
+  "authorization": {
+    "tui_confirmation_required": true,
+    "active_session_permission_required": true,
+    "password_prompt_required": false,
+    "expiry_seconds": 60,
+    "one_use": true,
+    "ledger": "existing-durable-authority-ledger",
+    "one_transition_per_approval": true,
+    "rollback_requires_new_approval": true
+  },
+  "warnings": {
+    "battery": "notify-only",
+    "thermal_degradation": "notify-only",
+    "provider_degraded": "notify-only"
+  },
+  "prohibited": [
+    "sudo",
+    "shell",
+    "tuned-adm",
+    "direct-sysfs",
+    "direct-nvidia-control",
+    "profile-holds",
+    "automatic-profile-switching",
+    "automatic-rollback",
+    "arbitrary-parameters"
+  ],
+  "status_adapter_registered": false,
+  "mutation_adapter_registered": false,
+  "tui_reachable": false
+}

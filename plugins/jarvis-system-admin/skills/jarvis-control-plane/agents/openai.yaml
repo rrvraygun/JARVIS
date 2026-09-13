@@ -1,0 +1,4 @@
+interface:
+  display_name: "Jarvis Control Plane"
+  short_description: "Govern audited system-administration workflows"
+  default_prompt: "Use $jarvis-control-plane to classify, authorize, record, and validate this administration workflow without executing unapproved actions."

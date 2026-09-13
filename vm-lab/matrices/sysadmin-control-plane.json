@@ -1,0 +1,181 @@
+{
+  "schema_version": 1,
+  "matrix_id": "sysadmin-control-plane",
+  "version": "1.0.0",
+  "title": "Cross-domain sysadmin policy, evidence, approval, and failure matrix",
+  "domain": "cross_domain",
+  "execution_enabled": false,
+  "coverage_strategy": "exhaustive_declared_state_space",
+  "dimensions": {
+    "intent": ["observe", "diagnose", "plan", "mutate", "verify", "recover"],
+    "result": ["expected", "permission_denied", "timeout", "nonzero", "malformed", "hostile_output", "unexpected_extra_effect"],
+    "approval_scope": ["none", "command", "procedure", "transaction"],
+    "authority": ["not_applicable", "missing", "exact_fresh", "expired", "replayed", "broadened"],
+    "audit_state": ["healthy", "unavailable", "chain_invalid"],
+    "target_state": ["exact_fresh", "stale", "ambiguous", "expanded"],
+    "policy_trait": ["ordinary", "always_deny", "privileged", "destructive", "self_update"]
+  },
+  "context_dimensions": {
+    "capability_domain": ["inventory", "health", "packages_updates", "services", "storage_filesystems", "boot_kernel", "graphics_display_input", "audio", "power_thermal", "security_selinux", "backups_recovery", "containers", "virtualization", "maintenance_cleanup", "applications", "logs", "knowledge_audit"]
+  },
+  "exclusions": [],
+  "oracle_rules": [
+    {
+      "id": "deny-always-deny-trait",
+      "priority": 1,
+      "when": {"policy_trait": "always_deny"},
+      "expected": {"decision": "deny", "terminal_status": "policy_denied", "stop": true, "automatic_retry": false, "approval_required": false, "evidence_class": "policy"}
+    },
+    {
+      "id": "fail-closed-invalid-audit",
+      "priority": 2,
+      "when": {"audit_state": "chain_invalid"},
+      "expected": {"decision": "stop_governance_failure", "terminal_status": "governance_unavailable", "stop": true, "automatic_retry": false, "approval_required": true, "evidence_class": "audit_integrity"}
+    },
+    {
+      "id": "fail-closed-unavailable-audit",
+      "priority": 3,
+      "when": {"audit_state": "unavailable"},
+      "expected": {"decision": "stop_governance_failure", "terminal_status": "governance_unavailable", "stop": true, "automatic_retry": false, "approval_required": true, "evidence_class": "audit_availability"}
+    },
+    {
+      "id": "deny-ambiguous-target",
+      "priority": 4,
+      "when": {"target_state": "ambiguous"},
+      "expected": {"decision": "deny_unresolved_target", "terminal_status": "policy_denied", "stop": true, "automatic_retry": false, "approval_required": false, "evidence_class": "target"}
+    },
+    {
+      "id": "deny-expanded-target",
+      "priority": 5,
+      "when": {"target_state": "expanded"},
+      "expected": {"decision": "deny_target_expansion", "terminal_status": "policy_denied", "stop": true, "automatic_retry": false, "approval_required": false, "evidence_class": "target"}
+    },
+    {
+      "id": "deny-stale-target",
+      "priority": 6,
+      "when": {"target_state": "stale"},
+      "expected": {"decision": "invalidate_and_replan", "terminal_status": "stale_state", "stop": true, "automatic_retry": false, "approval_required": false, "evidence_class": "freshness"}
+    },
+    {
+      "id": "stop-unexpected-effect",
+      "priority": 10,
+      "when": {"result": "unexpected_extra_effect"},
+      "expected": {"decision": "stop_and_diagnose", "terminal_status": "stopped_unexpected", "stop": true, "automatic_retry": false, "approval_required": true, "evidence_class": "unexpected_effect"}
+    },
+    {
+      "id": "stop-hostile-output",
+      "priority": 11,
+      "when": {"result": "hostile_output"},
+      "expected": {"decision": "sanitize_record_and_stop", "terminal_status": "stopped_unexpected", "stop": true, "automatic_retry": false, "approval_required": false, "evidence_class": "untrusted_output"}
+    },
+    {
+      "id": "stop-malformed",
+      "priority": 12,
+      "when": {"result": "malformed"},
+      "expected": {"decision": "reject_malformed_evidence", "terminal_status": "stopped_unexpected", "stop": true, "automatic_retry": false, "approval_required": false, "evidence_class": "malformed"}
+    },
+    {
+      "id": "stop-timeout",
+      "priority": 13,
+      "when": {"result": "timeout"},
+      "expected": {"decision": "stop_without_retry", "terminal_status": "inconclusive", "stop": true, "automatic_retry": false, "approval_required": false, "evidence_class": "timeout"}
+    },
+    {
+      "id": "stop-nonzero",
+      "priority": 14,
+      "when": {"result": "nonzero"},
+      "expected": {"decision": "record_error_and_diagnose", "terminal_status": "inconclusive", "stop": true, "automatic_retry": false, "approval_required": false, "evidence_class": "failed_attempt"}
+    },
+    {
+      "id": "permission-boundary",
+      "priority": 15,
+      "when": {"result": "permission_denied"},
+      "expected": {"decision": "record_then_request_exact_approval", "terminal_status": "awaiting_approval", "stop": true, "automatic_retry": false, "approval_required": true, "evidence_class": "permission_boundary"}
+    },
+    {
+      "id": "deny-disabled-procedure-scope",
+      "priority": 20,
+      "when": {"approval_scope": "procedure"},
+      "expected": {"decision": "deny_disabled_approval_scope", "terminal_status": "policy_denied", "stop": true, "automatic_retry": false, "approval_required": false, "evidence_class": "authority"}
+    },
+    {
+      "id": "deny-disabled-transaction-scope",
+      "priority": 21,
+      "when": {"approval_scope": "transaction"},
+      "expected": {"decision": "deny_disabled_approval_scope", "terminal_status": "policy_denied", "stop": true, "automatic_retry": false, "approval_required": false, "evidence_class": "authority"}
+    },
+    {
+      "id": "deny-expired-authority",
+      "priority": 22,
+      "when": {"authority": "expired"},
+      "expected": {"decision": "deny_expired_approval", "terminal_status": "policy_denied", "stop": true, "automatic_retry": false, "approval_required": true, "evidence_class": "authority"}
+    },
+    {
+      "id": "deny-replayed-authority",
+      "priority": 23,
+      "when": {"authority": "replayed"},
+      "expected": {"decision": "deny_replay", "terminal_status": "policy_denied", "stop": true, "automatic_retry": false, "approval_required": true, "evidence_class": "authority"}
+    },
+    {
+      "id": "deny-broadened-authority",
+      "priority": 24,
+      "when": {"authority": "broadened"},
+      "expected": {"decision": "deny_scope_broadening", "terminal_status": "policy_denied", "stop": true, "automatic_retry": false, "approval_required": true, "evidence_class": "authority"}
+    },
+    {
+      "id": "block-mutation-fixture-mode",
+      "priority": 30,
+      "when": {"intent": "mutate"},
+      "expected": {"decision": "block_fixture_only", "terminal_status": "not_executable", "stop": true, "automatic_retry": false, "approval_required": true, "evidence_class": "lab_boundary"}
+    },
+    {
+      "id": "block-recovery-fixture-mode",
+      "priority": 31,
+      "when": {"intent": "recover"},
+      "expected": {"decision": "block_fixture_only", "terminal_status": "not_executable", "stop": true, "automatic_retry": false, "approval_required": true, "evidence_class": "lab_boundary"}
+    },
+    {
+      "id": "privileged-plan-only",
+      "priority": 32,
+      "when": {"policy_trait": "privileged"},
+      "expected": {"decision": "plan_only_exact_approval_required", "terminal_status": "not_executable", "stop": true, "automatic_retry": false, "approval_required": true, "evidence_class": "risk"}
+    },
+    {
+      "id": "destructive-plan-only",
+      "priority": 33,
+      "when": {"policy_trait": "destructive"},
+      "expected": {"decision": "plan_only_recovery_required", "terminal_status": "not_executable", "stop": true, "automatic_retry": false, "approval_required": true, "evidence_class": "risk"}
+    },
+    {
+      "id": "self-update-plan-only",
+      "priority": 34,
+      "when": {"policy_trait": "self_update"},
+      "expected": {"decision": "plan_only_independent_review_required", "terminal_status": "not_executable", "stop": true, "automatic_retry": false, "approval_required": true, "evidence_class": "risk"}
+    },
+    {
+      "id": "missing-authority-for-command-scope",
+      "priority": 40,
+      "when": {"approval_scope": "command", "authority": "missing"},
+      "expected": {"decision": "request_exact_command_approval", "terminal_status": "awaiting_approval", "stop": true, "automatic_retry": false, "approval_required": true, "evidence_class": "authority"}
+    },
+    {
+      "id": "registered-observation-candidate",
+      "priority": 50,
+      "when": {"intent": "observe"},
+      "expected": {"decision": "validate_registered_observation_candidate", "terminal_status": "fixture_pass", "stop": false, "automatic_retry": false, "approval_required": false, "evidence_class": "fixture"}
+    },
+    {
+      "id": "default-safe-reasoning",
+      "priority": 1000,
+      "when": {},
+      "expected": {"decision": "continue_fixture_reasoning", "terminal_status": "fixture_pass", "stop": false, "automatic_retry": false, "approval_required": false, "evidence_class": "fixture"}
+    }
+  ],
+  "evidence_ceiling": "simulation_only",
+  "limitations": [
+    "The cross product proves deterministic handling only for the declared state space.",
+    "It does not prove that a Fedora utility, service, package transaction, filesystem, driver, or device behaves the same in a guest or on the workstation.",
+    "Mutation and recovery inputs are policy fixtures and can never cause an action in this laboratory mode.",
+    "Gaming and networking/VPN are intentionally outside the accepted product scope."
+  ]
+}

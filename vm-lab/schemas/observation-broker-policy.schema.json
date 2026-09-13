@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "No-effect observation broker policy",
+  "type": "object",
+  "required": ["schema_version", "policy_id", "version", "implementation_status", "transport", "service_process_exists", "execution_enabled", "host_observation_enabled", "persistence_enabled", "network_enabled", "privilege_enabled", "mutation_enabled", "device_access_enabled", "protected_read_enabled", "authorization_ledger_persistence_enabled", "current_capabilities", "request_invariants", "output_invariants", "activation_gate"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "policy_id": {"enum": ["fixture-only-tier0-observation-broker", "live-tier0-observation-broker"]},
+    "version": {"type": "string"},
+    "implementation_status": {"enum": ["no_effect_simulator", "tier0_live_read_enabled"]},
+    "transport": {"const": "none"},
+    "service_process_exists": {"const": false},
+    "execution_enabled": {"const": false},
+    "host_observation_enabled": {"type": "boolean"},
+    "persistence_enabled": {"const": false},
+    "network_enabled": {"const": false},
+    "privilege_enabled": {"const": false},
+    "mutation_enabled": {"const": false},
+    "device_access_enabled": {"const": false},
+    "protected_read_enabled": {"const": false},
+    "authorization_ledger_persistence_enabled": {"type": "boolean"},
+    "current_capabilities": {"type": "array", "minItems": 1, "items": {"type": "string"}, "uniqueItems": true},
+    "request_invariants": {"type": "object"},
+    "output_invariants": {"type": "object"},
+    "activation_gate": {"type": "object"}
+  },
+  "additionalProperties": false,
+  "anyOf": [
+    {
+      "properties": {
+        "policy_id": {"const": "fixture-only-tier0-observation-broker"},
+        "implementation_status": {"const": "no_effect_simulator"},
+        "host_observation_enabled": {"const": false},
+        "authorization_ledger_persistence_enabled": {"const": false}
+      }
+    },
+    {
+      "properties": {
+        "policy_id": {"const": "live-tier0-observation-broker"},
+        "implementation_status": {"const": "tier0_live_read_enabled"},
+        "host_observation_enabled": {"const": true},
+        "authorization_ledger_persistence_enabled": {"const": true}
+      }
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "id": "knowledge.record",
+  "version": "1.0.0",
+  "capability": "knowledge",
+  "risk": "low",
+  "mutates_host": false,
+  "requires_approval": false,
+  "inputs": ["redacted_record", "evidence", "privacy_class", "prerequisites"],
+  "preconditions": ["schema initialized", "redaction before persistence", "restricted data encryption gate", "one-attempt limit"],
+  "steps": ["classify", "redact", "validate", "append immutable revision", "hash", "verify"],
+  "validation": ["database integrity", "privacy policy", "record linkage", "no host mutation"],
+  "rollback": "append a superseding or suspended revision; never rewrite history"
+}

@@ -1,0 +1,14 @@
+{
+  "fact_id": "fixture.value",
+  "fact_key": "fixture.value",
+  "value": "ok",
+  "value_type": "text",
+  "collected_at": "2026-08-05T10:00:00Z",
+  "valid_until": null,
+  "collector": "fixture",
+  "collector_version": "1",
+  "source_attempt_id": null,
+  "privacy_class": "internal",
+  "prerequisites": {},
+  "status": "current"
+}

@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "sequence": 1,
+  "id": "evt_fixture",
+  "timestamp": "2026-08-05T12:00:00Z",
+  "event_type": "intent.captured",
+  "actor": "broker",
+  "status": "captured",
+  "task_id": "task_fixture",
+  "details": {},
+  "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+  "event_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+}

@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Jarvis fixture-only future-controller response",
+  "type": "object",
+  "required": ["schema_version", "request_id", "operation_id", "result", "state_before", "state_after", "effect_occurred", "operational_authority", "idempotency_key_consumed", "reasons"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "request_id": {"type": "string", "minLength": 1},
+    "operation_id": {"type": "string", "minLength": 1},
+    "result": {"const": "contract_validated_no_effect"},
+    "state_before": {"type": "string", "minLength": 1},
+    "state_after": {"type": "string", "minLength": 1},
+    "effect_occurred": {"const": false},
+    "operational_authority": {"const": false},
+    "idempotency_key_consumed": {"const": true},
+    "reasons": {"type": "array", "minItems": 1, "items": {"type": "string"}}
+  },
+  "additionalProperties": false
+}

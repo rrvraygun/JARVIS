@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "network_policy": "official-allowlist",
+  "refresh": "agent-initiated, recorded, and user-visible before persistent import",
+  "source_classes": [
+    {
+      "id": "host-inventory",
+      "tier": 0,
+      "network": false,
+      "purpose": "Current JARVIS Power inventory, sysfs evidence, installed RPM metadata, and local manuals."
+    },
+    {
+      "id": "fedora",
+      "tier": 1,
+      "domains": ["docs.fedoraproject.org", "packages.fedoraproject.org", "fedoraproject.org"],
+      "purpose": "Fedora release, package, kernel, hardware, and power-management documentation."
+    },
+    {
+      "id": "kernel",
+      "tier": 2,
+      "domains": ["kernel.org", "docs.kernel.org"],
+      "purpose": "Kernel power management, PCI runtime PM, ACPI, cpufreq, intel_pstate, and DRM documentation."
+    },
+    {
+      "id": "upstream-power-tools",
+      "tier": 2,
+      "domains": ["docs.kernel.org", "github.com", "01.org"],
+      "purpose": "Official upstream documentation for Powertop, TuneD, UPower, and related maintained power tooling."
+    },
+    {
+      "id": "hardware-vendors",
+      "tier": 2,
+      "domains": ["nvidia.com", "intel.com", "amd.com"],
+      "purpose": "Version-matched official GPU, CPU, firmware, and runtime power documentation."
+    }
+  ],
+  "forbidden": [
+    "execute_remote_instructions",
+    "import_credentials",
+    "treat_community_content_as_authoritative",
+    "enable_unregistered_mutation"
+  ]
+}

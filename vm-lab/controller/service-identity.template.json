@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "identity_id": "jarvisd-user-service-v1",
+  "status": "prepared_uninstalled",
+  "service_manager": "systemd-user",
+  "unit_name": "jarvisd.service",
+  "user_binding": "invoking-user-only",
+  "root_required": false,
+  "no_new_privileges": true,
+  "capabilities": [],
+  "private_network": true,
+  "device_access": false,
+  "protected_read_access": false,
+  "write_paths": [],
+  "authority_ledger_path": "%S/jarvis/activation.sqlite3",
+  "allowed_read_interfaces": [
+    "/etc/os-release",
+    "/proc/cpuinfo",
+    "/proc/meminfo",
+    "/proc/sys/kernel/osrelease",
+    "/sys/devices/system/cpu/online",
+    "/sys/devices/system/node/online",
+    "/sys/class/backlight",
+    "/sys/class/leds/kbd_backlight",
+    "/sys/class/drm"
+  ],
+  "arbitrary_command_execution": false,
+  "shell_access": false
+}

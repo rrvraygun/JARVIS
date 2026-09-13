@@ -1,0 +1,19 @@
+{
+  "capability":"security",
+  "capability_enabled":true,
+  "procedure":"change.execute",
+  "command_id":"fixture-disable-audit",
+  "executable":"/usr/bin/systemctl",
+  "argv":["disable","auditd"],
+  "targets":["audit-policy"],
+  "mutation":true,
+  "privilege":true,
+  "risk":"critical",
+  "risk_score":4,
+  "validation":["none"],
+  "rollback":["none"],
+  "state_age_seconds":0,
+  "state_digest":"3333333333333333333333333333333333333333333333333333333333333333",
+  "approval_scope":"command",
+  "prohibited_traits":["disable_audit"]
+}

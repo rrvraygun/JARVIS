@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://jarvis.local/schemas/power-profile.schema.json",
+  "title": "JARVIS power profile",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "profile_id", "name", "goal", "variants", "version", "profile_digest"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "profile_id": {"type": "string", "pattern": "^profile_[a-f0-9]{16}$"},
+    "name": {"type": "string", "minLength": 1, "maxLength": 120},
+    "goal": {"enum": ["battery", "performance", "quiet", "thermal", "balanced"]},
+    "variants": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ac", "battery"],
+      "properties": {
+        "ac": {"type": "object", "additionalProperties": {"type": "string"}},
+        "battery": {"type": "object", "additionalProperties": {"type": "string"}}
+      }
+    },
+    "version": {"type": "integer", "minimum": 1},
+    "profile_digest": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  },
+  "$defs": {
+    "application_result": {
+      "title": "Verified power profile application result",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema_version", "profile_id", "profile_digest", "selected_variant", "pre_activation", "requested", "resulting", "changed", "status", "record_digest"],
+      "properties": {
+        "schema_version": {"const": 1},
+        "profile_id": {"type": "string"},
+        "profile_name": {"type": "string"},
+        "goal": {"enum": ["battery", "performance", "quiet", "thermal", "balanced"]},
+        "selected_variant": {"enum": ["ac", "battery"]},
+        "profile_digest": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "transaction_timestamp": {"type": "string"},
+        "pre_activation": {"type": "object"},
+        "requested": {"type": "object", "additionalProperties": {"type": "string"}},
+        "resulting": {"type": "object"},
+        "changed": {"type": "object"},
+        "unchanged": {"type": "array"},
+        "skipped": {"type": "array"},
+        "status": {"enum": ["applied", "failed", "indeterminate"]},
+        "recovery": {"type": ["object", "null"]},
+        "record_digest": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+      }
+    }
+  }
+}

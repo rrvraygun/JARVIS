@@ -1,0 +1,199 @@
+{
+  "schema_version": 1,
+  "blueprint_id": "fedora-workstation-full-system-twin",
+  "version": "1.0.0",
+  "status": "prepared_unresolved",
+  "implementation_status": "design_only",
+  "execution_enabled": false,
+  "vm_exists": false,
+  "host_readiness_observed": false,
+  "image_acquired": false,
+  "identity": {
+    "guest_class": "disposable_non_production_system_twin",
+    "operating_system": "Fedora Workstation",
+    "edition": "Workstation",
+    "architecture": null,
+    "release": null,
+    "image_lock_id": "fedora-workstation-unresolved",
+    "full_gui_payload_required": true,
+    "software_identity_source": "future_approved_enrollment_and_official_image_lock"
+  },
+  "resource_policy": {
+    "status": "unresolved_until_approved_readiness",
+    "selected_vcpus": null,
+    "selected_memory_bytes": null,
+    "selected_disk_bytes": null,
+    "minimum_full_workstation": {
+      "vcpus": 4,
+      "memory_bytes": 8589934592,
+      "disk_bytes": 85899345920
+    },
+    "preferred_full_workstation": {
+      "vcpus": 8,
+      "memory_bytes": 17179869184,
+      "disk_bytes": 137438953472
+    },
+    "selection_rules": [
+      "Preserve host responsiveness and storage safety margins before maximizing guest fidelity.",
+      "Never infer available capacity from total capacity.",
+      "Select only after fresh bounded readiness facts are reviewed.",
+      "Stop when the full-workstation minimum cannot be met safely; do not silently downgrade to a server or container image.",
+      "Record the chosen resources and supporting fact revisions in the future domain lock."
+    ]
+  },
+  "boot_profiles": [
+    {
+      "id": "headless_system_validation",
+      "purpose": "Fast deterministic validation of system services and terminal-oriented procedures while retaining the complete Workstation installation.",
+      "installed_payload": "full_fedora_workstation",
+      "boot_goal": "multi_user",
+      "control_surface": "future_registered_serial_console_and_guest_control_protocol",
+      "graphical_session_started": false,
+      "runtime_network": "off",
+      "validates": [
+        "boot_kernel",
+        "packages_updates_offline_state",
+        "system_services",
+        "storage_filesystems",
+        "SELinux",
+        "logs",
+        "containers_without_external_network",
+        "Bash_procedure_parsing"
+      ],
+      "cannot_validate": [
+        "GDM_login",
+        "GNOME_Shell",
+        "Wayland_session",
+        "desktop_portals",
+        "graphical_settings_exposure",
+        "visual_brightness_or_keyboard_light_result"
+      ]
+    },
+    {
+      "id": "graphical_workstation_validation",
+      "purpose": "Validate the Fedora Workstation desktop stack and virtual display/input/audio integration when a graphical session is relevant.",
+      "installed_payload": "full_fedora_workstation",
+      "boot_goal": "graphical",
+      "control_surface": "future_registered_guest_control_protocol_plus_private_local_display_channel",
+      "graphical_session_started": true,
+      "runtime_network": "off",
+      "validates": [
+        "GDM_login",
+        "GNOME_Shell",
+        "Wayland_session",
+        "desktop_portals",
+        "UPower_desktop_exposure",
+        "power_profiles_daemon_integration",
+        "PipeWire_WirePlumber",
+        "virtual_display_input_audio"
+      ],
+      "cannot_validate": [
+        "physical_panel_luminance",
+        "physical_keyboard_LED_output",
+        "real_GPU_power_rails",
+        "firmware_hotkeys",
+        "embedded_controller_behavior"
+      ]
+    }
+  ],
+  "virtual_hardware": {
+    "machine_type": null,
+    "firmware": {
+      "mode": "UEFI_preferred",
+      "implementation": null,
+      "secure_boot": "match_only_when_supported_and_required_by_enrollment"
+    },
+    "cpu": "host_compatible_virtual_cpu_selected_after_readiness",
+    "memory": "fixed_per_domain_lock_no_ballooning_during_measurement",
+    "storage_controller": "virtio",
+    "system_disk": "qcow2_external_overlay_over_read_only_base",
+    "graphics": "virtio_gpu_without_physical_passthrough",
+    "display": "private_local_virtual_display_no_clipboard",
+    "input": ["virtual_keyboard", "virtual_pointer"],
+    "audio": "virtual_audio_only_when_scenario_requires_it",
+    "randomness": "virtual_rng_with_no_guest_to_host_control_channel",
+    "guest_agent": "unresolved_separate_protocol_review",
+    "device_passthrough": false,
+    "physical_GPU_passthrough": false,
+    "host_USB_passthrough": false
+  },
+  "software_fidelity_targets": [
+    "Fedora release and architecture",
+    "kernel release family when guest support permits",
+    "RPM and Flatpak package versions needed by a scenario",
+    "GNOME, GDM, Wayland, UPower, power-profiles-daemon and switcheroo-control",
+    "PipeWire, WirePlumber and desktop portals",
+    "systemd units, SELinux policy class and boot configuration relevant to a scenario",
+    "filesystem and storage behavior supported by virtual devices",
+    "Bash and locally installed documentation matching observed versions"
+  ],
+  "isolation": {
+    "runtime_network": "none",
+    "provisioning_network": "separate_explicitly_approved_window_only",
+    "provisioning_network_removed_before_baseline_attestation": true,
+    "host_filesystem_shares": "none",
+    "clipboard": "off",
+    "drag_and_drop": "off",
+    "host_USB": "off",
+    "GPU_passthrough": "off",
+    "credential_transfer": "prohibited",
+    "production_audit_mount": "prohibited",
+    "production_knowledge_mount": "prohibited",
+    "TUI_hypervisor_access": "prohibited",
+    "model_hypervisor_access": "prohibited",
+    "guest_host_control": "typed_registered_protocol_only_after_separate_review",
+    "guest_evidence": "untrusted_until_bounded_redacted_and_validated_outside_guest"
+  },
+  "storage_lifecycle": {
+    "golden_base": "powered_off_clean_read_only",
+    "baseline_digest_required": true,
+    "domain_definition_digest_required": true,
+    "firmware_digest_required": true,
+    "scenario_storage": "one_fresh_external_overlay_per_run",
+    "overlay_reuse": "prohibited",
+    "failed_or_ambiguous_overlay_reuse": "prohibited",
+    "snapshot_semantics": "offline_clean_baseline_only",
+    "crash_consistent_snapshot_accepted_as_clean": false,
+    "disposal": "after_evidence_finalization_and_outside_guest_attestation",
+    "base_digest_rechecked_after_every_run": true
+  },
+  "control_and_evidence": {
+    "arbitrary_shell_from_model": false,
+    "arbitrary_domain_definition": false,
+    "arbitrary_image_reference": false,
+    "registered_operation_only": true,
+    "registered_scenario_only": true,
+    "attempt_limit": 1,
+    "automatic_retry": false,
+    "fixed_timeout_required": true,
+    "output_limit_required": true,
+    "terminal_control_rejection_required": true,
+    "redaction_before_export": true,
+    "outside_guest_attestation_required": true,
+    "immutable_run_record_required": true,
+    "private_chain_of_thought_persisted": false
+  },
+  "baseline_acceptance": [
+    "Official supported Fedora Workstation artifact identity is locked and signature/checksum verification is complete.",
+    "The future domain, machine type, firmware, base image and installed package-set identities are digest-bound.",
+    "The guest reaches both declared boot profiles through separate disposable overlays.",
+    "Runtime network, sharing, clipboard, drag/drop, USB passthrough and GPU passthrough are absent.",
+    "The base is cleanly powered off and read-only before any scenario overlay is created.",
+    "Reset and evidence-export failures have been rehearsed without treating failure as success."
+  ],
+  "known_physical_limits": [
+    "A normal VM cannot mirror the physical NVIDIA power state or GPU-to-panel wiring.",
+    "Virtual backlight and LED providers do not prove physical brightness or keyboard lighting.",
+    "ACPI, embedded-controller, firmware-hotkey, battery and thermal behavior require separately approved physical evidence.",
+    "Software success in the guest is not sufficient evidence that a hardware repair is safe or effective on the workstation."
+  ],
+  "stop_conditions": [
+    "Host readiness is unknown, stale, contradictory or below the safe minimum.",
+    "The Fedora image, signed checksum, trusted key fingerprint or supported-release status is unresolved.",
+    "A requested feature requires passthrough, a host share, credentials or runtime networking.",
+    "Domain identity, baseline identity, overlay freshness or reset attestation fails.",
+    "Output is malformed, hostile, truncated, unbounded or contains an unexpected effect.",
+    "An operation would broaden from the exact approved gate or target."
+  ],
+  "next_gate": "L2_virtualization_readiness_observation_not_authorized"
+}

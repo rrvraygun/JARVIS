@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "run_id": "fixture:lighting-baseline:0001",
+  "mode": "fixture",
+  "matrix_id": "lighting-controls",
+  "matrix_version": "1.0.0",
+  "profile_digest": "unresolved",
+  "image_lock_digest": "unresolved",
+  "domain_digest": "unresolved",
+  "overlay_digest_before": "not_applicable",
+  "started_at": "2026-08-05T00:00:00Z",
+  "finished_at": "2026-08-05T00:00:00Z",
+  "attempt": 1,
+  "result": "passed",
+  "unexpected_conditions": [],
+  "reset_attestation": {
+    "vm_started": false,
+    "overlay_created": false,
+    "host_observed": false,
+    "mutation_attempted": false,
+    "fixture_state_discarded_in_memory": true
+  },
+  "evidence_refs": [
+    "matrix:lighting-controls@1.0.0",
+    "scenario:lighting-baseline"
+  ]
+}

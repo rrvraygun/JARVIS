@@ -1,0 +1,14 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "type":"object",
+  "required":["status","collected_at","scope","observations","unknowns","recommended_actions"],
+  "properties":{
+    "status":{"enum":["healthy","attention","critical","unknown"]},
+    "collected_at":{"type":"string"},
+    "scope":{"type":"array","items":{"type":"string"}},
+    "observations":{"type":"array","items":{"type":"object"}},
+    "unknowns":{"type":"array","items":{"type":"string"}},
+    "recommended_actions":{"type":"array","items":{"type":"object"}}
+  },
+  "additionalProperties":false
+}

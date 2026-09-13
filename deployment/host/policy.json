@@ -1,0 +1,181 @@
+{
+  "schema_version": 1,
+  "policy_id": "jarvis-single-fedora-direct-host",
+  "version": "1.0.0",
+  "status": "prepared_unenrolled",
+  "target": {
+    "role": "primary_personal_product_environment",
+    "workstation_count": 1,
+    "operating_system_family": "Fedora Workstation",
+    "hardware_scope": "this_enrolled_workstation_only",
+    "identity": "unresolved",
+    "future_expansion": "new_adapter_and_enrollment_revision_required"
+  },
+  "laboratory_relationship": {
+    "direct_host": "primary_deployment_and_physical_evidence_target",
+    "full_workstation_vm": "secondary_software_regression_and_recovery_rehearsal_target",
+    "fixtures": "contract_parser_and_policy_regression_target",
+    "vm_success_proves_physical_hardware_behavior": false
+  },
+  "current_authority": {
+    "host_observation_enabled": false,
+    "privileged_observation_enabled": false,
+    "mutation_enabled": false,
+    "snapshot_creation_enabled": false,
+    "backup_creation_enabled": false,
+    "restore_enabled": false,
+    "installation_enabled": false,
+    "service_deployment_enabled": false,
+    "trusted_safe_list_enabled": false,
+    "self_modification_enabled": false
+  },
+  "operating_modes": [
+    {
+      "id": "fixture",
+      "purpose": "Validate parsers, policy, audit, approvals, and procedure logic without host evidence.",
+      "host_reads": false,
+      "host_mutations": false,
+      "current_status": "available"
+    },
+    {
+      "id": "shadow",
+      "purpose": "Use approved bounded read-only host evidence to diagnose and prepare actions without execution.",
+      "host_reads": true,
+      "host_mutations": false,
+      "current_status": "blocked_on_enrollment"
+    },
+    {
+      "id": "supervised",
+      "purpose": "Execute one exact state-changing action after action-specific approval and verified recovery prerequisites.",
+      "host_reads": true,
+      "host_mutations": true,
+      "current_status": "blocked_on_shadow_and_recovery"
+    },
+    {
+      "id": "earned_safe_list",
+      "purpose": "Allow only exact repeatedly successful procedure revisions under explicit policy promotion.",
+      "host_reads": true,
+      "host_mutations": true,
+      "current_status": "disabled"
+    }
+  ],
+  "recovery_levels": [
+    {
+      "id": "R0_record_only",
+      "protects": ["decision history", "command attempt record", "small project-file changes with an independent copy"],
+      "does_not_protect": ["operating system", "user data", "boot chain", "disk failure"],
+      "required_evidence": ["pre-state record", "post-state record", "verified project copy"]
+    },
+    {
+      "id": "R1_local_filesystem_snapshot",
+      "protects": ["included filesystem subvolumes or logical volumes at one point in time", "fast file or subvolume rollback"],
+      "does_not_protect": ["same-disk failure", "excluded or nested subvolumes", "separate boot or EFI filesystems", "partition table", "firmware or NVRAM"],
+      "required_evidence": ["detected snapshot backend", "exact included and excluded mount graph", "read-only snapshot identity", "free-space safety margin", "documented restore procedure"]
+    },
+    {
+      "id": "R2_external_system_backup",
+      "protects": ["approved root and home state on independent encrypted storage", "same-disk loss for included data", "separately captured boot and EFI content when present"],
+      "does_not_protect": ["uncaptured devices or partitions", "firmware or NVRAM", "unverified restore procedure"],
+      "required_evidence": ["independent destination", "encryption", "integrity identity", "restore rehearsal", "freshness within procedure policy"]
+    },
+    {
+      "id": "R3_offline_full_device_recovery",
+      "protects": ["partition table and included block-device contents", "recovery from boot-critical or filesystem-layout changes when the image and restore path are verified"],
+      "does_not_protect": ["firmware flashing consequences", "hardware failure beyond replaceable storage", "unverified target selection"],
+      "required_evidence": ["offline acquisition", "independent destination", "whole-device scope", "integrity verification", "bootable rescue environment", "tested restore to a non-production target or equivalent controlled rehearsal"]
+    }
+  ],
+  "backend_selection": {
+    "status": "unresolved_until_read_only_enrollment",
+    "supported_classes": [
+      "Btrfs read-only subvolume snapshot plus send/receive",
+      "LVM thin snapshot plus independent backup",
+      "filesystem-aware external backup",
+      "offline full-device image"
+    ],
+    "selection_inputs": [
+      "root filesystem type",
+      "subvolume or logical-volume graph",
+      "root, home, var, boot and EFI mount boundaries",
+      "encryption and unlock topology",
+      "available and independently stored capacity",
+      "boot mode and previous-kernel recovery",
+      "installed snapshot and backup tooling",
+      "restore test feasibility"
+    ],
+    "never_assume_default_fedora_layout": true,
+    "same_device_snapshot_is_backup": false,
+    "package_history_is_system_restore": false
+  },
+  "action_classes": [
+    {
+      "id": "A0_read_only",
+      "examples": ["bounded inventory", "health state", "local package metadata", "service state", "lighting diagnosis without writes"],
+      "minimum_recovery_level": "R0_record_only",
+      "approval": "activated_enrollment_policy",
+      "snapshot_required": false
+    },
+    {
+      "id": "A1_user_space_reversible",
+      "examples": ["Jarvis project files", "isolated user environment", "non-authoritative generated reports"],
+      "minimum_recovery_level": "R0_record_only",
+      "approval": "per_exact_change",
+      "snapshot_required": false
+    },
+    {
+      "id": "A2_package_or_system_configuration",
+      "examples": ["install or remove package", "change a system service", "change a system configuration file"],
+      "minimum_recovery_level": "R1_local_filesystem_snapshot",
+      "approval": "per_command",
+      "snapshot_required": true
+    },
+    {
+      "id": "A3_kernel_driver_boot_or_graphics",
+      "examples": ["kernel or NVIDIA package", "initramfs", "boot arguments", "display manager or graphics-stack repair"],
+      "minimum_recovery_level": "R2_external_system_backup",
+      "approval": "per_command_plus_reboot_checkpoint",
+      "snapshot_required": true
+    },
+    {
+      "id": "A4_storage_security_or_recovery_critical",
+      "examples": ["partition or filesystem layout", "bootloader repair", "encryption layout", "SELinux policy broadening", "backup deletion"],
+      "minimum_recovery_level": "R3_offline_full_device_recovery",
+      "approval": "per_command_plus_manual_recovery_confirmation",
+      "snapshot_required": true
+    },
+    {
+      "id": "A5_never_positive",
+      "examples": ["erase audit history", "disable recovery to bypass a gate", "unrestricted root shell", "overwrite unknown or user content", "self-approve agent changes"],
+      "minimum_recovery_level": null,
+      "approval": "prohibited",
+      "snapshot_required": false
+    }
+  ],
+  "transaction_invariants": {
+    "exact_target_required": true,
+    "fresh_pre_state_required": true,
+    "planned_effects_and_surprise_conditions_required": true,
+    "recovery_level_must_cover_every_touched_boundary": true,
+    "recovery_artifact_created_and_verified_before_mutation": true,
+    "snapshot_identifier_bound_to_approval": true,
+    "one_state_changing_attempt": true,
+    "automatic_retry": false,
+    "automatic_rollback": false,
+    "post_change_validation_required": true,
+    "unexpected_output_or_effect_stops": true,
+    "failed_validation_requires_diagnosis_before_restore_decision": true,
+    "restore_is_separately_approved_state_change": true,
+    "audit_finalization_required": true
+  },
+  "gates": [
+    {"id": "H0_direct_host_contract", "status": "complete", "user_decision_required": false},
+    {"id": "H1_bounded_read_only_enrollment", "status": "blocked_on_fresh_user_authorization", "user_decision_required": true},
+    {"id": "H2_recovery_backend_selection", "status": "blocked", "user_decision_required": false},
+    {"id": "H3_recovery_artifact_creation", "status": "blocked", "user_decision_required": true},
+    {"id": "H4_restore_rehearsal", "status": "blocked", "user_decision_required": true},
+    {"id": "H5_shadow_mode_deployment", "status": "blocked", "user_decision_required": true},
+    {"id": "H6_first_supervised_lighting_case", "status": "blocked", "user_decision_required": true},
+    {"id": "H7_evidence_based_safe_list", "status": "disabled", "user_decision_required": true}
+  ],
+  "next_gate": "H1_bounded_read_only_enrollment"
+}

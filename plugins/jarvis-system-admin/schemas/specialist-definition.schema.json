@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://jarvis.local/schemas/specialist-definition.schema.json",
+  "title": "JARVIS specialist definition",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "id",
+    "display_name",
+    "version",
+    "purpose",
+    "prompt",
+    "knowledge_kinds",
+    "knowledge_sources",
+    "capabilities",
+    "allowed_tools",
+    "context_limit",
+    "retention",
+    "mutations",
+    "network",
+    "selectable",
+    "status"
+  ],
+  "properties": {
+    "schema_version": {"const": 2},
+    "id": {"type": "string", "pattern": "^jarvis-[a-z0-9_-]+$", "maxLength": 160},
+    "display_name": {"type": "string", "minLength": 1, "maxLength": 160},
+    "version": {"type": "string", "minLength": 1, "maxLength": 80},
+    "purpose": {"type": "string", "minLength": 1, "maxLength": 500},
+    "prompt": {"type": "string", "minLength": 1, "maxLength": 8000},
+    "knowledge_kinds": {"type": "array", "items": {"type": "string"}, "maxItems": 32},
+    "knowledge_sources": {"type": "array", "items": {"type": "string"}, "maxItems": 32},
+    "capabilities": {"type": "array", "items": {"type": "string"}, "maxItems": 32},
+    "allowed_tools": {"type": "array", "items": {"type": "string"}, "maxItems": 32},
+    "context_limit": {"type": "integer", "minimum": 1000, "maximum": 64000},
+    "retention": {"const": "bounded"},
+    "mutations": {
+      "enum": [
+        "project-branch-only",
+        "registered-actions-only",
+        "approval-gated-current-user-and-registered-host"
+      ]
+    },
+    "network": {"enum": ["offline", "official-allowlist"]},
+    "selectable": {"type": "boolean"},
+    "status": {"const": "enabled"}
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "type":"object",
+  "required":["sink_id","transport","append_only","encrypted","enabled"],
+  "properties":{
+    "sink_id":{"type":"string"},
+    "transport":{"enum":["ssh-restricted","object-lock","transparency-log","offline-media"]},
+    "append_only":{"const":true},
+    "encrypted":{"const":true},
+    "enabled":{"type":"boolean"},
+    "credential_provider":{"type":["string","null"]},
+    "destination":{"type":["string","null"]}
+  },
+  "additionalProperties":false
+}

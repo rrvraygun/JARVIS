@@ -1,0 +1,4 @@
+{
+  "mode": "enforcing",
+  "policy_class": "targeted-synthetic"
+}

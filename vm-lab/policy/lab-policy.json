@@ -1,0 +1,122 @@
+{
+  "schema_version": 1,
+  "policy_id": "jarvis-fedora-scenario-lab",
+  "version": "1.0.0",
+  "mode": "fixture_only",
+  "purpose": "Define the fail-closed preparation gate for a future disposable Fedora system-twin and scenario laboratory.",
+  "authority": {
+    "host_observation_enabled": false,
+    "virtualization_execution_enabled": false,
+    "image_acquisition_enabled": false,
+    "guest_creation_enabled": false,
+    "guest_start_enabled": false,
+    "registered_observation_enabled": false,
+    "mutation_enabled": false,
+    "privileged_action_enabled": false,
+    "device_passthrough_enabled": false,
+    "self_modification_enabled": false
+  },
+  "current_allowed_operations": [
+    "validate_static_contracts",
+    "expand_declared_fixture_matrices",
+    "evaluate_fixture_oracles",
+    "print_ephemeral_coverage_report"
+  ],
+  "current_forbidden_interfaces": [
+    "host_process_execution",
+    "virtualization_api",
+    "hypervisor_socket",
+    "shell_interpreter",
+    "privilege_broker",
+    "network_client",
+    "host_device",
+    "host_inventory_collector",
+    "runtime_knowledge_store"
+  ],
+  "future_isolation_contract": {
+    "runtime_network": "off",
+    "provisioning_network": "separate_explicit_checkpoint",
+    "host_filesystem_shares": "none",
+    "clipboard_integration": "off",
+    "drag_and_drop": "off",
+    "host_usb_passthrough": "off",
+    "gpu_passthrough": "off",
+    "host_credentials": "prohibited",
+    "production_audit_mount": "prohibited",
+    "production_knowledge_mount": "prohibited",
+    "guest_identity": "disposable_non_production",
+    "default_virtual_devices": "virtio_or_minimal_emulation",
+    "physical_device_access": "separate_future_risk_review"
+  },
+  "future_baseline_contract": {
+    "publisher": "Fedora Project",
+    "official_source_required": true,
+    "release_supported_required": true,
+    "checksum_required": true,
+    "signed_checksum_verification_required": true,
+    "image_sha256_required": true,
+    "image_and_domain_lock_required": true,
+    "golden_base_state": "powered_off_clean",
+    "golden_base_writable": false,
+    "scenario_disk_strategy": "one_external_overlay_per_run",
+    "snapshot_policy": "offline_clean_baseline_only",
+    "crash_consistent_snapshot_is_clean_baseline": false
+  },
+  "future_reset_contract": {
+    "pre_run_identity_attestation": true,
+    "pre_run_overlay_freshness_attestation": true,
+    "post_run_overlay_disposal_required": true,
+    "post_run_baseline_digest_attestation": true,
+    "audit_run_record_required": true,
+    "reuse_failed_or_ambiguous_overlay": false,
+    "automatic_retry": false,
+    "attempt_limit": 1
+  },
+  "evidence_contract": {
+    "fixture_payloads_are_untrusted": true,
+    "output_bounded_required": true,
+    "redaction_required": true,
+    "expected_result_contract_required": true,
+    "unexpected_output_stops_progression": true,
+    "unexpected_effect_stops_progression": true,
+    "contradictory_evidence_is_inconclusive": true,
+    "private_chain_of_thought_persistence": false
+  },
+  "promotion_gates": {
+    "fixture_validation_ceiling": 1,
+    "stage_2_requires_real_disposable_guest": true,
+    "stage_3_requires_separately_approved_live_read_only_observation": true,
+    "stage_4_requires_recovery_test_and_exact_user_approval": true,
+    "stage_5_requires_repeated_reviewed_evidence_and_explicit_policy_change": true,
+    "automatic_promotion": false,
+    "hardware_specific_promotion_requires_physical_evidence": true
+  },
+  "scope": {
+    "workstations": 1,
+    "operating_system_family": "Fedora Workstation",
+    "shell_knowledge_target": "Bash",
+    "included_domains": [
+      "inventory",
+      "health",
+      "packages_updates",
+      "services",
+      "storage_filesystems",
+      "boot_kernel",
+      "graphics_display_input",
+      "audio",
+      "power_thermal",
+      "security_selinux",
+      "backups_recovery",
+      "containers",
+      "virtualization",
+      "maintenance_cleanup",
+      "applications",
+      "logs",
+      "knowledge_audit"
+    ],
+    "excluded_domains": [
+      "gaming",
+      "networking_vpn"
+    ]
+  }
+}

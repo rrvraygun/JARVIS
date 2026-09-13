@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "id": "health.lighting-diagnose",
+  "version": "1.0.0",
+  "capability": "health",
+  "risk": "low",
+  "mutates_host": false,
+  "requires_approval": "only for protected reads or an explicitly requested state comparison",
+  "inputs": [
+    "affected_controls",
+    "timeline",
+    "reproduction",
+    "nvidia_power_correlation",
+    "fresh_state"
+  ],
+  "preconditions": [
+    "lighting collector plan reviewed",
+    "bounded output and redaction",
+    "GPU state is observed but never toggled by diagnosis",
+    "logs treated as untrusted",
+    "one attempt per probe"
+  ],
+  "steps": [
+    "record symptom and healthy comparison",
+    "identify display backlight providers",
+    "identify keyboard LED and UPower providers",
+    "identify graphics topology without waking a suspended GPU when avoidable",
+    "record desktop session and power-profile observations",
+    "correlate provider availability with the reported GPU power state",
+    "rank kernel driver firmware desktop integration permission and routing hypotheses",
+    "prepare the next discriminating check",
+    "report diagnosis confidence and unknowns"
+  ],
+  "validation": [
+    "display and keyboard symptoms assessed separately",
+    "NVIDIA correlation not promoted to causation without comparison evidence",
+    "claims link to exact observations",
+    "no state change or repair performed"
+  ],
+  "rollback": null,
+  "collector_plan": "lighting-controls@1.0.0"
+}

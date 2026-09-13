@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "capabilities": [
+    {"id":"inventory","max_level":1,"default_enabled":true,"mutation":false,"privilege":"none","skills":["system-inventory"]},
+    {"id":"health","max_level":2,"default_enabled":true,"mutation":false,"privilege":"optional-read","skills":["system-health"]},
+    {"id":"state","max_level":2,"default_enabled":true,"mutation":true,"privilege":"workspace-only","skills":["system-state"]},
+    {"id":"knowledge","max_level":2,"default_enabled":true,"mutation":false,"privilege":"workspace-only","skills":["system-knowledge"]},
+    {"id":"benchmark","max_level":3,"default_enabled":false,"mutation":true,"privilege":"optional","skills":["system-benchmark"]},
+    {"id":"maintenance","max_level":3,"default_enabled":false,"mutation":true,"privilege":"optional","skills":["system-maintenance"]},
+    {"id":"update","max_level":4,"default_enabled":false,"mutation":true,"privilege":"required","skills":["system-update"]},
+    {"id":"repair","max_level":4,"default_enabled":false,"mutation":true,"privilege":"required","skills":["system-repair"]},
+    {"id":"security","max_level":4,"default_enabled":false,"mutation":true,"privilege":"required","skills":["system-security"]},
+    {"id":"backup","max_level":4,"default_enabled":false,"mutation":true,"privilege":"optional","skills":[]},
+    {"id":"recovery","max_level":4,"default_enabled":false,"mutation":true,"privilege":"required","skills":[]},
+    {"id":"drift","max_level":2,"default_enabled":true,"mutation":false,"privilege":"none","skills":["system-state"]},
+    {"id":"incident-response","max_level":4,"default_enabled":false,"mutation":true,"privilege":"required","skills":[]},
+    {"id":"notification","max_level":3,"default_enabled":false,"mutation":true,"privilege":"network","skills":[]},
+    {"id":"power","max_level":3,"default_enabled":false,"mutation":true,"privilege":"required","skills":["system-power"]},
+    {"id":"development","max_level":3,"default_enabled":true,"mutation":true,"privilege":"project-only","skills":["cargo-builder"]},
+    {"id":"network","max_level":2,"default_enabled":true,"mutation":false,"privilege":"optional-read","skills":[]},
+    {"id":"self-update","max_level":4,"default_enabled":false,"mutation":true,"privilege":"workspace-and-install","skills":[]}
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "id": "lighting-tier3-connector-association-readonly",
+  "version": "1.0.0",
+  "platform": "Fedora Workstation",
+  "execution_enabled": true,
+  "authority": "H2-read-only-device-wake-possible",
+  "attempt_limit": 1,
+  "privilege": "unprivileged",
+  "network": false,
+  "default_output_limit_bytes": 65536,
+  "collect_sensitive": false,
+  "purpose": "Associate firmware backlight providers with PCI graphics devices and read only internal eDP connector status to identify the likely panel path.",
+  "probe_groups": [
+    {
+      "id": "drm-card-identity",
+      "source": "/sys/class/drm/cardN/device",
+      "fields": ["card name", "PCI device basename", "vendor", "device", "class", "driver"]
+    },
+    {
+      "id": "internal-edp-connectors",
+      "source": "/sys/class/drm/cardN-eDP-*",
+      "fields": ["connector name", "status only"]
+    },
+    {
+      "id": "backlight-provider-association",
+      "source": "/sys/class/backlight provider symlink targets",
+      "fields": ["provider name", "type", "PCI device basename", "driver"]
+    }
+  ],
+  "forbidden_operations": [
+    "connector status outside fixed internal eDP candidates",
+    "sysfs write",
+    "WMI or ACPI method evaluation",
+    "module parameter write",
+    "driver bind or unbind",
+    "raw input event read",
+    "D-Bus call or service activation",
+    "GPU client launch",
+    "protected log read",
+    "subprocess execution",
+    "network access"
+  ],
+  "effects": {
+    "connector_status_may_wake_hardware": true,
+    "state_change": false
+  },
+  "fact_keys": ["lighting.connector.association"]
+}

@@ -1,0 +1,63 @@
+{
+  "activation_gate": {
+    "current_activation_authorized": true,
+    "fixture_and_vm_rehearsal_required": true,
+    "least_privilege_required": true,
+    "new_security_review_required": false,
+    "new_user_decision_required": false,
+    "os_service_identity_required": true,
+    "private_local_transport_required": true
+  },
+  "current_capabilities": [
+    "bounded_tier0_read_only_observation"
+  ],
+  "device_access_enabled": false,
+  "mutation_enabled": false,
+  "execution_enabled": false,
+  "future_separation": {
+    "broker_role": "typed_request_and_policy_coordination_only",
+    "controller_role": "registered_lab_operations_only",
+    "guest_role": "untrusted_scenario_target",
+    "model_role": "planning_and_interpretation_only",
+    "outside_guest_attestor_required": true,
+    "tui_role": "presentation_and_consent_only"
+  },
+  "host_observation_enabled": true,
+  "implementation_status": "h1_tier0_enabled",
+  "network_enabled": false,
+  "never_exposed_to_tui_or_model": [
+    "shell",
+    "process_handle",
+    "hypervisor_socket",
+    "arbitrary_domain_definition",
+    "arbitrary_image_path",
+    "host_device_handle",
+    "passthrough_handle",
+    "privilege_broker",
+    "production_audit_store",
+    "production_knowledge_store",
+    "credential_material"
+  ],
+  "operational_authority": true,
+  "persistence_enabled": false,
+  "policy_id": "jarvis-future-vm-controller",
+  "privilege_enabled": false,
+  "request_invariants": {
+    "attempt_limit": 1,
+    "automatic_retry": false,
+    "exact_operation_revision": true,
+    "exact_parameter_allowlist": true,
+    "exact_target_reference": true,
+    "expiry_required": true,
+    "idempotency_key_required": true,
+    "policy_digest_required": true,
+    "registered_operation_only": true,
+    "state_digest_required_when_resolved": true,
+    "unexpected_field_rejected": true
+  },
+  "schema_version": 1,
+  "service_process_exists": true,
+  "transport": "unix-user-private",
+  "version": "1.0.0",
+  "virtualization_enabled": false
+}

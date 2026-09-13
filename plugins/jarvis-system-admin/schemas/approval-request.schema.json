@@ -1,0 +1,21 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "type":"object",
+  "required":["request_id","scope","scope_reference","action_digest","state_digest","targets","risk_score","expected_effects","validation","rollback","expires_after_seconds"],
+  "properties":{
+    "request_id":{"type":"string"},
+    "scope":{"enum":["command","procedure","transaction"]},
+    "scope_reference":{"type":"string"},
+    "action_digest":{"type":"string","pattern":"^[a-f0-9]{64}$"},
+    "state_digest":{"type":"string","pattern":"^[a-f0-9]{64}$"},
+    "targets":{"type":"array","items":{"type":"string"},"minItems":1},
+    "risk_score":{"type":"integer","minimum":0,"maximum":4},
+    "expected_effects":{"type":"array","items":{"type":"string"}},
+    "validation":{"type":"array","items":{"type":"string"},"minItems":1},
+    "rollback":{"type":["array","null"],"items":{"type":"string"}},
+    "irreversible_reason":{"type":["string","null"]},
+    "expires_after_seconds":{"type":"integer","minimum":1,"maximum":3600},
+    "independent_review":{"type":["object","null"]}
+  },
+  "additionalProperties":false
+}

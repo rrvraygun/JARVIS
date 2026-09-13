@@ -1,0 +1,21 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "type":"object",
+  "required":["fact_key","value","collected_at","collector","collector_version","privacy_class","prerequisites","status"],
+  "properties":{
+    "fact_id":{"type":"string"},
+    "fact_key":{"type":"string","pattern":"^[a-z0-9][a-z0-9_.-]+$"},
+    "value":{},
+    "value_type":{"type":"string"},
+    "collected_at":{"type":"string","format":"date-time"},
+    "valid_until":{"type":["string","null"],"format":"date-time"},
+    "collector":{"type":"string"},
+    "collector_version":{"type":"string"},
+    "source_attempt_id":{"type":["string","null"]},
+    "privacy_class":{"enum":["public","internal","restricted","secret"]},
+    "prerequisites":{"type":"object"},
+    "status":{"enum":["current","superseded","suspended"]}
+  },
+  "additionalProperties":false
+}
+

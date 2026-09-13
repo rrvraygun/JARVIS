@@ -1,0 +1,18 @@
+# Organization-managed example. Review paths and identities before deployment.
+allowed_sandbox_modes = ["read-only", "workspace-write", "danger-full-access"]
+allowed_approval_policies = ["untrusted", "on-request", "granular"]
+allowed_approvals_reviewers = ["user"]
+allow_login_shell = false
+allow_remote_control = false
+
+[features]
+hooks = true
+multi_agent = true
+plugins = true
+
+[plugins."jarvis-system-admin".mcp_servers.jarvis_control.identity.command]
+executable = "python3"
+
+[[plugins."jarvis-system-admin".mcp_servers.jarvis_control.identity.command.args]]
+match = "exact"
+value = "/home/tipexxx/Escritorio/Proyecto/codex-agent-system/plugins/jarvis-system-admin/scripts/mcp_server.py"

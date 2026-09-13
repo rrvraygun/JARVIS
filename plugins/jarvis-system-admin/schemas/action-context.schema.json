@@ -1,0 +1,35 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "title":"Jarvis action context",
+  "type":"object",
+  "required":["capability","procedure","command_id","executable","argv","targets","mutation","privilege","risk_score","validation","state_digest"],
+  "properties":{
+    "capability":{"type":"string"},
+    "procedure":{"type":"string"},
+    "transaction_id":{"type":["string","null"]},
+    "command_id":{"type":"string"},
+    "executable":{"type":"string"},
+    "argv":{"type":"array","items":{"type":"string"}},
+    "targets":{"type":"array","items":{"type":"string"},"minItems":1,"uniqueItems":true},
+    "mutation":{"type":"boolean"},
+    "privilege":{"type":"boolean"},
+    "network":{"type":"boolean"},
+    "external_effect":{"type":"boolean"},
+    "downtime":{"type":"boolean"},
+    "destructive":{"type":"boolean"},
+    "irreversible":{"type":"boolean"},
+    "self_update":{"type":"boolean"},
+    "risk_score":{"type":"integer","minimum":0,"maximum":4},
+    "risk":{"enum":["low","medium","high","critical"]},
+    "validation":{"type":"array","items":{"type":"string"},"minItems":1},
+    "rollback":{"type":["array","null"],"items":{"type":"string"}},
+    "dry_run":{"type":["array","null"],"items":{"type":"string"}},
+    "dry_run_supported":{"type":"boolean"},
+    "state_age_seconds":{"type":["integer","null"],"minimum":0},
+    "state_digest":{"type":"string","pattern":"^[a-f0-9]{64}$"},
+    "approval_scope":{"enum":["command","procedure","transaction"]},
+    "prohibited_traits":{"type":"array","items":{"type":"string"},"uniqueItems":true}
+  },
+  "additionalProperties":true
+}
+

@@ -1,0 +1,7 @@
+{
+  "name": "jarvis-recovery-specialist",
+  "version": "0.1.0",
+  "description": "Bounded Fedora recovery-readiness diagnostics.",
+  "author": {"name": "Local developer"},
+  "interface": {"displayName": "Recovery Specialist", "shortDescription": "Inspect recovery readiness and evidence.", "category": "System"}
+}

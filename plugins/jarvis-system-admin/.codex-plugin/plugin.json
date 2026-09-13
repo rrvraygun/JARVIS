@@ -1,0 +1,22 @@
+{
+  "name": "jarvis-system-admin",
+  "version": "0.2.0+codex.20260805115625",
+  "description": "Audited, policy-governed system administration control plane for Codex",
+  "author": {
+    "name": "Local developer"
+  },
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Jarvis System Admin",
+    "shortDescription": "Govern and audit system administration workflows.",
+    "longDescription": "Jarvis System Admin provides capability registration, deterministic policy decisions, command-scoped approvals, version-aware knowledge records, error and lesson lifecycles, state records, and tamper-evident audit events for least-privilege Codex administration.",
+    "developerName": "Local developer",
+    "category": "Productivity",
+    "capabilities": [
+      "Skills",
+      "MCP"
+    ],
+    "defaultPrompt": "Use $jarvis-control-plane to classify this administration request, identify required evidence and approval, and create an auditable execution plan. Do not execute unapproved changes."
+  },
+  "mcpServers": "./.mcp.json"
+}

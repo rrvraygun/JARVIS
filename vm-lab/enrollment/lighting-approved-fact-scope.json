@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "scope_id": "lighting-passive-readonly-v1",
+  "status": "approved_for_one_use_promotion",
+  "proposal_digest": "0c1fa4a163e0a72f47ea2f4e060f9e1475109d9e902e9be817174fe3532911af",
+  "source_catalog_digest": "35b022ab1587428ae31953c5b51591b46fcfd1333fba198a94c5c4d56efbe038",
+  "groups": ["graphics-display-input"],
+  "entries": [
+    {
+      "adapter_id": "fedora.lighting.passive-readonly",
+      "adapter_version": "1.0.0",
+      "source_id": "graphics.backlight",
+      "fact_ids": ["backlight.providers", "backlight.requested_actual_relationship"]
+    },
+    {
+      "adapter_id": "fedora.lighting.passive-readonly",
+      "adapter_version": "1.0.0",
+      "source_id": "input.keyboard-led",
+      "fact_ids": ["keyboard_light.providers", "keyboard_light.ranges"]
+    },
+    {
+      "adapter_id": "fedora.lighting.passive-readonly",
+      "adapter_version": "1.0.0",
+      "source_id": "graphics.drm-topology",
+      "fact_ids": ["gpu.adapters"]
+    }
+  ]
+}

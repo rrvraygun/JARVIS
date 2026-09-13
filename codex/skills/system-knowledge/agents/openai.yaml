@@ -1,0 +1,5 @@
+interface:
+  display_name: "System Knowledge"
+  short_description: "Index Fedora facts, commands, errors, and lessons"
+  default_prompt: "Use $system-knowledge to retrieve or update evidence-backed Fedora knowledge without changing the host."
+

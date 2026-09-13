@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "tiers": [
+    {"tier": 0, "id": "installed-behavior", "description": "Observed installed version, local Bash help, command help, and local manual", "community_confirmation_required": false},
+    {"tier": 1, "id": "fedora-official", "description": "Version-matched Fedora documentation, packages, release notes, advisories, and change records", "community_confirmation_required": false},
+    {"tier": 2, "id": "upstream-official", "description": "Version-matched upstream project documentation and release notes", "community_confirmation_required": false},
+    {"tier": 3, "id": "maintainer-primary", "description": "Maintainer statements, official issue trackers, and accepted bug reports", "community_confirmation_required": false},
+    {"tier": 4, "id": "curated-secondary", "description": "Reputable curated technical references such as ArchWiki", "community_confirmation_required": true},
+    {"tier": 5, "id": "corroborated-community", "description": "Well-supported technical Q&A and multiple matching user reports", "community_confirmation_required": true},
+    {"tier": 6, "id": "community-report", "description": "Fedora Discussion, upstream issues, specialist forums, and individual reports", "community_confirmation_required": true},
+    {"tier": 7, "id": "anecdotal", "description": "Uncorroborated user experience", "community_confirmation_required": true},
+    {"tier": 8, "id": "discovery-only", "description": "Unverified search result or generated lead; never action evidence", "community_confirmation_required": true}
+  ],
+  "seed_sources": [
+    {"id": "fedora-docs", "tier": 1, "publisher": "Fedora Project", "locator": "https://docs.fedoraproject.org/", "version_strategy": "installed Fedora release"},
+    {"id": "fedora-packages", "tier": 1, "publisher": "Fedora Project", "locator": "https://packages.fedoraproject.org/", "version_strategy": "installed package and Fedora release"},
+    {"id": "fedora-changes", "tier": 1, "publisher": "Fedora Project", "locator": "https://fedoraproject.org/wiki/Changes", "version_strategy": "target Fedora release"},
+    {"id": "gnu-bash", "tier": 2, "publisher": "GNU Project", "locator": "https://www.gnu.org/software/bash/manual/", "version_strategy": "installed Bash major/minor"},
+    {"id": "systemd", "tier": 2, "publisher": "systemd project", "locator": "https://www.freedesktop.org/software/systemd/man/latest/", "version_strategy": "installed systemd version"},
+    {"id": "dnf", "tier": 2, "publisher": "DNF project", "locator": "https://dnf.readthedocs.io/", "version_strategy": "installed DNF major version"},
+    {"id": "archwiki", "tier": 4, "publisher": "Arch Linux community", "locator": "https://wiki.archlinux.org/", "version_strategy": "cross-check Fedora differences"},
+    {"id": "unix-stackexchange", "tier": 5, "publisher": "Stack Exchange community", "locator": "https://unix.stackexchange.com/", "version_strategy": "require corroboration"},
+    {"id": "fedora-discussion", "tier": 6, "publisher": "Fedora community", "locator": "https://discussion.fedoraproject.org/", "version_strategy": "require user confirmation"}
+  ]
+}
+

@@ -1,0 +1,229 @@
+{
+  "schema_version": 1,
+  "actions": [
+    {
+      "id": "health.lighting.observe",
+      "version": "1.0.0",
+      "title": "Observe lighting and graphics state",
+      "summary": "Read fixed, bounded lighting and DRM metadata without device wake, credentials, network, or writes.",
+      "category": "Display and input",
+      "capability": "health",
+      "procedure": "health.lighting-observe@1.0.0",
+      "mode": "observe",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "include_graphics": {"type": "boolean", "default": true}
+        },
+        "additionalProperties": false
+      },
+      "required_facts": ["backlight.providers", "keyboard_light.providers", "gpu.adapters"],
+      "risk_floor": 0,
+      "mutates_host": false,
+      "invokes_agent": true,
+      "availability": "enabled",
+      "implementation_status": "registered_one_use_readonly",
+      "unavailable_reason": null,
+      "tags": ["brightness", "keyboard", "graphics", "read-only"]
+    },
+    {
+      "id": "system.status.explain",
+      "version": "1.0.0",
+      "title": "Explain recorded system status",
+      "summary": "Explain existing Jarvis facts and their freshness without collecting new host data.",
+      "category": "System",
+      "capability": "state",
+      "procedure": "state.record@1.0.0",
+      "mode": "observe",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "focus": {"type": "string", "default": "overview"}
+        },
+        "additionalProperties": false
+      },
+      "required_facts": [],
+      "risk_floor": 0,
+      "mutates_host": false,
+      "invokes_agent": true,
+      "availability": "enabled",
+      "implementation_status": "prepared",
+      "unavailable_reason": null,
+      "tags": ["overview", "facts", "freshness"]
+    },
+    {
+      "id": "knowledge.search",
+      "version": "1.0.0",
+      "title": "Search local knowledge",
+      "summary": "Search recorded facts, documentation, attempts, errors, lessons, or decisions locally.",
+      "category": "Knowledge",
+      "capability": "knowledge",
+      "procedure": "knowledge.record@1.0.0",
+      "mode": "observe",
+      "input_schema": {
+        "type": "object",
+        "required": ["kind", "query"],
+        "properties": {
+          "kind": {"enum": ["facts", "sources", "attempts", "errors", "lessons", "decisions"]},
+          "query": {"type": "string", "minLength": 1}
+        },
+        "additionalProperties": false
+      },
+      "required_facts": [],
+      "risk_floor": 0,
+      "mutates_host": false,
+      "invokes_agent": false,
+      "availability": "enabled",
+      "implementation_status": "prepared",
+      "unavailable_reason": null,
+      "tags": ["offline", "documentation", "history"]
+    },
+    {
+      "id": "health.plan",
+      "version": "1.0.0",
+      "title": "Prepare a health-check plan",
+      "summary": "Prepare an evidence-gathering plan without executing collectors or repairs.",
+      "category": "Health",
+      "capability": "health",
+      "procedure": "health.assess@1.0.0",
+      "mode": "plan",
+      "input_schema": {
+        "type": "object",
+        "required": ["symptoms"],
+        "properties": {
+          "symptoms": {"type": "string", "minLength": 1},
+          "scope": {"type": "string", "default": "workstation"}
+        },
+        "additionalProperties": false
+      },
+      "required_facts": [],
+      "risk_floor": 0,
+      "mutates_host": false,
+      "invokes_agent": true,
+      "availability": "enabled",
+      "implementation_status": "prepared",
+      "unavailable_reason": null,
+      "tags": ["health", "plan", "read-only"]
+    },
+    {
+      "id": "health.lighting.diagnose",
+      "version": "1.0.0",
+      "title": "Diagnose display and keyboard lighting",
+      "summary": "Run bounded Tier-0, passive platform/provider Tier-1, WMI-binding Tier-2, and separately approved eDP connector/provider association observations, then prepare separately gated desktop, firmware, and hybrid-GPU diagnostic layers.",
+      "category": "Display and input",
+      "capability": "health",
+      "procedure": "health.lighting-diagnose@1.0.0",
+      "mode": "diagnose",
+      "input_schema": {
+        "type": "object",
+        "required": ["affected_controls", "nvidia_power_correlation"],
+        "properties": {
+          "affected_controls": {
+            "enum": ["display", "keyboard", "both"]
+          },
+          "nvidia_power_correlation": {
+            "enum": ["suspected", "observed_once", "reproduced", "unknown"]
+          },
+          "onset": {"type": "string"},
+          "trigger": {"type": "string"},
+          "external_display_affected": {"enum": ["yes", "no", "not_tested", "not_applicable"]},
+          "notes": {"type": "string"}
+        },
+        "additionalProperties": false
+      },
+      "required_facts": [
+        "lighting.display.providers",
+        "lighting.keyboard.providers",
+        "graphics.adapters",
+        "graphics.routing",
+        "power.profile"
+      ],
+      "risk_floor": 0,
+      "mutates_host": false,
+      "invokes_agent": true,
+      "availability": "enabled",
+      "implementation_status": "prepared",
+      "unavailable_reason": null,
+      "tags": ["brightness", "backlight", "keyboard", "nvidia", "hybrid-graphics", "power"]
+    },
+    {
+      "id": "repair.lighting.prepare",
+      "version": "1.0.0",
+      "title": "Prepare a lighting repair",
+      "summary": "Compare evidence-backed repair options and prepare exact validation and recovery without changing the host.",
+      "category": "Display and input",
+      "capability": "repair",
+      "procedure": "repair.lighting-restore@1.0.0",
+      "mode": "plan",
+      "input_schema": {
+        "type": "object",
+        "required": ["diagnostic_task_id"],
+        "properties": {
+          "diagnostic_task_id": {"type": "string", "minLength": 1},
+          "preferred_outcome": {"type": "string", "default": "restore both controls while preserving low-power behavior"}
+        },
+        "additionalProperties": false
+      },
+      "required_facts": ["lighting.diagnosis"],
+      "risk_floor": 1,
+      "mutates_host": false,
+      "invokes_agent": true,
+      "availability": "enabled",
+      "implementation_status": "prepared",
+      "unavailable_reason": null,
+      "tags": ["brightness", "keyboard", "repair-plan", "rollback"]
+    },
+    {
+      "id": "repair.lighting.execute",
+      "version": "1.0.0",
+      "title": "Execute an approved lighting repair",
+      "summary": "Execute one exact diagnosed intervention and independently verify both lighting controls.",
+      "category": "Display and input",
+      "capability": "repair",
+      "procedure": "repair.lighting-restore@1.0.0",
+      "mode": "execute",
+      "input_schema": {
+        "type": "object",
+        "required": ["repair_plan_id"],
+        "properties": {
+          "repair_plan_id": {"type": "string", "minLength": 1}
+        },
+        "additionalProperties": false
+      },
+      "required_facts": ["lighting.diagnosis", "lighting.repair.pre_state"],
+      "risk_floor": 2,
+      "mutates_host": true,
+      "invokes_agent": true,
+      "availability": "unavailable",
+      "implementation_status": "blocked",
+      "unavailable_reason": "No state-changing executor exists; capability stage 4 and exact command approval are required.",
+      "tags": ["brightness", "keyboard", "repair", "approval-required"]
+    },
+    {
+      "id": "power.profile.select",
+      "version": "1.0.0",
+      "title": "Select a power profile",
+      "summary": "Request one exact TuneD/PPD profile transition with active-session confirmation and postcondition verification.",
+      "category": "Power",
+      "capability": "power",
+      "procedure": "power-profile.select@1.0.0",
+      "mode": "execute",
+      "input_schema": {
+        "type": "object",
+        "required": ["profile"],
+        "properties": {
+          "profile": {"enum": ["power-saver", "balanced", "performance"]}
+        },
+        "additionalProperties": false
+      },
+      "required_facts": ["power.profile", "power.provider"],
+      "risk_floor": 2,
+      "mutates_host": true,
+      "invokes_agent": false,
+      "availability": "unavailable",
+      "implementation_status": "prepared",
+      "unavailable_reason": "Prepared adapter is unregistered and disabled; exact OS authorization and independent review are required.",
+      "tags": ["power", "tuned", "ppd", "approval-required"]
+    }
+  ]
+}

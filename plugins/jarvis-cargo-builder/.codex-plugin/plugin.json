@@ -1,0 +1,18 @@
+{
+  "name": "jarvis-cargo-builder",
+  "version": "0.1.0",
+  "description": "Bounded Rust Cargo project builder for JARVIS-generated development workflows.",
+  "author": {
+    "name": "Local developer"
+  },
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Jarvis Cargo Builder",
+    "shortDescription": "Build and test Rust projects through Cargo.",
+    "longDescription": "Inspects a Rust project and runs bounded check, test, build, format, and lint workflows without system mutation.",
+    "developerName": "Local developer",
+    "category": "Productivity",
+    "capabilities": ["Skills"],
+    "defaultPrompt": "Use $cargo-builder for a bounded Cargo workflow. Inspect Cargo.toml and toolchain evidence before building."
+  }
+}

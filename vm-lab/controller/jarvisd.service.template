@@ -1,0 +1,25 @@
+[Unit]
+Description=Jarvis bounded H1 user service (prepared, not installed)
+After=default.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 -B -X pycache_prefix=%t/jarvis/pycache %h/Escritorio/Proyecto/codex-agent-system/vm-lab/scripts/jarvisd_service.py --socket %t/jarvis/jarvisd.sock --project-root %h/Escritorio/Proyecto/codex-agent-system/vm-lab --ledger %S/jarvis/activation.sqlite3
+NoNewPrivileges=yes
+PrivateNetwork=yes
+ProtectSystem=strict
+ProtectHome=read-only
+RuntimeDirectory=jarvis
+RuntimeDirectoryMode=0700
+StateDirectory=jarvis
+StateDirectoryMode=0700
+ReadWritePaths=%t/jarvis %S/jarvis
+RestrictAddressFamilies=AF_UNIX
+CapabilityBoundingSet=
+RestrictNamespaces=yes
+LockPersonality=yes
+MemoryDenyWriteExecute=yes
+UMask=0077
+
+[Install]
+WantedBy=default.target

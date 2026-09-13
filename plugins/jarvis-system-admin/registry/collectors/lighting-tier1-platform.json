@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "id": "lighting-tier1-platform-readonly",
+  "version": "1.0.0",
+  "platform": "Fedora Workstation",
+  "execution_enabled": true,
+  "authority": "H1-bounded-read-only",
+  "attempt_limit": 1,
+  "privilege": "unprivileged",
+  "network": false,
+  "default_output_limit_bytes": 262144,
+  "collect_sensitive": false,
+  "purpose": "Identify the laptop platform, passive lighting interfaces, backlight topology, and candidate hotkey devices without activating services, monitoring events, waking hardware, or changing state.",
+  "probe_groups": [
+    {
+      "id": "non-secret-platform-identity",
+      "source": "/sys/class/dmi/id",
+      "fields": ["sys_vendor", "product_name", "product_version", "board_vendor", "board_name"],
+      "forbidden_fields": ["product_serial", "board_serial", "chassis_serial", "product_uuid", "chassis_asset_tag"]
+    },
+    {
+      "id": "passive-platform-interfaces",
+      "source": "/sys/module and /sys/bus/platform",
+      "fields": ["allowlisted lighting/hotkey module names", "allowlisted platform driver names", "allowlisted platform device names"]
+    },
+    {
+      "id": "backlight-topology",
+      "source": "/sys/class/backlight",
+      "fields": ["provider name", "driver", "device bus", "firmware-node class", "allowlisted uevent identity keys"]
+    },
+    {
+      "id": "candidate-lighting-leds",
+      "source": "/sys/class/leds",
+      "fields": ["allowlisted keyboard/backlight candidate names only"]
+    },
+    {
+      "id": "candidate-hotkey-inputs",
+      "source": "/sys/class/input",
+      "fields": ["candidate device name", "driver", "bustype", "vendor", "product", "version"],
+      "forbidden_fields": ["phys", "uniq", "event contents"]
+    }
+  ],
+  "forbidden_operations": [
+    "sysfs write",
+    "serial or UUID read",
+    "raw input-event read or monitor",
+    "connector status read or detect poll",
+    "GPU client launch",
+    "PCI config-space query",
+    "D-Bus call or service activation",
+    "protected log read",
+    "module load or unload",
+    "service or power-profile change",
+    "subprocess execution",
+    "network access"
+  ],
+  "fact_keys": [
+    "hardware.platform.identity",
+    "lighting.platform.interfaces",
+    "lighting.backlight.topology",
+    "input.hotkey.candidates"
+  ]
+}

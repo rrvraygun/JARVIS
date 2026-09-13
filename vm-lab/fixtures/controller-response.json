@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "request_id": "fixture:controller:prepare-enrollment:0001",
+  "operation_id": "profile.enrollment.prepare",
+  "result": "contract_validated_no_effect",
+  "state_before": "defined",
+  "state_after": "prepared",
+  "effect_occurred": false,
+  "operational_authority": false,
+  "idempotency_key_consumed": true,
+  "reasons": [
+    "operation is registered for contract simulation only",
+    "request explicitly forbids execution",
+    "no execution, persistence, privilege, network, or mutation authority is exposed"
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Jarvis Fedora system-twin profile",
+  "type": "object",
+  "required": ["schema_version", "profile_id", "version", "status", "enrollment", "declared_scope", "fidelity_layers", "actual_state", "sensitive_state"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "profile_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]+$"},
+    "version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+    "status": {"enum": ["unobserved_template", "enrolled", "stale", "retired"]},
+    "enrollment": {
+      "type": "object",
+      "required": ["host_scan_performed", "host_binding", "approved_at"],
+      "properties": {
+        "host_scan_performed": {"type": "boolean"},
+        "host_binding": {"type": ["string", "null"]},
+        "approved_at": {"type": ["string", "null"]}
+      },
+      "additionalProperties": false
+    },
+    "declared_scope": {"type": "object"},
+    "fidelity_layers": {"type": "array", "minItems": 4, "items": {"type": "object"}},
+    "actual_state": {"type": "object"},
+    "sensitive_state": {"type": "object"}
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "id": "power-profile.select",
+  "version": "1.0.0",
+  "capability": "power",
+  "risk": "medium",
+  "mutates_host": true,
+  "requires_approval": true,
+  "inputs": ["profile", "provider", "pre_state", "approval", "validation"],
+  "preconditions": ["capability remains disabled", "exact active-session target", "fresh independent review", "one-use user approval"],
+  "steps": ["observe provider", "bind exact profile", "request one authorization", "perform one future typed transition", "verify post-state"],
+  "validation": ["exact requested profile", "no arbitrary command", "no persistence widening"],
+  "rollback": "A future rollback requires its own fresh approval; no automatic rollback."
+}

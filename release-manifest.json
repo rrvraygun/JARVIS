@@ -1,0 +1,4171 @@
+{
+  "files": [
+    {
+      "path": ".codex/config.toml",
+      "sha256": "66f6e2b9fc5cd3b5c78bbf4e117d51476d939b8ab22ae7919db6d0f9f6ac30d5",
+      "size": 92
+    },
+    {
+      "path": ".gitignore",
+      "sha256": "e13f0b6107f0cfdaf911d96862bdaf7a39f3a6e741eac0291e0b3772315437c7",
+      "size": 45
+    },
+    {
+      "path": "AGENTS.md",
+      "sha256": "05640dbfcb0ae45f33ece6b854f42c6432cd2419efd4d542ac3c785799555e17",
+      "size": 3907
+    },
+    {
+      "path": "CHANGELOG.md",
+      "sha256": "d7bf3daa7f6aa4b78d7c5cce5e5e644727bc091ae8fd39d9b6c40bf298d59cd4",
+      "size": 3609
+    },
+    {
+      "path": "GUIA-JARVIS-ACTUALIZACION-Y-ARRANQUE.md",
+      "sha256": "375258130d5be503ba7909fb249857bebb66da9e4f2ed5db96b77106bac96734",
+      "size": 14673
+    },
+    {
+      "path": "README.md",
+      "sha256": "14eaa4d544be4bbbd912f39622c431313d9fa416980a1a869b1caa8951225eaa",
+      "size": 6897
+    },
+    {
+      "path": "VALIDACION.md",
+      "sha256": "4bec88ee6cc9c199880e507d09d97c06b3930f1c3edae8732c1a950911fd828b",
+      "size": 2783
+    },
+    {
+      "path": "VERSION",
+      "sha256": "04d22ef949ad05cfebfaaa1f4336dddb6fbdb0811a4689e9fe1f28d89658874e",
+      "size": 10
+    },
+    {
+      "path": "automation/prompts/fix-tui-submit-preflight-latency.md",
+      "sha256": "e5bac26a1ce9e41cb69c53c949ca9ae4c442fe740d29b1c38976eaee5d0f59c1",
+      "size": 19186
+    },
+    {
+      "path": "automation/prompts/observe.md",
+      "sha256": "ffb248afc0b57c20bd76a3461caba737b060eb3d4ee7114fc7c7226bc800821e",
+      "size": 524
+    },
+    {
+      "path": "automation/run-independent-review.sh",
+      "sha256": "c1d6d37473f819fac2710932625a1b536ae853db772af7e832d37e54d168a518",
+      "size": 859
+    },
+    {
+      "path": "automation/run-observation.example.sh",
+      "sha256": "1a4e9125384001e7e5e0f5ab541410a64441f0cd659e5c448c4eadf654ea4bca",
+      "size": 467
+    },
+    {
+      "path": "automation/schemas/observation-output.schema.json",
+      "sha256": "6cb69b22107bb76fca7e9a8a525cdfb7d3f41ee0b257299a0506558ee83a478b",
+      "size": 585
+    },
+    {
+      "path": "codex/agents/change-planner.toml",
+      "sha256": "299f0497342bd8fbb46ba9958a15ace6cc52954031cc261f26e3e5f8cc735d34",
+      "size": 631
+    },
+    {
+      "path": "codex/agents/deep-researcher.toml",
+      "sha256": "8d204b7fb72f3f5b95c763f79ed00212dbbdc3cd685ae059febd619dfac37465",
+      "size": 1054
+    },
+    {
+      "path": "codex/agents/outcome-verifier.toml",
+      "sha256": "431ccc3ccc82f8b665e14fb0da6a519b14373d66ee86b7f1517faa8bc36eeb19",
+      "size": 591
+    },
+    {
+      "path": "codex/agents/policy-auditor.toml",
+      "sha256": "f7f0e60a05862d4cf6ef3ec21b2d09249806185ab4f5288f3dffc771c6ebe6e9",
+      "size": 629
+    },
+    {
+      "path": "codex/agents/recovery-reviewer.toml",
+      "sha256": "92d450c20db2e5c2dd9e2d07912f6065b5c72df936069c09ac5e783ed0a97185",
+      "size": 649
+    },
+    {
+      "path": "codex/agents/system-administrator.toml",
+      "sha256": "d97b2e8ecf6b08a79ed88d998cea5dbe26fc04411ed9c66afc78218d229cec9b",
+      "size": 1896
+    },
+    {
+      "path": "codex/agents/system-explorer.toml",
+      "sha256": "19f85b5ed50066603382076cc480468de0b0698ec4cf816cba9ca349b6502671",
+      "size": 612
+    },
+    {
+      "path": "codex/config.toml",
+      "sha256": "66f6e2b9fc5cd3b5c78bbf4e117d51476d939b8ab22ae7919db6d0f9f6ac30d5",
+      "size": 92
+    },
+    {
+      "path": "codex/hooks.example.json",
+      "sha256": "8e7865ff31a63875f313adc2cc802491ae023b47406230e793c190d7a97a2718",
+      "size": 658
+    },
+    {
+      "path": "codex/jarvis.config.example.toml",
+      "sha256": "029f61d374502d40f78cd2233348ffe126a556eb3674d82e740c3e3ecf218743",
+      "size": 2980
+    },
+    {
+      "path": "codex/requirements.example.toml",
+      "sha256": "746be367589ec6fbd431f625cfa1151f9fe2bec3d20e4957c030e838306e300b",
+      "size": 692
+    },
+    {
+      "path": "codex/skills/deep-research/SKILL.md",
+      "sha256": "9ca401029ad24acc1f1d25fa005c6bb4441cae38bd1288fc05f29066053c78c4",
+      "size": 1723
+    },
+    {
+      "path": "codex/skills/deep-research/agents/openai.yaml",
+      "sha256": "b5a42502bd204b7be6cfc9be5b0737d124d0d576a042cdfdd51b8b09c59ab314",
+      "size": 250
+    },
+    {
+      "path": "codex/skills/deep-research/assets/evidence-ledger.md",
+      "sha256": "e9221b45ac43b6f727892fec7e0a4de909f686c49da658c407f8e5e3817d1dba",
+      "size": 170
+    },
+    {
+      "path": "codex/skills/deep-research/assets/report.md",
+      "sha256": "22196694ba38f25b880d8fec3d5fbd48206940322fb7e4c1b0c522ed13b16928",
+      "size": 213
+    },
+    {
+      "path": "codex/skills/deep-research/references/community-research.md",
+      "sha256": "4c7b736b0e6f7862098c7d2b2798143dc955c4cc53c4811f6e1d97efc75b1245",
+      "size": 482
+    },
+    {
+      "path": "codex/skills/deep-research/references/scientific-research.md",
+      "sha256": "12d21b55accf81a3f50c44f49f7c7b968228a0c555f99b9e7dd6faf485cd0d26",
+      "size": 511
+    },
+    {
+      "path": "codex/skills/deep-research/references/source-policy.md",
+      "sha256": "17d23c53e8be1bbb60b1a9b7839873d169dd3103775b640b9712d93621226fbb",
+      "size": 1158
+    },
+    {
+      "path": "codex/skills/deep-research/references/technical-documentation.md",
+      "sha256": "3f04ed08d44aa66202f565e96e9c56c09de5766bb9c947b3df4f3ca8561e3fb7",
+      "size": 436
+    },
+    {
+      "path": "codex/skills/system-benchmark/SKILL.md",
+      "sha256": "8fb3f3cba4ce091462c89ae2673b18a1c34f0b432da88be19c9b23a75221d490",
+      "size": 1085
+    },
+    {
+      "path": "codex/skills/system-benchmark/agents/openai.yaml",
+      "sha256": "c422be349fc4dd8b2dd974f071e68ceb032874ba03c4ecff818f5c5131429f94",
+      "size": 220
+    },
+    {
+      "path": "codex/skills/system-benchmark/references/benchmark-safety.md",
+      "sha256": "aa02f6d14d60f3bd472079806919b5bd2f13667817290526d214183feeba16d3",
+      "size": 433
+    },
+    {
+      "path": "codex/skills/system-health/SKILL.md",
+      "sha256": "075c9aaa09a33271ef2ad8396de2ee998b4fb295af57235ddd75f43c5f52d09d",
+      "size": 1271
+    },
+    {
+      "path": "codex/skills/system-health/agents/openai.yaml",
+      "sha256": "ef5c2fe7f95e6d265e73afbffa17dc7970000ddf8328a5772b8ae0444e6a0fda",
+      "size": 213
+    },
+    {
+      "path": "codex/skills/system-health/references/diagnostic-order.md",
+      "sha256": "a89f61677ed7db2558bb8b615fd648e044f8644dd2fbb46bcdf893d941de7ec5",
+      "size": 488
+    },
+    {
+      "path": "codex/skills/system-health/references/lighting-controls.md",
+      "sha256": "87c9fe768c38050c98b1d115bdbadafcc55d35af227f0983c8c0ecc4d7fdc328",
+      "size": 3083
+    },
+    {
+      "path": "codex/skills/system-inventory/SKILL.md",
+      "sha256": "650a9607155c30b835e4acedb4d15397c64319f8806e7d10c23bff64d4b74cbd",
+      "size": 1597
+    },
+    {
+      "path": "codex/skills/system-inventory/agents/openai.yaml",
+      "sha256": "d167a95c20d6a38369c15d127ac3ff7feb9ad15c618b1f910e186e0b1361a6b7",
+      "size": 232
+    },
+    {
+      "path": "codex/skills/system-inventory/references/coverage.md",
+      "sha256": "431aa44049dd2198ee56596d8affb87dcf547db5599c8b905bc89f3ade58c0f0",
+      "size": 824
+    },
+    {
+      "path": "codex/skills/system-inventory/scripts/safe-inventory.sh",
+      "sha256": "278a576455459132b2764c777a5ad625586db8cf8934b55a8df195ccfb2475e2",
+      "size": 907
+    },
+    {
+      "path": "codex/skills/system-knowledge/SKILL.md",
+      "sha256": "0b9c866e51284318dbf6832b8066a5d45688ece613a4b9fb610611aebf810d4f",
+      "size": 3385
+    },
+    {
+      "path": "codex/skills/system-knowledge/agents/openai.yaml",
+      "sha256": "de9e319bb665bf243a0be67ab8485060bff5cb3d087114175130049e428cdc5b",
+      "size": 244
+    },
+    {
+      "path": "codex/skills/system-knowledge/references/bash-command-construction.md",
+      "sha256": "ac6504381aa4af180cc6462ada397f1aa18d6682cff67b3b1697f25322facd34",
+      "size": 1494
+    },
+    {
+      "path": "codex/skills/system-knowledge/references/evidence-policy.md",
+      "sha256": "31e84577097505899c9695a14a09008faaab8badca9ca70f91f9423cc877c1e9",
+      "size": 1536
+    },
+    {
+      "path": "codex/skills/system-knowledge/references/knowledge-lifecycle.md",
+      "sha256": "323e129608c0312176c030df2299ebc1919598ddf8832199ff80229ece002427",
+      "size": 1597
+    },
+    {
+      "path": "codex/skills/system-knowledge/scripts/knowledge-store.py",
+      "sha256": "9fc90fd4ad484d94cfdfa12795bd89089083ab8c44453ce59e8ddf6b505b59a3",
+      "size": 288
+    },
+    {
+      "path": "codex/skills/system-maintenance/SKILL.md",
+      "sha256": "db19a1aeecd0bf59ed415348d53af565e004989a3ec863b21c2e5df9f7955ff2",
+      "size": 992
+    },
+    {
+      "path": "codex/skills/system-maintenance/agents/openai.yaml",
+      "sha256": "4dd058e7e1e2864324822088c7f36433fc244ac043a4b87d5467efa49df04cea",
+      "size": 223
+    },
+    {
+      "path": "codex/skills/system-maintenance/references/cleanup-policy.md",
+      "sha256": "9087a1d63b9b0a150db812deed8f996faf1b0f1a3385a43804230afe41cf585e",
+      "size": 417
+    },
+    {
+      "path": "codex/skills/system-repair/SKILL.md",
+      "sha256": "d8d403b00e33dd8d79c356434af96beabd86aa1c24331101c045986bd808d193",
+      "size": 1208
+    },
+    {
+      "path": "codex/skills/system-repair/agents/openai.yaml",
+      "sha256": "8e7de065dd5ad6b3d2eab3fb66716f2a561efc65aa38d3334d8f34c50499de11",
+      "size": 216
+    },
+    {
+      "path": "codex/skills/system-repair/references/lighting-repair.md",
+      "sha256": "508585c1892d0934948b2b552fcd0fcb8a114204787c52b6c3b8687f5eafb92a",
+      "size": 1236
+    },
+    {
+      "path": "codex/skills/system-repair/references/repair-gates.md",
+      "sha256": "438e11f06216e24102ef13d2b47913ae62cc63eadc2ea243af087925cfa51a43",
+      "size": 464
+    },
+    {
+      "path": "codex/skills/system-security/SKILL.md",
+      "sha256": "6abd6db4c1727ed448afaebde05fec124d4f9411ee1516a23c161c2d40350aab",
+      "size": 1212
+    },
+    {
+      "path": "codex/skills/system-security/agents/openai.yaml",
+      "sha256": "b19ec2e2f5b856eb857f6610f3be6caf2b788efa68c57f77ce38e4217ae46cfa",
+      "size": 209
+    },
+    {
+      "path": "codex/skills/system-security/references/hardening-order.md",
+      "sha256": "b29479913a25496e8a5747bb7da295150f562b1bf89c3f68e4133bf4e905aec2",
+      "size": 408
+    },
+    {
+      "path": "codex/skills/system-state/SKILL.md",
+      "sha256": "ab8dc635d40ae2130ad599f8fb96ce5e186a0b5071e394e53e48460511d09428",
+      "size": 1155
+    },
+    {
+      "path": "codex/skills/system-state/agents/openai.yaml",
+      "sha256": "a63309aa6dc7039d7e83694017a44a84c2f3fa2d0c227279bf90a7312ac2b90d",
+      "size": 224
+    },
+    {
+      "path": "codex/skills/system-state/references/schema.md",
+      "sha256": "e25ab9a7fc38fc1af4268c11a40ed0c0ca38c0214851a10e770d113772e50487",
+      "size": 496
+    },
+    {
+      "path": "codex/skills/system-state/scripts/append-event.sh",
+      "sha256": "5f37cb234effb03d98a9f318daa00eb6cf4f9b624bf23b92cb8c6e4311e88768",
+      "size": 504
+    },
+    {
+      "path": "codex/skills/system-update/SKILL.md",
+      "sha256": "47fa4948bcc4273e258a17c6251c8ddad81a0d799136761801e0a875a37b54e4",
+      "size": 1341
+    },
+    {
+      "path": "codex/skills/system-update/agents/openai.yaml",
+      "sha256": "c922d07cf7efe50d89e59a5d9dc3ece9d6140f574284279bc55873cfee7318a9",
+      "size": 227
+    },
+    {
+      "path": "codex/skills/system-update/references/update-gates.md",
+      "sha256": "43882329cc1fa32ea462a73f66f26e7506d83fda2481cb7982578fe8fa7c7e86",
+      "size": 406
+    },
+    {
+      "path": "deployment/host/configuration-policy.pending.json",
+      "sha256": "a205eacac2031a1ceef4fb1687e7961fef31a983ce599804083382108fdfaf6f",
+      "size": 61
+    },
+    {
+      "path": "deployment/host/diagnose_lighting_tier1_input_driver_contract.py",
+      "sha256": "817f77189288f5d2dc7c5e06669684333ccf837f7545d25fda577506f28cab08",
+      "size": 4097
+    },
+    {
+      "path": "deployment/host/diagnose_lighting_tier1_name_contract.py",
+      "sha256": "7942da2ca0eb0f7e5e86c5b5684f01da90dc0108e4e93a9bcd5839f668767ae3",
+      "size": 2535
+    },
+    {
+      "path": "deployment/host/diagnose_restored_tokens.py",
+      "sha256": "4aa48439f1f1b97cb084f2442974093e3c6b14414adfc0f226e1e66c351841fe",
+      "size": 11848
+    },
+    {
+      "path": "deployment/host/install_jarvis_package_control.sh",
+      "sha256": "66d2739fe14617cb2d1a20ab123c2e7a93c4f33d14dd6262f682eb70f315a527",
+      "size": 2154
+    },
+    {
+      "path": "deployment/host/install_jarvis_power_control.sh",
+      "sha256": "4fb9989417b53fec4a01f644bad04c47969ed055538862518bb539ca93adb15c",
+      "size": 2799
+    },
+    {
+      "path": "deployment/host/install_privileged_controls.py",
+      "sha256": "5d041757cffc4cbb0e4533bfc141712fe30fae9f4a6689af7353b94947b38000",
+      "size": 5941
+    },
+    {
+      "path": "deployment/host/org.jarvis.boot-control.policy",
+      "sha256": "72ba833402ae0d4a66a3ba902f4f9f99e5297578e35de2d60933cb7f17262818",
+      "size": 494
+    },
+    {
+      "path": "deployment/host/org.jarvis.configuration-control.policy",
+      "sha256": "40022af98869a69bdcb737cc6788f9caacae6c2e88f55dbc0e3730fc76a4e07c",
+      "size": 696
+    },
+    {
+      "path": "deployment/host/org.jarvis.package-control.policy",
+      "sha256": "595523c071f87ef507d85498ee63068b1a0c12079debf34cfe826b40904161ad",
+      "size": 766
+    },
+    {
+      "path": "deployment/host/org.jarvis.power-control.policy",
+      "sha256": "b85af02160d6682e3d75af15c4e98508be4a115350a3ca3fe531bc0b011d5460",
+      "size": 692
+    },
+    {
+      "path": "deployment/host/org.jarvis.service-control.policy",
+      "sha256": "af231a8802067c61293fb42d3a7940b1594f0e7a41a6471d563c73c0aba417ab",
+      "size": 672
+    },
+    {
+      "path": "deployment/host/org.jarvis.update-control.policy",
+      "sha256": "4aedc91926d2c642f4b041865a9776beddb7d76ecebeba7fb97c0edb0f722297",
+      "size": 511
+    },
+    {
+      "path": "deployment/host/policy.json",
+      "sha256": "46e66a647b54015546226f2ceeca0fd2ea4ec1c495a87c4611020c0ed7660756",
+      "size": 8622
+    },
+    {
+      "path": "deployment/host/recovery-set-plan.json",
+      "sha256": "ce387ca62fabc6e31e968efa5ac56de19908dda2892de3bde0030446fa9655fd",
+      "size": 10468
+    },
+    {
+      "path": "deployment/host/service-policy.pending.json",
+      "sha256": "f2fccbe9a5e57eed1777b26b26b86040d8987f20b0818f6eb3af3e30a73c45b4",
+      "size": 72
+    },
+    {
+      "path": "deployment/host/validate_policy.py",
+      "sha256": "13906f26c9db8cfabe162b057b54f4beca40462fae9e7cab8d96b71bdd25479c",
+      "size": 8761
+    },
+    {
+      "path": "deployment/host/validate_recovery_set.py",
+      "sha256": "05539baf6231efef99c543193c71d03785bb8591606168421638b7fe7242ec74",
+      "size": 7954
+    },
+    {
+      "path": "deployment/host/verify_restored_boundaries.py",
+      "sha256": "f31f77edf3ff5177681bfcbf4d391d46fa6ee2a17a8337cb861eff11e1c4d6cd",
+      "size": 40747
+    },
+    {
+      "path": "docs/PARCHE-GUIDE-2026-09.md",
+      "sha256": "3ab4c0c55fad1685ea0508beb387adc8a81651f9c595c212548ab685cb1cdad8",
+      "size": 6585
+    },
+    {
+      "path": "docs/README.md",
+      "sha256": "8affa10ad23c4044fde3b76162323cd1f1813be43fe9f8983456585f35396348",
+      "size": 1929
+    },
+    {
+      "path": "docs/adapter-contract.md",
+      "sha256": "f2f2388794472faaef6611502fee986142546bc7da48786ecd3d1e3fa67e12b1",
+      "size": 867
+    },
+    {
+      "path": "docs/audit-and-state.md",
+      "sha256": "4b44c68e97f4f0838e982cb56b61d5a5c7286f47fcd482add48a222b13121725",
+      "size": 4041
+    },
+    {
+      "path": "docs/audits/2026-08-28-codebase-audit.md",
+      "sha256": "25f8abff29a047759b95bbb723cdfe9b39e95ee279c84230fbce10693c8f57b8",
+      "size": 5518
+    },
+    {
+      "path": "docs/automation.md",
+      "sha256": "f017285c6102c33f004e6f41448d9c64f48af8fb955203bca9a7c533d48dbc9f",
+      "size": 888
+    },
+    {
+      "path": "docs/capability-maturity.md",
+      "sha256": "60ba356defa7b40c0f29c5797ff162853e17c6d7b593148684035edf6ad920a9",
+      "size": 1469
+    },
+    {
+      "path": "docs/codebase-map.md",
+      "sha256": "753aa06288a4f13f45da7d9d112b4cdcd3740376c3ca17c2b29aa309c9e3e8f0",
+      "size": 4625
+    },
+    {
+      "path": "docs/current-product-state.md",
+      "sha256": "06701f81e2c8fccc63500aee6b781e0ff281a52a766055fc518505d7802d0f51",
+      "size": 23076
+    },
+    {
+      "path": "docs/data-lifecycle.md",
+      "sha256": "195a4d704af66be73cfb756566d87112fc6fb756215f60b8da7b0e6f482bb192",
+      "size": 1830
+    },
+    {
+      "path": "docs/deep-researcher.md",
+      "sha256": "bf9da77d304037ac5ff0af11593169e699e0391ef2f77c5624eea4ff061126f2",
+      "size": 1156
+    },
+    {
+      "path": "docs/direct-host-deployment-and-recovery.md",
+      "sha256": "69417f7d0c73a709a958c3268d9ecd585a12dd72beefe9bb7cc845676bea51d2",
+      "size": 12753
+    },
+    {
+      "path": "docs/evaluation.md",
+      "sha256": "afd7c21cdaab8f8a34981cd3e13f3ac17ea52f2f84cafe4fb1561b24b34c2b53",
+      "size": 1947
+    },
+    {
+      "path": "docs/generated/codebase-inventory.md",
+      "sha256": "1d219421cf739073fafd6fa79afb99537322a9bfd2b3a0a561e8f09025610976",
+      "size": 2336
+    },
+    {
+      "path": "docs/governed-operations.md",
+      "sha256": "8d57c477574032679625dfcb363b18384be282613278e7f25a6b5e5aaa1b6566",
+      "size": 11378
+    },
+    {
+      "path": "docs/history/README.md",
+      "sha256": "efa92e23c4b3a58e98f9fb0678a7aee489a88fd314a8411607f0f7b199d6b930",
+      "size": 853
+    },
+    {
+      "path": "docs/host-inspection-executor.md",
+      "sha256": "8a8b0858ed5a1ed7797db1c5176c08f9d1b29d7b782198864f20ccef49cbf72d",
+      "size": 3621
+    },
+    {
+      "path": "docs/instruction-design-guide.md",
+      "sha256": "18008d41a85adadfdeaba5f3bc88ee26aa4422987429e88c767567bbbfcc04d2",
+      "size": 3678
+    },
+    {
+      "path": "docs/jarvis-architect-and-power-expert.md",
+      "sha256": "abe9665f1a636cd576f822be38892a4f11801815c4a7fe7a98ffcaf3d054cf31",
+      "size": 1988
+    },
+    {
+      "path": "docs/jarvis-master-roadmap.md",
+      "sha256": "7550e8844aabca0e0890961e40d6f89b14911e6e29928b6921bd51ba0f81c528",
+      "size": 43750
+    },
+    {
+      "path": "docs/knowledge-and-learning.md",
+      "sha256": "251e59a0f6c2bafd732f7303404c020b6f8ec7caf9acd2eace11dc7134efab84",
+      "size": 7309
+    },
+    {
+      "path": "docs/modular-agent-architecture.md",
+      "sha256": "74dcf5238bc88ddc9f409d151210e5e7b6f7aa674c566d9f7fd5e365b3a848ed",
+      "size": 4640
+    },
+    {
+      "path": "docs/multi-agent-contract.md",
+      "sha256": "887d24cc10476c2a4496d11a515e359f9b0366c1a2c4f9dafc22c88e50146946",
+      "size": 1278
+    },
+    {
+      "path": "docs/openai-feature-basis.md",
+      "sha256": "0a6ab7d24cf8ae943f8f24684cab2dbb4224242f3c7855910a54f5aace5a02d1",
+      "size": 2110
+    },
+    {
+      "path": "docs/package-availability-and-compatibility-plan.md",
+      "sha256": "4a03fe8cf7b1482a024f7eb685413235b1b708f690cd767fbf715ee1b3c8fcc2",
+      "size": 7229
+    },
+    {
+      "path": "docs/phase-1-read-only-broker.md",
+      "sha256": "3bbe32e34a84605d49db11ac159816119875952345ed5d9b9ccc7f8bc8c0277b",
+      "size": 7250
+    },
+    {
+      "path": "docs/phase-2-hybrid-tui.md",
+      "sha256": "2e2243165c0cd8a7b7afe7c4231c7d98570fda5b44b2f35ce2266970dc79a54c",
+      "size": 9227
+    },
+    {
+      "path": "docs/phase-4-l1-controller-enrollment.md",
+      "sha256": "00517353b0bd38adb642bde0bc36bc4db15597ebb98bcdf2a99f9b81cdcde6d9",
+      "size": 5846
+    },
+    {
+      "path": "docs/phase-4-l2-full-vm-blueprint.md",
+      "sha256": "c06f07a1e4b4e5f70a3428d372e9ce22348061400848a97d06b5a26eba4658b5",
+      "size": 7888
+    },
+    {
+      "path": "docs/phase-4-vm-lab-prerequisite.md",
+      "sha256": "1e7df1022c57e6c1a1c3117964cba59a5808444be4985c9400067459a8d34df6",
+      "size": 4017
+    },
+    {
+      "path": "docs/phase-5-adapter-candidate-rehearsal-marker.md",
+      "sha256": "c43efb66a574ff31edd1e27d55c7a1f4079f0a74597f22ee424d16efa3e70e9e",
+      "size": 2509
+    },
+    {
+      "path": "docs/phase-5-host-adapter-power-profile-candidate.md",
+      "sha256": "3766b170fea286c4b2f69aca729ff3a15f572a2e30d2f49277821e9513c6fb44",
+      "size": 6153
+    },
+    {
+      "path": "docs/phase-5-power-profile-executor-bridge.md",
+      "sha256": "144f2bb3e5f3ab101d2bfac50e422976fc360524605bce21067be01ccd758f6f",
+      "size": 1661
+    },
+    {
+      "path": "docs/phase-5-supervised-mutation-foundation.md",
+      "sha256": "db9cf261e97da4f2540d787dad49f4b5745f6a7c4b2edd94a40f0acd8276df37",
+      "size": 1852
+    },
+    {
+      "path": "docs/phase-6-bounded-host-observation-and-operations.md",
+      "sha256": "a88f222e9ec8e2adf503d858a2561135fe78aa860d0edefa9a82b9f6bc218cb5",
+      "size": 1278
+    },
+    {
+      "path": "docs/platform-architecture.md",
+      "sha256": "3ac82866c2633ab8b8d75fed95d2b9d67a23bb734ea52b490296bbd602cf7dfd",
+      "size": 5669
+    },
+    {
+      "path": "docs/power-expert-expansion.md",
+      "sha256": "d0bebd8e64638c841598309a095de658cd2c6b0f7402c76afb5589c4b0a617d8",
+      "size": 4945
+    },
+    {
+      "path": "docs/r2-system-recovery-set.md",
+      "sha256": "3bca63b3672cbcda4d55fe734ded7ae6922bbfe4e962e5a86654a5c260a14720",
+      "size": 9457
+    },
+    {
+      "path": "docs/release-and-self-update.md",
+      "sha256": "ef1d5f730f1f53caddd081e8928a588fe8e1a2002052c11c7c3532fea102c410",
+      "size": 1064
+    },
+    {
+      "path": "docs/requirements-decision-record.md",
+      "sha256": "f88ba123491123781fae840aadae13ef0f6080dbc0cc2252e5b5687b4f0ddaac",
+      "size": 8635
+    },
+    {
+      "path": "docs/runbook.md",
+      "sha256": "9fe121a5a8c1c05b1e4f54a9c66b3ed2e2c069b931dc6976bac1b9a26ce32639",
+      "size": 7855
+    },
+    {
+      "path": "docs/sessions/2026-08-28-stabilization.md",
+      "sha256": "caeadc91dbb1ae6f6d354f760a028f90e14bf23766f39b050708ac693f074f97",
+      "size": 2761
+    },
+    {
+      "path": "docs/sessions/2026-08-29-final-validation.md",
+      "sha256": "1c48bc139659bb262f38d5eac930d3b9564646fc61b4d21d5d758c8469cf9ea2",
+      "size": 6684
+    },
+    {
+      "path": "docs/sessions/2026-08-30-agent-driven-power.md",
+      "sha256": "c114137a939c127c0145e9f1540722fdf05779e15c236929ee3bc31350ec50e0",
+      "size": 2692
+    },
+    {
+      "path": "docs/sessions/2026-08-30-conversation-checkpoints.md",
+      "sha256": "5cc22b477911a577c8e71f46f55b76bf1fe7f58ed73fedd01aac3cc216f5e4d5",
+      "size": 1702
+    },
+    {
+      "path": "docs/sessions/2026-08-30-power-profile-results.md",
+      "sha256": "b8a48aedf9fd5d620c2fc3c2f558b05cd6777085de9cc055553fbfa3478cc567",
+      "size": 1637
+    },
+    {
+      "path": "docs/sessions/2026-09-08-external-backup-target.md",
+      "sha256": "1df0468bbef358e901801888a271bb0c3de723a751bd3f3915b315956a2c3650",
+      "size": 3574
+    },
+    {
+      "path": "docs/sessions/2026-09-08-implementation.md",
+      "sha256": "a8bfa02c08262e3f0c9efda21ed2ba822cfb8a6dd010b5ad0d3d5455a71e46d1",
+      "size": 7964
+    },
+    {
+      "path": "docs/sessions/2026-09-09-questionnaire-decisions.md",
+      "sha256": "9704b6b0be8fa1ed98e5ff46a2ff895e78997808962b3df734af808c4888a16b",
+      "size": 3531
+    },
+    {
+      "path": "docs/sessions/2026-09-09-questionnaire-implementation.md",
+      "sha256": "f4dc192d7fba6d7b441ef4ea95f615686a8d611515f6c7a2a5eb03b007ee34b3",
+      "size": 4131
+    },
+    {
+      "path": "docs/sessions/2026-09-11-validation-closeout.md",
+      "sha256": "95d242d38983d2d8f97e6049b82d9bdba6560baaddd2007e600d44fa1b4cc75f",
+      "size": 5041
+    },
+    {
+      "path": "docs/sessions/2026-09-12-checkpoint-click.md",
+      "sha256": "3a32c03e4e5cda7c6a6e39e3b8931b9f60bf022787ebdfa37d37ab8a444bcc12",
+      "size": 988
+    },
+    {
+      "path": "docs/sessions/2026-09-12-global-model.md",
+      "sha256": "651c9003b7cebe9af5e2e561e9c373a69d4d976456678f2215a7bbc0114fa5c9",
+      "size": 730
+    },
+    {
+      "path": "docs/sessions/2026-09-12-inspection-live-activity.md",
+      "sha256": "77c83b57558c24fa54950f42c7cf48bd0a7886337fab6704875af580ef55310a",
+      "size": 2239
+    },
+    {
+      "path": "docs/sessions/2026-09-12-preflight-protocol.md",
+      "sha256": "0fd4b06df2480aa61d6535a5e6a127f2bfa0c8db8b3eaf280004ec75db577bcb",
+      "size": 1246
+    },
+    {
+      "path": "docs/sessions/2026-09-12-specialist-dispatch.md",
+      "sha256": "4db9e14480fdcf05b9998acf3c466c5ac66bb70a1aae91c483536d26d57cf7e0",
+      "size": 1319
+    },
+    {
+      "path": "docs/sessions/2026-09-13-release-review.md",
+      "sha256": "ff43975e86862ff5f6b40dd8133aca3e0f195fa70068b917332747cfd55c9634",
+      "size": 2073
+    },
+    {
+      "path": "docs/shared-contract.md",
+      "sha256": "8b6a67b6499c362a1c46d3dea3f4e334f7a9b964924d861f0fcf24c5e5ac62d2",
+      "size": 2870
+    },
+    {
+      "path": "docs/stabilization-backlog.md",
+      "sha256": "95b39b908cba81b3b837265c73f6872f2a233d24edc3d0f2d4fb18c7f47785f7",
+      "size": 1435
+    },
+    {
+      "path": "docs/system-administrator.md",
+      "sha256": "a271d5b08256e4d3bc2c9097ce47330b5929457a3cb85117cc46b37878c1727c",
+      "size": 3829
+    },
+    {
+      "path": "docs/threat-model.md",
+      "sha256": "93464213f09ec7ec5a35dec227fb46e78bcdaee8f71b6d5d2bb49788509f6163",
+      "size": 3332
+    },
+    {
+      "path": "docs/tui-contract.md",
+      "sha256": "f03336fd36980e42455a79941040c97da3b1fe2427ca8d4f527310df1ecd6aa2",
+      "size": 14700
+    },
+    {
+      "path": "docs/tui-implementation-plan.md",
+      "sha256": "a1ba14f6d88eaa96eb49ffe73112f77a4b7a1f854593a346c8c850e1f9cc118f",
+      "size": 36613
+    },
+    {
+      "path": "docs/tui-mutation-executor.md",
+      "sha256": "c6e8b9fd52126d9a701c9cd94ce7f80777daaef68e02fad5345efdd3a62ea0ad",
+      "size": 8686
+    },
+    {
+      "path": "docs/tui-submit-preflight-latency-fix-plan.md",
+      "sha256": "4bf94d17bb95f22fce81355c6bfcf0a3d7aa755e4ad71f86c6b6afbcc24f9209",
+      "size": 19004
+    },
+    {
+      "path": "docs/tui-submit-preflight-latency-root-cause.md",
+      "sha256": "5222e34a3f35b0ff618dc1f449156c38b3ccd8033f1d39d72ed4a50cf5f4797a",
+      "size": 7344
+    },
+    {
+      "path": "docs/use-case-lighting-controls.md",
+      "sha256": "c71052cbbb4d708351ce88915e0c4e7ff1cc817ad7c54db2a44ac7a53557f2b3",
+      "size": 15319
+    },
+    {
+      "path": "launch_tui.sh",
+      "sha256": "00bfb5ecd90823743eb13f167046c30c8c4bddcbdb68998d264af44bfdd83276",
+      "size": 220
+    },
+    {
+      "path": "plugins/jarvis-cargo-builder/.codex-plugin/plugin.json",
+      "sha256": "fdeda87af7ac53ebe0ec70412895d40e3652feea0bf75006567830a9f73f2971",
+      "size": 742
+    },
+    {
+      "path": "plugins/jarvis-cargo-builder/skills/cargo-builder/SKILL.md",
+      "sha256": "d33ddfd5c856b79ab17bce37224587e3f3a79a1cfc17e12320149a229eb239dc",
+      "size": 1754
+    },
+    {
+      "path": "plugins/jarvis-cargo-builder/specialist.json",
+      "sha256": "aef06938c164f0afa0a30162021ce255f3c6115a05955406d9d7fd7b140db129",
+      "size": 2227
+    },
+    {
+      "path": "plugins/jarvis-installation-specialist/.codex-plugin/plugin.json",
+      "sha256": "125a08abd8dd11f0ea0e7cbd53f6182b26dd4692765b8c7d046cff1c919672f0",
+      "size": 728
+    },
+    {
+      "path": "plugins/jarvis-installation-specialist/specialist.json",
+      "sha256": "ab76fe418418dccd5637bf6e4612f9ed2172f4637978e48c94c2ea4e7292cb2e",
+      "size": 1651
+    },
+    {
+      "path": "plugins/jarvis-network-specialist/.codex-plugin/plugin.json",
+      "sha256": "ff064da460aebc07231dc3923abe0520d16b5a2b965aa05ff0c7c96029c1ab6f",
+      "size": 296
+    },
+    {
+      "path": "plugins/jarvis-network-specialist/specialist.json",
+      "sha256": "6ed5c136eb4e0689e7bfc9048f4339bda076db90cc36cb38c87134961243af35",
+      "size": 1534
+    },
+    {
+      "path": "plugins/jarvis-power-expert/.codex-plugin/plugin.json",
+      "sha256": "c14cc4bad9d67645a29e8b20d2f48ea379273e323bcf2fca5594936aa8926170",
+      "size": 761
+    },
+    {
+      "path": "plugins/jarvis-power-expert/policy/sources.json",
+      "sha256": "8929ccaa6064fa424b25d8c418c81974536ca09c1a7c95dd5d3395843a4e179a",
+      "size": 1463
+    },
+    {
+      "path": "plugins/jarvis-power-expert/registry/power-capabilities.json",
+      "sha256": "b9848eefc24589be6c6cd10497a58100a1c67dc8c58a345b8e3d8a2171b449ef",
+      "size": 1339
+    },
+    {
+      "path": "plugins/jarvis-power-expert/registry/power-profile.schema.json",
+      "sha256": "9189e52b3b2f456f184f0c17e04924b89e41b8c09108b547378129f3d2f80b52",
+      "size": 2291
+    },
+    {
+      "path": "plugins/jarvis-power-expert/scripts/power_tools.py",
+      "sha256": "54e4d0c35cf8bb360e6fe1a73516b5906c34ff48d38a519f5679937bca6df974",
+      "size": 9149
+    },
+    {
+      "path": "plugins/jarvis-power-expert/skills/jarvis-power-expert/SKILL.md",
+      "sha256": "4ba19900386097bd2a976a714602d9e97979ae9ffa1e491a3bb0e9f219b1ee2e",
+      "size": 2281
+    },
+    {
+      "path": "plugins/jarvis-power-expert/specialist.json",
+      "sha256": "2c288dc47d0aead20508ba02b2fe03a039df40bd3b63202e7fcdbf0e7cd98524",
+      "size": 3027
+    },
+    {
+      "path": "plugins/jarvis-recovery-specialist/.codex-plugin/plugin.json",
+      "sha256": "c9107dbdca63da6f6b93528613f37e85443b1881db00ab117d35f5c7d0df2229",
+      "size": 314
+    },
+    {
+      "path": "plugins/jarvis-recovery-specialist/specialist.json",
+      "sha256": "ab0550000c16a9058bb1ba2833510e6055bba60e019767bd187b9a78e2b77bbe",
+      "size": 1606
+    },
+    {
+      "path": "plugins/jarvis-security-specialist/.codex-plugin/plugin.json",
+      "sha256": "ae448c700990ef6266ad424b61e75dc9886e1ee49eed7462d773f897463fa71c",
+      "size": 303
+    },
+    {
+      "path": "plugins/jarvis-security-specialist/specialist.json",
+      "sha256": "57b6a145b170271757868a8c5d3e31defc23a03e2aed2f2d24ad2b5f77de2e10",
+      "size": 1605
+    },
+    {
+      "path": "plugins/jarvis-system-admin/.codex-plugin/plugin.json",
+      "sha256": "de4bca78823d231010d95e548763c4a423eac0d17ae438be6a287d948ba823fa",
+      "size": 1040
+    },
+    {
+      "path": "plugins/jarvis-system-admin/.mcp.json",
+      "sha256": "b3a7c8903991049ec46523626425436649fd95bd445b2ad05a71f3aba368510c",
+      "size": 322
+    },
+    {
+      "path": "plugins/jarvis-system-admin/hooks/hooks.json",
+      "sha256": "2eccc0f10fb1f4f21b71c164267d3593f596b69480c6f040eea1cf031fb82ce2",
+      "size": 854
+    },
+    {
+      "path": "plugins/jarvis-system-admin/policy/knowledge.json",
+      "sha256": "1bc1eb69eb274c4a8210d1d4d229dc8dc5b7d3aab656359785142028f6c1de95",
+      "size": 645
+    },
+    {
+      "path": "plugins/jarvis-system-admin/policy/policy.json",
+      "sha256": "c7f78ca565e8715bddabe4987757771cee20bd2af9b5ecd2014f439a4721937a",
+      "size": 2468
+    },
+    {
+      "path": "plugins/jarvis-system-admin/policy/privacy.json",
+      "sha256": "090c10f77b0e5866c4933659ee3a9bee10ce4296bed63a3eee62b99bcc49b5b8",
+      "size": 744
+    },
+    {
+      "path": "plugins/jarvis-system-admin/policy/remote-sink.example.json",
+      "sha256": "df86efe5dec3ac46fb66407369ff7f63bd4fd9cc65c918217525078f75f5f189",
+      "size": 182
+    },
+    {
+      "path": "plugins/jarvis-system-admin/policy/retention.json",
+      "sha256": "7193d748b59a7b5db4e976f3c7aefc42ab63b5a8e1284ae57870a924ffa0ea90",
+      "size": 960
+    },
+    {
+      "path": "plugins/jarvis-system-admin/registry/actions.json",
+      "sha256": "2c3220db2c4a147535abc65741b0b357846f7d723f6f016505f5dc2aebb30a9f",
+      "size": 8470
+    },
+    {
+      "path": "plugins/jarvis-system-admin/registry/adapters.json",
+      "sha256": "46d93ba9ab885962b7ded1f57bdbaa3a3dda5fcdb0e6667eb6d7461b9a9d37e1",
+      "size": 1396
+    },
+    {
+      "path": "plugins/jarvis-system-admin/registry/capabilities.json",
+      "sha256": "28651b8742ec0515e92887e3084d88eb628a38199e9ad523abafef0cd3ac343a",
+      "size": 2294
+    },
+    {
+      "path": "plugins/jarvis-system-admin/registry/collector-plans/lighting-controls.json",
+      "sha256": "d9f0bdf53f85300dbe7b08b72d213e4b2e4d2102f11600a9022e111cf0ed2f7c",
+      "size": 4220
+    },
+    {
+      "path": "plugins/jarvis-system-admin/registry/collectors/fedora-workstation.json",
+      "sha256": "9fd30dd150bedbd31761ae5a1eb134d1174f928cf194d40243588750e12f6b77",
+      "size": 3542
+    },
+    {
+      "path": "plugins/jarvis-system-admin/registry/collectors/lighting-tier0.json",
+      "sha256": "6f3025cb648450dc0ec4c2e179748fc6718c24a985945b2bb2c94caf825a7210",
+      "size": 1837
+    },
+    {
+      "path": "plugins/jarvis-system-admin/registry/collectors/lighting-tier1-platform.json",
+      "sha256": "53b2cb0788d37a8c33e8240d29e3cabec603f91f85a5398773b04f396c75063e",
+      "size": 2287
+    },
+    {
+      "path": "plugins/jarvis-system-admin/registry/collectors/lighting-tier2-wmi-binding.json",
+      "sha256": "618ce4cbb3dac33e33ac7462f98cf5eca674cc61527641e1bb4605b044e4644b",
+      "size": 1603
+    },
+    {
+      "path": "plugins/jarvis-system-admin/registry/collectors/lighting-tier3-connector-association.json",
+      "sha256": "6285e759195b5bd6f332c1c69256edcfb4767e3ed35aded6e89d08360f84ab0f",
+      "size": 1603
+    },
+    {
+      "path": "plugins/jarvis-system-admin/registry/commands/bash-fedora.json",
+      "sha256": "e1644fbe7b0a10e98998bc3263e14797cd741bf61a26897a7b4f8654506c9d83",
+      "size": 4907
+    },
+    {
+      "path": "plugins/jarvis-system-admin/registry/procedures/backup.json",
+      "sha256": "46d457cf952e1184243450007f4b6ccaef67f2e5f5e0102c67ab9f92fcc9f7fb",
+      "size": 669
+    },
+    {
+      "path": "plugins/jarvis-system-admin/registry/procedures/benchmark.json",
+      "sha256": "6eb8871826d4980d46932144b78e11683fda4ae07143e1883ad119f2f21be3fb",
+      "size": 549
+    },
+    {
+      "path": "plugins/jarvis-system-admin/registry/procedures/change.json",
+      "sha256": "540eb0147380af36d484b4594316bec4b01ba79bcb8ad3ed27e8ffee024ee783",
+      "size": 783
+    },
+    {
+      "path": "plugins/jarvis-system-admin/registry/procedures/drift.json",
+      "sha256": "6a9b438af9aeeec489b4b336eff30d5eeb09730c224c8459d22187ec2f23a1bb",
+      "size": 510
+    },
+    {
+      "path": "plugins/jarvis-system-admin/registry/procedures/health.json",
+      "sha256": "ba6337bff1083564f869da25be131aef9dcec6cbce2c1ec3fddfc3a08f82a918",
+      "size": 507
+    },
+    {
+      "path": "plugins/jarvis-system-admin/registry/procedures/incident-response.json",
+      "sha256": "ea187d8a09ca3bf285390271b8fa720cafa293fac933961d7e7f1fe05e67922a",
+      "size": 747
+    },
+    {
+      "path": "plugins/jarvis-system-admin/registry/procedures/inventory.json",
+      "sha256": "703e94b2217fa8c4ed4a0924837fba8d04e5d848dcfed32d1cb59fc9f4fea7b0",
+      "size": 509
+    },
+    {
+      "path": "plugins/jarvis-system-admin/registry/procedures/knowledge.json",
+      "sha256": "19ad5eeb1e5e44b9f03c42eec2356a60376ce3756b30b2b2dd1d7f9b2fdbf47a",
+      "size": 660
+    },
+    {
+      "path": "plugins/jarvis-system-admin/registry/procedures/lighting-diagnose.json",
+      "sha256": "92ceddacc4a6c48a1654457c206dc3c6d5ae730e5735094a0a37ebce5374d04f",
+      "size": 1462
+    },
+    {
+      "path": "plugins/jarvis-system-admin/registry/procedures/lighting-observe.json",
+      "sha256": "452e60656628a8cdf3b46d2a5a73e1ebd8af1f0125c019c6080a5d00ce316163",
+      "size": 514
+    },
+    {
+      "path": "plugins/jarvis-system-admin/registry/procedures/lighting-repair.json",
+      "sha256": "725d907999f820dc54eb59a86fff2bb174e257ceb08222f3cc30c432f73f27f9",
+      "size": 1403
+    },
+    {
+      "path": "plugins/jarvis-system-admin/registry/procedures/maintenance.json",
+      "sha256": "2945764881d1ecf48fa4e7c08e0914d9adcf1b36e2edfadbe1418c58db882aab",
+      "size": 603
+    },
+    {
+      "path": "plugins/jarvis-system-admin/registry/procedures/notification.json",
+      "sha256": "644cbdc3c7f92adf04b394ee76d9828884ff762abcb738c4c29c65f2081e4e86",
+      "size": 561
+    },
+    {
+      "path": "plugins/jarvis-system-admin/registry/procedures/power-profile.json",
+      "sha256": "7c9b689d061b3b77c099e577376b83a91e670b800fd1f44ff5efa41c966d9d4c",
+      "size": 721
+    },
+    {
+      "path": "plugins/jarvis-system-admin/registry/procedures/recovery.json",
+      "sha256": "0a1066dccb9215088691095cf68bc6a51c077bef1bf3e1e89866fb8a55bc267e",
+      "size": 643
+    },
+    {
+      "path": "plugins/jarvis-system-admin/registry/procedures/repair.json",
+      "sha256": "df33c95c003c542350532e7b85aabfa00fb6a78b70236f161c451c4001f2e9b2",
+      "size": 607
+    },
+    {
+      "path": "plugins/jarvis-system-admin/registry/procedures/security.json",
+      "sha256": "e96af7d9657f29405fb2071b5138d552bd6d4099d050a3fe841fbbe8e2c5d240",
+      "size": 635
+    },
+    {
+      "path": "plugins/jarvis-system-admin/registry/procedures/self-update.json",
+      "sha256": "9d8dcaa0bbf06db920b89c21926da06aa016ae36ca03a220616128ff1ff762ff",
+      "size": 721
+    },
+    {
+      "path": "plugins/jarvis-system-admin/registry/procedures/state.json",
+      "sha256": "8096d36cdf7451315358ca5a7fa5b9473868d67f9a96a6615081a13a7a77e4df",
+      "size": 542
+    },
+    {
+      "path": "plugins/jarvis-system-admin/registry/procedures/update.json",
+      "sha256": "13e9f5f6a877486128bf9edc9d32a4774fd462818be4836f65bea95d4d6e4297",
+      "size": 686
+    },
+    {
+      "path": "plugins/jarvis-system-admin/registry/sources.json",
+      "sha256": "ac6d310f4418a560a70ec7a47073f30ed24f7f5ae1c68c20a75df459170175d7",
+      "size": 3140
+    },
+    {
+      "path": "plugins/jarvis-system-admin/schemas/action-context.schema.json",
+      "sha256": "cda7c27ca5c442bd5fa55eda4e486c1bb73c29da86c41f68b001ff4931302f7c",
+      "size": 1608
+    },
+    {
+      "path": "plugins/jarvis-system-admin/schemas/action-definition.schema.json",
+      "sha256": "320c71ef89ac4b7c6504d7c2367faa9ef2884c0bf763670e8d24402f808cb8ab",
+      "size": 1551
+    },
+    {
+      "path": "plugins/jarvis-system-admin/schemas/approval-request.schema.json",
+      "sha256": "96728eb4bf0faf7454def6fe97b8e3cc55745faa43ae0c31312f30d6151ff5d9",
+      "size": 1102
+    },
+    {
+      "path": "plugins/jarvis-system-admin/schemas/approval.schema.json",
+      "sha256": "a6d510cb596563f3e94b8e4226701c62e0cca344423a47630b14f7bc76e5aea6",
+      "size": 1115
+    },
+    {
+      "path": "plugins/jarvis-system-admin/schemas/audit-event.schema.json",
+      "sha256": "430df4d0fa5970f82b8529f1be07e4116e8bc7e3dfc3ad7af491abac58d3f7b0",
+      "size": 503
+    },
+    {
+      "path": "plugins/jarvis-system-admin/schemas/command-attempt.schema.json",
+      "sha256": "bda81b03d73867dc6d2a8317c8cbddec885bf3dcaddedbc76a7ea322283d1dd7",
+      "size": 1285
+    },
+    {
+      "path": "plugins/jarvis-system-admin/schemas/decision-record.schema.json",
+      "sha256": "ce17770291a24da72419152f8e928ce1d841a1b66c54a869513a2edb0932527f",
+      "size": 613
+    },
+    {
+      "path": "plugins/jarvis-system-admin/schemas/error-report.schema.json",
+      "sha256": "987b797e841a7a7b1c84feb0e82b2b9e47d2974ab96959be7521434b3a154252",
+      "size": 759
+    },
+    {
+      "path": "plugins/jarvis-system-admin/schemas/error-revision.schema.json",
+      "sha256": "4cc97ea9b8812e4c7a96e9441ef5dd94196a14d5f8dbebf82a0aaf2e2a5586f6",
+      "size": 421
+    },
+    {
+      "path": "plugins/jarvis-system-admin/schemas/lesson.schema.json",
+      "sha256": "de900be3f56fd867578b8c13dacf99de8713da9c03f3400767473c966e9d4c36",
+      "size": 730
+    },
+    {
+      "path": "plugins/jarvis-system-admin/schemas/remote-sink.schema.json",
+      "sha256": "aa902cfde9352ad7028a53c86ef93cd3991cb2ccb731ad4969dbcd698425362f",
+      "size": 536
+    },
+    {
+      "path": "plugins/jarvis-system-admin/schemas/specialist-definition.schema.json",
+      "sha256": "4f7ec0c651323a0e4e00ad4e6b32ba6e1676639556450f036e99d22e81363607",
+      "size": 1733
+    },
+    {
+      "path": "plugins/jarvis-system-admin/schemas/state-record.schema.json",
+      "sha256": "0b3213a3dc3e6fdca2debaf4bca4dcd73212aafe03fb08a63f6d32e3fa973003",
+      "size": 705
+    },
+    {
+      "path": "plugins/jarvis-system-admin/schemas/system-fact.schema.json",
+      "sha256": "2954338dde9b0642235718249cf6fc506ba75085c6246370cf6dd90b1cc5a5cd",
+      "size": 842
+    },
+    {
+      "path": "plugins/jarvis-system-admin/scripts/collect_fedora_inventory.py",
+      "sha256": "23eeee0f2610fa0a75721ef65e2e60f5554778603eac7f1e02c7f898a82ac5ff",
+      "size": 10496
+    },
+    {
+      "path": "plugins/jarvis-system-admin/scripts/collect_lighting_tier0.py",
+      "sha256": "aaa421f163997f3fae3636f874ce7497f59155904e3b8bcd4064633bbe9d2212",
+      "size": 17301
+    },
+    {
+      "path": "plugins/jarvis-system-admin/scripts/collect_lighting_tier1_platform.py",
+      "sha256": "b6b58d5d26b91b91cdd170ef3e89323d9fa8acbc17f49a59f2ed457ff6f2364a",
+      "size": 18446
+    },
+    {
+      "path": "plugins/jarvis-system-admin/scripts/collect_lighting_tier2_wmi_binding.py",
+      "sha256": "f4f59cb8deaf01619625adf67aab4d7af99ccb9c675b6d68a65a2730eecb5047",
+      "size": 11245
+    },
+    {
+      "path": "plugins/jarvis-system-admin/scripts/collect_lighting_tier3_connector_association.py",
+      "sha256": "f5a73b49527df4379253c049c27d41b5843c390d163e2a8611d9e97ab12b7d4e",
+      "size": 13122
+    },
+    {
+      "path": "plugins/jarvis-system-admin/scripts/extended_tools.py",
+      "sha256": "4a93ac8e4df09f5cf3136d812b761e888e15793f5db256f7ea40350758db4ec9",
+      "size": 2494
+    },
+    {
+      "path": "plugins/jarvis-system-admin/scripts/health_tools.py",
+      "sha256": "9a1a26343f3f5f668632e19b267aea57ee68ef43fa003a81f43095a9453bcd9f",
+      "size": 7032
+    },
+    {
+      "path": "plugins/jarvis-system-admin/scripts/hook_guard.py",
+      "sha256": "eb3e8871fdf2ba0876d93b17d01d0d214047034ca4b79c72b37a1273f67f2e9e",
+      "size": 3079
+    },
+    {
+      "path": "plugins/jarvis-system-admin/scripts/index_local_docs.py",
+      "sha256": "44e941dad0d1db137553868b3178edb32353e379ee81f7112c061341c4d4bce5",
+      "size": 4909
+    },
+    {
+      "path": "plugins/jarvis-system-admin/scripts/jarvisctl.py",
+      "sha256": "50c75a7db8dbf33829b6dbe2094f8a321a7240513e27596ba51392b5d2438c9e",
+      "size": 15465
+    },
+    {
+      "path": "plugins/jarvis-system-admin/scripts/knowledge_store.py",
+      "sha256": "20b591bbb3c9a80fd333c8918b59829201caf1cc9e5d33f0e57caa10ea9bec85",
+      "size": 40693
+    },
+    {
+      "path": "plugins/jarvis-system-admin/scripts/mcp_server.py",
+      "sha256": "9ac6c130211140c27563aeae8957182faf3c4af4869fa419362b639f881fb992",
+      "size": 39089
+    },
+    {
+      "path": "plugins/jarvis-system-admin/scripts/schema_validate.py",
+      "sha256": "749f85148dbfb030175fde6cb6b18be35d029bbed6869570d500e9e48b5dc4a7",
+      "size": 4812
+    },
+    {
+      "path": "plugins/jarvis-system-admin/skills/jarvis-control-plane/SKILL.md",
+      "sha256": "0fdb0acf075a7b26b268d0083b98a92da8f5c6f46aefea0699894ff8a376912e",
+      "size": 2290
+    },
+    {
+      "path": "plugins/jarvis-system-admin/skills/jarvis-control-plane/agents/openai.yaml",
+      "sha256": "8adefa19350bd6705830f455255dda2b45febcdd9b8da866291908f99fb05e27",
+      "size": 278
+    },
+    {
+      "path": "plugins/jarvis-system-admin/skills/jarvis-control-plane/references/operating-model.md",
+      "sha256": "cebf58946842ba8976c45d568c3fccd3060a96a2b310934dd1f8f6a6c77f7462",
+      "size": 1060
+    },
+    {
+      "path": "plugins/jarvis-system-admin/skills/jarvis-control-plane/scripts/jarvisctl.py",
+      "sha256": "5bc2b4081bfb468c1137238cb447a5a7404cb187b4c38ef11411d5dafe9f5b88",
+      "size": 176
+    },
+    {
+      "path": "plugins/jarvis-system-admin/storage/schema.sql",
+      "sha256": "2968ce45f0f75dce96bcc34608488f9f48becd1712cda2a4f6587beb2584fd3c",
+      "size": 12087
+    },
+    {
+      "path": "plugins/jarvis-system-admin/tests/fixtures/event.json",
+      "sha256": "3b2652154fad0351d28f6f916d146ae888bb72625a44a391b4d5be8a53cda4ff",
+      "size": 231
+    },
+    {
+      "path": "plugins/jarvis-system-admin/tests/fixtures/forbidden.json",
+      "sha256": "b3838cb2bf732f3f4b13f62648b67c28dfbbde51b7aa2e6a8c93b0f3e6252954",
+      "size": 536
+    },
+    {
+      "path": "plugins/jarvis-system-admin/tests/fixtures/knowledge/approval.json",
+      "sha256": "5d0ae861cb7baf7a0bab9760dc1bce479bdd4f9852581fd2b0768d2ca20152f4",
+      "size": 502
+    },
+    {
+      "path": "plugins/jarvis-system-admin/tests/fixtures/knowledge/collector.json",
+      "sha256": "f4ea0a7750b6117bc655c2bc31ab31c661a1d7e3189adc35a21e4a581af7a8b5",
+      "size": 312
+    },
+    {
+      "path": "plugins/jarvis-system-admin/tests/fixtures/knowledge/decision.json",
+      "sha256": "6ffb1d0571529785b69e93081e1d48bffac90f5a0a069bd479248a7902244722",
+      "size": 250
+    },
+    {
+      "path": "plugins/jarvis-system-admin/tests/fixtures/knowledge/error-revision.json",
+      "sha256": "c30b7cb8617d1e88ea5b20286c58e88ac63d189b73da44b486b2dc11e9f9e43c",
+      "size": 168
+    },
+    {
+      "path": "plugins/jarvis-system-admin/tests/fixtures/knowledge/fact.json",
+      "sha256": "73a695a597c6213144db3304710b3c87948bc8cf188e673103cc3c5c0a81e1da",
+      "size": 330
+    },
+    {
+      "path": "plugins/jarvis-system-admin/tests/fixtures/knowledge/lesson.json",
+      "sha256": "aa03adb95970f87ed63ce4ac85797edc9290d8c9a3a7cd2a184614240086ed79",
+      "size": 304
+    },
+    {
+      "path": "plugins/jarvis-system-admin/tests/fixtures/read-only.json",
+      "sha256": "448592a66ae09a8b8375f57425ed370df46767f70f77252968501dec3867aa0c",
+      "size": 564
+    },
+    {
+      "path": "plugins/jarvis-system-admin/tests/fixtures/update.json",
+      "sha256": "da31230900b1d30eea97f60d034f2e335cc30fb795a65d3e158bdcf4edd1d670",
+      "size": 688
+    },
+    {
+      "path": "plugins/jarvis-system-admin/tests/test_control_plane.py",
+      "sha256": "0b4b855e3b14795dd244de7a7a03cc84b154ef37e2ab9524598d58d00b1fbc8e",
+      "size": 2999
+    },
+    {
+      "path": "plugins/jarvis-system-admin/tests/test_knowledge_store.py",
+      "sha256": "b588f31eb5cdf9d1559c52ccde5f7bf06c87c0b507cdd3326918191c05873076",
+      "size": 7800
+    },
+    {
+      "path": "plugins/jarvis-system-admin/tests/test_mcp_server.py",
+      "sha256": "e7d764155a06045eca6a977d82206b5675f4d6ec999d0c1a8900e022b5d891c1",
+      "size": 3616
+    },
+    {
+      "path": "plugins/jarvis-system-architect/.codex-plugin/plugin.json",
+      "sha256": "9d4417afbf626223ab8e7e0e769dccc2ef95821fb9fecc67327b195c0b539aa3",
+      "size": 799
+    },
+    {
+      "path": "plugins/jarvis-system-architect/policy/model-routing.json",
+      "sha256": "f7a3d2f6b1655a696a693fcdbcb18e12e8ad6b43d1f633e93fb473d7f0be3f79",
+      "size": 566
+    },
+    {
+      "path": "plugins/jarvis-system-architect/skills/jarvis-architect/SKILL.md",
+      "sha256": "34a4a2ce6f0ebd667a6f58b99c64a944db2d4ffb7cab6dc614c75a9ef634c953",
+      "size": 2019
+    },
+    {
+      "path": "plugins/jarvis-system-architect/specialist.json",
+      "sha256": "075f72f361b1da6fd292be48bbd9e1fe41c526c4d5c2ce2ee38da0bbeabb68a2",
+      "size": 1137
+    },
+    {
+      "path": "plugins/jarvis-system-health/.codex-plugin/plugin.json",
+      "sha256": "dac9829b14209b32bd76819fc48554a0acab223a6a865111b013793b38b2b538",
+      "size": 534
+    },
+    {
+      "path": "plugins/jarvis-system-health/specialist.json",
+      "sha256": "318693beab4e09f0d16a44b881bf67fb4670d50f9beed257973ca76c0a2ac0e9",
+      "size": 1977
+    },
+    {
+      "path": "pyproject.toml",
+      "sha256": "e678726484fe38db42b2d20e22b64d368f504ab1a2433a3d0bbab249e7f8ff12",
+      "size": 825
+    },
+    {
+      "path": "requirements-dev.lock",
+      "sha256": "4526c7b9115573950a8d48d54a9ace30eb8650e60279b9bc788969a71a69733f",
+      "size": 579
+    },
+    {
+      "path": "schemas/host/direct-host-policy.schema.json",
+      "sha256": "dd11a3ee1d5d89eda4402530b763236b8d67289919450fbb505253c71ec86331",
+      "size": 2381
+    },
+    {
+      "path": "schemas/host/recovery-set.schema.json",
+      "sha256": "cd8f453c8b2df4678675c0d32596ac1417349b4e026c592300c8b02391a72867",
+      "size": 2312
+    },
+    {
+      "path": "scripts/bootstrap-dev.sh",
+      "sha256": "ab93681751bce9dff8231193fb3c8603f7a7acc15d7a9a75471022e41ee47801",
+      "size": 424
+    },
+    {
+      "path": "scripts/codebase_inventory.py",
+      "sha256": "87693d9ac2e610e8113d60ba53866d92a163817070245c996921856d332a5d81",
+      "size": 3054
+    },
+    {
+      "path": "scripts/generate-release-manifest.py",
+      "sha256": "deaa5830e5cde769009803dfe256e1e46e86d98deb7f76a1a18a869654a9334d",
+      "size": 1142
+    },
+    {
+      "path": "scripts/launch-tui.sh",
+      "sha256": "57168a2dbde3cd4ba7a6a112560c4533a9f3a9afbf477380e7dd5d8becc11321",
+      "size": 1477
+    },
+    {
+      "path": "scripts/prepare-runtime-profile.py",
+      "sha256": "71fbbc18b9dbac6d52e83b40932f4430075a9407b3754f527331586813b3c40d",
+      "size": 974
+    },
+    {
+      "path": "scripts/quality-gate.sh",
+      "sha256": "f83006cea9b8a5e63797f3b69b49326e037c5961bdd29dbb4b9b4710a0208371",
+      "size": 2303
+    },
+    {
+      "path": "scripts/run-readonly.sh",
+      "sha256": "20fe95a999da9fedfc4f2a80a276abb65dca99e39b02ea961a4f96fc60fed6af",
+      "size": 199
+    },
+    {
+      "path": "scripts/smoke-authenticated.py",
+      "sha256": "6e398a1069774c65f3211ee2c92b89e0157cae6256fc9eac11641ba36f5e0309",
+      "size": 2335
+    },
+    {
+      "path": "scripts/smoke-normal-terminal.py",
+      "sha256": "35fc249e726e7e173fcf2488ebd2ab01dd06b0c5d1df2e8246939a72067265a0",
+      "size": 4170
+    },
+    {
+      "path": "scripts/validate-bundle.sh",
+      "sha256": "1b3f57a332f077634f2b06487f408e4b35a7a67f7e5a0209728f315bbda1057a",
+      "size": 17020
+    },
+    {
+      "path": "scripts/verify-release-manifest.py",
+      "sha256": "8a0ad79fc2d9043b3a8a72a15c61cb209e17798b63aca61e82e517eb61b46506",
+      "size": 719
+    },
+    {
+      "path": "scripts/verify_docs.py",
+      "sha256": "f2b91f8975b22380e78cc35129861a898cb6635ad444b17e5d5b41d12313d68d",
+      "size": 1760
+    },
+    {
+      "path": "sudo",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
+      "path": "tests/host/test_collect_lighting_tier0.py",
+      "sha256": "074b8d268abb9a06c03db8fd5bc03e27a6b8641cf9b2b8a2cb9ec85a3ee1c4bb",
+      "size": 7592
+    },
+    {
+      "path": "tests/host/test_collect_lighting_tier1_platform.py",
+      "sha256": "ba2671a3f99d18d80a7584f316acc684b5fc28d22a954187f8d4bb7aa27bfb41",
+      "size": 10031
+    },
+    {
+      "path": "tests/host/test_collect_lighting_tier2_wmi_binding.py",
+      "sha256": "9268e85bbfd2fc518cb47f76934f9bdba93c50716fd007c7e289a191a0c1da2d",
+      "size": 5423
+    },
+    {
+      "path": "tests/host/test_collect_lighting_tier3_connector_association.py",
+      "sha256": "49aacefd1ee4ebec98a4f08fdcb6401c9f5e6d0e8e04dad985e20420b303c8c4",
+      "size": 5597
+    },
+    {
+      "path": "tests/host/test_diagnose_lighting_tier1_input_driver_contract.py",
+      "sha256": "ae7cbb0c41b405ae71155aeea4e249dd5ffb0a5333891cc66dc599b640bb5ab4",
+      "size": 3371
+    },
+    {
+      "path": "tests/host/test_diagnose_lighting_tier1_name_contract.py",
+      "sha256": "9933c13063b7df919af587b0a5cfd33090adaf724510a40afbed5a59ab52e071",
+      "size": 2531
+    },
+    {
+      "path": "tests/host/test_diagnose_restored_tokens.py",
+      "sha256": "e23c6cbbd04e6c1a2d670e896c71d065cc5fb6b2def1b4672279cc864d9946dc",
+      "size": 5360
+    },
+    {
+      "path": "tests/host/test_direct_host_policy.py",
+      "sha256": "ddc27f6394a2234e6c5ad51782cd546ef1ba062651fb7ea461611ef452758e51",
+      "size": 4691
+    },
+    {
+      "path": "tests/host/test_recovery_set.py",
+      "sha256": "7a19159f82e6cfd82e43a935f9aec657b90e79f828153ffe55907f7e121b6cb2",
+      "size": 4313
+    },
+    {
+      "path": "tests/host/test_verify_restored_boundaries.py",
+      "sha256": "4eb15696c75ddf639f4846f7d2ccfeee74a065fe022dd88a883229f850df44cb",
+      "size": 9252
+    },
+    {
+      "path": "tests/research-cases.md",
+      "sha256": "1e8d011f91b48aa553715913ed683532093421d8abe26246d551451ba1638e06",
+      "size": 690
+    },
+    {
+      "path": "tests/sysadmin-cases.md",
+      "sha256": "03482f2e41331d2b598437596931e37bc8b6330f464c5fedf78e026622ec46ae",
+      "size": 840
+    },
+    {
+      "path": "tests/test_privileged_installer.py",
+      "sha256": "533e52a5b85a3df9bd45c194fe1822efff2c14932bde10cebe5c202e0780aaa8",
+      "size": 4256
+    },
+    {
+      "path": "tui/protocol-compatibility.json",
+      "sha256": "48b260069db2daaaca0287bc752033c9cdb2e8965fe4103ad6b1548e14c6dabb",
+      "size": 1482
+    },
+    {
+      "path": "tui/pyproject.toml",
+      "sha256": "1c6e2ca0b6e0117a50a8ac443800073236568a7538dce1108e241ed9918ba7ac",
+      "size": 456
+    },
+    {
+      "path": "tui/schemas/broker-event.schema.json",
+      "sha256": "59e6bfcc32f06dc9399401704ba86351d4f52a8a47c87f8c726b85b5bb48847d",
+      "size": 962
+    },
+    {
+      "path": "tui/schemas/intent-envelope.schema.json",
+      "sha256": "2ddb0167c1b38b415b6c87414dab1489d81344d2fe8a24e83546a8f1d6d2cf22",
+      "size": 1020
+    },
+    {
+      "path": "tui/schemas/session-snapshot.schema.json",
+      "sha256": "54c6745d49a7ce41962e6b96273522d0821e5b6bf6117b7a8302e7f7397baf5d",
+      "size": 1595
+    },
+    {
+      "path": "tui/schemas/task-admission.schema.json",
+      "sha256": "6d57f744b95903842b918e09cdb546e7c2819039cbc534e9aaa9572293692d03",
+      "size": 7181
+    },
+    {
+      "path": "tui/schemas/task-record.schema.json",
+      "sha256": "106a0b4b6382c1f2ffc2251b1f4dc863d16279074a8ef26cf633712172254575",
+      "size": 11422
+    },
+    {
+      "path": "tui/src/jarvis_tui/__init__.py",
+      "sha256": "9f22767540dbe9578b2cd0587bfd3e54bb121acce1cd8196cc028a3e903bb06b",
+      "size": 2459
+    },
+    {
+      "path": "tui/src/jarvis_tui/__main__.py",
+      "sha256": "30fa2c0ee4f7cc9efd7bec86b8765abc89f992975c08e9cd8f00960eaa8ff314",
+      "size": 1813
+    },
+    {
+      "path": "tui/src/jarvis_tui/actions.py",
+      "sha256": "004eb453bf4538dca0526cf7d725584c45cf21e398d103c8cc2de6faf7aecc57",
+      "size": 3782
+    },
+    {
+      "path": "tui/src/jarvis_tui/agent_coordinator.py",
+      "sha256": "87b59952f43ab90428423c7ac8f3fb612a41249de9757f40a6d38efaafe70b2e",
+      "size": 2515
+    },
+    {
+      "path": "tui/src/jarvis_tui/agent_registry.py",
+      "sha256": "483e91ba74332cb20e265ecc3bd8c4dd678487cdb8a97b001753b50be60b70a9",
+      "size": 11900
+    },
+    {
+      "path": "tui/src/jarvis_tui/app.py",
+      "sha256": "6833d8267ea47bac4a47a6fae15e4fdde3f0144bfdea58b669854027afd99eae",
+      "size": 262553
+    },
+    {
+      "path": "tui/src/jarvis_tui/app_server.py",
+      "sha256": "2f64cf05cdb65cca277add209f990a165c7dcc47bb9c31abfa18fb2f7258ca79",
+      "size": 16976
+    },
+    {
+      "path": "tui/src/jarvis_tui/async_boundary.py",
+      "sha256": "e5252f4a4df27328373297a0e5ee7dacf32d82feb2542c3f2a567112873508ff",
+      "size": 2442
+    },
+    {
+      "path": "tui/src/jarvis_tui/boot_plan.py",
+      "sha256": "4c787b043df5cf5ed336a1c949d93d89554c35dfe97e76b3cce72a75c394ca75",
+      "size": 1652
+    },
+    {
+      "path": "tui/src/jarvis_tui/broker.py",
+      "sha256": "45c8a257d0d065b1bb06b4c857a9c3b42fd6f8114e8d72f5f596ed9797e0ec94",
+      "size": 64346
+    },
+    {
+      "path": "tui/src/jarvis_tui/cargo_dependencies.py",
+      "sha256": "e705471fdb7f9e172d847085ad6ddf43de25bee7e55c5091326803d4088f312f",
+      "size": 2162
+    },
+    {
+      "path": "tui/src/jarvis_tui/cargo_download.py",
+      "sha256": "32b53cc67372f48984a755f7892e94e8c6742ec9abe6eec9a13a5c71b49795ed",
+      "size": 2903
+    },
+    {
+      "path": "tui/src/jarvis_tui/cargo_vendor.py",
+      "sha256": "a6aaeb23d6b0f2afb8c6fcc729b18ea3b3095ee2b91d87b2cf42ae8070f24d61",
+      "size": 3653
+    },
+    {
+      "path": "tui/src/jarvis_tui/checkpoint_recovery.py",
+      "sha256": "545bf7c8e009fe43b51a897037be3e8f5a7722e7ad8c14042d51efca4c014f88",
+      "size": 1393
+    },
+    {
+      "path": "tui/src/jarvis_tui/configuration_operations.py",
+      "sha256": "3a4589ba941c24debe102432bc663a3f63f0fa1926b597f7a8ee8875c620fc14",
+      "size": 3838
+    },
+    {
+      "path": "tui/src/jarvis_tui/conversation_checkpoints.py",
+      "sha256": "bb90cfb6e4788535f8dd6113c1175f8e5cdd0f40713eba99076620a37e5dd023",
+      "size": 6817
+    },
+    {
+      "path": "tui/src/jarvis_tui/conversation_manager.py",
+      "sha256": "ba82c5c46b2bc99f8f575bdebc58104aef4ab3e4238ea4289305f45a9cef5268",
+      "size": 13105
+    },
+    {
+      "path": "tui/src/jarvis_tui/dependency_apply.py",
+      "sha256": "d1ddf7b65f83e99c7e7b44b966df1888a4ff825c360b1afed6f31052903a585b",
+      "size": 10863
+    },
+    {
+      "path": "tui/src/jarvis_tui/domain_clean.py",
+      "sha256": "48ec36e35d3ea3985e16a06b144333780d34801774e71ff987cc80c0df1ea106",
+      "size": 2425
+    },
+    {
+      "path": "tui/src/jarvis_tui/domain_views.py",
+      "sha256": "c634e0173d08fbb8397343f8960319a5c0b3ffbd396a85dc06f6eb9f9d8cde31",
+      "size": 4559
+    },
+    {
+      "path": "tui/src/jarvis_tui/energy_controls.py",
+      "sha256": "5e3a09a8755c817edf2e1b2a08bd2d87ddbf983773472946d7c0f22eeb7e9993",
+      "size": 1120
+    },
+    {
+      "path": "tui/src/jarvis_tui/event_reducer.py",
+      "sha256": "02b031cc48c6a7b073f16a88d7b4ff66ef741eb0f7837332f1f866cd5f0ea2a1",
+      "size": 15251
+    },
+    {
+      "path": "tui/src/jarvis_tui/event_store.py",
+      "sha256": "c1c7094aa242394f9edf927882cb02f135650eee51f977c10058f42f4efa94f0",
+      "size": 13307
+    },
+    {
+      "path": "tui/src/jarvis_tui/isolated_execution.py",
+      "sha256": "ed7e0256b79d02ad1782a8002524d58d968f58f6329ac863d4f03b640a58fce2",
+      "size": 1829
+    },
+    {
+      "path": "tui/src/jarvis_tui/jarvisd_client.py",
+      "sha256": "8015c7b31ce93f4d20caebee7a95ce749e19e8cf6539c663267f77cd5ff595f8",
+      "size": 5491
+    },
+    {
+      "path": "tui/src/jarvis_tui/lighting_controls.py",
+      "sha256": "bbe6b7da8e69782242cd84974e4e89c45bddd887afab22c7148ea2ab2a92daf9",
+      "size": 4430
+    },
+    {
+      "path": "tui/src/jarvis_tui/lighting_widgets.py",
+      "sha256": "b4ec6545793f9446e773a61493483745dd719fd7bf5dc4826f871e04c1af03de",
+      "size": 2976
+    },
+    {
+      "path": "tui/src/jarvis_tui/live_activity.py",
+      "sha256": "003e6fd5e396daa3da5d05e01f9d405b1c0128a281afe04b8ee2a6be80a4029b",
+      "size": 6274
+    },
+    {
+      "path": "tui/src/jarvis_tui/local_control.py",
+      "sha256": "818ff16c3eb36f51bcc7e704f575b50b43f5ff4aa2943d101473d6f65d0cd168",
+      "size": 19663
+    },
+    {
+      "path": "tui/src/jarvis_tui/local_filesystem.py",
+      "sha256": "8dc335e0113026b8cf4c4cd1219b343ae37afa8f5bd7cb8dd89492f8d712e3ac",
+      "size": 56338
+    },
+    {
+      "path": "tui/src/jarvis_tui/local_mutation.py",
+      "sha256": "445394fd699fc805a699e5bf3965fca8bc347e7c12048db9df8d589aeec7a592",
+      "size": 32645
+    },
+    {
+      "path": "tui/src/jarvis_tui/models.py",
+      "sha256": "48dc5f273120827ed84efb5aeb0f1c4d630b2e576c31eb3cc418841d9377da8d",
+      "size": 42741
+    },
+    {
+      "path": "tui/src/jarvis_tui/mutation_workflows.py",
+      "sha256": "28be66ab5c0ef175d96a127e40c17544fd3f9f95e4271d2dc7a0410186269d6b",
+      "size": 1652
+    },
+    {
+      "path": "tui/src/jarvis_tui/normal_terminal.py",
+      "sha256": "fbc0c6aded66e94ec744ab208865d7ebc283d531b5593cdfc2b418c2c1a7ac6d",
+      "size": 9924
+    },
+    {
+      "path": "tui/src/jarvis_tui/observation_safety.py",
+      "sha256": "0b66e673ed0b22b70779f0998c2371c9cb7d586d305e59ca3a8c73a3a8a04bf4",
+      "size": 6089
+    },
+    {
+      "path": "tui/src/jarvis_tui/operation_workflow.py",
+      "sha256": "615bed54e44ce07ecdce16366c587da155a052534689d9099b36d609e6adef32",
+      "size": 45610
+    },
+    {
+      "path": "tui/src/jarvis_tui/operational_export.py",
+      "sha256": "ebfe55de03aaa6a5dc85e7c291789c6b5e9e74e035e8bd56b53f6e5f130ddf8e",
+      "size": 3997
+    },
+    {
+      "path": "tui/src/jarvis_tui/outcome_verification.py",
+      "sha256": "7a705c417b9dfb19ef9a19f8163bd211888a063917273c253b16c203f4c8223f",
+      "size": 10365
+    },
+    {
+      "path": "tui/src/jarvis_tui/package_control_client.py",
+      "sha256": "21129c44dae1e0bd53ed075aacc2015837860f876dd3be4d9e4654fbea0cc985",
+      "size": 6366
+    },
+    {
+      "path": "tui/src/jarvis_tui/package_inventory.py",
+      "sha256": "11162c0d824ce2a4844d028efffcdca91edbe37c48c42a9d271f720af302a29b",
+      "size": 39773
+    },
+    {
+      "path": "tui/src/jarvis_tui/package_knowledge.py",
+      "sha256": "3d831997ba1a3d45e8bf425965d1e91f949f241a0b06818c247b4545c43ba43a",
+      "size": 8288
+    },
+    {
+      "path": "tui/src/jarvis_tui/package_mutation.py",
+      "sha256": "f64cc732be1b8069cb2ee829b792ec97273036667b2f6c52447b1dceaceb5fbc",
+      "size": 7907
+    },
+    {
+      "path": "tui/src/jarvis_tui/power_control_client.py",
+      "sha256": "4caff8e71a96546202a32ac0b4b1f6fdbd0892085b2719545203d85fcf888f88",
+      "size": 7881
+    },
+    {
+      "path": "tui/src/jarvis_tui/power_inventory.py",
+      "sha256": "3b28ff2d87c0bf3647db6019a30a3a5d71124c5983d111a026ade028b8ff22cf",
+      "size": 17942
+    },
+    {
+      "path": "tui/src/jarvis_tui/power_profile_intent.py",
+      "sha256": "ab4e491c2c412356182965ca25513cb130fe0e5344c71d95024e59a6cb08d16c",
+      "size": 2566
+    },
+    {
+      "path": "tui/src/jarvis_tui/power_profile_results.py",
+      "sha256": "9c110871216b28ec3cfa9b22414e769883b5d99f624ef93734e2fc5a08961863",
+      "size": 8937
+    },
+    {
+      "path": "tui/src/jarvis_tui/power_profiles.py",
+      "sha256": "7352d8d9b413edef2a0e08097589ef65e0d308e2325b172a96dd1a2c45e336dd",
+      "size": 7736
+    },
+    {
+      "path": "tui/src/jarvis_tui/preflight.py",
+      "sha256": "0bcd6ad95e3664168822846cf01509152f51202733487fc24797a181ca12eaa4",
+      "size": 9245
+    },
+    {
+      "path": "tui/src/jarvis_tui/presentation.py",
+      "sha256": "a60cc15797a12a223d23daad734e1d92456b5e1a85448da4d97dfe24ff674727",
+      "size": 52208
+    },
+    {
+      "path": "tui/src/jarvis_tui/private_records.py",
+      "sha256": "704a252fbc9c2def34d8983f4617a366015601e09146ebdfcec5e7874d02c1df",
+      "size": 2879
+    },
+    {
+      "path": "tui/src/jarvis_tui/privileged_operations.py",
+      "sha256": "3b059595d9ac728d3256c0ab45de55a150944ccec2b39f3f4c715b955a644d18",
+      "size": 4170
+    },
+    {
+      "path": "tui/src/jarvis_tui/project_snapshot.py",
+      "sha256": "b782bae8dfe98b69d9b7345d00189c50895a22959c459415df7905f994f44b2a",
+      "size": 5701
+    },
+    {
+      "path": "tui/src/jarvis_tui/recovery_plan.py",
+      "sha256": "b0f924b6c86a8934bf059b6b1a5b0051dac76f58f8bbc53fa77f13777a0b4935",
+      "size": 3871
+    },
+    {
+      "path": "tui/src/jarvis_tui/resource_guard.py",
+      "sha256": "00ca10c5c4f7587ab58b2f8ae2ac18f039801c322153f46c42c28140e2c959c4",
+      "size": 2309
+    },
+    {
+      "path": "tui/src/jarvis_tui/runtime_profile.py",
+      "sha256": "547fe7bdf4e3c7920fa912d15e39d3223b7f1cdaa7329aa2b2752e63202ea8fc",
+      "size": 3873
+    },
+    {
+      "path": "tui/src/jarvis_tui/service_operations.py",
+      "sha256": "8192a38d9dbdab134999ce40fa7946a099fce0fb18d1785b5abd764709bf59a1",
+      "size": 3429
+    },
+    {
+      "path": "tui/src/jarvis_tui/session.py",
+      "sha256": "88571f2638c7dd448c6db3adccd96bc4420a2670c731e083dafe76716f5797cf",
+      "size": 65683
+    },
+    {
+      "path": "tui/src/jarvis_tui/specialist_factory.py",
+      "sha256": "c7725e973cc87e79903a5d4be1440566d425a1538ba797ea3d1800d6863d6277",
+      "size": 3116
+    },
+    {
+      "path": "tui/src/jarvis_tui/specialists.py",
+      "sha256": "4967bcee02b81f6fbd367d2f24aabb790c48f1472b07fe0352b935920a08f398",
+      "size": 9985
+    },
+    {
+      "path": "tui/src/jarvis_tui/terminal_safety.py",
+      "sha256": "b04ce92e7746639adf9a0d60d2a6f0ffd4353a2ad2e5a552f8bd3158e4b57bcf",
+      "size": 3193
+    },
+    {
+      "path": "tui/src/jarvis_tui/testing.py",
+      "sha256": "40074da158f0758346e30cc9ed83dc64cc7121b0bd21299bcfafc590758dae9f",
+      "size": 2250
+    },
+    {
+      "path": "tui/src/jarvis_tui/tool_scope.py",
+      "sha256": "f04fdf33bc94b17a44390a2a268be80be43a90c440c4551bd7a970b4e1de67f1",
+      "size": 7743
+    },
+    {
+      "path": "tui/src/jarvis_tui/transcript_store.py",
+      "sha256": "d44eeff221353396b0e85eea756f697a5e89e76c67c494728f61b4886e72fc71",
+      "size": 3469
+    },
+    {
+      "path": "tui/src/jarvis_tui/update_plan.py",
+      "sha256": "7b6cdd064e55a6bdee7f8a0ba417eb5dc5a0b0a1a25fa8f1608281e1b345b431",
+      "size": 2130
+    },
+    {
+      "path": "tui/tests/fixtures/app-server-phase1.json",
+      "sha256": "ee3ee4e1a4f8282194c6031ba2983e39d6ef361713f59349367a62c939eaede0",
+      "size": 1196
+    },
+    {
+      "path": "tui/tests/fixtures/broker-event.json",
+      "sha256": "fb63df6d8d6f4ceac679be7872b9ffd389a8239b46179ac2dfdf9805a0672ee0",
+      "size": 402
+    },
+    {
+      "path": "tui/tests/fixtures/intent-lighting.json",
+      "sha256": "61fc4d2a11ca1c71dc17a247ebf7e8c9d9ed3b54042d8edc2733adae5c5b16b7",
+      "size": 440
+    },
+    {
+      "path": "tui/tests/fixtures/session-ready.json",
+      "sha256": "1d24b594ccdd88519f8c819b8d0ca09c7f1dec76e6fe209fb07540331e2fd6e4",
+      "size": 582
+    },
+    {
+      "path": "tui/tests/fixtures/task-admission-local-mutation.json",
+      "sha256": "7ee625b6180767aca838d03a20933c5bdde22ab5b4d30cd73b97c67a93f926c8",
+      "size": 1029
+    },
+    {
+      "path": "tui/tests/fixtures/task-admission-local-read.json",
+      "sha256": "a362474c22b07e63618267637f5242c52434f6ee40c0ec1aaca7c2ddb78de420",
+      "size": 910
+    },
+    {
+      "path": "tui/tests/fixtures/task-admission-registered-mutation.json",
+      "sha256": "1a7ee2ed37e5ed84685317a55afab03c8cac3efb81defd5e43099814b0065855",
+      "size": 1048
+    },
+    {
+      "path": "tui/tests/fixtures/task-admission-registered-read.json",
+      "sha256": "04fb6a13a54ee8da464265674b1952ac2cc3248f65ddca22ebe22856a2ff6bf9",
+      "size": 899
+    },
+    {
+      "path": "tui/tests/fixtures/task-admission-scoped.json",
+      "sha256": "61d39988ebc2565d35f084da6d2fc95e338ff31104a192a90b25c9af42e19b7e",
+      "size": 870
+    },
+    {
+      "path": "tui/tests/fixtures/task-lighting.json",
+      "sha256": "92acc8bfaa8582f93b7a5c0c2ab5f0c89220e24a4599225ea7f8ce9c0ee4ee6c",
+      "size": 902
+    },
+    {
+      "path": "tui/tests/test_actions.py",
+      "sha256": "cdc429c78cf08e06a6e925a01fe6f873436838c7159a8871a9342e55cbeee732",
+      "size": 2287
+    },
+    {
+      "path": "tui/tests/test_app_server.py",
+      "sha256": "c95114cfc90b4422387da54faa909ef24e5ac1be9760bcc3ebf5db4ab8d0b2f8",
+      "size": 5078
+    },
+    {
+      "path": "tui/tests/test_async_boundary.py",
+      "sha256": "9dfdea0b7d425a9a5a942889d7fe6f99c98690ba94a2c6ecf839e0975e4c429b",
+      "size": 2144
+    },
+    {
+      "path": "tui/tests/test_authenticated_smoke.py",
+      "sha256": "ce68953b5385d6d6d6f13c399800da8fd7c46d4b75a67056293cc42914940189",
+      "size": 1944
+    },
+    {
+      "path": "tui/tests/test_broker.py",
+      "sha256": "8b98a4bbc99e3b5025b60d4789a3c7afc3c4b23a0dac9dafadb14695d195b390",
+      "size": 12946
+    },
+    {
+      "path": "tui/tests/test_cargo_dependencies.py",
+      "sha256": "96e71ee3cd1ebb28bf673b03f8cb9dcd404de119f9d863e3458b04d1dcee2472",
+      "size": 8532
+    },
+    {
+      "path": "tui/tests/test_checkpoint_recovery.py",
+      "sha256": "119bd4ff074458258ec8088fd6b779a52f68d16f7a5e87d5ba7b1a49f9b93a69",
+      "size": 1627
+    },
+    {
+      "path": "tui/tests/test_configuration_operations.py",
+      "sha256": "5227b024b7f9a7b25a49be89c7bf65c7b23276e7acbf2aeea360c4f49f63380e",
+      "size": 4455
+    },
+    {
+      "path": "tui/tests/test_conversation_checkpoints.py",
+      "sha256": "0878835760174dfa341aa9239a7f0cb35edb57bc01d3327ed14d5f8e1455d8eb",
+      "size": 1852
+    },
+    {
+      "path": "tui/tests/test_conversation_manager.py",
+      "sha256": "4cc124733c3ab30d17fdf3440a293e10824ba8efeb30c40cca96ea55cc2461d8",
+      "size": 5255
+    },
+    {
+      "path": "tui/tests/test_energy_controls.py",
+      "sha256": "a0c049c879c97338fc4e6745d52d946656295aecceae0d867fa848d6e445cec0",
+      "size": 935
+    },
+    {
+      "path": "tui/tests/test_event_reducer.py",
+      "sha256": "61b1525b2c0eb795e1e7e0fe09df8a5c74cb8575b973341d93377c09b391517c",
+      "size": 8925
+    },
+    {
+      "path": "tui/tests/test_event_store.py",
+      "sha256": "4d1bf4993a12ff4881fd32abaff9c039714e36da8c37a3750aabb430c1bd68a2",
+      "size": 6630
+    },
+    {
+      "path": "tui/tests/test_extended_tools.py",
+      "sha256": "b3de9a4595eddf92921fead207c553fe21acbe3b229f6f96538437227e8ceeda",
+      "size": 1377
+    },
+    {
+      "path": "tui/tests/test_governed_operations.py",
+      "sha256": "0cab8e1c006ab0ab1843195febc6bcf770bad452237677b47a61bb33555a1b25",
+      "size": 32722
+    },
+    {
+      "path": "tui/tests/test_health_tools.py",
+      "sha256": "29ae8f555f9c8b2943a5fdcf9a071f7cd39df3f9186dbbdc4d81203c9b2f0200",
+      "size": 2313
+    },
+    {
+      "path": "tui/tests/test_jarvisd_client.py",
+      "sha256": "aea745c0cf563f09dd20d555712407c4b865c9f8386a83acde03ffecfe20589e",
+      "size": 3278
+    },
+    {
+      "path": "tui/tests/test_lighting_controls.py",
+      "sha256": "879b189e28f889b1ea39e88e3c88ba18ebfc2c0220447682de5b2d0a5815b0bb",
+      "size": 2593
+    },
+    {
+      "path": "tui/tests/test_live_activity.py",
+      "sha256": "d4b03003d69f94053b5e584eb94b1f3eaf42834e84d92f424a5592ee64ed70bb",
+      "size": 3373
+    },
+    {
+      "path": "tui/tests/test_local_control.py",
+      "sha256": "e66266afe415439fb8149071f7ad1b2abc13f95a82e67c2a60decf5ee9f4d001",
+      "size": 5945
+    },
+    {
+      "path": "tui/tests/test_local_filesystem.py",
+      "sha256": "6ed9746a0d9cd51b4cf66416447de97046128280cf46e19c156519cb60c382a2",
+      "size": 13649
+    },
+    {
+      "path": "tui/tests/test_local_mutation.py",
+      "sha256": "e7bd1ea9b7a034b6666a3e8486bf89e3cb322a8369db06a28a568a9f4b19b104",
+      "size": 8512
+    },
+    {
+      "path": "tui/tests/test_mutation_workflows.py",
+      "sha256": "292c5beaabcc8ec371963745449ac0eee0cc69a68ac0b3d6b548aa0ea3866717",
+      "size": 893
+    },
+    {
+      "path": "tui/tests/test_normal_terminal.py",
+      "sha256": "3d69ca5f0acecc1336f9377eadfdae94a47592b5b720b35066a18e6c6d67adde",
+      "size": 7208
+    },
+    {
+      "path": "tui/tests/test_package_availability.py",
+      "sha256": "c76dce5ace555d69df970766f88bb0a10a04a7ad421f8c61dac27fd0fd509097",
+      "size": 10519
+    },
+    {
+      "path": "tui/tests/test_package_control_client.py",
+      "sha256": "db52ecd5ae40c590e7523ec8b3c1ab7bea150144a89c2e448b3c0938cc775d7b",
+      "size": 4009
+    },
+    {
+      "path": "tui/tests/test_package_helper.py",
+      "sha256": "a8fd60fded3385243d3407ae4e70c1b63ca78a2c45d8903c2f44e212e02f8f66",
+      "size": 17310
+    },
+    {
+      "path": "tui/tests/test_package_inventory.py",
+      "sha256": "ac0293df3bf6b509a5d075866632a767defc34bfebbec925969075bbc01905be",
+      "size": 1106
+    },
+    {
+      "path": "tui/tests/test_package_inventory_enrichment.py",
+      "sha256": "77978c4fd29257440bb02f03f09b7751c677816dc608c67f570be8e65951e505",
+      "size": 1930
+    },
+    {
+      "path": "tui/tests/test_package_knowledge.py",
+      "sha256": "fcffc3f00566289c79121920698d85945aa8c80737c84399ab07861a8fcb8ee2",
+      "size": 4827
+    },
+    {
+      "path": "tui/tests/test_package_mutation.py",
+      "sha256": "b5596fcf5a90aeb24261de31170716e5439ce618ad9662f4c2ac359ba08a7692",
+      "size": 8557
+    },
+    {
+      "path": "tui/tests/test_power_control_client.py",
+      "sha256": "82a6fefe173f887ab89c13a42c60aca2ee80bda9b36adbd32bbc6f7e2bbdf476",
+      "size": 4308
+    },
+    {
+      "path": "tui/tests/test_power_inventory.py",
+      "sha256": "acb66bfea03920665027e161e37c636169065ee34f8ddcd39d2e32ddf3671f62",
+      "size": 3080
+    },
+    {
+      "path": "tui/tests/test_power_profile_intent.py",
+      "sha256": "1690de72992c8c9a61f255b34619a1aba87459f20924998cbe6b2e9fee50cc51",
+      "size": 1403
+    },
+    {
+      "path": "tui/tests/test_power_profiles.py",
+      "sha256": "781908156714f34ebfbc7ade5af55692b7c329533de73f76f66b87cf5afa4330",
+      "size": 4510
+    },
+    {
+      "path": "tui/tests/test_preflight.py",
+      "sha256": "d7ac9492f7624269ea7c75cf1587fbd99cbb11733c71388553a35ad3a105960a",
+      "size": 10770
+    },
+    {
+      "path": "tui/tests/test_presentation.py",
+      "sha256": "f9bc5e4de4111d9e38994df78bae555cd3d80d41674473058dcf66e0f32bcab1",
+      "size": 25022
+    },
+    {
+      "path": "tui/tests/test_privileged_control.py",
+      "sha256": "0e00f62a5b75ec1a76317b3c0a58114f5dfdb41a3bda02d9c7a7d6b42489be79",
+      "size": 14843
+    },
+    {
+      "path": "tui/tests/test_protocol_schema.py",
+      "sha256": "a76bd3f702ec5494df22f1d0adec38ce404a8893a88d4aadc7b05a3cd902a2c1",
+      "size": 3791
+    },
+    {
+      "path": "tui/tests/test_recovery_plan.py",
+      "sha256": "db1c14d5bcd4150c2043ed8088b90bfb814e20b8df7d342082e88842a687f0c4",
+      "size": 1431
+    },
+    {
+      "path": "tui/tests/test_service_operations.py",
+      "sha256": "fb410a6ae8a5b8b150b4082ad86f1042ca38be9c9b8f3483fe986f2bbf224d44",
+      "size": 3813
+    },
+    {
+      "path": "tui/tests/test_session.py",
+      "sha256": "e04b4d59f39344fd509d96aa7d3ecec640934062a278eb6144cfc8281e6c428c",
+      "size": 43380
+    },
+    {
+      "path": "tui/tests/test_specialist_factory.py",
+      "sha256": "a7a5fa9e7395207689770f999412c379e51d61c63b52f836a6200f67a65844ff",
+      "size": 1931
+    },
+    {
+      "path": "tui/tests/test_specialists.py",
+      "sha256": "c825912508bde2e3e503b75c41c37acce97f22f44b3576ee769453941bc878ea",
+      "size": 2728
+    },
+    {
+      "path": "tui/tests/test_terminal_safety.py",
+      "sha256": "52cde1c04022117e2d9c0c69755f0344465635929fc53f8d8890419a7010d94b",
+      "size": 1093
+    },
+    {
+      "path": "tui/tests/test_tui_headless.py",
+      "sha256": "78a7ce559eacf23e5b83ec3f037641dc23286e70aeae4f70ca7c0c43600480b9",
+      "size": 66912
+    },
+    {
+      "path": "tui/tests/test_update_plan.py",
+      "sha256": "cc5daf41b1986ef4466bbb5cb4af7d228f3548969d9d929a08e587f28fe20526",
+      "size": 1514
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/ApplyPatchApprovalParams.json",
+      "sha256": "9de5a28a543214033b546db66ad8d34748a949c9878a7e51ec57a99feb2b8e67",
+      "size": 2657
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/ApplyPatchApprovalResponse.json",
+      "sha256": "2b9fe9eec357d940bef643bb656707efea0889787f31c4e69c12e58606468a0e",
+      "size": 3989
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/AttestationGenerateParams.json",
+      "sha256": "b85df8f169cfbca98724df3a5f7550fc4649fa69b23f5160aafdb52e027133a8",
+      "size": 118
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/AttestationGenerateResponse.json",
+      "sha256": "f7c8935c414ac74060cbc0fd4b298c022757e2dea50b3d21a7d507cb24d3318d",
+      "size": 277
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/ChatgptAuthTokensRefreshParams.json",
+      "sha256": "8ca65b2cf4a991e5149535d987d7dcf3a1cda0f887d6c4bc102ee56f83417456",
+      "size": 971
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/ChatgptAuthTokensRefreshResponse.json",
+      "sha256": "0407a673d393e20836652e1c8449e851dac0b510819712aa05be3a80e92c9115",
+      "size": 406
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/ClientNotification.json",
+      "sha256": "a30b3041578845b11add3d07d5a63cd3a12d5d126e87b8c591862b4aeb68d97c",
+      "size": 431
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/ClientRequest.json",
+      "sha256": "c1a834d8f1b96a3a51ce1a254a4e16bc679e31227e5200f429e4152afeb4b923",
+      "size": 177487
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/CommandExecutionRequestApprovalParams.json",
+      "sha256": "8c3a350288b0b66d4cae74c67f7103bfa3bbdd9c8bb26d55448b67ad3218356f",
+      "size": 15425
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/CommandExecutionRequestApprovalResponse.json",
+      "sha256": "42010a48dd9ad989171728c30338e1ff8144c31bd33921cbfb5608fd6c85a3b5",
+      "size": 3202
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/DynamicToolCallParams.json",
+      "sha256": "e36242b331ca665c74993e55abbea381b1c8a961b29a42579029cff1ad26b20d",
+      "size": 519
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/DynamicToolCallResponse.json",
+      "sha256": "b5fd10c265be9023f038fe3e4c937a8e215906c8ab31e35d61d28bbc0b755af9",
+      "size": 2010
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/ExecCommandApprovalParams.json",
+      "sha256": "6b34b7c6c999280f51146c8f44b08a368987c0c3624b02a89904330b0178cd9e",
+      "size": 3768
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/ExecCommandApprovalResponse.json",
+      "sha256": "d044005b62cb8de446cbaf7f598916974b5c6546b04f3fe552d7b8f880f069c7",
+      "size": 3990
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/FileChangeRequestApprovalParams.json",
+      "sha256": "7b465f7c5671adffdc5c339f50799860950307456e2a2b52c5ce1d3018f4babd",
+      "size": 968
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/FileChangeRequestApprovalResponse.json",
+      "sha256": "7ccbd29e5f8840c7c8aa96c5c3b6d52bc71ec5c5d7e1ad05ab958afd44c0c94c",
+      "size": 1158
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/FuzzyFileSearchParams.json",
+      "sha256": "44cdbbe54965661bef1452223b6096307741fb41e5a5cf5c161c5feb8474f492",
+      "size": 413
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/FuzzyFileSearchResponse.json",
+      "sha256": "45d5c686e50887d8fb590ecc090e05fb5b0023305682e932b4dc4db4c0f55045",
+      "size": 1332
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/FuzzyFileSearchSessionCompletedNotification.json",
+      "sha256": "74f204b562a0c336678bfb1ebb0938636dc16b00e2ad9fdd646663eb0e4301cd",
+      "size": 244
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/FuzzyFileSearchSessionUpdatedNotification.json",
+      "sha256": "7d5028b648196ce8aac7690f6ffe94bda49339f490f3581d50172a412f99f43c",
+      "size": 1474
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/JSONRPCError.json",
+      "sha256": "05277af4e68caeabae353d1e643d60501c7f2bf2dcc97348e4cde4d0eba83eb4",
+      "size": 893
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/JSONRPCErrorError.json",
+      "sha256": "39da0e7d4fccd44c7e0acd83ad1433c48a9bf64a3ba8f4cee7ebed18ebbbf533",
+      "size": 314
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/JSONRPCMessage.json",
+      "sha256": "7b819754ee909272f46d45dbd51bc9eb7bab9861905ac1195f1fb5afd7ff5e83",
+      "size": 2888
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/JSONRPCNotification.json",
+      "sha256": "a8f8bfca7128b6ffbba13905cba6af966f8598c12237b5cb189b81861cb24e92",
+      "size": 303
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/JSONRPCRequest.json",
+      "sha256": "a174dbc58be007346f5a10fe2f8c8f8c14ccb36191dc1ad0fdd8ce1828f8db1c",
+      "size": 1093
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/JSONRPCResponse.json",
+      "sha256": "94ecf5e81bdbc2af858afad0044b95c7fb4decf77d7fd7d6321324dad79eef57",
+      "size": 520
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/McpServerElicitationRequestParams.json",
+      "sha256": "12e180a344101863b73a3ba101d12ae14fff1b6eff679b7ccd0769cc22827261",
+      "size": 13251
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/McpServerElicitationRequestResponse.json",
+      "sha256": "b9658ba208bfc7ecb3139c4d9742608f260e1583bd6cd11666dce289c975d670",
+      "size": 741
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/PermissionsRequestApprovalParams.json",
+      "sha256": "f40bc002f08d8a5ca6da7849778c6f262a0fc6fccafa00b30f9fac231312b29e",
+      "size": 7719
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/PermissionsRequestApprovalResponse.json",
+      "sha256": "e8669e089a78581a2f6c702dff906038032a6055c103c07870aa42c06b7fe3fb",
+      "size": 7068
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/RequestId.json",
+      "sha256": "a33325d0eca49631bf935e9a30d02ba542b42d563f8c58955d3e8f14ad6d3ab1",
+      "size": 197
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/ServerNotification.json",
+      "sha256": "b0168c86f69029a51bb30adf78307d563cca96237cc76d2244aea6a1f5a7c7d0",
+      "size": 173775
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/ServerRequest.json",
+      "sha256": "17e03bcc0a290ab8fab43a8537191290889838c9132d9234ad7ede16ae80a042",
+      "size": 49058
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/ToolRequestUserInputParams.json",
+      "sha256": "21e569e32c05d51c1ee5e587730c182b911ede97a4df267f6e4ef24e1717f34e",
+      "size": 1977
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/ToolRequestUserInputResponse.json",
+      "sha256": "14ede53c2e51b289fb3c80903292d4b0f0b387eae217dbb257c201b2b7c65bf1",
+      "size": 793
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/codex_app_server_protocol.schemas.json",
+      "sha256": "bbacfe3fd14c0fc21f0bcfd75bc2ebb318324b927d35c796d8ae9e34ccedbe26",
+      "size": 590325
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/codex_app_server_protocol.v2.schemas.json",
+      "sha256": "7e789a15934392c43ca7ce90444c86374331d17f72af2ced820ce0069fab1118",
+      "size": 498467
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v1/InitializeParams.json",
+      "sha256": "4f576f99e285beb28f71f48a72b887c1f517dada86fee348fe2af0a35511de23",
+      "size": 1864
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v1/InitializeResponse.json",
+      "sha256": "86dcd236d0576a82c85b933586dc45731260eab1b6edb3447b03f790277322b1",
+      "size": 1286
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/AccountLoginCompletedNotification.json",
+      "sha256": "c8de16ae68ab990cc93bea4a75b08079fff3b49978f5bf3ddafe84d578d1c635",
+      "size": 391
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/AccountRateLimitsUpdatedNotification.json",
+      "sha256": "0a0c7119b314862ad76a90e151c8fd9cfacc25b6a0df3ff8849d878187476b83",
+      "size": 4417
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/AccountUpdatedNotification.json",
+      "sha256": "1ede9095191d53da628e38b93e7fb572692e603db9b7ee7cf8a72d29855d8ba0",
+      "size": 2440
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/AgentMessageDeltaNotification.json",
+      "sha256": "6446e05718f69c5bbbdb7da92997ffddbc307c13c1222581708f7e5ce1c9e924",
+      "size": 406
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/AppListUpdatedNotification.json",
+      "sha256": "e4ed4abf26aeaf5825579ce92091b867e7343ba5ab76f1250af8210640550e8c",
+      "size": 5703
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/AppsInstalledParams.json",
+      "sha256": "544a45fbd2f64f4f87ff0f9d923815737266dc99e7b73d528899e140bcf68a09",
+      "size": 570
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/AppsInstalledResponse.json",
+      "sha256": "466ac83ea6e5a4d6176a1f2a4aa7b3ce9ab194cd147fb2f23cd057c91564716f",
+      "size": 1343
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/AppsListParams.json",
+      "sha256": "8acf7e21e1e7bd61fbcab715c2ab53df45abb36c9f6b1f664b5c2910611b4ce8",
+      "size": 904
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/AppsListResponse.json",
+      "sha256": "f48e2b0ebc573d551c9a30d0983b324ecd25dfef62a2847c03aef368590d3238",
+      "size": 5888
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/AppsReadParams.json",
+      "sha256": "d264f6c7c038c4af99ef660fe34ffadd2ec9cbf2f65a4652047216f5a332aea4",
+      "size": 645
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/AppsReadResponse.json",
+      "sha256": "7975c40b36edc9a8502776f688eca178081403b82f58d17e2d1a07fced1bae90",
+      "size": 2443
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/CancelLoginAccountParams.json",
+      "sha256": "1e4c2930d9cdaf4a8b02facc54ca919629217ce6aa45bae65beab674861c60f4",
+      "size": 221
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/CancelLoginAccountResponse.json",
+      "sha256": "8691ac0cb3c82ec8df9f523ac8571cb99b00efa2d5531bcc13c6ef34bd7892d2",
+      "size": 404
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/CommandExecOutputDeltaNotification.json",
+      "sha256": "ad1457966ba7e18f9a9cd6d0abcc0e2884685c6f369f13c35d90687e1e13cb37",
+      "size": 1585
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/CommandExecParams.json",
+      "sha256": "9f6c382e9f494c133952b828bd08e02cf091ff3490719a0c2c5eea35705dcbc8",
+      "size": 7397
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/CommandExecResizeParams.json",
+      "sha256": "08c3b6490caa9a76a39f3fbaab8255e13adfc228033b0a1ab01dbd60f3c7a54f",
+      "size": 1216
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/CommandExecResizeResponse.json",
+      "sha256": "bc16449a418538843e3f8ec485ce19481ea066952c38764e34dd981eda0c776c",
+      "size": 188
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/CommandExecResponse.json",
+      "sha256": "0dbcacaa27d794d801e701513a8cfb9d247cf20624c9a05bb6231866ebeeecb8",
+      "size": 699
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/CommandExecTerminateParams.json",
+      "sha256": "524a323fa2aece3c64325770d52fd18720adfa226bca93bedd59d827bdb7f74d",
+      "size": 404
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/CommandExecTerminateResponse.json",
+      "sha256": "7d59565735c556579512b9480aa8813de45d8bdfeaf9310a99ed59c13e04dab4",
+      "size": 194
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/CommandExecWriteParams.json",
+      "sha256": "0e60400ac3332c1bd2aef10d49e2487b5a50c40d40ad9ebc2b2f59ccb18ca7b9",
+      "size": 716
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/CommandExecWriteResponse.json",
+      "sha256": "0000c7901037e77c508002f290f693a09113cfcb4370ae6159a25a4c0be61815",
+      "size": 186
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/CommandExecutionOutputDeltaNotification.json",
+      "sha256": "e9d233bc133d3fea6022fe7032cfeedad53d20d49da771a3fd3424603d6f0db1",
+      "size": 416
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ConfigBatchWriteParams.json",
+      "sha256": "2bd22c49e64b1dd0451e756c093f16bdc61cd533880bace5a33c62238fab38cd",
+      "size": 1325
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ConfigReadParams.json",
+      "sha256": "9a51989dc089ac297037c6f1fdc65a73f9c8105837e93a998f173a80c7880172",
+      "size": 495
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ConfigReadResponse.json",
+      "sha256": "6891153c46366e5e0dbb08c618689f56d804482140c54079c1998bca3c97ccbc",
+      "size": 21502
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ConfigRequirementsReadResponse.json",
+      "sha256": "f052c62ee36c37de159943df390e40707d28874d9153f87d308477cd253ccb88",
+      "size": 15929
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ConfigValueWriteParams.json",
+      "sha256": "7e89f7018ff6c7cfb58b3bf16c133fc110bc0e0d9135b8e806ff64bb7ccefb1e",
+      "size": 763
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ConfigWarningNotification.json",
+      "sha256": "19308411367d17251e97f213458216882bb44c3aa342662b6a545c0e1c836965",
+      "size": 1640
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ConfigWriteResponse.json",
+      "sha256": "b21d63578d3ef4a0c11042c4387b139f281c0796299ec4639d78f27d46c8fc0d",
+      "size": 7913
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ConsumeAccountRateLimitResetCreditParams.json",
+      "sha256": "873aabf31c21eb310e6a1447eff342d3d6d120388c5c51091768f6a8f7cdff70",
+      "size": 594
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ConsumeAccountRateLimitResetCreditResponse.json",
+      "sha256": "1b4a2dba3ee75970a66195ce8355cccb99f3fe3489c726721463ae75c085ffe6",
+      "size": 1177
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ContextCompactedNotification.json",
+      "sha256": "e0b92779009971631d385970cc0389d4f19e351466f84806df36c29f4b9d5ffd",
+      "size": 362
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/DeprecationNoticeNotification.json",
+      "sha256": "f7a487fdbfdafb3b3a882a74aa41a99ff4f1d3a69389807b6f3318540f223684",
+      "size": 457
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/EnvironmentConnectionNotification.json",
+      "sha256": "d403e6df7abff695e6308572c43f5add02448516d6cc12b33c406644b294d932",
+      "size": 306
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ErrorNotification.json",
+      "sha256": "1ec871b02771300a26a34e41a7cfaf7484330a8c37c197d1ac133e753b083a09",
+      "size": 5424
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ExperimentalFeatureEnablementSetParams.json",
+      "sha256": "84d7424cdd02f857c6c8c699a9b2ce6b107163235ea076805e5e68c12e7d8283",
+      "size": 509
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ExperimentalFeatureEnablementSetResponse.json",
+      "sha256": "806b13a0e11bb7840cc04b1b806eee98e9f7f1b3463cec320d075fade7e07b90",
+      "size": 386
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ExperimentalFeatureListParams.json",
+      "sha256": "001f41456e219e483de64f8620ab05f2822cf44cf7d3e1ac39adb2f0ec039490",
+      "size": 827
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ExperimentalFeatureListResponse.json",
+      "sha256": "6b894c2a092dac26f4108f14152569277e1401e44b946c94f43cb55901f01cec",
+      "size": 3066
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ExternalAgentConfigDetectParams.json",
+      "sha256": "b9f54243a979413ab2a5675fc1b02c2a4f35cb3c9fd8a18021cdacab668e20f1",
+      "size": 1414
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ExternalAgentConfigDetectResponse.json",
+      "sha256": "694736917b707c167c9f156bc20ad1c906af23048a794f6a2424000c94bbffb9",
+      "size": 4438
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ExternalAgentConfigImportCompletedNotification.json",
+      "sha256": "36257e083b265b0a84bd12d0beec077c30fcfa32b5c41505cb641c6f8d2aeca6",
+      "size": 2800
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ExternalAgentConfigImportHistoriesReadResponse.json",
+      "sha256": "545f54da02ea992d2063d9518ddea977b90937ea9ab985680d76b07f232f9468",
+      "size": 3665
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ExternalAgentConfigImportHistoryRecordParams.json",
+      "sha256": "dfa3afeb9a68f6bee834dc9b8288792f4fe4baa5e1396edbb4adab570696cea9",
+      "size": 2963
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ExternalAgentConfigImportHistoryRecordResponse.json",
+      "sha256": "d1c3956b1f5384b71cf605134ddb6bf9e2eaf68ab4f685fc8edd5516e3e8c2e9",
+      "size": 245
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ExternalAgentConfigImportParams.json",
+      "sha256": "ab36c7fc61b6b74fc524018ed67917de149de8376be1f39a9d23e82394431881",
+      "size": 5152
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ExternalAgentConfigImportProgressNotification.json",
+      "sha256": "74e2967b77b3e9ca16737028b08ddb0e3a5d953955cc913c6668c7f3751d7179",
+      "size": 2799
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ExternalAgentConfigImportResponse.json",
+      "sha256": "668d9cabd7ada5e0135e15df5d029d5ba642ccc6aae974c86dbfce11d3cfee04",
+      "size": 232
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/FeedbackUploadParams.json",
+      "sha256": "e46898acf3bb3326c74ce2c6442b6ebcf052447db96c8f3d740edf901b7c265e",
+      "size": 726
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/FeedbackUploadResponse.json",
+      "sha256": "b643e47a774302f708ba6629f7571e9b9ace68abeb7516ab0123da9a497b7c4a",
+      "size": 221
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/FileChangeOutputDeltaNotification.json",
+      "sha256": "c99f43238e156716f4982fc4393faeb7a9b5342ca63374fe215b9d99f2219e49",
+      "size": 544
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/FileChangePatchUpdatedNotification.json",
+      "sha256": "cdfef70e910f028b9afe11538e93c7f744142c819dded0028a4da4695a7f39c7",
+      "size": 2159
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/FsChangedNotification.json",
+      "sha256": "6b3bd3d000f41513d4d252fb792e5450b8f1ee60db14bb1385dd696d81273492",
+      "size": 1061
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/FsCopyParams.json",
+      "sha256": "3d5ad669c4a149a20033626432a915b885f5bc0c2dfdbb962be0960da073e9ff",
+      "size": 1198
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/FsCopyResponse.json",
+      "sha256": "df42cb70d864ccae345cec48e7454234d7e904fdaee35c5dbba523d3251b159b",
+      "size": 162
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/FsCreateDirectoryParams.json",
+      "sha256": "a4d5f69f2536b74c9204fe3caf6b17731f380ed4b26c83cd245b74c453a0a6b4",
+      "size": 1047
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/FsCreateDirectoryResponse.json",
+      "sha256": "8ca90dc2b3f1e3923bbee1a1a582f3d6126a86562a5bf4506c403d11bfdea5dc",
+      "size": 184
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/FsGetMetadataParams.json",
+      "sha256": "27e0e3ad13a718a928de453c0dbb97928dd667c11be7858adcffafaa95ae7f45",
+      "size": 851
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/FsGetMetadataResponse.json",
+      "sha256": "0b6c65e501e1572d4d6193a658d27c55f0f25475193286d5e673149dbd57ee73",
+      "size": 1005
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/FsReadDirectoryParams.json",
+      "sha256": "1c80ce39ca0bc2b300ed3dcccf2a51493aa1d8d27f2d30dbb0b6ef99a4a0f904",
+      "size": 862
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/FsReadDirectoryResponse.json",
+      "sha256": "9b7009479142b1ead2031b2df4c3effa50469efc30708db0aa3bdaba4d574137",
+      "size": 1139
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/FsReadFileParams.json",
+      "sha256": "7378f2bb4ad8fe2e12fe63a4972299eb70ca258dd2c8f553aa0baf540f96f21b",
+      "size": 844
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/FsReadFileResponse.json",
+      "sha256": "4e89ccdca494a9acce354225c21faab4e78a8e8685e198b4a9779ca0ab9aebb5",
+      "size": 354
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/FsRemoveParams.json",
+      "sha256": "0714e695dbaf7d5cb89622c49119023f702b52e87d0e4f8d81c089ff051b3714",
+      "size": 1199
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/FsRemoveResponse.json",
+      "sha256": "df87770e3ae6d4816cfd6e291a892d87f64f599a9ba43167b162a4fa83e42a94",
+      "size": 166
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/FsUnwatchParams.json",
+      "sha256": "77c0d06e92deb217e94db5bc3fb49649c42a50e27d22c81cbf7bb7a80ea8c8ec",
+      "size": 368
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/FsUnwatchResponse.json",
+      "sha256": "d2243dffb042d67ccd8f96792d5740bc1339003f57e943445ef22b1e22f3692b",
+      "size": 168
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/FsWatchParams.json",
+      "sha256": "49a9690c22e1eaa996f7bbbeefa6a1778196ebc625afbfd7e451331f1975e79c",
+      "size": 1042
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/FsWatchResponse.json",
+      "sha256": "19b4f715108d7e5953200aa0c887138c20498e113a64c9b38863cee2e31c5e04",
+      "size": 864
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/FsWriteFileParams.json",
+      "sha256": "e85ab203c25b29e14ee210108326851433ea35817fc438475aeed40cf81e77f4",
+      "size": 970
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/FsWriteFileResponse.json",
+      "sha256": "3a946ef3ac33632489f9df1826c9cca670b2dc70184225684372911d2a34a9bd",
+      "size": 172
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/GetAccountParams.json",
+      "sha256": "d0dc3c0d428d37b1ec7887fa6b044244e6474578e1ff397c0872b2a6292073db",
+      "size": 485
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/GetAccountRateLimitsResponse.json",
+      "sha256": "bf15356700a8533b6ca0e4688c7b70d0c8c35a37be8731d17ed6f1659fe6ad27",
+      "size": 7144
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/GetAccountResponse.json",
+      "sha256": "a8b27a203541460d6593723f646900e1df4417e0de43dfc36c485643810e1f1a",
+      "size": 2284
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/GetAccountTokenUsageResponse.json",
+      "sha256": "b4cb098e35c43a7e3b8c9211c3c1b12a79e5d89afdcf40304e6b777e25a8c74b",
+      "size": 1589
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/GetWorkspaceMessagesResponse.json",
+      "sha256": "158650c7c3e8909cfb5a02a0bcc0ee765455fd33c212817b3ae64225c7873991",
+      "size": 1565
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/GuardianWarningNotification.json",
+      "sha256": "6ef51562302dbe0878d3c31ce773675b061952518072b93b17a4637e7930579b",
+      "size": 423
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/HookCompletedNotification.json",
+      "sha256": "0808905096256aa064421dc699900f5c86539cbaf1a3133fdce799fa72b672bd",
+      "size": 4247
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/HookStartedNotification.json",
+      "sha256": "0e720d90c5550ef1ff328523f1cae47f79cdd728d861b1aa6dadf13a51b3f29a",
+      "size": 4245
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/HooksListParams.json",
+      "sha256": "653408f1430a8b7844835d676c7be8e15e601fcb859818268af87306c6b822cb",
+      "size": 311
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/HooksListResponse.json",
+      "sha256": "3d644de8179c9b7b26d0b70a57476f4cf2fc255e140db5e8173d7e41548434af",
+      "size": 4533
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ItemCompletedNotification.json",
+      "sha256": "49ef255afe401aaeff455f99175532cbc5ff948f2055e5bde68792953a010252",
+      "size": 39802
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ItemGuardianApprovalReviewCompletedNotification.json",
+      "sha256": "6d3b6e3a86e77ecf11fa7e15bf3b446d22026def0c590ffc59d5791e16839131",
+      "size": 15879
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ItemGuardianApprovalReviewStartedNotification.json",
+      "sha256": "87445178c11927c8ecb98e6a38a5a4acd1ee5e0b6b4b3ff247636bd2fe34fabb",
+      "size": 15381
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ItemStartedNotification.json",
+      "sha256": "22cdd41e4120c507f7ef938636e66d1ded82f2488a7ec5a097a16fde896d18ab",
+      "size": 39794
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ListMcpServerStatusParams.json",
+      "sha256": "701916a7d444afbbc68aef9e72ab4e5c3111a8fd97560072e9b84713adf9ddc0",
+      "size": 1030
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ListMcpServerStatusResponse.json",
+      "sha256": "9f57363d187ee9581e88cc2fe8ed85e4b692353ae96b616689e934702442af4a",
+      "size": 4876
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/LoginAccountParams.json",
+      "sha256": "2fa026dc2c9109b5e6b75c51d80809573be7de3986f3486389429dd6694350d9",
+      "size": 3518
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/LoginAccountResponse.json",
+      "sha256": "cc5cee5be0badb73e655e3e91e5353501546d17b7e7bfe0fbff9aefe73466ad9",
+      "size": 2521
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/LogoutAccountResponse.json",
+      "sha256": "ac14ddfca2ec6092b0039be8720262d5a9930484d23e62544d2ef0b7e1db7926",
+      "size": 114
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/MarketplaceAddParams.json",
+      "sha256": "0010e544bcaf05835264d30d9c51f8753ff6d0600078923bc7895d375b56de09",
+      "size": 431
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/MarketplaceAddResponse.json",
+      "sha256": "016e57c26a6f4cb6eeb853c877dd613921f8affe05cc49ff6ac80563f3d37665",
+      "size": 865
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/MarketplaceRemoveParams.json",
+      "sha256": "62683dd94b7f04cb0ff9139f0fd65a4054c550e1365276fc4cba689fca53d0a2",
+      "size": 236
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/MarketplaceRemoveResponse.json",
+      "sha256": "dd80fbf34262773465cf667a1b29ee147dafcf717ad0b4056c4f65f45baae223",
+      "size": 869
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/MarketplaceUpgradeParams.json",
+      "sha256": "8b422d89afa78a06648a3f6e755b6d1205aa389adebe074c7a1ce9f7dac772a9",
+      "size": 228
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/MarketplaceUpgradeResponse.json",
+      "sha256": "f1cadefec92a2538c7fa8fe15d3fb60b5d76d1bdd39da1119d899f3933d1654f",
+      "size": 1348
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/McpResourceReadParams.json",
+      "sha256": "1b08de843ea1d95b58c5823d7f74d17d6434c7cbc29cba32b605ea3cd67d60dd",
+      "size": 352
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/McpResourceReadResponse.json",
+      "sha256": "afc28bec6078e86f4c3abd08bb4b07faeda47a6b95d0271f32af8d293c28f648",
+      "size": 1482
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/McpServerOauthLoginCompletedNotification.json",
+      "sha256": "917f416509d0a48d67ccc014cd30a6c7d21a5656ded1011af11206266171cba6",
+      "size": 455
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/McpServerOauthLoginParams.json",
+      "sha256": "d811d68d681d0310d71697d58ca8c65b0f2e36e856aacd510ce7f88bd2781998",
+      "size": 539
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/McpServerOauthLoginResponse.json",
+      "sha256": "7a8369f66ca874851a82752b4d6579763cc1ffb44bdf1a37268ee15ab4eadc6b",
+      "size": 242
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/McpServerRefreshResponse.json",
+      "sha256": "54a77812db02175dc69053870e582d3b314af6f161f0c76846f3563b0f9487c4",
+      "size": 117
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/McpServerStatusUpdatedNotification.json",
+      "sha256": "bfd84af7be62e5f4093a904e2e290f924eb8639119557c01a34b98a1c4680be2",
+      "size": 973
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/McpServerToolCallParams.json",
+      "sha256": "35fa0fddcdee23ceb24a39b1e6de62d1594b804b453dda66cc522005393f6477",
+      "size": 380
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/McpServerToolCallResponse.json",
+      "sha256": "83d100ccf933b4a1ce657bc7532a79c783dcde8b4d059a2f2cc985d51538ad88",
+      "size": 374
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/McpToolCallProgressNotification.json",
+      "sha256": "53db836cfa93fecef8968d3b750b936a679d5befed987c72ad6f0bc6e327f60f",
+      "size": 412
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ModelListParams.json",
+      "sha256": "10ac5c0cb8ddbe840527c8eb8053dc4ced32ea3efdfb200283cadc43447f9073",
+      "size": 688
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ModelListResponse.json",
+      "sha256": "6e5e52922a2cd66123b074ac0ef197557a151120db815b3a6ca8402da5aec7a0",
+      "size": 5115
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ModelProviderCapabilitiesReadParams.json",
+      "sha256": "9db732188a15476cabb42cf05e495ae0803a1ada993fca7348c21c30a998388d",
+      "size": 128
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ModelProviderCapabilitiesReadResponse.json",
+      "sha256": "e5e93e7d50e0f7c2c640ffe4d53107b97e36943680504184932fcfab4c132e71",
+      "size": 395
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ModelReroutedNotification.json",
+      "sha256": "56fafba427da6c01ac5b27be97386edcede595ae2ee83273ade01ef9931c6ff4",
+      "size": 636
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ModelSafetyBufferingUpdatedNotification.json",
+      "sha256": "b4e77abcee6de1c88b3e2408240f0376ba34da81d1ee2183499b8bd13e785c65",
+      "size": 746
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ModelVerificationNotification.json",
+      "sha256": "6f099d71955d14b8b48083c7dea35f55da3f09a6a5290acbe9374d74a3fa80fd",
+      "size": 574
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/PermissionProfileListParams.json",
+      "sha256": "10d5550ceb091060105e0615ad10462917044bceda09f4c0816fe0eec12c5aa1",
+      "size": 667
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/PermissionProfileListResponse.json",
+      "sha256": "c4ccf5f00f326e13a0886ccde89bad06dc961e118e26229289a6ced166018808",
+      "size": 1174
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/PlanDeltaNotification.json",
+      "sha256": "200327ed4d6f14c0f39dee5b57b7275559bea7a5db3815c4151c0e35dfac8a4c",
+      "size": 565
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/PluginInstallParams.json",
+      "sha256": "25cb92881ca3cb8ac26c4604357c11365cbdeb00767dd3227b15a109bf904a30",
+      "size": 950
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/PluginInstallResponse.json",
+      "sha256": "92aed7fa5993040d7d2430c7c3b38795ddde5de0626e468d7a0801bb7d7426ed",
+      "size": 1190
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/PluginInstalledParams.json",
+      "sha256": "9cef9342214956f0df8a5087e2bb2aec0fdea72f841b56ad96dc2bfa51160c51",
+      "size": 1174
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/PluginInstalledResponse.json",
+      "sha256": "c925d06682cd472e766e0bb569db31ed17cebead45402d14a8115422969fda21",
+      "size": 14565
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/PluginListParams.json",
+      "sha256": "4dc2f486c40d2e65183b49d58b3fbe6e83e096d37acf2ec65b5ace70ca74e75f",
+      "size": 1629
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/PluginListResponse.json",
+      "sha256": "4c8053e27c331722d460a91335addc4acec5de5a9b3e1a2aaf800d58595ccc97",
+      "size": 14688
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/PluginReadParams.json",
+      "sha256": "df191e956fb0905d4133ec1436962d786b6d3a02ac98d7f856827d4ed6018af6",
+      "size": 947
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/PluginReadResponse.json",
+      "sha256": "daaf5615ed6f53a1f2cf565daff5faeea843b3f3f4053963377315408efaaf45",
+      "size": 22501
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/PluginShareCheckoutParams.json",
+      "sha256": "6dcf85fefecee8ccfa9349115c3cb63f27b110c30f76e2afe5b6c59819f16c94",
+      "size": 236
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/PluginShareCheckoutResponse.json",
+      "sha256": "4ae360ca0bf382cfe88e8baca70a7b5e700a3d9414cb3925c44812de1430997c",
+      "size": 1187
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/PluginShareDeleteParams.json",
+      "sha256": "a106ba3c2731c9733e83d2afa16bfeff29bde9c9b6c7589a9126aa61d34f291c",
+      "size": 234
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/PluginShareDeleteResponse.json",
+      "sha256": "ae881a7f898f5287354de5adf6f42094cef9029a9b9376bfd12aa1b0fe0b3106",
+      "size": 118
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/PluginShareListParams.json",
+      "sha256": "0d71280d2a655ffc26375044ec1693203848614f99fdb4563e0cb5a4ee40122b",
+      "size": 114
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/PluginShareListResponse.json",
+      "sha256": "f09df27da985766097dd9b9d307124e6185b56b3ee026e9f21dfa2e757aaa998",
+      "size": 13363
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/PluginShareSaveParams.json",
+      "sha256": "e7f71b6333a5067a143305fb0acd0ba6babc3ed5578bde5a6bed896aefb801f9",
+      "size": 1974
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/PluginShareSaveResponse.json",
+      "sha256": "b38b6ebd7a4c954ab1ee251ad3154db27d1e56d3d78c861e21471184c9cce80e",
+      "size": 417
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/PluginShareUpdateTargetsParams.json",
+      "sha256": "8c837cdf68d77d5a1131b6319d76c3bf1d637e3c3d28fcbb708ea3db272d853d",
+      "size": 1369
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/PluginShareUpdateTargetsResponse.json",
+      "sha256": "233b8d8f34eef31d0ee5dc86110028651e9e74e899332204c0871c8f8820cbe5",
+      "size": 1380
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/PluginSkillReadParams.json",
+      "sha256": "7496330dfdf494d658f5dc6998fef1fc30d312616f036b08cf11d61fce23a20b",
+      "size": 388
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/PluginSkillReadResponse.json",
+      "sha256": "ec7edbbcc67ee6d4d5fcc707d152b9ebb3b1e8fe3e27bee035094a2b806bc600",
+      "size": 220
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/PluginUninstallParams.json",
+      "sha256": "15de77dd5ab132305fa57299c41ea911a0ca22c4ca960be5bb5506378ae5d291",
+      "size": 220
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/PluginUninstallResponse.json",
+      "sha256": "f6a0c9c8dfd9e3fc4a535ecfa606f12922c09e469a37d6b1c6e189f45cacb89e",
+      "size": 116
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ProcessExitedNotification.json",
+      "sha256": "32bc785470cf22ed93f50d508b96061b557feaf824ca3fd9f27ddd40b13581ef",
+      "size": 1419
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ProcessOutputDeltaNotification.json",
+      "sha256": "71d9279da816715d741e1b315cde8737ca7016d0827b552e796a481d2eb70cb8",
+      "size": 1436
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/RawResponseCompletedNotification.json",
+      "sha256": "d330286f1d9abc273837091a9a4e7b4b2454721f4f3bc3a01386c2145105b4e7",
+      "size": 1525
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/RawResponseItemCompletedNotification.json",
+      "sha256": "7516d207801fa58619274e2fd16d0c575b10c260fdf1f105a00b4ff82fa0e33f",
+      "size": 30848
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ReasoningSummaryPartAddedNotification.json",
+      "sha256": "5cc137e90e8d51d703a671578245d2d983f6fe063d113e8f6c6af0279011253c",
+      "size": 454
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ReasoningSummaryTextDeltaNotification.json",
+      "sha256": "7bd24d5d1cad5b09f6d3fe7a40de6a2d0c3218678bad6199e704c4696597325b",
+      "size": 512
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ReasoningTextDeltaNotification.json",
+      "sha256": "e2e7aea35c4d95b4ad8eeafe15629113f69ebfc2be085cd4316ae02871b5b110",
+      "size": 505
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/RemoteControlStatusChangedNotification.json",
+      "sha256": "a091c7b37eca746e09e9dc714883807f58c6ce48a13e5c7badd67c103a880ca2",
+      "size": 800
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ReviewStartParams.json",
+      "sha256": "2b0e0ec6d41e91e155339a646a1f1124146e879d40ada6a02e374736129c1497",
+      "size": 3200
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ReviewStartResponse.json",
+      "sha256": "20a87ac408e75f6d57f4ef96a0d2b73b972cfdd125cea06d00b02f12799d96b4",
+      "size": 47345
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/SendAddCreditsNudgeEmailParams.json",
+      "sha256": "e69a23583e5decc5e9688413c1db8efac775d067e6714fc9211cffdea7c6be8b",
+      "size": 420
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/SendAddCreditsNudgeEmailResponse.json",
+      "sha256": "7c5fcdd7a08408b41f1d2d04761bc3e60ec1d8010e63a612cc42efaff968c26d",
+      "size": 417
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ServerRequestResolvedNotification.json",
+      "sha256": "7cc32a834be009c7a45dda01b80ae01bb522c642eb0e886c6d4bd7ee89fde643",
+      "size": 514
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/SkillsChangedNotification.json",
+      "sha256": "d9d3bda6c7fa1ed2bafc2a6145676760972c0220dee6b1d7229f82a25297a1f3",
+      "size": 341
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/SkillsConfigWriteParams.json",
+      "sha256": "24c9645b4f09b3d4d6ed8a18dda989717959e200eb3a70cd455a97e0c3754ca1",
+      "size": 1011
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/SkillsConfigWriteResponse.json",
+      "sha256": "fe29c58a71cb9ab1048602970bcbe8059facab90879fdf7607d3c3158f21ee34",
+      "size": 241
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/SkillsExtraRootsSetParams.json",
+      "sha256": "4e5f1864e142df3db1c607b60279b3214e41a4c5bd13c81211cb8a580107ca65",
+      "size": 761
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/SkillsExtraRootsSetResponse.json",
+      "sha256": "b659ec17a196eaa3a23273a3e2d5596460ea329bc3ade249971576bc723d9e96",
+      "size": 120
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/SkillsListParams.json",
+      "sha256": "a942aa92e6da4cf8a76d6b99cbdaf6672864e6ff955f44a6d469f0363afd3bf2",
+      "size": 453
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/SkillsListResponse.json",
+      "sha256": "add42df02ac991fc8f0fa4bd61915ff6f6783ecaec55db130e480e844f60c9f1",
+      "size": 5102
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/TerminalInteractionNotification.json",
+      "sha256": "fc4d4d076e3fe220108ce2f606a29148ab2e87ca7300de00a469656e424c234b",
+      "size": 474
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ThreadApproveGuardianDeniedActionParams.json",
+      "sha256": "d544a1253790a2b29d6de8cbce3065d6a238518e3af8d964cfd8a2b18eecd99e",
+      "size": 360
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ThreadApproveGuardianDeniedActionResponse.json",
+      "sha256": "628336c7cdabd508d5202695502bb0f9ce42fdde380f5efdd4b033cf215d93e5",
+      "size": 134
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ThreadArchiveParams.json",
+      "sha256": "c02dd30ee0f272ec74c36f1e5cd44a5d9a4f0ceb5ba089b26a758e1375a320ca",
+      "size": 218
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ThreadArchiveResponse.json",
+      "sha256": "2e021dabd0930ae3e2beb68cd0ddbafc40fc20cfbf8dbcb5e2f9c0493d06a08c",
+      "size": 114
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ThreadArchivedNotification.json",
+      "sha256": "3a166dd21245bf260f16d2fd55da81ba57d9143c629881fba32638b53351c18d",
+      "size": 225
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ThreadClosedNotification.json",
+      "sha256": "d9978b8a5450dc6ba01cac5ae6641493aa60c558340a718722a78eda990048c8",
+      "size": 223
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ThreadCompactStartParams.json",
+      "sha256": "a7c4395f60bddd38c953cb9508a05d2082790da7b3eb4ef7e4fb66cf15b92227",
+      "size": 223
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ThreadCompactStartResponse.json",
+      "sha256": "74674e47f33e37d7d97d144eac1789ef0580a1fc12d45a5675bb97caa08d803a",
+      "size": 119
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ThreadDeleteParams.json",
+      "sha256": "b0c68afa98bf529010fe643da11db29a8a0a2f2963c8e7a25831f8612f98297d",
+      "size": 217
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ThreadDeleteResponse.json",
+      "sha256": "333c0c5df96d78d1bcbdb19b57ddfa941de9a02bdae1c29d13c5311c2cdf6527",
+      "size": 113
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ThreadDeletedNotification.json",
+      "sha256": "f9706a810ea40567dbcf59b1d926059fa9b13b7f2d85a97e1dcb388ee0a2edc5",
+      "size": 224
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ThreadForkParams.json",
+      "sha256": "40fec810f9f0fc4a5f3cef18a70f7ac2a2699aa5f7208b1719c913dec67797a8",
+      "size": 4995
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ThreadForkResponse.json",
+      "sha256": "174ff0935bf1aceff8b10b5bb12e2bbd16d73ae40fc0adb7d73cf5ba582ffde8",
+      "size": 64380
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ThreadGoalClearParams.json",
+      "sha256": "3283dabc2860c3abdb59a73061aaf290b486bff3afdf9c46cdeccceeb0f0fa3c",
+      "size": 220
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ThreadGoalClearResponse.json",
+      "sha256": "2f8ca66feaaaec3d3d0144ce23c65702c764ba92c4820dd3a6b84f7635c1655f",
+      "size": 221
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ThreadGoalClearedNotification.json",
+      "sha256": "58b6a04cae193932eb9e02858dfed26469d8d7b0a648cf3ee1a8ad0adc1ff515",
+      "size": 228
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ThreadGoalGetParams.json",
+      "sha256": "619172ae68da00476e628c515f44c212af2d913af77066266e5347809eb19023",
+      "size": 218
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ThreadGoalGetResponse.json",
+      "sha256": "8bf8015d45a3dbf02ffd02a90c524aabe2916334bea435e59fad0498d64c4845",
+      "size": 1491
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ThreadGoalSetParams.json",
+      "sha256": "6216508b6a7ba9640be7861b2fb14e8719100468ea906fc65dd882701cb86423",
+      "size": 804
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ThreadGoalSetResponse.json",
+      "sha256": "be5a571f10afdae3ad5a61db0891fa8a66001c1d5ab618163a131efa461061ac",
+      "size": 1428
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ThreadGoalUpdatedNotification.json",
+      "sha256": "bbecea6da1be75429c5c1dffd1a8307223ae97d861a96cb66af6ae34d901140d",
+      "size": 1580
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ThreadInjectItemsParams.json",
+      "sha256": "c2a14a9d3d66e54e1672b440824676a8292200a39ea765615cbfa98b07862fb0",
+      "size": 397
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ThreadInjectItemsResponse.json",
+      "sha256": "93d909e5b49b44da02072d340f8ad0ecd417d448ccf27fe50be7e369c7864159",
+      "size": 118
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ThreadListParams.json",
+      "sha256": "e8f24a2eb10aebba98263edd97b91f590dd7ddae63e7ec89385f29bee028ea1c",
+      "size": 3547
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ThreadListResponse.json",
+      "sha256": "5b01b0c03141c2a15559879294ef065daac9715615d7df65371baf5f119d9958",
+      "size": 57980
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ThreadLoadedListParams.json",
+      "sha256": "f1c2e4944f64ea6361dc4681f948d0c6fe2e79304ae2eb36ddac06a3258d3885",
+      "size": 489
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ThreadLoadedListResponse.json",
+      "sha256": "681bacf8a22e64427f2de8b67a2d3dba925e68f35ca5556a96a4c9fbc8eca85c",
+      "size": 565
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ThreadMetadataUpdateParams.json",
+      "sha256": "2d59584e7a08a7e66635a1d72913afffa67346e4cfa2715b8a649466e8aefa92",
+      "size": 1651
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ThreadMetadataUpdateResponse.json",
+      "sha256": "3fb315c4dda27b077341422ba081e60f5190c26daec101a384df855f211f607b",
+      "size": 57326
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ThreadNameUpdatedNotification.json",
+      "sha256": "7cd55307c0343508b226b9fe87cb7af09711fb438cdeb5eb440cf37a5d2f5000",
+      "size": 312
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ThreadReadParams.json",
+      "sha256": "db97080f82facc3259dbb9404e9f0df81e360619f4cd73983a9d99d25f5089ee",
+      "size": 355
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ThreadReadResponse.json",
+      "sha256": "dd1f9df782fc0e0a9d752dbf6f725634355b4889f9393074c9a71f768dcb2990",
+      "size": 57316
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ThreadRealtimeClosedNotification.json",
+      "sha256": "d02cde1cf11584913474e80576175d448be81553b445769540728879c147be43",
+      "size": 393
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ThreadRealtimeErrorNotification.json",
+      "sha256": "56a748c0a4b092a4ca065ffb48ff94e5d7bf07a73ef5b0494e61750f718a68ec",
+      "size": 377
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ThreadRealtimeItemAddedNotification.json",
+      "sha256": "58b1962daa93465e0ceb6a901b94fecabd4345e59329ebd830367b9293d150f6",
+      "size": 358
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ThreadRealtimeOutputAudioDeltaNotification.json",
+      "sha256": "688b323b533e78befa8b61a24e5ce9363c722048ea8e2903d0115e289f27417d",
+      "size": 1261
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ThreadRealtimeSdpNotification.json",
+      "sha256": "c6650c43b28006844897466905ea24e58fa4021a76cdb0dcd46b88547507b049",
+      "size": 376
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ThreadRealtimeStartedNotification.json",
+      "sha256": "b06208b7ec821b3daf1d26ebccec14ad1f91558c94325d74de836bf45d6ff852",
+      "size": 661
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ThreadRealtimeTranscriptDeltaNotification.json",
+      "sha256": "c117b16578c2712397a37f2604e2ea393de2e31af135f4c4ab639ff275217ed5",
+      "size": 533
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ThreadRealtimeTranscriptDoneNotification.json",
+      "sha256": "a242b3528f8fae45830c9b1ff65037bd240a327c5f7b2212fd42b3819c02d4ca",
+      "size": 528
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ThreadResumeParams.json",
+      "sha256": "e9d9864d1711d8bf47cc16146738ce6c9facdbc66e59ff111d7789460d7bdc6f",
+      "size": 37114
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ThreadResumeResponse.json",
+      "sha256": "818aee77b1b48318db69381409a5791d5a7cbece069a4f081c6979f542ce9c54",
+      "size": 64856
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ThreadRollbackParams.json",
+      "sha256": "27a2e5c31d48fa682a40b17a5abfef82428ed3a08cb265daff4b214956f63ba6",
+      "size": 667
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ThreadRollbackResponse.json",
+      "sha256": "b9dd718ebd8d2c3ab10cf77b94f1611b1f04d1603767af1ee0693ee641ff6334",
+      "size": 57647
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ThreadSetNameParams.json",
+      "sha256": "ff608965de4fcfb7241dd0afead85af3b71a5d116cb7900a0839239c1fa7ed9f",
+      "size": 274
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ThreadSetNameResponse.json",
+      "sha256": "f8763716433feea94f7c1ebd59b6cea4c261432e83240c13a8d49ba8185aa567",
+      "size": 114
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ThreadSettingsUpdatedNotification.json",
+      "sha256": "6e74137db80611a24d7ea4a90d533d5e7bdba60e2b75f79041a335ea8d597f84",
+      "size": 10318
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ThreadShellCommandParams.json",
+      "sha256": "f6eab1894a695d5415727ca68477d0bf3e428fc96a8cb6e80482fe5ba0fd2124",
+      "size": 567
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ThreadShellCommandResponse.json",
+      "sha256": "fd4911613f6a6da2ca13b75342501d4d61f64e00a1083c6d60038369b8caeefe",
+      "size": 119
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ThreadStartParams.json",
+      "sha256": "acb48bd0b3cba5193a8ec542e21b8ea78689e2f3a64ffb597ace585d2caa6fc9",
+      "size": 10180
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ThreadStartResponse.json",
+      "sha256": "7fe1d8190f1e779572107d2b55e5e4090a98150644827a9b2b0aedae2baa4a3c",
+      "size": 64381
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ThreadStartedNotification.json",
+      "sha256": "332a1ef820f11d4df45bbbc1368f2154d32ad7ce6aac642e9653d40579c04982",
+      "size": 57323
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ThreadStatusChangedNotification.json",
+      "sha256": "146af6d3702c4f3c844bd10b6b6b3e2b872e958a8d7d822157c19aaa6dc085f6",
+      "size": 2207
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ThreadTokenUsageUpdatedNotification.json",
+      "sha256": "a30830510723d95793880f2a629472f0142c3df936799e24c8c92afde8e24402",
+      "size": 1727
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ThreadUnarchiveParams.json",
+      "sha256": "43505599fbc58d4b410da2da0f1bae08ad1ef0d4d7d310cb0d82c07517dd5a89",
+      "size": 220
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ThreadUnarchiveResponse.json",
+      "sha256": "1f38a23814c3f087d1e14dd0433eda221911c37dab850ba08a37b6da24e6255c",
+      "size": 57321
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ThreadUnarchivedNotification.json",
+      "sha256": "ef4344864ff316d1749ae947368c1e617cf8825e5c8af8a828167ef991299b88",
+      "size": 227
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ThreadUnsubscribeParams.json",
+      "sha256": "a03dc3d6c5a2f77f164b6bf4250d29f0c81c10c6b5f484fac0b05392dc9c936a",
+      "size": 222
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/ThreadUnsubscribeResponse.json",
+      "sha256": "14cd8baac4521c8101698de3df2d7a8e509ece6bf9b8b5d11162d9391064b4ae",
+      "size": 431
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/TurnCompletedNotification.json",
+      "sha256": "5b5f2ca515658ea6fcce7e961d1c3feddb3f48c0dcc813260c7ccf77a2d016af",
+      "size": 47152
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/TurnDiffUpdatedNotification.json",
+      "sha256": "100de58cee497cbf2382497d0c0215761e6c5baa872009a0a55ff7d23364635c",
+      "size": 494
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/TurnInterruptParams.json",
+      "sha256": "49132b57b09f09dc545ed1cd373c12eede6e880e9afb54ae50add78bb42490cd",
+      "size": 278
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/TurnInterruptResponse.json",
+      "sha256": "531de6be06fe979b5963f249bab82498a175e614bf65ac12fb2e849dfe60bcf1",
+      "size": 114
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/TurnModerationMetadataNotification.json",
+      "sha256": "3e2aa78ccd487d22d2c6a12b275d9c6fbc8be707e24d59d44aad05a75107dbd3",
+      "size": 331
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/TurnPlanUpdatedNotification.json",
+      "sha256": "1198bbc36eebf79716b97ab7a36c09e77bec76efccefa1f188fe2e22db26d196",
+      "size": 948
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/TurnStartParams.json",
+      "sha256": "eb94e7558cf07bcd8fa2c0866fd73919d45b450b520979c0070923423c1d9e34",
+      "size": 16606
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/TurnStartResponse.json",
+      "sha256": "099184dc9d6195cd965b8a90ee5d1cb05c87d9b329acecdfbd63f358e660d568",
+      "size": 47080
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/TurnStartedNotification.json",
+      "sha256": "e268134e79cae246e39f110e67bd2efbb49ce9a572520a85a96a7325eaf31e03",
+      "size": 47150
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/TurnSteerParams.json",
+      "sha256": "045b76f2b01b72a7be57054eb9325b497914a5a6cfa3789a4228343691bead58",
+      "size": 6385
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/TurnSteerResponse.json",
+      "sha256": "a669b85e3b75b86468e39e6a2f760966bffe83f378b514c6898fb04b838cd78d",
+      "size": 212
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/WarningNotification.json",
+      "sha256": "8f8f87048f846a24ce06937cbcc11098e188ff262b71a986c0bcde1a24e57a81",
+      "size": 454
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/WindowsSandboxReadinessResponse.json",
+      "sha256": "002d645f1c0967ac8a4b1a0954e2c7561f8e299bd62dfe494026ae377d64c79e",
+      "size": 435
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/WindowsSandboxSetupCompletedNotification.json",
+      "sha256": "158145a7dda28e654796a06e1b627e6315283c3c0f2389b9502cf1c658ce8188",
+      "size": 556
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/WindowsSandboxSetupStartParams.json",
+      "sha256": "35b4aa0a40a160ce84b44e821d78096e37712c2f8824ec374ad5be564f35fbe2",
+      "size": 1002
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/WindowsSandboxSetupStartResponse.json",
+      "sha256": "29a24d86a75d5c76d5ae82fc8a3136fe2f0bc5785f5bfd033a0abc05834090d3",
+      "size": 230
+    },
+    {
+      "path": "tui/vendor/codex-app-server-schema/0.146.0/v2/WindowsWorldWritableWarningNotification.json",
+      "sha256": "17181244dfd86ece4375ad483ec6bcc6795443d85a2bf23b6f7e42fbcf1fa7e1",
+      "size": 478
+    },
+    {
+      "path": "vm-lab/README.md",
+      "sha256": "665d494578b59c1d89e0521ce37bea1d7de3f78d960153219bcb8994625bc25f",
+      "size": 14899
+    },
+    {
+      "path": "vm-lab/blueprints/fedora-workstation-full.json",
+      "sha256": "43ab0e145516eeeeab2238b237c20df96d569eea56ca68416adc8a41b58c8834",
+      "size": 8695
+    },
+    {
+      "path": "vm-lab/blueprints/provisioning-gates.json",
+      "sha256": "00ada9703f452799f09118de5f1b1869f5c4bb7c42b871773806ce2469696d3d",
+      "size": 5389
+    },
+    {
+      "path": "vm-lab/controller/README.md",
+      "sha256": "c84e8bb5009709ecf461d69142bbf0b1e14f59196c621e91778de70eb977af48",
+      "size": 8524
+    },
+    {
+      "path": "vm-lab/controller/energy-control-policy.json",
+      "sha256": "e4d5e8c35e0ffac25ad2039b77821b7a552386a3941ac298128417956f9b0816",
+      "size": 1609
+    },
+    {
+      "path": "vm-lab/controller/external-checkpoint.template.json",
+      "sha256": "f7308e1045a33bc6e854cb3f0c6b6d60d99e3c32ee8e8de43755a79aaec24011",
+      "size": 931
+    },
+    {
+      "path": "vm-lab/controller/h1-promotion-policy.template.json",
+      "sha256": "1a3c8e8a3dbb932030828051ab6fbf2157b086877112bdac8c767fbcfdccb74d",
+      "size": 839
+    },
+    {
+      "path": "vm-lab/controller/jarvisd.service.template",
+      "sha256": "b7eadfff17f7ec49f98fc2584d6582e30e315c77568aa940ed712652db1b2a88",
+      "size": 780
+    },
+    {
+      "path": "vm-lab/controller/lighting-observation-operation.json",
+      "sha256": "a4f5ef8aefbbfb8d0ade08bf4b20a25fdedc47aa705825ecb321507d941fd3a5",
+      "size": 793
+    },
+    {
+      "path": "vm-lab/controller/lighting-observation-policy.json",
+      "sha256": "d197ffa86afab911bc26bf432bece4308df3fcaf5a482113d2360d2986f0ba43",
+      "size": 601
+    },
+    {
+      "path": "vm-lab/controller/lighting-observation-registry.json",
+      "sha256": "61b838b16ac0699c5cd71ceb843b71d660b2f7deadca29d284ef12d1b160b03d",
+      "size": 692
+    },
+    {
+      "path": "vm-lab/controller/lighting-repair-operation.json",
+      "sha256": "aed05e00738b2f5521e9b09910981d4508defa569605ab8abf38130ddfe940b7",
+      "size": 962
+    },
+    {
+      "path": "vm-lab/controller/mutation-deployment-target.json",
+      "sha256": "73c195b001e1b4f50d683f79c7d95b2826388ade4caf71472ec59e0e3daf86b3",
+      "size": 757
+    },
+    {
+      "path": "vm-lab/controller/operations.json",
+      "sha256": "4794db9bae1ef9bb1a6961f1e7746fb00986f256801ef508533b5d4e6fa2d835",
+      "size": 9997
+    },
+    {
+      "path": "vm-lab/controller/policy.json",
+      "sha256": "a3c04aaa57bb940feb16bb93d9ac48f419f66d92db9aac904289e15619f89f69",
+      "size": 2004
+    },
+    {
+      "path": "vm-lab/controller/power-profile-authorization-policy.json",
+      "sha256": "27e6aa11f7165e1223920fc96c1fb9860272dc054bf3ab25b06632ca8fab19e7",
+      "size": 1349
+    },
+    {
+      "path": "vm-lab/controller/private-transport.template.json",
+      "sha256": "4fac536c63dbe86eeaa57b701a100aec15e6a68774c7018fb9b14305a44c01f3",
+      "size": 601
+    },
+    {
+      "path": "vm-lab/controller/service-identity.template.json",
+      "sha256": "d56b17862d3550b1ffab05f1c3430fe6b7660fbf145032705d57bb3e255f9211",
+      "size": 824
+    },
+    {
+      "path": "vm-lab/controller/state-machine.json",
+      "sha256": "a138b5d6f18497d5de9bedcb93a9c8656e39fc89e17ae780dd4928a4dfbdc4ed",
+      "size": 1184
+    },
+    {
+      "path": "vm-lab/coverage/expected.json",
+      "sha256": "3cddddf936747c120047c449451e22ad1b70ef6e2cfd584fc59d0c4ca50ee779",
+      "size": 779
+    },
+    {
+      "path": "vm-lab/coverage/physical-gaps.json",
+      "sha256": "8439aa4800c49bd3a3bd710d534926882e17c9a5348792703455b5af43e635cf",
+      "size": 4492
+    },
+    {
+      "path": "vm-lab/enrollment/fedora-workstation-proposal.json",
+      "sha256": "0c1fa4a163e0a72f47ea2f4e060f9e1475109d9e902e9be817174fe3532911af",
+      "size": 27392
+    },
+    {
+      "path": "vm-lab/enrollment/lighting-approved-fact-scope.json",
+      "sha256": "1fbe34eddecfb9de30b8e48f0f3b5e583c8305d4f8da77acb79f333381ff3ec4",
+      "size": 988
+    },
+    {
+      "path": "vm-lab/enrollment/review.pending.json",
+      "sha256": "0f44f7d2ca82d7c0ee33710bf52fd4b0608248aff865b643f46d325d5981c27c",
+      "size": 861
+    },
+    {
+      "path": "vm-lab/enrollment/source-catalog.json",
+      "sha256": "35b022ab1587428ae31953c5b51591b46fcfd1333fba198a94c5c4d56efbe038",
+      "size": 10541
+    },
+    {
+      "path": "vm-lab/enrollment/tier0-approved-fact-scope.json",
+      "sha256": "f612a74fa0adcc34600467fd05ffb435987a558d392a5af77282ed00c820bc2d",
+      "size": 1442
+    },
+    {
+      "path": "vm-lab/fixtures/controller-request.json",
+      "sha256": "00133addc9bfb90b94f9af8422a75268d0312f252d3aba3fe9e8f3060cdb91eb",
+      "size": 936
+    },
+    {
+      "path": "vm-lab/fixtures/controller-response.json",
+      "sha256": "b1c5ec661765fdabf5d78f947072811a9544ae29ec2e889cec5eeeb354babd58",
+      "size": 546
+    },
+    {
+      "path": "vm-lab/fixtures/observation-request.json",
+      "sha256": "1d2259e2b65d1b709e55eac2dc7b845a7c52978bbcfb536f1d4dad0da529b8cc",
+      "size": 964
+    },
+    {
+      "path": "vm-lab/fixtures/observation-response.json",
+      "sha256": "18b99dca75d47d84b5a105db06966b7dc83dae854d604e94355971ee64616a8b",
+      "size": 2044
+    },
+    {
+      "path": "vm-lab/fixtures/observations/fedora-workstation-synthetic-v1/cpu-topology.json",
+      "sha256": "3eb780697541c7b56e78692ae499893120a11983456d425004c52bbbe2268d9a",
+      "size": 88
+    },
+    {
+      "path": "vm-lab/fixtures/observations/fedora-workstation-synthetic-v1/cpuinfo.txt",
+      "sha256": "d02049292c4a025115343390bd3dcbe92738406900689f8bfb943aa60140ed01",
+      "size": 535
+    },
+    {
+      "path": "vm-lab/fixtures/observations/fedora-workstation-synthetic-v1/kernel-identity.json",
+      "sha256": "0e0c4b6c002f95849d999f9e142d93a8667c011867e1ec56d6faf9d784460f39",
+      "size": 65
+    },
+    {
+      "path": "vm-lab/fixtures/observations/fedora-workstation-synthetic-v1/meminfo.txt",
+      "sha256": "5aa32861f46231f606263a48db6e2d64e466104209d3284ffba939e9e89aee6b",
+      "size": 140
+    },
+    {
+      "path": "vm-lab/fixtures/observations/fedora-workstation-synthetic-v1/numa-topology.json",
+      "sha256": "0bd61512053c6545f44ce4889edf573bcd090a599ab528fab60b307fbb7e4a00",
+      "size": 22
+    },
+    {
+      "path": "vm-lab/fixtures/observations/fedora-workstation-synthetic-v1/os-release.txt",
+      "sha256": "f0916cf934e74083a9dfda1b8fdc387a7292125765d133967aec4c6c8b05cbaa",
+      "size": 184
+    },
+    {
+      "path": "vm-lab/fixtures/readiness/fedora-kvm-synthetic-v1/selinux-summary.json",
+      "sha256": "470c675489ac62023738e66ba30a81f595af7c0ac3da4284ab0900d3d8fe3fef",
+      "size": 66
+    },
+    {
+      "path": "vm-lab/fixtures/readiness/fedora-kvm-synthetic-v1/storage-summary.json",
+      "sha256": "96c81d43c31b1fe84214d7735882cac443a243d94d2233080280a6ab4f19fea8",
+      "size": 129
+    },
+    {
+      "path": "vm-lab/fixtures/readiness/fedora-kvm-synthetic-v1/virtualization-summary.json",
+      "sha256": "025d7bf14d3ad78316c67c6ae07c24e3f129e96a55b89176e334785965b58b0f",
+      "size": 557
+    },
+    {
+      "path": "vm-lab/fixtures/readiness-response.json",
+      "sha256": "3caf8828e3f02bdc291e1b50cb20f44bffb64f59ea92f4d8353ab21cff82e09c",
+      "size": 3071
+    },
+    {
+      "path": "vm-lab/fixtures/run-record.json",
+      "sha256": "ef8f7386cbd7bac851779326e60993ffbf845701da827d0fcf37143d1336e6f3",
+      "size": 746
+    },
+    {
+      "path": "vm-lab/images/fedora-workstation-image-lock.template.json",
+      "sha256": "52b4e491ef2cbf2fbdef31113e1814b266fbfb13d2f746f565218fc7ff0e2041",
+      "size": 1469
+    },
+    {
+      "path": "vm-lab/matrices/lighting-controls.json",
+      "sha256": "b5137c5a284ee99f5bcc7a14667de7a48785f27bf9057e2d4c45df78b4b05d66",
+      "size": 6151
+    },
+    {
+      "path": "vm-lab/matrices/sysadmin-control-plane.json",
+      "sha256": "e0e6d4ca0cbf16ecd56095d438588b592af52001c2c1dbe76e0a7b0f03dd4f5d",
+      "size": 9627
+    },
+    {
+      "path": "vm-lab/observation/adapter-registry.json",
+      "sha256": "90a3bf740ff6984fb6a3d6ebae9596a133167081f15feb09c2e91ff24f41c664",
+      "size": 5156
+    },
+    {
+      "path": "vm-lab/observation/broker-policy.json",
+      "sha256": "ea53b5c26fab84ced9e312dd4319a6c734c93d957d78530460b9ca6fc3575d81",
+      "size": 1508
+    },
+    {
+      "path": "vm-lab/policy/lab-policy.json",
+      "sha256": "304bff2981d63d9391082ba652ac288bd68fa3e5f69c9a7b6e7a853a52f8f2aa",
+      "size": 4099
+    },
+    {
+      "path": "vm-lab/profiles/fedora-workstation-template.json",
+      "sha256": "c414ab0133ed596e7d7760ff4120ad27f736a97ec98f9fab6047f1c311739d4f",
+      "size": 3666
+    },
+    {
+      "path": "vm-lab/profiles/tuned/jarvis-balanced/ppd.conf.fragment",
+      "sha256": "f21aa6b48c61308cb924c52845afc27d8aef068c6cff14d30f683a9b5669788f",
+      "size": 206
+    },
+    {
+      "path": "vm-lab/profiles/tuned/jarvis-balanced/tuned.conf",
+      "sha256": "8a2d84a9dd886152fca69b129a6bcdf4f612a366f5723a60e80b054ec6a1bc70",
+      "size": 522
+    },
+    {
+      "path": "vm-lab/readiness/adapter-registry.json",
+      "sha256": "2d8f631078420b4b70bdd53213a5c7ff07234da1ee5068bbed03aa84879bf45e",
+      "size": 4765
+    },
+    {
+      "path": "vm-lab/readiness/fedora-kvm-readiness-plan.json",
+      "sha256": "514819ed9539c28408d78b463fe2d76218a4cf4240e5c45b7643722719dcad51",
+      "size": 6869
+    },
+    {
+      "path": "vm-lab/scenarios/catalog.json",
+      "sha256": "1cc96dca15e31bff17a2daff2e66ee6e6232e034bf5975742f145893b8d5e5a8",
+      "size": 30039
+    },
+    {
+      "path": "vm-lab/schemas/controller-operation-registry.schema.json",
+      "sha256": "500cedd2adf1d735988acdcb39f6b3d3da262d180f1f9147bc80e520ba7f64d3",
+      "size": 1825
+    },
+    {
+      "path": "vm-lab/schemas/controller-policy.schema.json",
+      "sha256": "2047e0abac16cff14168d3652b3b50fa13ae8f863c238b376e36f713dfb5ddde",
+      "size": 2398
+    },
+    {
+      "path": "vm-lab/schemas/controller-request.schema.json",
+      "sha256": "860aa94e39bc5075cb9e005392b6ffa16ab4d95c62109b79f2cbc37469c4b1a6",
+      "size": 1331
+    },
+    {
+      "path": "vm-lab/schemas/controller-response.schema.json",
+      "sha256": "448815e08cfa2b27c4a908510d6542bf17b6beafdae17c58b9e699e999bf26a6",
+      "size": 917
+    },
+    {
+      "path": "vm-lab/schemas/controller-state-machine.schema.json",
+      "sha256": "df814639dac5664f8fb47ae70958d18f27c5bfb9b2b114b11bd07d78bd3cf9b6",
+      "size": 977
+    },
+    {
+      "path": "vm-lab/schemas/coverage-expectation.schema.json",
+      "sha256": "5850790350c291b531c568ef251be920cc7aaa2704cdb3f80e1d8530b2976528",
+      "size": 1328
+    },
+    {
+      "path": "vm-lab/schemas/coverage-report.schema.json",
+      "sha256": "f9a89fcec9833eb18b6f5e92fbcfa87ec15198e4dd25eaaa4506b2be97b9ae8b",
+      "size": 601
+    },
+    {
+      "path": "vm-lab/schemas/enrollment-proposal.schema.json",
+      "sha256": "40c2afa9be3674f3ee001eb646e963956b2c776363bebe6efd334d433c5c95ef",
+      "size": 3872
+    },
+    {
+      "path": "vm-lab/schemas/enrollment-review.schema.json",
+      "sha256": "8c8b9678b30a65c8e25aa3c35500ec2aeffe31ab696c635f661645da1531e5fe",
+      "size": 1143
+    },
+    {
+      "path": "vm-lab/schemas/enrollment-source-catalog.schema.json",
+      "sha256": "98e6633eff47cd4d8a16caee7bf718491c8077d4f718307fab19be5ee4a4c5c4",
+      "size": 1465
+    },
+    {
+      "path": "vm-lab/schemas/full-vm-blueprint.schema.json",
+      "sha256": "c9189c5e158c5a43f56ad8de03555c27c38526c0afa9d7299887e7eb31af4e93",
+      "size": 2871
+    },
+    {
+      "path": "vm-lab/schemas/image-lock.schema.json",
+      "sha256": "23482514f2283bcb1a407924cb480eed0995a0473839acaf5a07d36fba540c1c",
+      "size": 877
+    },
+    {
+      "path": "vm-lab/schemas/lab-policy.schema.json",
+      "sha256": "f06b7b01acafb5d48f5bc31a31da50270a673ddf1d112b5ba13285a5b67a51b0",
+      "size": 2202
+    },
+    {
+      "path": "vm-lab/schemas/observation-adapter-registry.schema.json",
+      "sha256": "a36f5acf0122e807b55e3d71d189c4e0615c51535cb811b292c3ba4d63047804",
+      "size": 4332
+    },
+    {
+      "path": "vm-lab/schemas/observation-broker-policy.schema.json",
+      "sha256": "f08256ad99cef3d98e789c8a28c86c28914bfc774fffdcfc756e3f95243d80f8",
+      "size": 2273
+    },
+    {
+      "path": "vm-lab/schemas/observation-request.schema.json",
+      "sha256": "b2475b7a25f7d0084d73e395dbbf0b6983125bbb06e53b62fd7a4d32cd08dee5",
+      "size": 1330
+    },
+    {
+      "path": "vm-lab/schemas/observation-response.schema.json",
+      "sha256": "7fdf9522f7f111c3cd964fc344a1d8b3e3ee1a2ce3680726eb5f2f451a376142",
+      "size": 1266
+    },
+    {
+      "path": "vm-lab/schemas/physical-gap-catalog.schema.json",
+      "sha256": "96c40c1f8916e2bb731b17c1eda0247ec9612545568037bf0dde5554ffc7956d",
+      "size": 1094
+    },
+    {
+      "path": "vm-lab/schemas/provisioning-gates.schema.json",
+      "sha256": "8f9573cf3ad27d4d92652dcac35e7c31cd0cf00dc056926eda8c5f4e3de67aae",
+      "size": 1712
+    },
+    {
+      "path": "vm-lab/schemas/readiness-adapter-registry.schema.json",
+      "sha256": "e757d589473312a46634dbdfe998e98cce837d0fb32d378f56ce6f3d70ac4491",
+      "size": 2707
+    },
+    {
+      "path": "vm-lab/schemas/readiness-plan.schema.json",
+      "sha256": "e08d0327a9f8eacb5f38eb464ab30a71cdab2b65c8c294076dcb21915e75506c",
+      "size": 2312
+    },
+    {
+      "path": "vm-lab/schemas/readiness-response.schema.json",
+      "sha256": "cd4838a818485b2c7b6a8a8558ca0723f791a4e8553d07a123e3e559e6d63dc5",
+      "size": 1280
+    },
+    {
+      "path": "vm-lab/schemas/run-record.schema.json",
+      "sha256": "7d73223d0aa04a5f0fd7953f6c91a56c016a9bad05d2f070176e4970e5e941d0",
+      "size": 1482
+    },
+    {
+      "path": "vm-lab/schemas/scenario-catalog.schema.json",
+      "sha256": "d528e08731c491052da0e1d59d8f33756db14a6bc4ea3c23582fa470efc6c290",
+      "size": 596
+    },
+    {
+      "path": "vm-lab/schemas/scenario-matrix.schema.json",
+      "sha256": "943bf2228f4bcf53e82b5779824abc357403c0ba9593d692b8eca0b09efebeb1",
+      "size": 1150
+    },
+    {
+      "path": "vm-lab/schemas/twin-profile.schema.json",
+      "sha256": "55aaf5fce6909d1832224462b713b92dcc9a37d2ca437ea85820d7297df087db",
+      "size": 1171
+    },
+    {
+      "path": "vm-lab/scripts/activate_h1_tier0.py",
+      "sha256": "cf4b2475ebc1c0d668614526b95196046eb0efff313e7221173f4a73cf18ce0b",
+      "size": 16030
+    },
+    {
+      "path": "vm-lab/scripts/activation_authority.py",
+      "sha256": "184f8a29b8b181974c00c53d5761afbcf497d192e6f0857a9017908081d5cebb",
+      "size": 24056
+    },
+    {
+      "path": "vm-lab/scripts/controller_contract.py",
+      "sha256": "22c943e1d1f8c5c83cb7fc0a42dffc38ef38d76031d3eb6aecddfefcab0c7501",
+      "size": 27236
+    },
+    {
+      "path": "vm-lab/scripts/descriptor_bound_authority.py",
+      "sha256": "019f6271bc3782c47a55671b05aaff049942aeeefc7d4f98a024d82477b4078a",
+      "size": 21118
+    },
+    {
+      "path": "vm-lab/scripts/energy_control_framework.py",
+      "sha256": "aa5e632ea4d52654d1dac9a2203a33c381476d013aff6eda3aa32baddb7a3028",
+      "size": 5741
+    },
+    {
+      "path": "vm-lab/scripts/external_checkpoint.py",
+      "sha256": "df68cb9f5c721b361e3a2dc07f373f007682ae4dc250e219983cd0d8c46f8db7",
+      "size": 17766
+    },
+    {
+      "path": "vm-lab/scripts/h1_activation_contract.py",
+      "sha256": "103b7757f0cafec3ec189c56c53f5539d2a3c0481248122ab0a2029276824ef9",
+      "size": 19757
+    },
+    {
+      "path": "vm-lab/scripts/jarvis_boot_control.py",
+      "sha256": "077df94b7a06ab4a9cd44e5628c132cddb12feeda8a315bf873fbfdf33458c47",
+      "size": 1260
+    },
+    {
+      "path": "vm-lab/scripts/jarvis_configuration_control.py",
+      "sha256": "d227fb568c98f05b2494a34839d65772f29405c93c93710a51000a478aba8c04",
+      "size": 12788
+    },
+    {
+      "path": "vm-lab/scripts/jarvis_package_control.py",
+      "sha256": "477a36cf07de052643af1537a408cb782093cf6afe34fa6958ebcf62ce5e354e",
+      "size": 33717
+    },
+    {
+      "path": "vm-lab/scripts/jarvis_power_control.py",
+      "sha256": "8e8850a5804d20529e09cff294ab506835b4de9be54dcb705be5a3d5fd4f6b58",
+      "size": 29893
+    },
+    {
+      "path": "vm-lab/scripts/jarvis_privileged_control.py",
+      "sha256": "7eae720d37a6409d3d5cedb483e24b5b9ecd33016acf6e540830849e49959095",
+      "size": 25654
+    },
+    {
+      "path": "vm-lab/scripts/jarvis_service_control.py",
+      "sha256": "1fe087ef81e641b3c270bac736da973e569e7858d928eb5e544df5523492e788",
+      "size": 12019
+    },
+    {
+      "path": "vm-lab/scripts/jarvis_update_control.py",
+      "sha256": "794c28ad1fd0910500c2891097dbc913d909ac35f32e8ed69ba8efb9b4e521c9",
+      "size": 1260
+    },
+    {
+      "path": "vm-lab/scripts/jarvisd_service.py",
+      "sha256": "614c1e73dfce72394c1ec5d6537915f8ab4c407d8161284d9525e7dac9c12876",
+      "size": 11233
+    },
+    {
+      "path": "vm-lab/scripts/labctl.py",
+      "sha256": "f510ff96ace4186e383e359dae78d0513ed55daa287a12be1a79e34941b84de3",
+      "size": 25960
+    },
+    {
+      "path": "vm-lab/scripts/lighting_observation.py",
+      "sha256": "196af7c57c3dd57e54864569aa25422a346ab3a8841bf84cb0b33ac37a0cc4a4",
+      "size": 14987
+    },
+    {
+      "path": "vm-lab/scripts/lighting_repair_executor.py",
+      "sha256": "ab6388297be48decda41d6e94eae8415598d2e2ce9f65af8d25712521364b173",
+      "size": 4735
+    },
+    {
+      "path": "vm-lab/scripts/lighting_repair_plan.py",
+      "sha256": "53c28c98a8b3ad39bb1f80c63b070802a72798dc0f0f28a7532edf7c2ae4cf38",
+      "size": 4528
+    },
+    {
+      "path": "vm-lab/scripts/live_lighting_observation.py",
+      "sha256": "181496de2d84c0dfc2186111b963ab2b566863a2d2a0cb713fd17269bae2b071",
+      "size": 12410
+    },
+    {
+      "path": "vm-lab/scripts/live_tier0_observation.py",
+      "sha256": "6330d4e5e41450a2d655a24b99cc5cdeac83aefcf8cce50abc34343eb47f220a",
+      "size": 12958
+    },
+    {
+      "path": "vm-lab/scripts/observation_broker.py",
+      "sha256": "a69e68605cbd7ab99f0c69e44dc49f98da13476cf218a6b1f4e9d9491aa63084",
+      "size": 4209
+    },
+    {
+      "path": "vm-lab/scripts/observation_contract.py",
+      "sha256": "de0e8ca512fd25377469d771034c6ebcc6603b73a8e6b8b77ee3d648e69609a7",
+      "size": 32567
+    },
+    {
+      "path": "vm-lab/scripts/phase5_executor.py",
+      "sha256": "55eeeed7daf12aaa4226271e04ef263ba4e07339d6e5a6a35f74dfd3e987563a",
+      "size": 6403
+    },
+    {
+      "path": "vm-lab/scripts/phase5_power_profile_rehearsal.py",
+      "sha256": "f89ef271c26e46b691229a08c2c88bec11a9184c805ad4d5382953396d6ab3fc",
+      "size": 3218
+    },
+    {
+      "path": "vm-lab/scripts/phase5_rehearsal_marker.py",
+      "sha256": "c27c50e3e43cf8b1752b6fc60121e6cdff0c18955c4edfd08c4e1ee3c15afab1",
+      "size": 9018
+    },
+    {
+      "path": "vm-lab/scripts/power_profile_authority_ledger.py",
+      "sha256": "76eb22dadf78b37fc59c3fde1095969de6b1f3fc69a1a153d0b987db9191f20f",
+      "size": 11936
+    },
+    {
+      "path": "vm-lab/scripts/power_profile_authorization.py",
+      "sha256": "66948a2bdd6c6aa82d7f8fb791afc122fa85b2946ce8564edeab4c59a5d617fe",
+      "size": 5941
+    },
+    {
+      "path": "vm-lab/scripts/power_profile_executor_bridge.py",
+      "sha256": "c4079802f0b1a2a783c3cadf54702a542531cb489d196492679f59cfc1124b2e",
+      "size": 9823
+    },
+    {
+      "path": "vm-lab/scripts/power_profile_mutation.py",
+      "sha256": "c42516bd08f0d3281f0e48bf48b11c87725b5d4d9af2ceec5ed77db38cff149b",
+      "size": 6751
+    },
+    {
+      "path": "vm-lab/scripts/power_profile_status.py",
+      "sha256": "b8083d0c6b7a54b62aadab7c838868b3820cbe7eeee366b534fbe08dbacf3cde",
+      "size": 5484
+    },
+    {
+      "path": "vm-lab/scripts/provision_tpm_hmac_key.sh",
+      "sha256": "c6f51fd2146a405ca3633889a85a9ed09f57a7529ea0450f388949a61b6c8e59",
+      "size": 5385
+    },
+    {
+      "path": "vm-lab/scripts/readiness_contract.py",
+      "sha256": "b9815dcd69020feb6a0e87f35911c3ec6b95e32e159fa289256f1f22c42f4ca9",
+      "size": 17167
+    },
+    {
+      "path": "vm-lab/scripts/restricted_fact_store.py",
+      "sha256": "a7aac470638967947bf0b9be14bf04b1be8a5a1cba5017ea413166d61251525f",
+      "size": 29001
+    },
+    {
+      "path": "vm-lab/scripts/vm_blueprint_contract.py",
+      "sha256": "2bd022611c45c8ddc8e6dcf32e15f968845153f6dd0dcfe364d60e7c2d4278b5",
+      "size": 15686
+    },
+    {
+      "path": "vm-lab/tests/test_activation_authority.py",
+      "sha256": "1ddbfb2a15c6f638874d75889944e8a8117b6b73444079d323f1d9a80e872e5c",
+      "size": 8534
+    },
+    {
+      "path": "vm-lab/tests/test_controller_contract.py",
+      "sha256": "6a08f0b03ff7c7656f3a1b6d20aaf130c261589c20db811ffa3121195f4e01b2",
+      "size": 9174
+    },
+    {
+      "path": "vm-lab/tests/test_descriptor_bound_authority.py",
+      "sha256": "b7d4d18d33d2c264ace8cd76261fdeba7d3339cb8dab47c98a7385340b520b90",
+      "size": 11525
+    },
+    {
+      "path": "vm-lab/tests/test_energy_control_framework.py",
+      "sha256": "b9de760b9b45ed6f1046969399d1e37dd3e1983c2cbce6d8bf168b8af172e380",
+      "size": 1603
+    },
+    {
+      "path": "vm-lab/tests/test_external_checkpoint.py",
+      "sha256": "5368bd1f7e66061ad0a002cbefe53a62ad68d0cf9e55660c31d61f7c1270aa54",
+      "size": 8673
+    },
+    {
+      "path": "vm-lab/tests/test_h1_activation_contract.py",
+      "sha256": "f86ee1527cab9bb22d8cd1e75010cb4cd4b00e04c52b84fa1139037d7d8fae7d",
+      "size": 6708
+    },
+    {
+      "path": "vm-lab/tests/test_jarvis_power_control.py",
+      "sha256": "a58d974ba01287c4deaba838196a292a9026d73350c37b8bb3a4bf564b5d1b27",
+      "size": 12707
+    },
+    {
+      "path": "vm-lab/tests/test_jarvisd_service.py",
+      "sha256": "34627ad82b112f399f2692b5b969041637838d081f3d85bba3c9a1375a7d9c98",
+      "size": 4126
+    },
+    {
+      "path": "vm-lab/tests/test_lighting_observation.py",
+      "sha256": "d99e5388843969267c3389c9f160046547895c8049f44532d0aefb18f87d1c36",
+      "size": 6194
+    },
+    {
+      "path": "vm-lab/tests/test_lighting_repair_executor.py",
+      "sha256": "0824405ce2738c79a7408fddac338e1d58819332d0bbb983e9d04414cecc25b1",
+      "size": 1456
+    },
+    {
+      "path": "vm-lab/tests/test_lighting_repair_plan.py",
+      "sha256": "6ca28998965112064d5fcd8482030c45aa5ddeed0c7caafa0eb794850b93ba9a",
+      "size": 1697
+    },
+    {
+      "path": "vm-lab/tests/test_live_lighting_observation.py",
+      "sha256": "ba0188cdcda10719ba28622c4a26a3a795b696544de71bcbb7793ab18dc7f111",
+      "size": 9496
+    },
+    {
+      "path": "vm-lab/tests/test_live_tier0_observation.py",
+      "sha256": "6d82da70762fc48da0d97f2186a2dc01f4cfb673a44a8e796d9e6f2d78413c1e",
+      "size": 3420
+    },
+    {
+      "path": "vm-lab/tests/test_observation_contract.py",
+      "sha256": "d0f4cad1e74f0b6596f6c8a27496c8e71f5bbcfd74d993298519dc3e361e919b",
+      "size": 24565
+    },
+    {
+      "path": "vm-lab/tests/test_phase5_executor.py",
+      "sha256": "141ce977a7f9b13e07ead244f736213a90efaa994ded0ba5f81f9e434e70e958",
+      "size": 3947
+    },
+    {
+      "path": "vm-lab/tests/test_phase5_power_profile_rehearsal.py",
+      "sha256": "19b5728564713136c40feed76a426af9f18c711e4e515c7025b57cdff1cdd825",
+      "size": 2026
+    },
+    {
+      "path": "vm-lab/tests/test_phase5_rehearsal_marker.py",
+      "sha256": "91b63f5fb3b56ff80544f39f7fae3c886ba72011fbf0c44283bd8e446ae9650f",
+      "size": 4225
+    },
+    {
+      "path": "vm-lab/tests/test_power_profile_authority_ledger.py",
+      "sha256": "5e37b1865e3a4d671ade2c50aa2d2d8047fa66b8e24001e7f41a79ced4420c1f",
+      "size": 5370
+    },
+    {
+      "path": "vm-lab/tests/test_power_profile_authorization.py",
+      "sha256": "f4f89c6f65289c7aad9771b364f0a9b364c9ab847a493522674ad77ff5cec70f",
+      "size": 3656
+    },
+    {
+      "path": "vm-lab/tests/test_power_profile_executor_bridge.py",
+      "sha256": "a690c5308940178ebdbe56b4169595e1a7fecbc491fd60b4deb19cacc5ad4a81",
+      "size": 8040
+    },
+    {
+      "path": "vm-lab/tests/test_power_profile_mutation.py",
+      "sha256": "df3d194399d7f58e489aaaaf4b53e3d261a23f7777691e7b40cf2f866f2cde09",
+      "size": 8551
+    },
+    {
+      "path": "vm-lab/tests/test_power_profile_status.py",
+      "sha256": "d870168fcbcc0d5df0c7c21ee91a56cba56ddbd3b2437cca838c84b9506019d0",
+      "size": 5677
+    },
+    {
+      "path": "vm-lab/tests/test_readiness_contract.py",
+      "sha256": "2bdcd6e7913759f71764b772d3a78a344bca794e01b5848e607c2d638a1b346c",
+      "size": 6068
+    },
+    {
+      "path": "vm-lab/tests/test_vm_blueprint_contract.py",
+      "sha256": "a1b3207e40e1540410bb957d2b53cbd365d21b0d47112396707f573593b04c9e",
+      "size": 6094
+    },
+    {
+      "path": "vm-lab/tests/test_vm_lab.py",
+      "sha256": "c05edf40460efe3484b3c09ed7276111559ca3ba52c50295f1bb5c93ab826011",
+      "size": 7360
+    }
+  ],
+  "schema_version": 1,
+  "version": "0.7.0-dev"
+}

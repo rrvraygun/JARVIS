@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "request_id": "obs-fixture-0001",
+  "status": "fixture_simulated",
+  "execution_performed": false,
+  "host_observed": false,
+  "effect_occurred": false,
+  "persistence_performed": false,
+  "fixture_set_id": "fedora-workstation-synthetic-v1",
+  "attempts": 1,
+  "candidate_facts": [
+    {"fact_id": "os.id", "value": "fedora", "source_id": "platform.os-release", "synthetic": true},
+    {"fact_id": "os.version_id", "value": "44", "source_id": "platform.os-release", "synthetic": true},
+    {"fact_id": "os.variant_id", "value": "workstation", "source_id": "platform.os-release", "synthetic": true},
+    {"fact_id": "os.pretty_name", "value": "Fedora Linux 44 (Workstation Edition)", "source_id": "platform.os-release", "synthetic": true},
+    {"fact_id": "kernel.release", "value": "6.18.7-200.fc44.x86_64", "source_id": "kernel.release", "synthetic": true},
+    {"fact_id": "system.architecture", "value": "x86_64", "source_id": "kernel.release", "synthetic": true},
+    {"fact_id": "cpu.architecture", "value": "x86_64", "source_id": "kernel.cpu-summary", "synthetic": true},
+    {"fact_id": "cpu.vendor", "value": "GenuineIntel", "source_id": "kernel.cpu-summary", "synthetic": true},
+    {"fact_id": "cpu.model_family", "value": "Synthetic Intel Core Family", "source_id": "kernel.cpu-summary", "synthetic": true},
+    {"fact_id": "cpu.physical_core_count", "value": 2, "source_id": "kernel.cpu-summary", "synthetic": true},
+    {"fact_id": "cpu.logical_thread_count", "value": 4, "source_id": "kernel.cpu-summary", "synthetic": true},
+    {"fact_id": "cpu.virtualization_extension_class", "value": "intel_vt", "source_id": "kernel.cpu-summary", "synthetic": true},
+    {"fact_id": "memory.total_bytes", "value": 17179869184, "source_id": "kernel.memory-summary", "synthetic": true},
+    {"fact_id": "memory.numa_node_count", "value": 1, "source_id": "kernel.memory-summary", "synthetic": true}
+  ],
+  "warnings": [
+    "Synthetic fixture values are parser-test evidence only and do not describe the host."
+  ]
+}

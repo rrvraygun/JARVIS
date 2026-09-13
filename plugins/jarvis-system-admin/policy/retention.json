@@ -1,0 +1,17 @@
+{
+  "schema_version":1,
+  "classes":{
+    "audit":{"minimum_days":365,"rotation":"manifested","deletion_requires_approval":true},
+    "approval":{"minimum_days":365,"rotation":"manifested","deletion_requires_approval":true},
+    "state_snapshot":{"minimum_days":90,"keep_daily_days":30,"keep_weekly_days":180,"keep_monthly_days":730},
+    "diagnostic_raw_small":{"maximum_days":7,"maximum_bytes":65536,"must_be_redacted":true},
+    "diagnostic_raw_large":{"maximum_days":1,"maximum_bytes":1048576,"must_be_redacted":true},
+    "diagnostic_hash":{"minimum_days":3650},
+    "confirmed_lesson":{"deletion":"user_approved_export_or_erasure_only"},
+    "knowledge_revision":{"minimum_days":365,"immutable_revision":true},
+    "report":{"minimum_days":90},
+    "incident_hold":{"deletion":"forbidden_until_release"}
+  },
+  "secret_policy":"reject_until_encrypted_and_user_unlocked",
+  "remote_integrity_export":"required_for_definitive_release_but_not_configured"
+}

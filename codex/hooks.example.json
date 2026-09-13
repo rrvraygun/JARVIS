@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "note": "Review against the installed Codex hook schema before activation. Hooks are defense-in-depth, not the sole security boundary.",
+  "required_controls": {
+    "UserPromptSubmit": ["redact_secrets", "classify_requested_capability"],
+    "PreToolUse": ["reject_log_instructions", "resolve_exact_targets", "require_change_ticket_for_mutation"],
+    "PermissionRequest": ["render_risk_approval_rollback"],
+    "PostToolUse": ["capture_exit_status", "redact_output", "append_audit_event"],
+    "Stop": ["require_validation_summary"],
+    "SubagentStart": ["record_agent_scope"],
+    "SubagentStop": ["record_agent_result"]
+  }
+}

@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "gate_set_id": "fedora-workstation-full-provisioning",
+  "version": "1.0.0",
+  "status": "prepared_not_started",
+  "execution_enabled": false,
+  "current_gate": "P1_virtualization_readiness_observation",
+  "gates": [
+    {
+      "id": "P0_L2_adapter_implementation",
+      "authority": "project_files_only",
+      "state_change": false,
+      "current_status": "completed",
+      "entry_requirements": ["Tier-0 parser contract remains valid"],
+      "completion_evidence": ["Exact L2 adapters are registered, fixture-tested and independently reviewed"],
+      "user_action_if_reached": "none_until_the_future_readiness_observation_is_presented",
+      "forbidden_during_gate": ["host scan", "package query", "service query", "hypervisor access"]
+    },
+    {
+      "id": "P1_virtualization_readiness_observation",
+      "authority": "fresh_group_confirmation",
+      "state_change": false,
+      "current_status": "next_blocked_on_user_authorization",
+      "entry_requirements": ["P0 complete", "live backend separately authorized, implemented, reviewed and VM-rehearsed", "exact bounded observation request presented"],
+      "completion_evidence": ["Fresh normalized readiness facts", "No unexpected output or effect"],
+      "user_action_if_reached": "approve or reject the exact read-only readiness group",
+      "forbidden_during_gate": ["installation", "service start", "module load", "permission change", "network access"]
+    },
+    {
+      "id": "P2_host_virtualization_changes_if_needed",
+      "authority": "per_command_approval",
+      "state_change": true,
+      "current_status": "blocked",
+      "entry_requirements": ["P1 complete", "a reviewed gap exists", "rollback and validation are defined"],
+      "completion_evidence": ["Approved change records", "Post-change verification", "Recovery result"],
+      "user_action_if_reached": "approve each exact installation or configuration command; manual steps may be required",
+      "forbidden_during_gate": ["automatic package installation", "automatic group change", "unapproved service enablement", "broad privilege"]
+    },
+    {
+      "id": "P3_official_image_resolution_and_lock",
+      "authority": "separate_network_and_acquisition_approval",
+      "state_change": true,
+      "current_status": "blocked",
+      "entry_requirements": ["P1 ready or P2 verified", "supported Fedora release selected"],
+      "completion_evidence": ["Official source", "Trusted key identity", "Valid signed checksum", "Matching image digest"],
+      "user_action_if_reached": "approve the exact official metadata retrieval and later the exact image download",
+      "forbidden_during_gate": ["mirror fallback without review", "unsigned image", "unresolved release", "implicit download"]
+    },
+    {
+      "id": "P4_domain_lock_and_storage_allocation",
+      "authority": "per_command_approval",
+      "state_change": true,
+      "current_status": "blocked",
+      "entry_requirements": ["P3 complete", "resource selection reviewed", "isolation definition validated"],
+      "completion_evidence": ["Domain-definition digest", "Firmware digest", "Storage target and capacity validation"],
+      "user_action_if_reached": "approve each exact storage and domain-definition action",
+      "forbidden_during_gate": ["device passthrough", "host share", "arbitrary image reference", "unbounded storage allocation"]
+    },
+    {
+      "id": "P5_full_workstation_installation",
+      "authority": "per_command_approval_plus_interactive_checkpoint_if_required",
+      "state_change": true,
+      "current_status": "blocked",
+      "entry_requirements": ["P4 complete", "provisioning network decision explicit", "install plan and recovery path reviewed"],
+      "completion_evidence": ["Full Workstation payload", "Package-set identity", "Clean shutdown", "No credentials copied"],
+      "user_action_if_reached": "approve VM start/install actions and complete any explicitly identified installer interaction",
+      "forbidden_during_gate": ["host credential reuse", "personal account data", "runtime-network carryover", "production mounts"]
+    },
+    {
+      "id": "P6_baseline_attestation",
+      "authority": "per_operation_approval",
+      "state_change": true,
+      "current_status": "blocked",
+      "entry_requirements": ["P5 cleanly completed", "guest powered off", "provisioning network removed"],
+      "completion_evidence": ["Read-only base digest", "Both boot-profile rehearsals", "Isolation attestation", "Reset rehearsal"],
+      "user_action_if_reached": "approve exact baseline sealing and controlled rehearsal operations",
+      "forbidden_during_gate": ["running snapshot accepted as clean", "writable golden base", "unattested reset"]
+    },
+    {
+      "id": "P7_scenario_overlays",
+      "authority": "registered_scenario_and_operation_approvals",
+      "state_change": true,
+      "current_status": "blocked",
+      "entry_requirements": ["P6 complete", "scenario contract validated", "evidence and stop rules bound"],
+      "completion_evidence": ["Fresh overlay attestation", "One-attempt run record", "Overlay disposal", "Base re-attestation"],
+      "user_action_if_reached": "approve the exact scenario operations according to their risk class",
+      "forbidden_during_gate": ["overlay reuse", "automatic retry", "unregistered procedure", "claiming physical hardware proof"]
+    }
+  ]
+}

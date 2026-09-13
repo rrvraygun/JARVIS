@@ -1,0 +1,32 @@
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+extend-exclude = [".venv", "runtime", "tui/vendor"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
+ignore = ["E501"]
+
+[tool.ruff.lint.per-file-ignores]
+"**/tests/**" = ["E402"]
+
+[tool.mypy]
+python_version = "3.11"
+check_untyped_defs = true
+warn_unused_ignores = true
+warn_redundant_casts = true
+warn_return_any = true
+no_implicit_optional = true
+exclude = ["^runtime/", "^tui/vendor/"]
+
+[tool.coverage.run]
+branch = true
+source = ["tui/src/jarvis_tui", "plugins/jarvis-system-admin/scripts", "vm-lab/scripts", "deployment/host"]
+omit = ["*/tests/*", "*/__pycache__/*"]
+
+[tool.coverage.report]
+skip_covered = false
+show_missing = true
+
+[tool.bandit]
+exclude_dirs = ["tui/vendor", "runtime", ".venv", "tests", "tui/tests", "vm-lab/tests", "plugins/jarvis-system-admin/tests"]

@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "request_id": "fixture:controller:prepare-enrollment:0001",
+  "session_id": "fixture:session:0001",
+  "operation_id": "profile.enrollment.prepare",
+  "operation_revision": "1.0.0",
+  "target_ref": "proposal:fedora-workstation-enrollment@1.0.0",
+  "current_state": "defined",
+  "expected_next_state": "prepared",
+  "parameters": {
+    "proposal_id": "fedora-workstation-enrollment",
+    "proposal_digest": "0c1fa4a163e0a72f47ea2f4e060f9e1475109d9e902e9be817174fe3532911af"
+  },
+  "identity_bindings": {
+    "policy_digest": "a3c04aaa57bb940feb16bb93d9ac48f419f66d92db9aac904289e15619f89f69",
+    "proposal_digest": "0c1fa4a163e0a72f47ea2f4e060f9e1475109d9e902e9be817174fe3532911af"
+  },
+  "approval_ref": null,
+  "idempotency_key": "fixture-controller-prepare-0001",
+  "requested_at": "2026-08-06T12:00:00Z",
+  "expires_at": "2026-08-06T12:05:00Z",
+  "attempt": 1,
+  "fixture_only": true,
+  "execute": false
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "System Security"
+  short_description: "Assess and harden systems without lockout"
+  default_prompt: "Use $system-security to assess exposure and stage measurable hardening safely."

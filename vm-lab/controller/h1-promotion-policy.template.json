@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "policy_id": "jarvis-h1-tier0-readonly-promotion-template",
+  "version": "1.0.0",
+  "status": "prepared_unactivated",
+  "transport": "unix-user-private",
+  "service_process_exists": false,
+  "operational_authority": false,
+  "execution_enabled": false,
+  "persistence_enabled": false,
+  "host_observation_enabled": true,
+  "network_enabled": false,
+  "privilege_enabled": false,
+  "mutation_enabled": false,
+  "device_access_enabled": false,
+  "protected_read_enabled": false,
+  "device_wake_allowed": false,
+  "allowed_adapters": [
+    "fedora.platform.os-release",
+    "fedora.kernel.identity",
+    "fedora.compute.cpu-summary",
+    "fedora.compute.memory-summary"
+  ],
+  "one_attempt": true,
+  "automatic_retry": false,
+  "requires_external_user_decision": true,
+  "requires_fresh_independent_review": true
+}

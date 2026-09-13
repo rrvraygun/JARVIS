@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Jarvis App Server session snapshot",
+  "type": "object",
+  "required": [
+    "connection",
+    "auth_mode",
+    "plan_type",
+    "rate_limits",
+    "thread_id",
+    "thread_status",
+    "active_turn_id",
+    "active_task_id",
+    "pending_requests",
+    "last_error"
+  ],
+  "properties": {
+    "connection": {
+      "enum": [
+        "offline",
+        "starting",
+        "login_required",
+        "ready",
+        "capacity_limited",
+        "unsupported_auth",
+        "disconnected",
+        "failed"
+      ]
+    },
+    "auth_mode": {"type": ["string", "null"]},
+    "plan_type": {"type": ["string", "null"]},
+    "rate_limits": {"type": "object"},
+    "thread_id": {"type": ["string", "null"]},
+    "thread_status": {"type": "string"},
+    "active_turn_id": {"type": ["string", "null"]},
+    "active_task_id": {"type": ["string", "null"]},
+    "pending_requests": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["request_id", "request_type", "thread_id", "turn_id", "item_id", "task_id"],
+        "properties": {
+          "request_id": {"type": "string"},
+          "request_type": {"type": "string"},
+          "thread_id": {"type": ["string", "null"]},
+          "turn_id": {"type": ["string", "null"]},
+          "item_id": {"type": ["string", "null"]},
+          "task_id": {"type": ["string", "null"]}
+        },
+        "additionalProperties": false
+      }
+    },
+    "last_error": {"type": ["string", "null"]}
+  },
+  "additionalProperties": false
+}

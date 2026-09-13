@@ -1,0 +1,30 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "type":"object",
+  "required":["executable","argv","purpose","expected","actual","outcome","privacy_class"],
+  "properties":{
+    "attempt_id":{"type":"string"},
+    "requested_at":{"type":"string","format":"date-time"},
+    "executable":{"type":"string"},
+    "argv":{"type":"array","items":{"type":"string"}},
+    "cwd_class":{"type":"string"},
+    "environment_keys":{"type":"array","items":{"type":"string"}},
+    "purpose":{"type":"string"},
+    "expected":{"type":"object"},
+    "actual":{"type":"object"},
+    "exit_code":{"type":["integer","null"]},
+    "timed_out":{"type":"boolean"},
+    "outcome":{"enum":["success","failure","unexpected","unavailable","blocked"]},
+    "output_hash":{"type":"string"},
+    "output_excerpt":{"type":"string"},
+    "output_bytes":{"type":"integer","minimum":0},
+    "privacy_class":{"enum":["public","internal","restricted","secret"]},
+    "evidence":{"type":"array"},
+    "action_digest":{"type":"string"},
+    "error_class":{"type":"string"},
+    "diagnosis_status":{"enum":["unreviewed","diagnosed","resolved","superseded"]},
+    "candidate_cause":{"type":["string","null"]},
+    "working_solution_attempt_id":{"type":["string","null"]}
+  },
+  "additionalProperties":false
+}

@@ -1,0 +1,9 @@
+{
+  "sink_id": "not-configured",
+  "transport": "object-lock",
+  "append_only": true,
+  "encrypted": true,
+  "enabled": false,
+  "credential_provider": null,
+  "destination": null
+}

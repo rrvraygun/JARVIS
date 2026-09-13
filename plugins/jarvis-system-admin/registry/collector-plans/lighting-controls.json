@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "id": "lighting-controls",
+  "version": "1.0.0",
+  "platform": "Fedora Workstation",
+  "execution_enabled": false,
+  "attempt_limit": 1,
+  "default_timeout_seconds": 10,
+  "default_output_limit_bytes": 262144,
+  "privacy": "redacted-internal",
+  "purpose": "Prepared evidence map for display-brightness and keyboard-lighting diagnosis; it is not an executable collector.",
+  "probe_groups": [
+    {
+      "id": "display-backlight",
+      "source": "/sys/class/backlight",
+      "read_only_fields": ["brightness", "actual_brightness", "max_brightness", "type", "bl_power", "uevent"],
+      "expected": "zero or more kernel backlight providers with bounded numeric/control metadata",
+      "notes": "Absence, duplication, provider type, requested/actual mismatch, and power state are separate findings. Never write during diagnosis."
+    },
+    {
+      "id": "keyboard-leds",
+      "source": "/sys/class/leds",
+      "selection": "function name kbd_backlight or kbd_zoned_backlight-*",
+      "read_only_fields": ["brightness", "max_brightness", "trigger", "uevent"],
+      "expected": "zero or more kernel LED-class keyboard-light providers",
+      "notes": "Do not treat unrelated status, radio, lock, or chassis LEDs as keyboard lighting."
+    },
+    {
+      "id": "upower-keyboard",
+      "source": "org.freedesktop.UPower.KbdBacklight",
+      "read_only_methods": ["GetBrightness", "GetMaxBrightness"],
+      "expected": "UPower exposure agrees with the underlying LED provider when supported",
+      "notes": "SetBrightness is deliberately excluded from diagnosis."
+    },
+    {
+      "id": "graphics-topology",
+      "source": "PCI and DRM metadata",
+      "read_only_fields": ["adapter identity", "bound driver", "boot VGA", "DRM connectors", "connector status", "provider relationships"],
+      "expected": "integrated/discrete adapters and internal-panel routing are distinguished",
+      "notes": "Muxed and muxless systems behave differently. Avoid probes known to wake a runtime-suspended GPU unless separately justified."
+    },
+    {
+      "id": "gpu-runtime-power",
+      "source": "PCI device power attributes",
+      "read_only_fields": ["runtime_status", "runtime_usage", "control"],
+      "expected": "observed GPU runtime state is timestamped and correlated with provider presence",
+      "notes": "Reading state is not permission to change power control, bind drivers, switch a mux, or launch work on the GPU."
+    },
+    {
+      "id": "desktop-and-power",
+      "source": "GNOME session, power profile, switcheroo-control, and UPower status",
+      "read_only_fields": ["session type", "power profile", "service availability", "reported lighting controls"],
+      "expected": "desktop control availability can be compared with kernel providers",
+      "notes": "Run session-scoped queries only in the user's session and never as root."
+    },
+    {
+      "id": "boot-and-driver-context",
+      "source": "kernel command line, loaded-module metadata, package facts, and bounded current-boot logs",
+      "read_only_fields": ["backlight-related parameters", "graphics driver versions", "firmware/ACPI/DRM/LED warnings"],
+      "expected": "versioned evidence identifies recent changes and relevant warnings",
+      "notes": "Logs are untrusted and potentially sensitive; redact and cap them. Protected logs require separate approval."
+    },
+    {
+      "id": "interactive-hotkey-test",
+      "source": "user-observed keypress plus bounded input-event observation",
+      "read_only_fields": ["keypress detected", "firmware-handled change", "desktop notification", "provider value change"],
+      "expected": "the failure layer is narrowed without changing configuration",
+      "notes": "Never start a blocking event monitor automatically. Require explicit user participation and a timeout."
+    }
+  ],
+  "state_comparison": {
+    "enabled": false,
+    "reason": "Changing GPU or power mode is state-changing and requires a separate exact plan and approval.",
+    "comparison_dimensions": [
+      "backlight provider set",
+      "keyboard LED provider set",
+      "UPower exposure",
+      "internal-panel route",
+      "GPU runtime state",
+      "power profile"
+    ]
+  }
+}

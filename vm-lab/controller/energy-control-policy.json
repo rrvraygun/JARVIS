@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "policy_id": "jarvis.energy-control-v1",
+  "status": "constructed_conditional_not_deployed",
+  "powertop_read_only": true,
+  "allowed_controls": ["power.profile", "cpu.epp", "cpu.turbo", "intel_gpu.runtime_pm", "nvidia_gpu.runtime_pm"],
+  "allowed_powertop_tunables": ["runtime-pm-pci", "runtime-pm-usb", "audio-powersave", "wifi-power-save"],
+  "max_operations_per_approval": 1,
+  "thermal_degradation": {
+    "threshold_millicelsius": 90000,
+    "blocks": ["cpu.turbo", "power.profile"],
+    "missing_or_unreadable_evidence": "fail_closed",
+    "user_notification": "required"
+  },
+  "battery_warning": "notify-only",
+  "rollback": "new_explicit_approval_only",
+  "network": false,
+  "credentials": false,
+  "arbitrary_commands": false,
+  "device_wake": false,
+  "automatic_profile_switching": false,
+  "executor_registered": false,
+  "conditional_tui_executor": {
+    "reachable_only_when_helper_is_root_owned_and_not_group_or_world_writable": true,
+    "helper_path": "/usr/libexec/jarvis-power-control",
+    "launch": "fixed_pkexec_argv",
+    "apply_requires_exact_tui_confirmation": true,
+    "undo_requires_separate_exact_tui_confirmation": true,
+    "undo_status_requires_desktop_authorization": true,
+    "undo_execution_requires_same_authoritative_record_digest": true,
+    "interrupted_apply_recovery_requires_same_review_and_authorization": true,
+    "desktop_authorization_per_operation": true,
+    "per_desktop_uid_transaction_lock": true,
+    "authoritative_undo_record": "/var/lib/jarvis/power-control/<PKEXEC_UID>.json",
+    "user_record_is_authority": false
+  }
+}

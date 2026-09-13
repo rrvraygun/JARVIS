@@ -1,0 +1,110 @@
+{
+  "schema_version": 1,
+  "matrix_id": "lighting-controls",
+  "version": "1.0.0",
+  "title": "Display brightness, keyboard lighting, and NVIDIA-state diagnostic matrix",
+  "domain": "graphics_display_input",
+  "execution_enabled": false,
+  "coverage_strategy": "exhaustive_declared_state_space",
+  "dimensions": {
+    "affected_controls": ["display", "keyboard", "both"],
+    "nvidia_report": ["active", "runtime_suspended", "powered_off_reported", "unknown"],
+    "display_provider": ["present_one", "present_multiple", "absent", "malformed"],
+    "keyboard_provider": ["present_one", "present_multiple", "absent", "malformed"],
+    "desktop_bridge": ["available_consistent", "available_conflicting", "unavailable", "not_applicable"],
+    "observation_result": ["expected", "permission_denied", "timeout", "nonzero", "malformed_payload", "hostile_terminal_payload", "unexpected_extra_effect"],
+    "correlation": ["none", "suspected", "reproduced", "contradictory"],
+    "physical_evidence": ["absent", "user_report_only", "registered_live_record"]
+  },
+  "context_dimensions": {
+    "external_display": ["not_connected", "unaffected_reported", "affected_reported", "unknown"]
+  },
+  "exclusions": [],
+  "oracle_rules": [
+    {
+      "id": "stop-unexpected-effect",
+      "priority": 10,
+      "when": {"observation_result": "unexpected_extra_effect"},
+      "expected": {"decision": "stop_and_diagnose", "terminal_status": "stopped_unexpected", "stop": true, "automatic_retry": false, "approval_required": true, "evidence_class": "unexpected_effect"}
+    },
+    {
+      "id": "stop-hostile-output",
+      "priority": 11,
+      "when": {"observation_result": "hostile_terminal_payload"},
+      "expected": {"decision": "sanitize_record_and_stop", "terminal_status": "stopped_unexpected", "stop": true, "automatic_retry": false, "approval_required": false, "evidence_class": "untrusted_output"}
+    },
+    {
+      "id": "stop-timeout",
+      "priority": 12,
+      "when": {"observation_result": "timeout"},
+      "expected": {"decision": "stop_without_retry", "terminal_status": "inconclusive", "stop": true, "automatic_retry": false, "approval_required": false, "evidence_class": "timeout"}
+    },
+    {
+      "id": "request-protected-evidence-approval",
+      "priority": 13,
+      "when": {"observation_result": "permission_denied"},
+      "expected": {"decision": "record_then_request_exact_approval", "terminal_status": "awaiting_approval", "stop": true, "automatic_retry": false, "approval_required": true, "evidence_class": "permission_boundary"}
+    },
+    {
+      "id": "stop-nonzero",
+      "priority": 14,
+      "when": {"observation_result": "nonzero"},
+      "expected": {"decision": "record_error_and_diagnose", "terminal_status": "inconclusive", "stop": true, "automatic_retry": false, "approval_required": false, "evidence_class": "failed_attempt"}
+    },
+    {
+      "id": "stop-malformed-payload",
+      "priority": 15,
+      "when": {"observation_result": "malformed_payload"},
+      "expected": {"decision": "reject_malformed_evidence", "terminal_status": "stopped_unexpected", "stop": true, "automatic_retry": false, "approval_required": false, "evidence_class": "malformed"}
+    },
+    {
+      "id": "stop-malformed-display-provider",
+      "priority": 16,
+      "when": {"display_provider": "malformed"},
+      "expected": {"decision": "reject_malformed_evidence", "terminal_status": "stopped_unexpected", "stop": true, "automatic_retry": false, "approval_required": false, "evidence_class": "malformed"}
+    },
+    {
+      "id": "stop-malformed-keyboard-provider",
+      "priority": 17,
+      "when": {"keyboard_provider": "malformed"},
+      "expected": {"decision": "reject_malformed_evidence", "terminal_status": "stopped_unexpected", "stop": true, "automatic_retry": false, "approval_required": false, "evidence_class": "malformed"}
+    },
+    {
+      "id": "desktop-conflict-is-inconclusive",
+      "priority": 20,
+      "when": {"desktop_bridge": "available_conflicting"},
+      "expected": {"decision": "preserve_conflict_and_collect_discriminator", "terminal_status": "inconclusive", "stop": false, "automatic_retry": false, "approval_required": false, "evidence_class": "contradictory"}
+    },
+    {
+      "id": "correlation-conflict-is-inconclusive",
+      "priority": 21,
+      "when": {"correlation": "contradictory"},
+      "expected": {"decision": "preserve_conflict_and_collect_discriminator", "terminal_status": "inconclusive", "stop": false, "automatic_retry": false, "approval_required": false, "evidence_class": "contradictory"}
+    },
+    {
+      "id": "physical-review-required",
+      "priority": 30,
+      "when": {"nvidia_report": "powered_off_reported", "correlation": "reproduced", "physical_evidence": "registered_live_record"},
+      "expected": {"decision": "queue_independent_physical_review", "terminal_status": "awaiting_physical_review", "stop": true, "automatic_retry": false, "approval_required": true, "evidence_class": "simulated_live_record"}
+    },
+    {
+      "id": "correlation-strengthens-not-proves",
+      "priority": 31,
+      "when": {"correlation": "reproduced"},
+      "expected": {"decision": "strengthen_hypothesis_without_causal_claim", "terminal_status": "inconclusive", "stop": false, "automatic_retry": false, "approval_required": false, "evidence_class": "correlation"}
+    },
+    {
+      "id": "default-next-discriminator",
+      "priority": 1000,
+      "when": {},
+      "expected": {"decision": "collect_next_discriminating_fixture", "terminal_status": "inconclusive", "stop": false, "automatic_retry": false, "approval_required": false, "evidence_class": "fixture"}
+    }
+  ],
+  "evidence_ceiling": "simulation_only",
+  "limitations": [
+    "The matrix validates policy and diagnostic branching, not physical luminance or keyboard illumination.",
+    "A reported powered-off GPU state is an input label, not proof of electrical power state.",
+    "VM display, firmware, ACPI, embedded-controller, hotkey, suspend, and connector behavior cannot close the physical gap catalog.",
+    "Every state comparison that would change GPU or power mode remains disabled."
+  ]
+}

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<policyconfig>
+  <action id="org.jarvis.boot-control">
+    <description>Run one exact reviewed Jarvis boot operation</description>
+    <message>Authenticate this single Jarvis boot operation.</message>
+    <defaults><allow_any>no</allow_any><allow_inactive>no</allow_inactive><allow_active>auth_admin</allow_active></defaults>
+    <annotate key="org.freedesktop.policykit.exec.path">/usr/libexec/jarvis-boot-control</annotate>
+  </action>
+</policyconfig>

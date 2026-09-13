@@ -1,0 +1,4 @@
+interface:
+  display_name: "Deep Research"
+  short_description: "Research with source-quality and evidence controls"
+  default_prompt: "Use $deep-research to investigate this question with the appropriate evidence hierarchy and a claim-level audit."

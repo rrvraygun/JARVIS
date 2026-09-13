@@ -1,0 +1,27 @@
+processor : 0
+vendor_id : GenuineIntel
+model name : Synthetic Intel Core Family
+physical id : 0
+core id : 0
+flags : fpu sse sse2 vmx
+
+processor : 1
+vendor_id : GenuineIntel
+model name : Synthetic Intel Core Family
+physical id : 0
+core id : 0
+flags : fpu sse sse2 vmx
+
+processor : 2
+vendor_id : GenuineIntel
+model name : Synthetic Intel Core Family
+physical id : 0
+core id : 1
+flags : fpu sse sse2 vmx
+
+processor : 3
+vendor_id : GenuineIntel
+model name : Synthetic Intel Core Family
+physical id : 0
+core id : 1
+flags : fpu sse sse2 vmx

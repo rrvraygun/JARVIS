@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "id": "lighting-tier0-readonly",
+  "version": "1.0.0",
+  "platform": "Fedora Workstation",
+  "execution_enabled": true,
+  "authority": "H1-bounded-read-only",
+  "attempt_limit": 1,
+  "privilege": "unprivileged",
+  "network": false,
+  "default_output_limit_bytes": 262144,
+  "collect_sensitive": false,
+  "purpose": "Observe existing kernel lighting providers and graphics runtime metadata without changing or intentionally waking hardware.",
+  "probe_groups": [
+    {
+      "id": "display-backlight",
+      "source": "/sys/class/backlight",
+      "fields": ["brightness", "actual_brightness", "max_brightness", "type", "bl_power"]
+    },
+    {
+      "id": "keyboard-leds",
+      "source": "/sys/class/leds",
+      "selection": "provider name contains kbd_backlight or kbd_zoned_backlight",
+      "fields": ["brightness", "max_brightness", "active_trigger"]
+    },
+    {
+      "id": "graphics-runtime-metadata",
+      "source": "/sys/class/drm",
+      "fields": ["vendor", "device", "class", "driver", "boot_vga", "runtime_status", "runtime_usage", "power_control", "connector_names_without_status_reads"]
+    },
+    {
+      "id": "boot-and-module-context",
+      "source": "/proc",
+      "fields": ["allowlisted_graphics_or_lighting_boot_parameters", "allowlisted_loaded_module_names"]
+    }
+  ],
+  "forbidden_operations": [
+    "sysfs write",
+    "connector status read or detect poll",
+    "GPU client launch",
+    "nvidia-smi or equivalent vendor query",
+    "PCI config-space query",
+    "D-Bus method call",
+    "protected log read",
+    "module load or unload",
+    "service or power-profile change",
+    "subprocess execution"
+  ],
+  "fact_keys": [
+    "lighting.display.providers",
+    "lighting.keyboard.providers",
+    "graphics.adapters",
+    "graphics.routing",
+    "kernel.graphics.context"
+  ]
+}

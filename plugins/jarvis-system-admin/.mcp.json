@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "jarvis_control": {
+      "command": "python3",
+      "args": ["/home/tipexxx/Escritorio/Proyecto/codex-agent-system/plugins/jarvis-system-admin/scripts/mcp_server.py"],
+      "env": {
+        "JARVIS_STORE": "/home/tipexxx/Escritorio/Proyecto/codex-agent-system/control-store"
+      }
+    }
+  }
+}

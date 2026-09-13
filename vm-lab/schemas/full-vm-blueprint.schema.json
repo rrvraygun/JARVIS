@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Full Fedora Workstation VM blueprint",
+  "type": "object",
+  "required": ["schema_version", "blueprint_id", "version", "status", "implementation_status", "execution_enabled", "vm_exists", "host_readiness_observed", "image_acquired", "identity", "resource_policy", "boot_profiles", "virtual_hardware", "software_fidelity_targets", "isolation", "storage_lifecycle", "control_and_evidence", "baseline_acceptance", "known_physical_limits", "stop_conditions", "next_gate"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "blueprint_id": {"const": "fedora-workstation-full-system-twin"},
+    "version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+    "status": {"const": "prepared_unresolved"},
+    "implementation_status": {"const": "design_only"},
+    "execution_enabled": {"const": false},
+    "vm_exists": {"const": false},
+    "host_readiness_observed": {"const": false},
+    "image_acquired": {"const": false},
+    "identity": {"type": "object"},
+    "resource_policy": {"type": "object"},
+    "boot_profiles": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": {
+        "type": "object",
+        "required": ["id", "purpose", "installed_payload", "boot_goal", "control_surface", "graphical_session_started", "runtime_network", "validates", "cannot_validate"],
+        "properties": {
+          "id": {"enum": ["headless_system_validation", "graphical_workstation_validation"]},
+          "purpose": {"type": "string"},
+          "installed_payload": {"const": "full_fedora_workstation"},
+          "boot_goal": {"enum": ["multi_user", "graphical"]},
+          "control_surface": {"type": "string"},
+          "graphical_session_started": {"type": "boolean"},
+          "runtime_network": {"const": "off"},
+          "validates": {"type": "array", "minItems": 1, "items": {"type": "string"}, "uniqueItems": true},
+          "cannot_validate": {"type": "array", "minItems": 1, "items": {"type": "string"}, "uniqueItems": true}
+        },
+        "additionalProperties": false
+      }
+    },
+    "virtual_hardware": {"type": "object"},
+    "software_fidelity_targets": {"type": "array", "minItems": 1, "items": {"type": "string"}, "uniqueItems": true},
+    "isolation": {"type": "object"},
+    "storage_lifecycle": {"type": "object"},
+    "control_and_evidence": {"type": "object"},
+    "baseline_acceptance": {"type": "array", "minItems": 1, "items": {"type": "string"}, "uniqueItems": true},
+    "known_physical_limits": {"type": "array", "minItems": 1, "items": {"type": "string"}, "uniqueItems": true},
+    "stop_conditions": {"type": "array", "minItems": 1, "items": {"type": "string"}, "uniqueItems": true},
+    "next_gate": {"const": "L2_virtualization_readiness_observation_not_authorized"}
+  },
+  "additionalProperties": false
+}

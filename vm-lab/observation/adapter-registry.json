@@ -1,0 +1,173 @@
+{
+  "adapters": [
+    {
+      "bounds": {
+        "attempt_limit": 1,
+        "max_input_bytes": 16384,
+        "max_output_facts": 4
+      },
+      "execution_enabled": false,
+      "expected_fact_ids": [
+        "os.id",
+        "os.version_id",
+        "os.variant_id",
+        "os.pretty_name"
+      ],
+      "fixture_inputs": [
+        "os_release"
+      ],
+      "id": "fedora.platform.os-release",
+      "implementation_status": "fixture_validated_parser_only",
+      "maturity_level": 1,
+      "parser_id": "os_release_v1",
+      "risk": {
+        "device_wake": false,
+        "mutation": false,
+        "network": false,
+        "privilege": false,
+        "tier": 0
+      },
+      "source_id": "platform.os-release",
+      "source_interface": "/etc/os-release",
+      "version": "1.0.0"
+    },
+    {
+      "bounds": {
+        "attempt_limit": 1,
+        "max_input_bytes": 4096,
+        "max_output_facts": 2
+      },
+      "execution_enabled": false,
+      "expected_fact_ids": [
+        "kernel.release",
+        "system.architecture"
+      ],
+      "fixture_inputs": [
+        "kernel_identity"
+      ],
+      "id": "fedora.kernel.identity",
+      "implementation_status": "fixture_validated_parser_only",
+      "maturity_level": 1,
+      "parser_id": "kernel_identity_v1",
+      "risk": {
+        "device_wake": false,
+        "mutation": false,
+        "network": false,
+        "privilege": false,
+        "tier": 0
+      },
+      "source_id": "kernel.release",
+      "source_interface": "kernel release and architecture interfaces",
+      "version": "1.0.0"
+    },
+    {
+      "bounds": {
+        "attempt_limit": 1,
+        "max_input_bytes": 1048576,
+        "max_output_facts": 6
+      },
+      "execution_enabled": false,
+      "expected_fact_ids": [
+        "cpu.architecture",
+        "cpu.vendor",
+        "cpu.model_family",
+        "cpu.physical_core_count",
+        "cpu.logical_thread_count",
+        "cpu.virtualization_extension_class"
+      ],
+      "fixture_inputs": [
+        "cpu_info",
+        "cpu_topology"
+      ],
+      "id": "fedora.compute.cpu-summary",
+      "implementation_status": "fixture_validated_parser_only",
+      "maturity_level": 1,
+      "parser_id": "cpu_summary_v1",
+      "risk": {
+        "device_wake": false,
+        "mutation": false,
+        "network": false,
+        "privilege": false,
+        "tier": 0
+      },
+      "source_id": "kernel.cpu-summary",
+      "source_interface": "/proc/cpuinfo plus /sys/devices/system/cpu topology",
+      "version": "1.0.0"
+    },
+    {
+      "bounds": {
+        "attempt_limit": 1,
+        "max_input_bytes": 65536,
+        "max_output_facts": 2
+      },
+      "execution_enabled": false,
+      "expected_fact_ids": [
+        "memory.total_bytes",
+        "memory.numa_node_count"
+      ],
+      "fixture_inputs": [
+        "memory_info",
+        "numa_topology"
+      ],
+      "id": "fedora.compute.memory-summary",
+      "implementation_status": "fixture_validated_parser_only",
+      "maturity_level": 1,
+      "parser_id": "memory_summary_v1",
+      "risk": {
+        "device_wake": false,
+        "mutation": false,
+        "network": false,
+        "privilege": false,
+        "tier": 0
+      },
+      "source_id": "kernel.memory-summary",
+      "source_interface": "/proc/meminfo and NUMA topology",
+      "version": "1.0.0"
+    }
+  ],
+  "execution_enabled": false,
+  "fixture_sets": [
+    {
+      "files": {
+        "cpu_info": "fixtures/observations/fedora-workstation-synthetic-v1/cpuinfo.txt",
+        "cpu_topology": "fixtures/observations/fedora-workstation-synthetic-v1/cpu-topology.json",
+        "kernel_identity": "fixtures/observations/fedora-workstation-synthetic-v1/kernel-identity.json",
+        "memory_info": "fixtures/observations/fedora-workstation-synthetic-v1/meminfo.txt",
+        "numa_topology": "fixtures/observations/fedora-workstation-synthetic-v1/numa-topology.json",
+        "os_release": "fixtures/observations/fedora-workstation-synthetic-v1/os-release.txt"
+      },
+      "id": "fedora-workstation-synthetic-v1",
+      "represents_host": false,
+      "synthetic": true
+    }
+  ],
+  "host_observation_enabled": true,
+  "implementation_status": "tier0_live_read_enabled",
+  "invariants": {
+    "arbitrary_input_reference_allowed": false,
+    "attempt_limit": 1,
+    "automatic_retry": false,
+    "candidate_facts_are_not_host_facts": true,
+    "device_wake_allowed": false,
+    "mutation_allowed": false,
+    "network_allowed": false,
+    "persistence_allowed": false,
+    "privilege_allowed": false,
+    "registered_fixture_set_only": true,
+    "terminal_control_characters_rejected": true,
+    "unexpected_output_stops": true
+  },
+  "proposal_binding": {
+    "proposal_id": "fedora-workstation-enrollment",
+    "sha256": "0c1fa4a163e0a72f47ea2f4e060f9e1475109d9e902e9be817174fe3532911af",
+    "version": "1.0.0"
+  },
+  "registry_id": "fedora-tier0-observation-adapters",
+  "schema_version": 1,
+  "source_catalog_binding": {
+    "catalog_id": "fedora-workstation-enrollment-sources",
+    "sha256": "35b022ab1587428ae31953c5b51591b46fcfd1333fba198a94c5c4d56efbe038",
+    "version": "1.0.0"
+  },
+  "version": "1.0.0"
+}

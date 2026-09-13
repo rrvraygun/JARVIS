@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "policy_id": "lighting-passive-readonly-v1",
+  "status": "enabled_for_one_use_promotion",
+  "host_observation_enabled": true,
+  "execution_enabled": true,
+  "registered_adapter_only": true,
+  "attempt_limit": 1,
+  "automatic_retry": false,
+  "output_limit_bytes": 32768,
+  "network_enabled": false,
+  "credentials_enabled": false,
+  "protected_read_enabled": false,
+  "device_wake_allowed": false,
+  "mutation_enabled": false,
+  "persistence_enabled": false,
+  "connector_status_read": false,
+  "terminal_control_rejection": true,
+  "unexpected_output": "stop_and_report"
+}

@@ -1,0 +1,24 @@
+{
+  "description":"Jarvis defense-in-depth lifecycle guard. Review and trust its hash before use.",
+  "hooks":{
+    "SessionStart":[{
+      "matcher":"startup|resume",
+      "hooks":[{
+        "type":"command",
+        "command":"python3 /home/tipexxx/Escritorio/Proyecto/codex-agent-system/plugins/jarvis-system-admin/scripts/hook_guard.py",
+        "statusMessage":"Loading Jarvis safety contract",
+        "additionalContextLimit":2000,
+        "timeout":5
+      }]
+    }],
+    "PreToolUse":[{
+      "matcher":"Bash|exec_command|apply_patch|Edit|Write|mcp__jarvis_control__.*",
+      "hooks":[{
+        "type":"command",
+        "command":"python3 /home/tipexxx/Escritorio/Proyecto/codex-agent-system/plugins/jarvis-system-admin/scripts/hook_guard.py",
+        "statusMessage":"Applying Jarvis safety guard",
+        "timeout":5
+      }]
+    }]
+  }
+}

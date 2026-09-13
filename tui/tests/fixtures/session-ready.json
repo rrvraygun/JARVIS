@@ -1,0 +1,23 @@
+{
+  "connection": "ready",
+  "auth_mode": "chatgpt",
+  "plan_type": "plus",
+  "rate_limits": {
+    "rate_limits": {
+      "limit_id": "codex",
+      "limit_name": null,
+      "plan_type": null,
+      "rate_limit_reached_type": null,
+      "primary": {"used_percent": 25, "window_duration_minutes": 15, "resets_at": 1785931200},
+      "secondary": null
+    },
+    "rate_limits_by_id": {},
+    "available_reset_count": null
+  },
+  "thread_id": null,
+  "thread_status": "not_loaded",
+  "active_turn_id": null,
+  "active_task_id": null,
+  "pending_requests": {},
+  "last_error": null
+}

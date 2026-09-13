@@ -1,0 +1,14 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "type":"object",
+  "required":["schema_version","collected_at","collector","collector_version","coverage","privilege","redactions","data"],
+  "properties":{
+    "schema_version":{"type":"integer"},"collected_at":{"type":"string"},
+    "collector":{"type":"string"},"collector_version":{"type":"string"},
+    "coverage":{"type":"array","items":{"type":"string"}},
+    "privilege":{"type":"string"},"redactions":{"type":"array","items":{"type":"string"}},
+    "source_commands":{"type":"array","items":{"type":"string"}},
+    "data":{"type":"object"},"unknowns":{"type":"array","items":{"type":"string"}}
+  },
+  "additionalProperties":false
+}

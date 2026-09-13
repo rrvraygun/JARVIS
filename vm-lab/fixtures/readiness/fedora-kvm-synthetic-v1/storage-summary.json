@@ -1,0 +1,4 @@
+{
+  "capacity_class": "meets_preferred_full_workstation",
+  "filesystem_capability": "supports_sparse_qcow2_and_atomic_rename"
+}

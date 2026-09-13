@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Jarvis Fedora scenario-lab policy",
+  "type": "object",
+  "required": ["schema_version", "policy_id", "version", "mode", "purpose", "authority", "current_allowed_operations", "current_forbidden_interfaces", "future_isolation_contract", "future_baseline_contract", "future_reset_contract", "evidence_contract", "promotion_gates", "scope"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "policy_id": {"type": "string", "minLength": 1},
+    "version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+    "mode": {"const": "fixture_only"},
+    "purpose": {"type": "string", "minLength": 1},
+    "authority": {
+      "type": "object",
+      "required": ["host_observation_enabled", "virtualization_execution_enabled", "image_acquisition_enabled", "guest_creation_enabled", "guest_start_enabled", "registered_observation_enabled", "mutation_enabled", "privileged_action_enabled", "device_passthrough_enabled", "self_modification_enabled"],
+      "properties": {
+        "host_observation_enabled": {"const": false},
+        "virtualization_execution_enabled": {"const": false},
+        "image_acquisition_enabled": {"const": false},
+        "guest_creation_enabled": {"const": false},
+        "guest_start_enabled": {"const": false},
+        "registered_observation_enabled": {"const": false},
+        "mutation_enabled": {"const": false},
+        "privileged_action_enabled": {"const": false},
+        "device_passthrough_enabled": {"const": false},
+        "self_modification_enabled": {"const": false}
+      },
+      "additionalProperties": false
+    },
+    "current_allowed_operations": {"type": "array", "minItems": 1, "items": {"type": "string"}, "uniqueItems": true},
+    "current_forbidden_interfaces": {"type": "array", "minItems": 1, "items": {"type": "string"}, "uniqueItems": true},
+    "future_isolation_contract": {"type": "object"},
+    "future_baseline_contract": {"type": "object"},
+    "future_reset_contract": {"type": "object"},
+    "evidence_contract": {"type": "object"},
+    "promotion_gates": {"type": "object"},
+    "scope": {"type": "object"}
+  },
+  "additionalProperties": false
+}

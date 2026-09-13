@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "request_id": "obs-fixture-0001",
+  "mode": "fixture_simulation",
+  "execution_enabled": false,
+  "host_observation_requested": false,
+  "fixture_set_id": "fedora-workstation-synthetic-v1",
+  "adapters": [
+    {"id": "fedora.platform.os-release", "version": "1.0.0"},
+    {"id": "fedora.kernel.identity", "version": "1.0.0"},
+    {"id": "fedora.compute.cpu-summary", "version": "1.0.0"},
+    {"id": "fedora.compute.memory-summary", "version": "1.0.0"}
+  ],
+  "attempt": 1,
+  "parameters": {},
+  "expires_at": "2099-01-01T00:00:00Z",
+  "bindings": {
+    "adapter_registry_sha256": "90a3bf740ff6984fb6a3d6ebae9596a133167081f15feb09c2e91ff24f41c664",
+    "broker_policy_sha256": "ea53b5c26fab84ced9e312dd4319a6c734c93d957d78530460b9ca6fc3575d81",
+    "source_catalog_sha256": "35b022ab1587428ae31953c5b51591b46fcfd1333fba198a94c5c4d56efbe038",
+    "proposal_sha256": "0c1fa4a163e0a72f47ea2f4e060f9e1475109d9e902e9be817174fe3532911af"
+  }
+}

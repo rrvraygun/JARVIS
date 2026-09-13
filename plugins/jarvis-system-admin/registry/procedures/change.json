@@ -1,0 +1,14 @@
+{
+  "schema_version":1,
+  "id":"change.execute",
+  "version":"1.0.0",
+  "capability":"parameterized",
+  "risk":"contextual",
+  "mutates_host":true,
+  "requires_approval":true,
+  "inputs":["capability","targets","exact_operation","pre_state","approval","rollback","validation"],
+  "preconditions":["registered capability enabled","fresh evidence","exact targets resolved","approval digest matches","backup or accepted irreversibility","audit writable"],
+  "steps":["policy recheck","preflight","execute one bounded intervention","validate","rollback on defined failure","capture post-state","append audit"],
+  "validation":["requested outcome","service health","security invariants","no widened scope"],
+  "rollback":"required unless explicitly declared impossible before approval"
+}

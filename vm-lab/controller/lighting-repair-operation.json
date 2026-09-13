@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "operation_id": "jarvis.lighting.repair",
+  "operation_revision": "1.0.0",
+  "status": "prepared_unregistered",
+  "execution_enabled": false,
+  "registered": false,
+  "targets": ["display-backlight", "keyboard-leds"],
+  "transport": "none",
+  "executable": null,
+  "argv": null,
+  "network": false,
+  "credentials": false,
+  "protected_reads": false,
+  "device_wake": false,
+  "rollback": "new_explicit_approval_only",
+  "postcondition": "fresh bounded observation required",
+  "recovery": "R1 required; R2 required for graphics, driver, initramfs, boot, or firmware effects",
+  "independent_review_required": true,
+  "deployment_required": true
+  ,"authorization": {
+    "one_use": true,
+    "ledger": "existing-durable-authority-ledger",
+    "required_binding_fields": ["authorization_id", "approval_digest", "diagnosis_digest", "plan_digest", "independent_review_digest", "target"],
+    "rollback_requires_new_approval": true
+  }
+}

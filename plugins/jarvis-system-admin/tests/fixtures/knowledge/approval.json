@@ -1,0 +1,15 @@
+{
+  "id": "approval-fixture",
+  "scope": "command",
+  "scope_reference": "command-fixture",
+  "action_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "state_digest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+  "approver": "user",
+  "issued_at": "2026-08-05T10:00:00Z",
+  "expires_at": "2026-08-05T10:05:00Z",
+  "targets": ["fixture-target"],
+  "decision": "approved",
+  "nonce": "fixture_nonce_123456",
+  "conditions": [],
+  "consumed": false
+}

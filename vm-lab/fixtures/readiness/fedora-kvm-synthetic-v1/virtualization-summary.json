@@ -1,0 +1,13 @@
+{
+  "kvm_interface": "accessible",
+  "kvm_kernel_support": "active",
+  "qemu": {"status": "installed", "version": "10.1.0-synthetic"},
+  "libvirt": {"status": "installed", "version": "11.5.0-synthetic"},
+  "libvirt_service": "active",
+  "virt_install": {"status": "installed", "version": "5.0.0-synthetic"},
+  "graphical_manager": {"status": "installed", "version": "5.0.0-synthetic"},
+  "uefi_firmware": "available",
+  "current_user_access": "sufficient_without_identity",
+  "cgroup_mode": "v2",
+  "conflict_summary": "none_detected_without_guest_names"
+}

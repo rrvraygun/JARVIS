@@ -1,0 +1,26 @@
+# Development-only quality environment for JARVIS 0.7.0-dev.
+# Regenerate only through the documented bootstrap command and review the diff.
+ast-serialize==0.8.0
+attrs==26.1.0
+bandit==1.9.4
+build==1.6.0
+coverage==7.15.4
+editables==0.5
+hatchling==1.32.0
+jsonschema==4.26.0
+jsonschema-specifications==2025.9.1
+librt==0.15.0
+mypy==2.3.1
+mypy_extensions==1.1.0
+packaging==26.3
+pathspec==1.1.1
+pluggy==1.6.0
+pyproject_hooks==1.2.0
+PyYAML==6.0.3
+referencing==0.37.0
+rpds-py==2026.6.3
+ruff==0.16.5
+shellcheck-py==0.11.0.1
+stevedore==5.9.1
+tomlkit==0.15.1
+trove-classifiers==2026.6.1.19

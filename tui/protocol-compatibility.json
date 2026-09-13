@@ -1,0 +1,55 @@
+{
+  "schema_version": 3,
+  "codex_cli_version": "0.146.0",
+  "generated_on": "2026-08-05",
+  "generator": "codex app-server generate-json-schema --out tui/vendor/codex-app-server-schema/0.146.0",
+  "experimental_schema": false,
+  "transport": "stdio-jsonl",
+  "allowed_client_request_methods": [
+    "initialize",
+    "account/read",
+    "account/login/start",
+    "account/login/cancel",
+    "account/rateLimits/read",
+    "thread/start",
+    "thread/resume",
+    "thread/inject_items",
+    "turn/start",
+    "turn/interrupt",
+    "config/read"
+  ],
+  "allowed_client_notification_methods": [
+    "initialized"
+  ],
+  "recognized_server_request_methods": [
+    "account/chatgptAuthTokens/refresh",
+    "applyPatchApproval",
+    "attestation/generate",
+    "execCommandApproval",
+    "item/commandExecution/requestApproval",
+    "item/fileChange/requestApproval",
+    "item/permissions/requestApproval",
+    "item/tool/call",
+    "item/tool/requestUserInput",
+    "mcpServer/elicitation/request",
+    "tool/requestUserInput"
+  ],
+  "wire_values": {
+    "execution_approval_policy": "never",
+    "thread_sandbox": "read-only",
+    "execution_turn_sandbox_policy": {
+      "type": "readOnly"
+    },
+    "preflight_approval_policy": "never",
+    "preflight_turn_sandbox_policy": {
+      "type": "readOnly"
+    },
+    "execution_turn_approval_policy": {
+      "granular": {
+        "mcp_elicitations": true,
+        "rules": false,
+        "sandbox_approval": false
+      }
+    }
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "state_machine_id": "jarvis-future-vm-controller",
+  "version": "1.0.0",
+  "execution_enabled": false,
+  "initial_state": "defined",
+  "states": [
+    "defined",
+    "prepared",
+    "authorized",
+    "in_progress",
+    "stopped",
+    "evidence_pending_review",
+    "completed",
+    "failed",
+    "invalidated",
+    "reset_pending",
+    "reset_verified"
+  ],
+  "terminal_states": [
+    "completed",
+    "failed",
+    "invalidated",
+    "reset_verified"
+  ],
+  "global_stop_conditions": [
+    "expired_request",
+    "unknown_operation",
+    "operation_revision_mismatch",
+    "unexpected_parameter",
+    "target_mismatch",
+    "identity_digest_mismatch",
+    "policy_digest_mismatch",
+    "state_mismatch",
+    "approval_missing_or_invalid",
+    "audit_unavailable",
+    "unexpected_output",
+    "unexpected_effect",
+    "timeout",
+    "cancellation",
+    "controller_restart_with_ambiguous_state"
+  ],
+  "failure_rules": {
+    "automatic_retry": false,
+    "attempt_limit": 1,
+    "ambiguous_state": "invalidated",
+    "unexpected_condition": "stopped",
+    "audit_failure": "failed",
+    "reset_failure": "failed",
+    "approval_reuse": "invalidated"
+  }
+}

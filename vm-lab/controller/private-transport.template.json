@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "transport_id": "jarvisd-private-unix-v1",
+  "status": "prepared_unbound",
+  "kind": "unix-domain-jsonl",
+  "socket_template": "/run/user/%UID%/jarvis/jarvisd.sock",
+  "socket_mode": "0600",
+  "network_listener": false,
+  "allowed_peer": "same-user-uid-only",
+  "protocol_version": "jarvis-control-v1",
+  "max_frame_bytes": 65536,
+  "request_timeout_ms": 5000,
+  "automatic_retry": false,
+  "arbitrary_method_dispatch": false,
+  "allowed_methods": [
+    "health.read",
+    "activation.status",
+    "observation.prepare",
+    "observation.stop",
+    "lighting.observe"
+  ]
+}

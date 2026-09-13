@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "status": "selected_pending_deployment_review",
+  "first_live_mutation_target": {
+    "operation_id": "jarvis.powerprofile.select",
+    "provider": "tuned-ppd",
+    "requested_profile": "balanced",
+    "pre_profile": "capture_at_activation_time",
+    "reason": "lowest-risk supported transition; execution must stop if already active or pre-state is stale"
+  },
+  "lighting_repair": {
+    "status": "not_selected_for_first_live_mutation",
+    "allowed_targets": ["display-backlight", "keyboard-leds"]
+  },
+  "approval": {
+    "one_use_per_operation": true,
+    "active_session_confirmation_required": true,
+    "independent_review_required": true,
+    "rollback_requires_new_approval": true
+  },
+  "deployment_performed": false
+}

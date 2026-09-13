@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Jarvis fixture-only future-controller request",
+  "type": "object",
+  "required": ["schema_version", "request_id", "session_id", "operation_id", "operation_revision", "target_ref", "current_state", "expected_next_state", "parameters", "identity_bindings", "approval_ref", "idempotency_key", "requested_at", "expires_at", "attempt", "fixture_only", "execute"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "request_id": {"type": "string", "minLength": 1},
+    "session_id": {"type": "string", "minLength": 1},
+    "operation_id": {"type": "string", "minLength": 1},
+    "operation_revision": {"type": "string", "minLength": 1},
+    "target_ref": {"type": "string", "minLength": 1},
+    "current_state": {"type": "string", "minLength": 1},
+    "expected_next_state": {"type": "string", "minLength": 1},
+    "parameters": {"type": "object"},
+    "identity_bindings": {"type": "object"},
+    "approval_ref": {"type": "null"},
+    "idempotency_key": {"type": "string", "minLength": 16},
+    "requested_at": {"type": "string", "format": "date-time"},
+    "expires_at": {"type": "string", "format": "date-time"},
+    "attempt": {"const": 1},
+    "fixture_only": {"const": true},
+    "execute": {"const": false}
+  },
+  "additionalProperties": false
+}

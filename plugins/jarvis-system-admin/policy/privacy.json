@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "unencrypted_allowed_classes": ["public", "internal"],
+  "encrypted_and_user_unlocked_classes": ["restricted", "secret"],
+  "encryption_state": "not-configured",
+  "restricted_collection_until_encryption": "deny",
+  "always_redact": ["passwords", "tokens", "cookies", "authorization", "private_keys", "credentials", "machine_id", "hardware_serials", "usernames", "hostnames", "local_ip_addresses", "personal_home_paths"],
+  "initial_inventory_exclusions": ["network_addresses", "browser_data", "document_contents", "credential_stores", "environment_dumps", "hardware_serials", "machine_id", "hostname", "username"],
+  "export_requires_user_confirmation": true,
+  "complete_erasure_requires_user_confirmation": true
+}

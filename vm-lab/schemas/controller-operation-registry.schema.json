@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Jarvis future VM-controller operation registry",
+  "type": "object",
+  "required": ["schema_version", "registry_id", "version", "implementation_status", "execution_enabled", "operations"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "registry_id": {"type": "string", "minLength": 1},
+    "version": {"type": "string", "minLength": 1},
+    "implementation_status": {"const": "contract_only"},
+    "execution_enabled": {"const": false},
+    "operations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "revision", "category", "effect_class", "availability", "execution_enabled", "requires_approval", "allowed_parameters", "identity_bindings", "from_states", "to_state", "future_adapter"],
+        "properties": {
+          "id": {"type": "string", "minLength": 1},
+          "revision": {"type": "string", "minLength": 1},
+          "category": {"type": "string", "minLength": 1},
+          "effect_class": {"type": "string", "minLength": 1},
+          "availability": {"enum": ["contract_simulation_only", "unimplemented"]},
+          "execution_enabled": {"const": false},
+          "requires_approval": {"type": "boolean"},
+          "allowed_parameters": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+          "identity_bindings": {"type": "array", "minItems": 1, "items": {"type": "string"}, "uniqueItems": true},
+          "from_states": {"type": "array", "minItems": 1, "items": {"type": "string"}, "uniqueItems": true},
+          "to_state": {"type": "string", "minLength": 1},
+          "future_adapter": {"type": ["string", "null"]}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

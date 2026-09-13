@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Jarvis Fedora lab image lock",
+  "type": "object",
+  "required": ["schema_version", "lock_id", "version", "status", "acquisition_enabled", "publisher", "release", "source", "verification", "virtualization", "baseline"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "lock_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]+$"},
+    "version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+    "status": {"enum": ["unresolved", "locked", "retired"]},
+    "acquisition_enabled": {"type": "boolean"},
+    "publisher": {"const": "Fedora Project"},
+    "release": {"type": "object"},
+    "source": {"type": "object"},
+    "verification": {"type": "object"},
+    "virtualization": {"type": "object"},
+    "baseline": {"type": "object"}
+  },
+  "additionalProperties": false
+}

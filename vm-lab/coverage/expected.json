@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "mode": "fixture_only",
+  "curated_scenarios": 37,
+  "physical_gaps_open": 10,
+  "matrices": [
+    {
+      "matrix_id": "lighting-controls",
+      "version": "1.0.0",
+      "evaluated_state_cases": 64512,
+      "context_variants": 4,
+      "logical_declared_cases": 258048,
+      "declared_pair_values_total": 603,
+      "state_space_digest": "32b3aba769605657c9f367ee98e26ebb2f3f4bb5b4265f85149b24c16ec1b625"
+    },
+    {
+      "matrix_id": "sysadmin-control-plane",
+      "version": "1.0.0",
+      "evaluated_state_cases": 60480,
+      "context_variants": 17,
+      "logical_declared_cases": 1028160,
+      "declared_pair_values_total": 1114,
+      "state_space_digest": "f7ff56982e8ead66dac4a373cbe6ba5a3dca01da43aa17d363b3eea0506b080c"
+    }
+  ]
+}

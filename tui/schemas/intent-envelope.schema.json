@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Jarvis intent envelope",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "intent_id",
+    "session_id",
+    "source",
+    "requested_mode",
+    "parameters",
+    "constraints",
+    "created_at"
+  ],
+  "properties": {
+    "schema_version": {"const": 1},
+    "intent_id": {"type": "string", "minLength": 1},
+    "session_id": {"type": "string", "minLength": 1},
+    "source": {"enum": ["natural_language", "catalog_action", "contextual_action", "automation"]},
+    "requested_mode": {"enum": ["observe", "diagnose", "plan", "execute", "verify", "recover", "learn"]},
+    "text": {"type": ["string", "null"]},
+    "action_id": {"type": ["string", "null"]},
+    "action_version": {"type": ["string", "null"]},
+    "parameters": {"type": "object"},
+    "constraints": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "created_at": {"type": "string", "format": "date-time"}
+  },
+  "additionalProperties": false
+}

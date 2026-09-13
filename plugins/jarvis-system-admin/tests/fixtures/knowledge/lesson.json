@@ -1,0 +1,12 @@
+{
+  "lesson_id": "lesson-fixture",
+  "status": "draft",
+  "title": "Fixture lesson",
+  "guidance": "Use the verified fixture option.",
+  "prerequisites": {"version": "1"},
+  "exclusions": [],
+  "validation": ["exit code zero"],
+  "source_error_ids": [],
+  "success_threshold": 3,
+  "reason": "fixture"
+}

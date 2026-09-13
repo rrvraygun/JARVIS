@@ -1,0 +1,4 @@
+interface:
+  display_name: "System State"
+  short_description: "Maintain redacted snapshots and audit records"
+  default_prompt: "Use $system-state to capture or compare system state with provenance and integrity metadata."

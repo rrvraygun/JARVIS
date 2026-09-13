@@ -1,0 +1,95 @@
+sandbox_mode = "danger-full-access"
+approval_policy = "on-request"
+allow_login_shell = false
+
+[features]
+hooks = true
+multi_agent = true
+plugins = true
+memories = false
+
+[agents]
+enabled = true
+max_concurrent_threads_per_session = 4
+default_subagent_model = "gpt-5.6-terra"
+default_subagent_reasoning_effort = "medium"
+interrupt_message = true
+
+[agents.system_explorer]
+description = "Bounded read-only system evidence collection."
+config_file = "agents/system-explorer.toml"
+
+[agents.change_planner]
+description = "Approval-ready change planning without execution."
+config_file = "agents/change-planner.toml"
+
+[agents.outcome_verifier]
+description = "Independent post-operation verification."
+config_file = "agents/outcome-verifier.toml"
+
+[agents.policy_auditor]
+description = "Independent authorization and audit review."
+config_file = "agents/policy-auditor.toml"
+
+[agents.recovery_reviewer]
+description = "Independent backup, rollback, and rescue review."
+config_file = "agents/recovery-reviewer.toml"
+
+[mcp_servers.jarvis_control]
+command = "python3"
+args = ["/home/tipexxx/Escritorio/Proyecto/codex-agent-system/plugins/jarvis-system-admin/scripts/mcp_server.py"]
+env = { JARVIS_STORE = "/home/tipexxx/Escritorio/Proyecto/codex-agent-system/control-store" }
+required = true
+enabled = true
+enabled_tools = ["capabilities", "evaluate_policy", "action_digest", "verify_approval", "append_audit_event", "verify_ledger", "knowledge_status", "query_knowledge", "record_command_attempt", "record_decision", "create_lesson_draft", "record_lesson_evidence", "revise_error", "promote_lesson_candidate", "activate_lesson"]
+default_tools_approval_mode = "prompt"
+startup_timeout_sec = 10
+tool_timeout_sec = 15
+
+[mcp_servers.jarvis_control.tools.capabilities]
+approval_mode = "approve"
+
+[mcp_servers.jarvis_control.tools.evaluate_policy]
+approval_mode = "approve"
+
+[mcp_servers.jarvis_control.tools.action_digest]
+approval_mode = "approve"
+
+[mcp_servers.jarvis_control.tools.verify_approval]
+approval_mode = "approve"
+
+[mcp_servers.jarvis_control.tools.verify_ledger]
+approval_mode = "approve"
+
+[mcp_servers.jarvis_control.tools.knowledge_status]
+approval_mode = "approve"
+
+[mcp_servers.jarvis_control.tools.query_knowledge]
+approval_mode = "approve"
+
+[mcp_servers.jarvis_control.tools.record_command_attempt]
+approval_mode = "writes"
+
+[mcp_servers.jarvis_control.tools.record_decision]
+approval_mode = "writes"
+
+[mcp_servers.jarvis_control.tools.create_lesson_draft]
+approval_mode = "writes"
+
+[mcp_servers.jarvis_control.tools.record_lesson_evidence]
+approval_mode = "writes"
+
+[mcp_servers.jarvis_control.tools.revise_error]
+approval_mode = "writes"
+
+[mcp_servers.jarvis_control.tools.promote_lesson_candidate]
+approval_mode = "writes"
+
+[mcp_servers.jarvis_control.tools.activate_lesson]
+approval_mode = "prompt"
+
+[mcp_servers.jarvis_control.tools.append_audit_event]
+approval_mode = "writes"
+
+[projects."/home/tipexxx/Escritorio/Proyecto/codex-agent-system"]
+  trust_level = "trusted"

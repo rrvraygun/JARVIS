@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "checkpoint_id": "jarvis-tpm2-nv-monotonic-v1",
+  "status": "prepared_unactivated",
+  "provider": "tpm2-nv-counter-plus-protected-authenticator",
+  "remote_network": false,
+  "nv_index": "0x1500010",
+  "hmac_persistent_handle": "0x81000010",
+  "hmac_setup_script": "vm-lab/scripts/provision_tpm_hmac_key.sh",
+  "nv_counter_type_required": true,
+  "counter_increment_only": true,
+  "checkpoint_binding": [
+    "ledger_id",
+    "counter_value",
+    "sequence",
+    "head_hash",
+    "schema_version"
+  ],
+  "authenticated_checkpoint_required": true,
+  "protected_authenticator_required": true,
+  "protected_authenticator_configured": true,
+  "rollback_policy": "fail_closed",
+  "crash_policy": "counter_ahead_of_ledger_fails_closed",
+  "fixture_provider_allowed": true,
+  "live_tpm_access_enabled": false,
+  "setup_requires_explicit_privileged_decision": true,
+  "fresh_independent_review_required": true
+}

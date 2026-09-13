@@ -1,0 +1,7 @@
+{
+  "name": "jarvis-network-specialist",
+  "version": "0.1.0",
+  "description": "Bounded local Fedora network diagnostics.",
+  "author": {"name": "Local developer"},
+  "interface": {"displayName": "Network Specialist", "shortDescription": "Diagnose local network state.", "category": "System"}
+}

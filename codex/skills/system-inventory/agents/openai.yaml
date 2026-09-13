@@ -1,0 +1,4 @@
+interface:
+  display_name: "System Inventory"
+  short_description: "Collect a safe, redacted system inventory"
+  default_prompt: "Use $system-inventory to plan or perform a read-only inventory with explicit coverage and redaction."

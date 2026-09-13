@@ -1,0 +1,14 @@
+{
+  "schema_version":1,
+  "id":"inventory.collect",
+  "version":"1.0.0",
+  "capability":"inventory",
+  "risk":"low",
+  "mutates_host":false,
+  "requires_approval":false,
+  "inputs":["scope","collectors","storage_policy"],
+  "preconditions":["collector allowlist","redaction policy","output boundary"],
+  "steps":["preview collectors","collect bounded evidence","redact","validate schema","store state","append audit"],
+  "validation":["schema valid","coverage recorded","secrets absent"],
+  "rollback":null
+}

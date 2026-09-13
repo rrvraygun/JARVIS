@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "id": "lighting-tier2-wmi-binding-readonly",
+  "version": "1.0.0",
+  "platform": "Fedora Workstation",
+  "execution_enabled": true,
+  "authority": "H1-bounded-read-only",
+  "attempt_limit": 1,
+  "privilege": "unprivileged",
+  "network": false,
+  "default_output_limit_bytes": 65536,
+  "collect_sensitive": false,
+  "purpose": "Confirm passive NVIDIA brightness WMI GUID presence, driver binding, module force state, and registered backlight types without evaluating WMI methods or changing state.",
+  "probe_groups": [
+    {
+      "id": "nvidia-wmi-brightness-guid-presence",
+      "source": "/sys/bus/wmi/devices entry names",
+      "fields": ["exact brightness GUID instance names only"]
+    },
+    {
+      "id": "nvidia-wmi-driver-binding",
+      "source": "/sys/bus/wmi/drivers/nvidia-wmi-ec-backlight entry names",
+      "fields": ["exact bound brightness GUID instance names only"]
+    },
+    {
+      "id": "nvidia-wmi-force-parameter",
+      "source": "/sys/module/nvidia_wmi_ec_backlight/parameters/force",
+      "fields": ["read-only current boolean value"]
+    },
+    {
+      "id": "registered-backlight-types",
+      "source": "/sys/class/backlight",
+      "fields": ["provider name", "type"]
+    }
+  ],
+  "forbidden_operations": [
+    "WMI method evaluation",
+    "module parameter write",
+    "driver bind or unbind",
+    "sysfs write",
+    "D-Bus call or service activation",
+    "subprocess execution",
+    "network access",
+    "protected log read",
+    "GPU client launch",
+    "device wake operation"
+  ],
+  "fact_keys": ["lighting.wmi.backlight-binding"]
+}

@@ -1,0 +1,17 @@
+{
+  "name": "jarvis-installation-specialist",
+  "version": "0.1.0",
+  "description": "User-selected Fedora package installation and recovery specialist.",
+  "author": {
+    "name": "Local developer"
+  },
+  "interface": {
+    "displayName": "Installation Specialist",
+    "shortDescription": "Inspect and manage exact Fedora packages.",
+    "longDescription": "Uses bounded package inventory, DNF previews, one-use approvals, and registered recovery helpers.",
+    "developerName": "Local developer",
+    "category": "System administration",
+    "capabilities": ["Package inspection", "Package mutation"],
+    "defaultPrompt": "Use the Installation Specialist for Fedora package discovery and exact approved transactions."
+  }
+}

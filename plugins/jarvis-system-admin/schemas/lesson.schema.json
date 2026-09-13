@@ -1,0 +1,19 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "type":"object",
+  "required":["title","guidance","prerequisites","exclusions","validation","success_threshold"],
+  "properties":{
+    "lesson_id":{"type":"string"},
+    "status":{"enum":["draft","candidate","approved","suspended","superseded","rejected"]},
+    "title":{"type":"string","minLength":1},
+    "guidance":{"type":"string","minLength":1},
+    "prerequisites":{"type":"object"},
+    "exclusions":{"type":"array"},
+    "validation":{"type":"array","minItems":1},
+    "source_error_ids":{"type":"array","items":{"type":"string"}},
+    "success_threshold":{"type":"integer","minimum":3},
+    "reason":{"type":"string"}
+  },
+  "additionalProperties":false
+}
+

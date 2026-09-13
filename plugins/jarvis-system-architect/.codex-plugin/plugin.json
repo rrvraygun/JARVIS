@@ -1,0 +1,18 @@
+{
+  "name": "jarvis-system-architect",
+  "version": "0.1.0",
+  "description": "Project-aware JARVIS architect for knowledge-grounded specialist generation.",
+  "author": {
+    "name": "Local developer"
+  },
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Jarvis System Architect",
+    "shortDescription": "Understand JARVIS and generate bounded specialist agents.",
+    "longDescription": "Reads project contracts, host evidence, and versioned knowledge to generate and validate specialists without widening privileged authority.",
+    "developerName": "Local developer",
+    "category": "Productivity",
+    "capabilities": ["Skills"],
+    "defaultPrompt": "Use $jarvis-architect to understand the JARVIS project, query evidence, and generate a validated specialist definition."
+  }
+}

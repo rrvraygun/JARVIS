@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Jarvis broker event",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "sequence",
+    "id",
+    "timestamp",
+    "event_type",
+    "actor",
+    "status",
+    "task_id",
+    "details",
+    "previous_hash",
+    "event_hash"
+  ],
+  "properties": {
+    "schema_version": {"const": 1},
+    "sequence": {"type": "integer", "minimum": 1},
+    "id": {"type": "string", "minLength": 1},
+    "timestamp": {"type": "string", "format": "date-time"},
+    "event_type": {"type": "string", "minLength": 1},
+    "actor": {"enum": ["user", "tui", "broker", "codex", "control_plane"]},
+    "status": {"type": "string", "minLength": 1},
+    "task_id": {"type": ["string", "null"]},
+    "details": {"type": "object"},
+    "previous_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "event_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,18 @@
+{
+  "schema_version":1,
+  "adapters":[
+    {"id":"linux-systemd","detect":["/run/systemd/system"],"tools":["systemctl","journalctl","systemd-analyze"],"status":"defined"},
+    {"id":"fedora-rpm","detect":["/etc/fedora-release"],"tools":["dnf","rpm","rpm-ostree","bootc"],"status":"defined"},
+    {"id":"debian-apt","detect":["/etc/debian_version"],"tools":["apt-get","apt-cache","dpkg"],"status":"defined"},
+    {"id":"arch-pacman","detect":["/etc/arch-release"],"tools":["pacman"],"status":"defined"},
+    {"id":"suse-zypper","detect":["/etc/SUSE-brand"],"tools":["zypper","rpm"],"status":"defined"},
+    {"id":"btrfs","detect":["filesystem:btrfs"],"tools":["btrfs"],"status":"defined"},
+    {"id":"lvm","detect":["block:lvm"],"tools":["lvs","vgs","pvs","lvcreate","lvconvert"],"status":"defined"},
+    {"id":"nvme","detect":["block:nvme"],"tools":["nvme","smartctl"],"status":"defined"},
+    {"id":"firewalld","detect":["service:firewalld"],"tools":["firewall-cmd"],"status":"defined"},
+    {"id":"networkmanager","detect":["service:NetworkManager"],"tools":["nmcli"],"status":"defined"},
+    {"id":"podman","detect":["command:podman"],"tools":["podman"],"status":"defined"},
+    {"id":"docker","detect":["command:docker"],"tools":["docker"],"status":"defined"}
+  ],
+  "selection_rule":"Detect before use; never install an adapter tool implicitly; ambiguous platform selection fails closed."
+}

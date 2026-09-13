@@ -1,0 +1,34 @@
+{
+  "account_read": {
+    "account": {"type": "chatgpt", "planType": "plus"},
+    "requiresOpenaiAuth": true
+  },
+  "rate_limits": {
+    "rateLimits": {
+      "limitId": "codex",
+      "limitName": null,
+      "primary": {"usedPercent": 25, "windowDurationMins": 15, "resetsAt": 1785931200},
+      "secondary": null,
+      "rateLimitReachedType": null
+    }
+  },
+  "thread_start": {"thread": {"id": "thr_fixture", "sessionId": "thr_fixture"}},
+  "thread_resume": {"thread": {"id": "thr_fixture", "name": "Fixture diagnosis"}},
+  "turn_start": {"turn": {"id": "turn_fixture", "status": "inProgress", "items": []}},
+  "turn_steer": {"turnId": "turn_fixture"},
+  "turn_interrupt": {},
+  "events": [
+    {
+      "method": "turn/started",
+      "params": {"threadId": "thr_fixture", "turn": {"id": "turn_fixture", "status": "inProgress", "items": []}}
+    },
+    {
+      "method": "item/agentMessage/delta",
+      "params": {"threadId": "thr_fixture", "turnId": "turn_fixture", "itemId": "item_agent", "delta": "Fixture answer."}
+    },
+    {
+      "method": "turn/completed",
+      "params": {"threadId": "thr_fixture", "turn": {"id": "turn_fixture", "status": "completed", "items": []}}
+    }
+  ]
+}

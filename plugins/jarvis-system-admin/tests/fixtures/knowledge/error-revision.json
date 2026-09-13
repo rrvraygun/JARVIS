@@ -1,0 +1,6 @@
+{
+  "diagnosis_status": "resolved",
+  "candidate_cause": "fixture cause",
+  "working_solution_attempt_id": "attempt-fixture",
+  "reason": "verified fixture solution"
+}

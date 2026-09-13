@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "primary_agent": {
+    "model": "gpt-5.6-terra",
+    "reasoning_effort": "medium"
+  },
+  "generated_agents": {
+    "requested_model": "gpt-5.6-luna",
+    "requested_reasoning_effort": "low",
+    "status": "blocked_unavailable_model",
+    "fallback": null,
+    "reason": "gpt-5.6-luna is not an available model identifier in this runtime; select an available model before generated-agent execution is enabled."
+  },
+  "deployment": "Thread settings are session-static; restart the JARVIS App Server thread after a routing-policy change."
+}

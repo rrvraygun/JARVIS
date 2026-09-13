@@ -1,0 +1,49 @@
+{
+  "activation_gate": {
+    "host_read_authority_granted": true,
+    "live_collector_implemented": true,
+    "new_security_review_required": false,
+    "new_user_decision_required": false
+  },
+  "authorization_ledger_persistence_enabled": true,
+  "device_access_enabled": false,
+  "current_capabilities": [
+    "validate_registered_adapters",
+    "collect_bounded_tier0_host_facts",
+    "emit_ephemeral_candidate_facts"
+  ],
+  "execution_enabled": false,
+  "host_observation_enabled": true,
+  "implementation_status": "tier0_live_read_enabled",
+  "mutation_enabled": false,
+  "network_enabled": false,
+  "output_invariants": {
+    "candidate_facts_only": false,
+    "effect_occurred": true,
+    "host_observed": true,
+    "persistence_performed": false,
+    "terminal_safe_text_only": true,
+    "unexpected_output_is_failure": true
+  },
+  "persistence_enabled": false,
+  "protected_read_enabled": false,
+  "policy_id": "live-tier0-observation-broker",
+  "privilege_enabled": false,
+  "request_invariants": {
+    "arbitrary_input_reference_rejected": true,
+    "attempt_limit": 1,
+    "automatic_retry": false,
+    "expiry_required": true,
+    "parameters_allowed": false,
+    "proposal_digest_required": true,
+    "registered_adapter_only": true,
+    "registered_fixture_set_only": true,
+    "registry_digest_required": true,
+    "replay_rejected": true,
+    "source_catalog_digest_required": true
+  },
+  "schema_version": 1,
+  "service_process_exists": false,
+  "transport": "none",
+  "version": "1.0.0"
+}

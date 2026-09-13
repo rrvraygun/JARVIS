@@ -1,0 +1,185 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Jarvis typed task admission",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "task_id",
+    "route",
+    "decision",
+    "host_authority",
+    "sandbox_policy",
+    "execution_authorized",
+    "agent_turn_authorized",
+    "mutation_authorized",
+    "authority",
+    "reason",
+    "action_id",
+    "action_version",
+    "procedure",
+    "assessment_id",
+    "intent_class",
+    "risk",
+    "route_name",
+    "target_digest",
+    "plan_digest",
+    "approval_required",
+    "approval_state",
+    "review_digest",
+    "policy_digest"
+  ],
+  "properties": {
+    "schema_version": {"const": 3},
+    "task_id": {"type": "string", "minLength": 1},
+    "route": {"enum": ["local_read", "local_mutation", "registered_mutation", "agent_conversation", "blocked"]},
+    "decision": {"enum": ["allow_local_read_only", "awaiting_one_use_approval", "allow_scoped_execution", "deny"]},
+    "host_authority": {"enum": ["none", "current-user-filesystem", "registered-root-helper", "agent-read-only"]},
+    "sandbox_policy": {"enum": ["readOnly", null]},
+    "execution_authorized": {"type": "boolean"},
+    "agent_turn_authorized": {"type": "boolean"},
+    "mutation_authorized": {"type": "boolean"},
+    "authority": {"enum": ["none", "bounded-local-read", "registered-local-read", "bounded-local-mutation", "registered-package-mutation", "current-user-agent"]},
+    "reason": {"type": "string", "minLength": 1},
+    "action_id": {"type": ["string", "null"]},
+    "action_version": {"type": ["string", "null"]},
+    "procedure": {"type": ["string", "null"]},
+    "assessment_id": {"type": ["string", "null"]},
+    "intent_class": {
+      "enum": ["explain", "inspect", "project_change", "host_change", "external_effect", null]
+    },
+    "risk": {"type": ["integer", "null"], "minimum": 0, "maximum": 4},
+    "route_name": {
+      "enum": ["conversation", "registered_workflow", "reviewed_bash", "local_read", "local_mutation", "none", null]
+    },
+    "target_digest": {
+      "type": ["string", "null"],
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "plan_digest": {
+      "type": ["string", "null"],
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "approval_required": {"type": "boolean"},
+    "approval_state": {"enum": ["not_required", "pending", "at_tool_boundary"]},
+    "review_digest": {
+      "type": ["string", "null"],
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "policy_digest": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  },
+  "anyOf": [
+    {
+      "properties": {
+        "route": {"const": "local_read"},
+        "decision": {"const": "allow_local_read_only"},
+        "host_authority": {"const": "none"},
+        "sandbox_policy": {"const": null},
+        "execution_authorized": {"const": true},
+        "agent_turn_authorized": {"const": false},
+        "mutation_authorized": {"const": false}
+        ,"approval_required": {"const": false}
+        ,"approval_state": {"const": "not_required"}
+        ,"review_digest": {"const": null}
+      },
+      "oneOf": [
+        {
+          "properties": {
+            "authority": {"const": "bounded-local-read"},
+            "route_name": {"const": "local_read"},
+            "target_digest": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+            "plan_digest": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+            "action_id": {"const": null},
+            "action_version": {"const": null},
+            "procedure": {"const": null}
+          }
+        },
+        {
+          "properties": {
+            "authority": {"const": "registered-local-read"},
+            "route_name": {"const": "registered_workflow"},
+            "target_digest": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+            "plan_digest": {"const": null},
+            "action_id": {"type": "string", "minLength": 1},
+            "action_version": {"type": "string", "minLength": 1},
+            "procedure": {"type": "string", "minLength": 1}
+          }
+        }
+      ]
+    },
+    {
+      "properties": {
+        "route": {"const": "local_mutation"},
+        "decision": {"const": "awaiting_one_use_approval"},
+        "host_authority": {"const": "current-user-filesystem"},
+        "sandbox_policy": {"const": null},
+        "execution_authorized": {"const": false},
+        "agent_turn_authorized": {"const": false},
+        "mutation_authorized": {"const": false},
+        "authority": {"const": "bounded-local-mutation"},
+        "route_name": {"const": "local_mutation"},
+        "target_digest": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "plan_digest": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "approval_required": {"const": true},
+        "approval_state": {"const": "pending"},
+        "review_digest": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "action_id": {"const": null},
+        "action_version": {"const": null},
+        "procedure": {"const": null}
+      }
+    },
+    {
+      "properties": {
+        "route": {"const": "registered_mutation"},
+        "decision": {"const": "awaiting_one_use_approval"},
+        "host_authority": {"const": "registered-root-helper"},
+        "sandbox_policy": {"const": null},
+        "execution_authorized": {"const": false},
+        "agent_turn_authorized": {"const": false},
+        "mutation_authorized": {"const": false},
+        "authority": {"const": "registered-package-mutation"},
+        "route_name": {"const": "registered_workflow"},
+        "target_digest": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "plan_digest": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "approval_required": {"const": true},
+        "approval_state": {"const": "pending"},
+        "review_digest": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "action_id": {"const": null},
+        "action_version": {"const": null},
+        "procedure": {"const": null}
+      }
+    },
+    {
+      "properties": {
+        "route": {"const": "agent_conversation"},
+        "decision": {"const": "allow_scoped_execution"},
+        "host_authority": {"const": "agent-read-only"},
+        "sandbox_policy": {"const": "readOnly"},
+        "execution_authorized": {"const": true},
+        "agent_turn_authorized": {"const": true},
+        "mutation_authorized": {"const": false},
+        "authority": {"const": "current-user-agent"},
+        "plan_digest": {"const": null},
+        "approval_required": {"const": false},
+        "approval_state": {"const": "at_tool_boundary"},
+        "review_digest": {"const": null}
+      }
+    },
+    {
+      "properties": {
+        "route": {"const": "blocked"},
+        "decision": {"const": "deny"},
+        "host_authority": {"const": "none"},
+        "sandbox_policy": {"const": null},
+        "execution_authorized": {"const": false},
+        "agent_turn_authorized": {"const": false},
+        "mutation_authorized": {"const": false},
+        "authority": {"const": "none"},
+        "plan_digest": {"const": null},
+        "approval_required": {"const": false},
+        "approval_state": {"const": "not_required"},
+        "review_digest": {"const": null}
+      }
+    }
+  ],
+  "additionalProperties": false
+}

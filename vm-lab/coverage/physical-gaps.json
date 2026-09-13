@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "catalog_id": "fedora-workstation-physical-gaps",
+  "version": "1.0.0",
+  "evidence_rule": "A VM fixture may reproduce software-visible inputs but cannot close a physical gap.",
+  "gaps": [
+    {
+      "id": "actual-nvidia-power-off",
+      "claim_blocked": "The discrete NVIDIA GPU is physically powered off or in the exact platform low-power state.",
+      "why_vm_is_insufficient": "An emulated or absent GPU does not reproduce the workstation PCI power rails, firmware, or vendor driver behavior.",
+      "required_future_evidence": "Timestamped registered physical observations before, during, and after the reported transition.",
+      "status": "open"
+    },
+    {
+      "id": "internal-panel-routing",
+      "claim_blocked": "The internal display panel route depends on the discrete GPU in the workstation topology.",
+      "why_vm_is_insufficient": "A virtual display adapter does not reproduce the laptop mux, muxless route, or embedded DisplayPort wiring.",
+      "required_future_evidence": "Physical DRM connector/provider topology correlated with controlled power-state evidence.",
+      "status": "open"
+    },
+    {
+      "id": "display-brightness-physical-effect",
+      "claim_blocked": "Changing the exposed brightness value changes perceived panel luminance.",
+      "why_vm_is_insufficient": "A VM can expose synthetic state but cannot observe real panel luminance.",
+      "required_future_evidence": "User-confirmed physical result plus independent provider-state validation.",
+      "status": "open"
+    },
+    {
+      "id": "keyboard-light-physical-effect",
+      "claim_blocked": "The physical keyboard illumination responds correctly.",
+      "why_vm_is_insufficient": "The embedded controller and LEDs are not modeled by a normal virtual machine.",
+      "required_future_evidence": "User-confirmed lighting result correlated with kernel or firmware control evidence.",
+      "status": "open"
+    },
+    {
+      "id": "firmware-hotkeys",
+      "claim_blocked": "Brightness and keyboard-light hotkeys emit or cause the expected platform events.",
+      "why_vm_is_insufficient": "Virtual key events do not reproduce ACPI, WMI, vendor firmware, or embedded-controller handling.",
+      "required_future_evidence": "Bounded interactive event observation with explicit user participation.",
+      "status": "open"
+    },
+    {
+      "id": "acpi-ec-vendor-behavior",
+      "claim_blocked": "The real ACPI tables, embedded controller, and vendor interfaces behave as expected.",
+      "why_vm_is_insufficient": "Generic virtual firmware provides different tables and device methods.",
+      "required_future_evidence": "Registered, redacted physical observations with firmware identity and version context.",
+      "status": "open"
+    },
+    {
+      "id": "suspend-resume-race",
+      "claim_blocked": "The fault does or does not recur across the workstation's real suspend/resume timing.",
+      "why_vm_is_insufficient": "Virtual suspend and emulated devices have materially different timing and power sequencing.",
+      "required_future_evidence": "A controlled physical suspend/resume scenario with pre/post evidence and recovery.",
+      "status": "open"
+    },
+    {
+      "id": "external-display-physical-path",
+      "claim_blocked": "External connectors are affected or unaffected under the same GPU state.",
+      "why_vm_is_insufficient": "Virtual connectors do not mirror physical port wiring or dock behavior.",
+      "required_future_evidence": "User-observed connector behavior with physical topology evidence.",
+      "status": "open"
+    },
+    {
+      "id": "battery-thermal-power-budget",
+      "claim_blocked": "The behavior is caused by the real battery, thermal, or platform power budget.",
+      "why_vm_is_insufficient": "Synthetic power devices cannot reproduce electrical or thermal platform constraints.",
+      "required_future_evidence": "Fresh physical power/thermal observations collected without changing policy.",
+      "status": "open"
+    },
+    {
+      "id": "exact-driver-hardware-interaction",
+      "claim_blocked": "The exact installed kernel and driver combination behaves correctly with the physical device.",
+      "why_vm_is_insufficient": "Matching packages does not reproduce the same device, firmware, interrupts, or driver paths.",
+      "required_future_evidence": "A version-bound physical test after VM rehearsal and explicit live-observation approval.",
+      "status": "open"
+    }
+  ]
+}

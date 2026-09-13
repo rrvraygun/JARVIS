@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "status": "fixture_simulated",
+  "fixture_set_id": "fedora-kvm-synthetic-v1",
+  "execution_performed": false,
+  "host_observed": false,
+  "effect_occurred": false,
+  "persistence_performed": false,
+  "attempts": 1,
+  "candidate_results": [
+    {"check_id": "readiness.os_family", "result": "fedora", "source_id": "platform.os-release", "synthetic": true},
+    {"check_id": "readiness.architecture", "result": "x86_64", "source_id": "kernel.release", "synthetic": true},
+    {"check_id": "readiness.cpu_virtualization", "result": "intel_vt", "source_id": "kernel.cpu-summary", "synthetic": true},
+    {"check_id": "readiness.memory_capacity", "result": "meets_preferred_full_workstation", "source_id": "kernel.memory-summary", "synthetic": true},
+    {"check_id": "readiness.kvm_interface", "result": "accessible", "source_id": "virtualization.readiness-summary", "synthetic": true},
+    {"check_id": "readiness.kvm_kernel_support", "result": "active", "source_id": "virtualization.readiness-summary", "synthetic": true},
+    {"check_id": "readiness.qemu", "result": {"status": "installed", "version": "10.1.0-synthetic"}, "source_id": "virtualization.readiness-summary", "synthetic": true},
+    {"check_id": "readiness.libvirt", "result": {"status": "installed", "version": "11.5.0-synthetic"}, "source_id": "virtualization.readiness-summary", "synthetic": true},
+    {"check_id": "readiness.libvirt_service", "result": "active", "source_id": "virtualization.readiness-summary", "synthetic": true},
+    {"check_id": "readiness.virt_install", "result": {"status": "installed", "version": "5.0.0-synthetic"}, "source_id": "virtualization.readiness-summary", "synthetic": true},
+    {"check_id": "readiness.graphical_manager", "result": {"status": "installed", "version": "5.0.0-synthetic"}, "source_id": "virtualization.readiness-summary", "synthetic": true},
+    {"check_id": "readiness.uefi_firmware", "result": "available", "source_id": "virtualization.readiness-summary", "synthetic": true},
+    {"check_id": "readiness.current_user_access", "result": "sufficient_without_identity", "source_id": "virtualization.readiness-summary", "synthetic": true},
+    {"check_id": "readiness.storage_capacity", "result": "meets_preferred_full_workstation", "source_id": "storage.mount-summary", "synthetic": true},
+    {"check_id": "readiness.storage_filesystem", "result": "supports_sparse_qcow2_and_atomic_rename", "source_id": "storage.mount-summary", "synthetic": true},
+    {"check_id": "readiness.selinux", "result": {"mode": "enforcing", "policy_class": "targeted-synthetic"}, "source_id": "security.selinux-state", "synthetic": true},
+    {"check_id": "readiness.cgroup_mode", "result": "v2", "source_id": "virtualization.readiness-summary", "synthetic": true},
+    {"check_id": "readiness.conflict_summary", "result": "none_detected_without_guest_names", "source_id": "virtualization.readiness-summary", "synthetic": true}
+  ],
+  "warnings": ["Synthetic readiness results test parsers only and do not describe the host or authorize VM work."]
+}

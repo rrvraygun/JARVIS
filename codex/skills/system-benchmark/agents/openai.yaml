@@ -1,0 +1,4 @@
+interface:
+  display_name: "System Benchmark"
+  short_description: "Design safe reproducible system benchmarks"
+  default_prompt: "Use $system-benchmark to select and run a bounded benchmark with a comparable baseline."

@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Jarvis exact approval",
+  "type": "object",
+  "required": [
+    "id", "scope", "scope_reference", "action_digest", "state_digest",
+    "approver", "issued_at", "expires_at", "targets", "decision", "nonce"
+  ],
+  "properties": {
+    "id": {"type":"string","minLength":1},
+    "scope": {"enum":["command","procedure","transaction"]},
+    "scope_reference": {"type":"string","minLength":1},
+    "action_digest": {"type":"string","pattern":"^[a-f0-9]{64}$"},
+    "state_digest": {"type":"string","pattern":"^[a-f0-9]{64}$"},
+    "approver": {"const":"user"},
+    "issued_at": {"type":"string","format":"date-time"},
+    "expires_at": {"type":"string","format":"date-time"},
+    "targets": {"type":"array","items":{"type":"string"},"minItems":1,"uniqueItems":true},
+    "decision": {"enum":["approved","denied","revoked"]},
+    "nonce": {"type":"string","pattern":"^[A-Za-z0-9_-]{16,128}$"},
+    "conditions": {"type":"array","items":{"type":"string"}},
+    "consumed": {"type":"boolean","default":false}
+  },
+  "additionalProperties": false
+}
+

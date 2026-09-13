@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "capabilities": [
+    {
+      "id": "power.profile",
+      "provider": "UPower PowerProfiles",
+      "depth": "basic",
+      "values": ["power-saver", "balanced", "performance"],
+      "risk": 2,
+      "adapter": "jarvis-power-control/profile"
+    },
+    {
+      "id": "cpu.epp",
+      "provider": "kernel cpufreq",
+      "depth": "basic",
+      "values": ["power", "balance_power", "balance_performance", "performance"],
+      "risk": 2,
+      "adapter": "jarvis-power-control/cpu.epp"
+    },
+    {
+      "id": "cpu.turbo",
+      "provider": "Intel P-state",
+      "depth": "frequency-thermal",
+      "values": ["enabled", "disabled"],
+      "risk": 3,
+      "adapter": "jarvis-power-control/cpu.turbo"
+    },
+    {
+      "id": "intel_gpu.runtime_pm",
+      "provider": "Intel DRM runtime power",
+      "depth": "basic",
+      "values": ["auto", "on"],
+      "risk": 2,
+      "adapter": "jarvis-power-control/intel_gpu.runtime_pm"
+    },
+    {
+      "id": "nvidia_gpu.runtime_pm",
+      "provider": "NVIDIA DRM runtime power",
+      "depth": "basic",
+      "values": ["auto", "on"],
+      "risk": 2,
+      "adapter": "jarvis-power-control/nvidia_gpu.runtime_pm"
+    }
+  ],
+  "future_depths": [
+    "frequency-thermal",
+    "vendor-level"
+  ],
+  "policy": "Only fixed reviewed adapters may become executable."
+}

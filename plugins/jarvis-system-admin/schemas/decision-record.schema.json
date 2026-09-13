@@ -1,0 +1,19 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "type":"object",
+  "required":["objective","facts","sources","alternatives","selected_action","risk","validation","outcome"],
+  "properties":{
+    "decision_id":{"type":"string"},
+    "created_at":{"type":"string","format":"date-time"},
+    "objective":{"type":"string"},
+    "facts":{"type":"array"},
+    "sources":{"type":"array"},
+    "alternatives":{"type":"array"},
+    "selected_action":{"type":"object"},
+    "risk":{"type":"object"},
+    "validation":{"type":"object"},
+    "outcome":{"type":"object"}
+  },
+  "additionalProperties":false
+}
+

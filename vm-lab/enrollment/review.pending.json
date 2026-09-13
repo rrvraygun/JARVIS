@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "review_id": "pending:fedora-workstation-enrollment@1.0.0",
+  "proposal_binding": {
+    "proposal_id": "fedora-workstation-enrollment",
+    "version": "1.0.0",
+    "sha256": "0c1fa4a163e0a72f47ea2f4e060f9e1475109d9e902e9be817174fe3532911af"
+  },
+  "source_catalog_binding": {
+    "catalog_id": "fedora-workstation-enrollment-sources",
+    "version": "1.0.0",
+    "sha256": "35b022ab1587428ae31953c5b51591b46fcfd1333fba198a94c5c4d56efbe038"
+  },
+  "status": "pending",
+  "decision": null,
+  "reviewed_at": null,
+  "expires_at": null,
+  "host_binding": null,
+  "activated_tiers": [],
+  "approved_group_ids": [],
+  "approved_fact_ids": [],
+  "approval_digest": null,
+  "current_authority": "none",
+  "notes": "Template proving that prepared contracts are not consent. A future user decision must create a new immutable review record."
+}
