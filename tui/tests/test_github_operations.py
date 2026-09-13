@@ -107,6 +107,21 @@ class GitHubOperationWorkflowTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 workflow.approve(plan["id"], plan["digest"])
 
+    def test_clone_uses_ssh_without_requiring_github_cli(self) -> None:
+        from jarvis_tui import github_cli
+
+        with tempfile.TemporaryDirectory() as directory:
+            destination = Path(directory) / "clone"
+            plan = github_cli.prepare(
+                "clone_repository",
+                directory,
+                "rrvraygun/JARVIS",
+                {"destination": str(destination)},
+            )
+
+        self.assertEqual(plan["argv"][:3], ["/usr/bin/git", "clone", "--"])
+        self.assertEqual(plan["blockers"], [])
+
 
 if __name__ == "__main__":
     unittest.main()

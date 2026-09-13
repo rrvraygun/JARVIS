@@ -173,15 +173,15 @@ def prepare(
     elif operation == "clone_repository":
         repository = _slug(target)
         destination = _clone_destination(args.pop("destination"))
-        argv = [executable, "repo", "clone", repository, destination]
+        argv = ["/usr/bin/git", "clone", "--", f"git@github.com:{repository}.git", destination]
         plan = _common(
             operation,
             repository_root,
             target,
             argv,
             risk=2,
-            expected_effect=f"Clone {repository} into the reviewed destination.",
-            blockers=blockers,
+            expected_effect=f"Clone {repository} into the reviewed destination over SSH.",
+            blockers=[],
         )
     elif operation == "create_repository":
         repository = _safe(target, 300)
