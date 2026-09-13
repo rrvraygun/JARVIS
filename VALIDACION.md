@@ -1,56 +1,56 @@
-# Entrega recuperada — 11 de septiembre de 2026
+# Recovered delivery — September 11, 2026
 
-Estado: candidato persistente probado; no activado ni instalado como actualización
-del sistema. La versión activa anterior se conserva y no necesita rollback.
+Status: persistent candidate tested; not activated or installed as a system
+update. The previous active version is preserved and needs no rollback.
 
-## Evidencia de esta copia
+## Evidence for this copy
 
-- Recuperados los cambios de código desde las llamadas de edición del historial
-  de esta tarea; no se ejecutaron comandos históricos ni se copiaron credenciales.
-- Suite TUI: 350 pruebas en 69,213 segundos, 349 correctas y un error ambiental
-  al crear un socket local dentro de la sandbox. Las dos pruebas del módulo de
-  socket pasaron fuera de ella. No se atribuye ese error a Textual.
-- Después se recuperaron los dos tests de recovery_plan que faltaban y pasaron
-  junto a los de especialistas y root (17 pruebas en ese momento).
-- Tras revisión independiente se añadieron controles de cambio de estado antes
-  de efectos root y tres regresiones: 13 pruebas root correctas.
-- Prueba visible real: printf ejecutado una vez, salida 0 y regreso a la interfaz.
-  Capturas y recibo en runtime/validation/visible-y5i3l9cl/.
-- Ruff pasó; mypy pasó en los tres módulos nuevos de ejecución.
-- Validación del bundle pasó con 817 entradas antes de añadir este informe.
-  El manifiesto final se regenera después del informe.
+- Code changes were recovered from the editing calls recorded for this task;
+  historical commands were not run and credentials were not copied.
+- TUI suite: 350 tests in 69.213 seconds, 349 passed and one environmental error
+  while creating a local socket inside the sandbox. Both socket-module tests
+  passed outside the sandbox. The error is not attributed to Textual.
+- The two missing `recovery_plan` tests were restored and passed with specialist
+  and root tests (17 tests at that point).
+- Independent review added state-change checks before root effects and three
+  regression tests; 13 root tests passed.
+- Visible test: `printf` ran once, exited 0, and returned to the interface.
+  Captures and the receipt are in `runtime/validation/visible-y5i3l9cl/`.
+- Ruff passed; mypy passed for the three new execution modules.
+- Bundle validation passed with 817 entries before this report was added. The
+  final manifest is regenerated after the report.
 
-Los logs están en la carpeta superior con prefijo
-jarvis-2026-09-11-recovered-. La repetición conjunta fuera de la sandbox fue
-rechazada antes de ejecutarse por límite de uso del revisor automático.
-No se afirma que esa repetición haya pasado.
+Logs are stored in the parent directory with the
+`jarvis-2026-09-11-recovered-` prefix. A combined rerun outside the sandbox was
+rejected before execution by the automatic review quota; it is not reported as
+passed.
 
-## Correcciones adicionales
+## Additional corrections
 
-El inventario y manifiesto ahora excluyen rutas relativas al candidato: una
-carpeta antecesora llamada runtime ya no produce una entrega vacía. El verificador
-rechaza manifiestos vacíos. La prueba visible guarda evidencia persistente.
+Inventory and manifest generation now exclude paths relative to the candidate:
+a parent directory named `runtime` no longer creates an empty delivery. The
+verifier rejects empty manifests. The visible test keeps persistent evidence.
 
-## Pendiente para instalación completa
+## Pending for complete installation
 
-La instalación de helpers/políticas root, provisión independiente de aprobaciones,
-prueba autenticada y activación de release no se han realizado. El plan completo
-no está finalizado. El ensayo de restauración tampoco demuestra arranque de
-recuperación ni una copia actual completa del equipo.
+Root helper/policy installation, independent approval provisioning, the
+authenticated test, and release activation were not performed. The complete
+plan is not finished. The restore rehearsal also does not prove recovery boot or
+a complete current workstation copy.
 
-El despliegue root debe garantizar mantenimiento exclusivo y publicación inmutable
-de las transacciones preparadas: el lock del helper no controla otras herramientas
-de administración. Revalidar hashes reduce cambios concurrentes pero no elimina
-la carrera con otro administrador root. No se promociona este candidato como
-ejecutor privilegiado listo para producción.
+Root deployment must guarantee exclusive maintenance and immutable publication
+of prepared transactions: the helper lock does not serialize other administrative
+tools. Rechecking hashes reduces concurrent-change risk but does not remove races
+with another root administrator. This candidate is not promoted as production-
+ready privileged execution software.
 
-## Probar la terminal
+## Test the terminal
 
-Desde esta carpeta:
+From this directory:
 
 ```bash
 .venv/bin/python scripts/smoke-normal-terminal.py --approve-printf-smoke
 ```
 
-Esta prueba usa un modelo simulado y únicamente ejecuta el printf fijo mostrado.
-La guía de capacidades está en docs/PARCHE-GUIDE-2026-09.md.
+This test uses a simulated model and runs only the displayed fixed `printf`.
+The capability guide is `docs/PARCHE-GUIDE-2026-09.md`.

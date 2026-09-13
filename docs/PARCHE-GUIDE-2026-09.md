@@ -1,100 +1,98 @@
-# Guía del parche JARVIS
+# JARVIS patch guide
 
-Actualizada el 11 de septiembre de 2026. Esta entrega es un candidato de código
-y pruebas; no implica que se haya reemplazado la instalación activa.
+Updated September 11, 2026. This delivery is a code-and-test candidate; it does
+not mean that the active installation was replaced.
 
-## Qué incluye
+## Included capabilities
 
-| Componente | Capacidad y alcance |
+| Component | Capability and scope |
 | --- | --- |
-| Terminal normal | Botón **Run in normal terminal** en Development. Nueva revisión explícita del modo, argumentos, directorio y autoridad del usuario. Entrada/salida heredadas, sin límites de tiempo o recursos impuestos por JARVIS. No añade una shell ni comandos ocultos. |
-| Aprobaciones | Decisiones efímeras, digest propio del modo, reserva durable y rechazo de repetición. El entorno se vincula sin guardar sus valores. Los resultados inciertos requieren reconciliación. |
-| Cargo | Check, build, test, fmt y clippy en copia aislada, sin red ni HOME real, con límites efectivos y comprobación del grupo de procesos. |
-| Dependencias | Copia revisada, aplicación separada a manifiestos existentes, originales retenidos y comprobación de contenidos, permisos y atributos. Propuesta inversa separada cuando no hay ediciones posteriores incompatibles. |
-| Descargas | Una descarga crates.io por URL y checksum del lockfile, aprobada por separado. Cargo consume después los archivos verificados sin red. |
-| Root | Entradas separadas para arranque y actualización, ejecutor root compartido y políticas Polkit sin autorización persistente. Exigen solicitud exacta y revisión independiente root con recuperación vigente. |
-| Arranque | Selección para el próximo arranque; generación de initramfs en archivo nuevo y publicación mediante otra operación aprobada que conserva el anterior. No reinicia el equipo ni prueba arrancabilidad. |
-| Actualizaciones | Reproducción estricta de una transacción DNF5 preparada, con archivos firmados y referencias dentro de su árbol. Comprobación del conjunto instalado esperado. |
-| MCP y especialistas | Ámbito por proceso/generación, especialista seleccionado respetado, observaciones frescas y rechazo de herramientas o políticas fuera de su ámbito. |
-| Interfaz | Vistas Health, Development, Network, Security y Recovery; revisión y datos detallados fuera de la conversación limpia. |
-| Checkpoints | Conservación del contexto; recuperación completa solo cuando existe una operación recuperable vinculada. No restaura el chat antes de que termine la recuperación de paquetes. |
-| Transcritos | Resultados saneados, tamaño y cantidad acotados, siete días para registros nuevos. Sin entorno completo, credenciales ni razonamiento privado. |
-| Recuperación | Copias/restauraciones acotadas de proyectos y planificación de las cinco fronteras del sistema. La orquestación automática completa de Restic sigue siendo una integración aparte. |
+| Normal terminal | **Run in normal terminal** in Development, with explicit review of mode, arguments, directory, and user authority. Inherits user I/O and limits; adds no hidden shell or commands. |
+| Approvals | Ephemeral decisions, mode-specific digest, durable reservation, and replay rejection. Environment is bound without storing its values. Uncertain results require reconciliation. |
+| Cargo | Check, build, test, fmt, and clippy on an isolated copy, without network or the real HOME, with effective limits and process-group checks. |
+| Dependencies | Reviewed copy, separate application to existing manifests, retained originals, and content/permission/attribute checks. A separate inverse proposal is required when later edits are incompatible. |
+| Downloads | One crates.io download by URL and lockfile checksum, approved separately. Cargo consumes verified files without network. |
+| Root | Separate boot and update entries, shared root executor, and Polkit policies without persistent authorization. Requires an exact request, independent review, and current recovery evidence. |
+| Boot | Next-boot selection; new initramfs generation and publication through a separate approved operation that preserves the previous image. It does not reboot or test bootability. |
+| Updates | Strict replay of a prepared DNF5 transaction with signed files and references inside its tree. Checks the expected installed set. |
+| MCP and specialists | Per-process/generation scope, selected specialist respected, fresh observations, and rejection of out-of-scope tools or policies. |
+| Interface | Health, Development, Network, Security, and Recovery views; review and detailed data stay outside the clean conversation. |
+| Checkpoints | Context preservation; complete recovery only when a linked recoverable operation exists. Chat is not restored before package recovery finishes. |
+| Transcripts | Sanitized results, bounded size/count, and seven-day retention for new records. No full environment, credentials, or private reasoning. |
+| Recovery | Bounded project copy/restore and planning for the five system boundaries. Full Restic orchestration remains a separate integration. |
 
-## Cómo probar la interfaz y la terminal
+## Test the interface and terminal
 
-Desde el directorio del candidato, como usuario normal:
+From the candidate directory, as a normal user:
 
 ```bash
 .venv/bin/python scripts/smoke-normal-terminal.py --approve-printf-smoke
 ```
 
-Este ensayo abre Textual en una terminal real, muestra la revisión del modo
-normal, confirma exclusivamente un printf fijo y comprueba su recibo. Usa una
-sesión sintética sin modelo, cuenta, red ni helper root. Genera capturas SVG y
-un resultado JSON en un directorio nuevo de /tmp cuya ruta imprime al terminar.
-El indicador final debe ser `JARVIS_VISIBLE_SMOKE_PASSED`.
+The test opens Textual in a real terminal, shows the normal-mode review, confirms
+only a fixed `printf`, and checks its receipt. It uses a synthetic session with
+no model, account, network, or root helper. It writes SVG captures and JSON to a
+new `/tmp` directory and prints its path. The final marker is
+`JARVIS_VISIBLE_SMOKE_PASSED`.
 
-Para comprobar únicamente la interfaz de forma manual, sin conectar al agente:
+To inspect only the interface without an agent connection:
 
 ```bash
 PYTHONPATH="$PWD/tui/src" .venv/bin/python -m jarvis_tui --bundle-root "$PWD"
 ```
 
-El lanzador habitual `scripts/launch-tui.sh` sí intenta conectar al App Server;
-requiere un perfil revisado y la autenticación normal. No copies credenciales al
-parche ni las pegues en la conversación.
+The normal `scripts/launch-tui.sh` launcher connects to the App Server and needs
+the reviewed profile and normal authentication. Do not copy credentials into the
+patch or paste them into the conversation.
 
-La terminal normal tiene las capacidades normales de tu usuario y conectividad
-del equipo. Un código de salida cero solo confirma el proceso principal; no
-demuestra el objetivo completo ni que sus procesos hijos hayan terminado. La
-ruta normal no se habilita ejecutando JARVIS como root.
+The normal terminal uses the user's regular permissions and network. Exit code
+zero confirms only the main process; it does not prove the full goal or child
+process completion. The normal route is not enabled by running JARVIS as root.
 
-## Validación reproducible
+## Reproducible validation
 
 ```bash
 bash scripts/quality-gate.sh --full
 ```
 
-Espera el resultado final: las pruebas gráficas tardan del orden de dos minutos
-en este equipo. Los mensajes de asyncio sobre tareas lentas no son por sí solos
-un bloqueo. No interrumpas una suite que sigue avanzando. Consulta el resultado
-exacto de esta entrega en `VALIDACION.md`, junto al candidato.
+Wait for the final result: graphical tests take about two minutes on this host.
+Asyncio slow-task messages alone are not a lockup. The exact result for this
+delivery is recorded in `VALIDACION.md` beside the candidate.
 
-## Despliegue y operaciones privilegiadas
+## Deployment and privileged operations
 
-Los archivos preparados son `jarvis_boot_control.py`, `jarvis_update_control.py`,
-`jarvis_privileged_control.py` y las dos políticas `org.jarvis.*-control.policy`.
-El cliente exige que los archivos instalados y las políticas coincidan con los
-del candidato y estén bajo control de root. No se instalan al ejecutar el smoke.
+Prepared files are `jarvis_boot_control.py`, `jarvis_update_control.py`,
+`jarvis_privileged_control.py`, and the two `org.jarvis.*-control.policy` files.
+The client requires installed files and policies to match the candidate and be
+owned by root. The smoke test does not install them.
 
-El estado protegido se ubica en `/var/lib/jarvis/privileged-control`: approvals,
-reservations, results, transactions y backups. Cada aprobación independiente
-corresponde a un UID, ID y digest de solicitud, caduca y contiene evidencia R2
-ligada al preestado y confirmación del arranque de recuperación. El agente no
-puede crear esa autoridad mediante argumentos o aprobarse a sí mismo.
+Protected state is under `/var/lib/jarvis/privileged-control`: approvals,
+reservations, results, transactions, and backups. Each independent approval is
+bound to a UID, ID, and request digest, expires, and includes R2 evidence linked
+to pre-state and recovery-boot confirmation. The agent cannot create or infer
+this authority from arguments.
 
-Para updates, el administrador prepara un árbol DNF5 --store con RPM locales
-firmados y rutas relativas normalizadas. Se admiten transiciones de RPM; grupos,
-entornos y otros formatos se rechazan. No se usan opciones ignore o skip para
-silenciar diferencias. La publicación de initramfs exige una revisión separada
-del hash de la imagen generada. Los errores o resultados inciertos no provocan
-reintentos ni rollback automático.
+For updates, the administrator prepares a DNF5 `--store` tree with signed local
+RPMs and normalized relative paths. RPM transitions are accepted; groups,
+environments, and other formats are rejected. `ignore` and `skip` options are
+not used to silence differences. Initramfs publication requires a separate review
+of the generated image hash. Errors and uncertain results never trigger retries
+or automatic rollback.
 
-## Límites de lo probado
+## Limits of what was tested
 
-El despliegue privilegiado requiere mantenimiento exclusivo y publicación
-inmutable de transacciones: el lock del helper no serializa otros administradores.
-Los hashes se vuelven a comprobar antes del efecto, sin afirmar que eliminen
-todas las carreras con otros procesos root.
+Privileged deployment requires exclusive maintenance and immutable transaction
+publication; the helper lock does not serialize other administrators. Hashes are
+rechecked before effects, without claiming to remove every race with other root
+processes.
 
-- La prueba visible ejercita el TUI y un comando real; el modelo es una fixture.
-- Las descargas externas y los comandos privilegiados se prueban con fixtures;
-  no se han aplicado paquetes ni cambios de arranque al equipo durante este cierre.
-- La autenticación real, la provisión root por operación y la activación del
-  candidato necesitan sus comprobaciones de despliegue.
-- Restic pasó la comprobación aportada por el usuario. Las comparaciones rsync
-  sin -c no certifican contenido por checksum. No se ha demostrado arranque real,
-  reconstrucción de particiones/UEFI ni una recuperación actual de todo el sistema.
+- The visible test exercises the TUI and a real command; the model is a fixture.
+- External downloads and privileged commands use fixtures; no package or boot
+  change was applied to the workstation in this closeout.
+- Real authentication, per-operation root provisioning, and candidate activation
+  still require deployment checks.
+- Restic passed the evidence supplied by the user. `rsync` comparisons without
+  `-c` do not certify checksum equality. Real recovery boot, partition/UEFI
+  reconstruction, and a current full-system restore were not demonstrated.
 
-Detalle de correcciones: `sessions/2026-09-11-validation-closeout.md`.
+Correction details: `sessions/2026-09-11-validation-closeout.md`.

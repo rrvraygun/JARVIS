@@ -1,125 +1,106 @@
-# JARVIS: mejoras, capacidades y guía de arranque
+# JARVIS: updates, capabilities, and startup guide
 
-Actualizado: 11 de septiembre de 2026.
+Updated: September 11, 2026.
 
-En la conversación, el selector de especialistas y la botonera forman ahora
-una barra lateral vertical: **New**, **History**, **Copy** y **Clear** quedan
-debajo del selector. Al abrirlo, su menú se superpone como capa absoluta y la
-botonera conserva exactamente su posición.
+In Conversation, the specialist selector and action buttons now form a vertical
+sidebar: **New**, **History**, **Copy**, and **Clear** stay below the selector.
+When the selector opens, its menu overlays the sidebar without moving the buttons.
 
-El apartado **Agents** incluye ahora un selector **Global model**. La selección
-es única para todos los especialistas, se guarda en `runtime/jarvis-model.json`
-y se aplica a los nuevos turnos. Los turnos en curso conservan su modelo.
-Opciones: GPT-6 Astra, GPT-5.6 Sol, GPT-5.6 Terra, GPT-5.6 Luna y GPT-5.5.
-Debajo se encuentra **Context window**, con Auto, 8k, 16k, 32k, 64k, 128k,
-256k, 512k, 800k, 1M y 1.05M. Modelo, razonamiento y contexto se guardan juntos
-en `runtime/jarvis-model.json` y se aplican a todos los especialistas en los
-nuevos turnos.
-El control tiene tamaño visible propio y el menú se abre al seleccionarlo dentro
-de la pestaña **Agents**.
+The **Agents** tab includes a **Global model** selector. One choice applies to all
+specialists and is saved in `runtime/jarvis-model.json` for new turns; active turns
+keep their current model. Options are GPT-6 Astra, GPT-5.6 Sol, GPT-5.6 Terra,
+GPT-5.6 Luna, and GPT-5.5. **Reasoning effort** and **Context window** are saved
+with the model. Context options are Auto, 8k, 16k, 32k, 64k, 128k, 256k, 512k,
+800k, 1M, and 1.05M. The controls have their own visible size and open inside
+the **Agents** tab.
 
-La actividad en tiempo real vive dentro del panel de conversación: queda debajo
-de tu pregunta mientras el agente trabaja y se recoloca debajo de su respuesta
-cuando esta aparece. Muestra fase, tiempo, fragmentos, herramienta y consulta;
-los detalles privados y resultados sin sanear permanecen ocultos.
+Live activity is rendered inside the Conversation panel. It stays below your
+question while the agent works and moves below the agent response as soon as it
+appears. It shows phase, elapsed time, fragments, tool, and query; private details
+and unsanitized results remain hidden.
 
-El carril de acciones usa un ancho fijo dentro del mismo contenedor. **New**,
-**History**, **Copy** y **Clear** ya no se desplazan por un anclaje al borde de
-la pantalla; los controles de checkpoint permanecen junto a su mensaje.
+The action rail has a fixed width inside the conversation container. **New**,
+**History**, **Copy**, and **Clear** no longer move with a screen-edge anchor;
+checkpoint controls remain with their message.
 
-El checkpoint conserva el texto **↶ Checkpoint** y su tamaño original, pero ahora
-se sitúa en una fila propia bajo el mensaje, alineado a la derecha con una línea
-de separación superior y un margen lateral corto.
+The checkpoint keeps the **↶ Checkpoint** label and its original size. It is placed
+on its own row below the message, aligned right with a top separator and a short
+side margin. Its menu is built after the button and opens below it in a fixed
+vertical layer. The conversation width stays fixed and the button remains
+accessible. The menu never overlaps the button or recalculates the side border.
 
-El menú se compone después del botón y se abre debajo en una capa vertical fija;
-su apertura conserva el tamaño del contenedor y el botón sigue siendo accesible.
-La fila del checkpoint elimina el padding lateral duplicado: el botón queda a
-una o dos columnas del borde derecho interior de la conversación.
+### Conversation and activity fixes — September 12
 
-Al abrirlo, el menú aparece debajo del botón como una capa vertical de cuatro
-líneas. El ancho de la conversación permanece fijo; el menú no se superpone al
-botón ni obliga a recalcular el borde lateral.
+Permission formats and App Server negotiation were corrected so a greeting can
+complete. An authenticated test returned “Hey!”. Package inspection now accepts
+the installation specialist's `inspect_packages` alias and recognizes natural
+requests such as “node”. A live MCP query confirmed Node.js 22 and 24 with fresh
+observations.
 
-El checkpoint se presenta bajo el mensaje como **↶ Checkpoint**. Su menú abre
-dentro de ese bloque vertical, por lo que no puede recalcular ni desplazar el
-ancho lateral del contenedor de conversación.
+Internal missing-observation notices now appear in the activity state instead of
+inserting duplicated placeholder messages in the chat. The activity indicator
+shows streaming and tools; a tool error is never presented as a successful
+inspection. Restart JARVIS to load these changes.
 
-El control compacto usa el icono **↶**, ocupa 10 columnas por 2 líneas y se
-alinea a la derecha de su propia fila, con una línea de separación del mensaje
-y un margen interno de una columna.
+## Delivery state
 
-### Correcciones de conversación y actividad — 12 de septiembre
-
-Se corrigieron los formatos de permisos y la negociación del App Server que
-impedían responder incluso a un saludo. Una prueba autenticada devolvió «Hey!».
-La inspección de paquetes ahora admite el alias `inspect_packages` del especialista
-de instalación y reconoce búsquedas como «node» dentro de una solicitud natural.
-La consulta MCP real confirmó Node.js 22 y 24 instalados con datos recién leídos.
-
-Los avisos internos sobre falta de observación se trasladan al estado de actividad,
-sin insertar respuestas prefabricadas y duplicadas en el chat. El indicador de
-actividad muestra streaming y herramientas; un error de herramienta no se presenta
-como una inspección realizada con éxito. Reinicia JARVIS para cargar estos cambios.
-
-## Estado de la entrega
-
-La nueva interfaz y sus cambios están en esta carpeta persistente:
+The updated interface and source are kept in:
 
 ```text
 /home/tipexxx/Escritorio/Proyecto/codex-agent-system/runtime/staged/jarvis-2026-09-11-recovered
 ```
 
-Los ejecutores de arranque y actualizaciones ya están instalados en el equipo
-y registrados en Polkit. Sus propietarios y huellas se comprobaron desde otro
-proceso. La instalación principal anterior de JARVIS no se ha sustituido:
-para usar las novedades, arranca desde la carpeta indicada arriba.
+The boot and update executors are installed and registered with Polkit. Their
+owners and fingerprints were checked by a separate process. The previous main
+JARVIS installation was not replaced; start from the path above to use these
+changes.
 
-La terminal normal pasó una prueba visible con un comando real. La conexión
-con la cuenta habitual también se comprobó. Esto no equivale a haber completado
-un turno real del agente ni a haber ejecutado una actualización del sistema.
+The normal terminal passed a visible test with a real command, and the usual
+account connection was checked. Neither result proves a complete agent turn or
+a real system update.
 
-## Arranque paso a paso
+## Step-by-step startup
 
-### 1. Entrar en la versión nueva
+### 1. Enter the new version
 
-Abre una terminal normal, sin iniciar JARVIS como root:
+Open a regular terminal and do not start JARVIS as root:
 
 ```bash
 cd /home/tipexxx/Escritorio/Proyecto/codex-agent-system/runtime/staged/jarvis-2026-09-11-recovered
 ```
 
-Los comandos siguientes se ejecutan desde esa carpeta. No hace falta reinstalar
-los ejecutores: ya están instalados.
+Run the following commands from this directory. The executors do not need to be
+installed again.
 
-### 2. Probar inmediatamente la interfaz y la terminal
+### 2. Test the interface and terminal immediately
 
 ```bash
 .venv/bin/python scripts/smoke-normal-terminal.py --approve-printf-smoke
 ```
 
-Este ensayo abre la interfaz, muestra la revisión de un `printf` fijo,
-lo ejecuta una sola vez en la terminal normal y comprueba el regreso a la
-interfaz. La confirmación está automatizada exclusivamente para ese comando
-inocuo. No usa el modelo ni ejecutores root.
+This test opens the interface, shows a review for one fixed `printf`, runs it
+once in the normal terminal, and checks the return to the interface. Confirmation
+is automated only for that harmless command. It does not use the model or root
+executors.
 
-Al terminar debe aparecer `JARVIS_VISIBLE_SMOKE_PASSED`. Las capturas SVG
-y el resultado JSON se guardan en una carpeta nueva dentro de
-`runtime/validation/`, cuya ruta imprime la prueba.
+The final output must include `JARVIS_VISIBLE_SMOKE_PASSED`. SVG captures and a
+JSON result are stored in a new directory under `runtime/validation/`, whose path
+the test prints.
 
-### 3. Abrir la interfaz sin conectar al agente
+### 3. Open the interface without connecting to the agent
 
 ```bash
 PYTHONPATH="$PWD/tui/src" .venv/bin/python -m jarvis_tui --bundle-root "$PWD"
 ```
 
-Sirve para explorar las vistas y comprobar que la interfaz abre. No habilita
-por sí sola conversación con el modelo. Para etiquetas menos dependientes
-del color, añade `--plain` al final.
+Use this to explore the views and check that the interface opens. It does not
+enable model conversation by itself. Add `--plain` for labels that rely less on
+color.
 
-### 4. Preparar el perfil propio de esta versión
+### 4. Prepare this version's private profile
 
-Esta copia recuperada no traía `runtime/codex-home/config.toml`. Antes del primer
-arranque conectado, genera el perfil con el renderizador incluido en el código:
+The recovered copy did not include `runtime/codex-home/config.toml`. Before the
+first connected start, create the profile with the renderer shipped in the code:
 
 ```bash
 PYTHONPATH="$PWD/tui/src" .venv/bin/python - <<'PY'
@@ -134,66 +115,66 @@ if not profile.exists() and not profile.is_symlink():
         stream.write(render(bundle))
     profile.chmod(0o600)
 check(bundle)
-print("Perfil de JARVIS verificado")
+print("JARVIS profile verified")
 PY
 ```
 
-Este paso crea únicamente configuración local de JARVIS; no copia credenciales
-ni modifica la configuración habitual de Codex. Si ya existe un perfil, lo
-comprueba sin sobrescribirlo. Si la comprobación falla, conserva el error para
-revisión y no cambies sus controles para forzar el arranque.
+This creates only local JARVIS configuration. It does not copy credentials or
+change the usual Codex configuration. An existing profile is checked without
+being overwritten. If the check fails, keep the error for review instead of
+changing controls to force startup.
 
-### 5. Arrancar con conexión al agente
+### 5. Start with an agent connection
 
 ```bash
 bash scripts/launch-tui.sh
 ```
 
-El lanzador comprueba que carga el código de esta carpeta y conecta al App Server.
-Usa el perfil propio de `runtime/codex-home`. Aunque tu cuenta habitual haya
-pasado el sondeo, este perfil separado puede pedir iniciar sesión.
+The launcher verifies that it imports this checkout and connects to the App
+Server using `runtime/codex-home`. Even if the usual account probe passed, this
+separate profile may request sign-in.
 
-Si aparece **Sign in with ChatGPT**, pulsa ese botón y completa el acceso en
-el navegador oficial. Después pulsa **Refresh session**. No copies archivos
-de credenciales al proyecto ni pegues contraseñas o tokens en el chat.
+If **Sign in with ChatGPT** appears, complete sign-in in the official browser,
+then select **Refresh session**. Do not copy credential files into the project
+or paste passwords and tokens into chat.
 
-Como primera petición puedes escribir: «Responde únicamente JARVIS listo, sin
-usar herramientas». Comprueba que la sesión esté conectada y que recibes la
-respuesta. Esta prueba de conversación completa aún no consta como realizada.
-La petición de texto no constituye una aprobación de comandos.
+As a first request, write: “Reply only JARVIS ready, without using tools”. Check
+that the session is connected and that a response arrives. A complete connected
+conversation test is not recorded as completed here. Text input is not command
+approval.
 
-## Nuevas capacidades y mejoras
+## New capabilities and improvements
 
-| Área | Implementación y uso | Estado y alcance |
+| Area | Implementation and use | Status and scope |
 | --- | --- | --- |
-| Terminal normal | Botón **Run in normal terminal** en **Development**, a partir de una propuesta de comando. Muestra argumentos, carpeta y modo antes de aprobar. | Probada con comando real; usa los permisos, entrada/salida y red normales del usuario. JARVIS no impone límites de tiempo o recursos en este modo. |
-| Aprobación de terminal | El modo normal tiene una revisión propia, distinta de la ejecución aislada; registra la reserva antes de lanzar el comando. | Aprobación de un solo uso, caducidad y rechazo de repetición. |
-| Entorno del comando | Vincula el entorno a la revisión y detecta cambios antes de ejecutar. | Los valores del entorno no se guardan en el expediente. |
-| Resultado del comando | Registra intento, salida del proceso y modo; vuelve a la interfaz después de ejecutarlo. | Una salida cero no demuestra el objetivo completo ni que hayan terminado todos los procesos hijos. |
-| Cargo aislado | Prepara check, build, test, fmt y clippy sobre una copia del proyecto. | Conserva límites y aislamiento en esta ruta, separados de la terminal normal. |
-| Dependencias | Prepara cambios en copia y permite revisar una aplicación posterior al proyecto original. | Conserva originales y comprueba contenido y metadatos; la aplicación requiere su revisión. |
-| Descargas de dependencias | Descarga puntual por URL y checksum del lockfile, con aprobación separada. | Después permite consumir el archivo verificado en compilación aislada. No supone acceso de red ilimitado para Cargo. |
-| Ejecución privilegiada | Dos entradas root, un módulo compartido y políticas Polkit. | Instaladas y reconocidas; cada operación sigue necesitando solicitud exacta y evidencia independiente. |
-| Selección de kernel | Prepara selección de una entrada instalada para el próximo arranque. | Código implementado; no se ha cambiado el kernel ni reiniciado el equipo en estas pruebas. |
-| Reparación de initramfs | Genera una imagen nueva; su publicación es otra operación revisada que conserva la anterior. | Implementada y probada con simulaciones; no certifica que el sistema vaya a arrancar. |
-| Actualizaciones | Reproduce una transacción DNF5 preparada con RPM firmados y verifica el conjunto instalado esperado. | No acepta diferencias mediante opciones ignore/skip. No se ha aplicado una transacción real en este cierre. |
-| Prevención de cambios concurrentes | Recomprueba estado de arranque y huella de la transacción antes del efecto. | El mantenimiento root debe ser exclusivo; el bloqueo de JARVIS no controla otros administradores. |
-| MCP y especialistas | Respeta el especialista seleccionado y limita herramientas por proceso y ámbito. | Corregido el registro de `recovery_plan`. |
-| Interfaz | Vistas Health, Development, Network, Security y Recovery; revisión detallada fuera de la conversación. | Pruebas gráficas completadas. Las advertencias de tareas lentas no significaban por sí mismas un bloqueo. |
-| Checkpoints | Conserva contexto y distingue recuperación del chat de recuperación de operaciones. | Recuperación completa solo cuando existe una operación recuperable vinculada. |
-| Registros operativos | Resultados saneados, límites de tamaño/cantidad y política de siete días para registros nuevos. | No guarda entorno completo, credenciales ni razonamiento privado. |
-| Recuperación | Planificación de las cinco fronteras del sistema y recuperación acotada de proyectos. | Automatización completa de Restic y recuperación de desastre siguen siendo alcances separados. |
-| Empaquetado | Manifiesto e inventario calculados respecto a la raíz de la entrega. | Corregido el manifiesto vacío al estar dentro de una carpeta antecesora llamada runtime; ahora se rechazan manifiestos vacíos. |
-| Instalación | Instalador con hashes fijados, rechazo de destinos existentes y limpieza de objetos recién creados si falla. | Instalación completada; no crea autorizaciones de operaciones. |
+| Normal terminal | **Run in normal terminal** in **Development**, with command, directory, and user-authority review. | Tested with a real command; uses the user's normal permissions, I/O, and network. |
+| Terminal approval | Separate review from isolated execution, with a durable reservation before launch. | One-use approval, expiry, and replay rejection. |
+| Command environment | Binds the environment to the review and detects changes before execution. | Environment values are not stored in the record. |
+| Command result | Records attempt, process output, and mode, then returns to the interface. | Exit zero does not prove the full goal or child-process completion. |
+| Isolated Cargo | Runs check, build, test, fmt, and clippy on a project copy. | Limits and isolation remain separate from the normal terminal. |
+| Dependencies | Prepares changes in a copy and offers reviewed application to the original. | Originals and metadata are retained; application needs its own review. |
+| Dependency downloads | One URL/checksum download with a separate approval. | Verified files can be consumed by isolated builds; Cargo has no unrestricted network. |
+| Privileged execution | Separate boot/update entries, shared root module, and Polkit policies. | Installed and recognized; every operation still needs an exact request and independent evidence. |
+| Kernel selection | Prepares an installed entry for the next boot. | Implemented; no kernel change or reboot occurred in these tests. |
+| Initramfs repair | Generates a new image; publication is a reviewed operation that preserves the previous image. | Simulated and tested; does not certify bootability. |
+| Updates | Replays a prepared DNF5 transaction with signed RPMs and checks the expected installed set. | Ignore/skip differences are rejected; no real transaction was applied in this closeout. |
+| Concurrent-change prevention | Rechecks boot state and transaction fingerprint before effects. | Root maintenance must be exclusive; JARVIS does not lock out other administrators. |
+| MCP and specialists | Respects the selected specialist and limits tools by process and scope. | `recovery_plan` registration corrected. |
+| Interface | Health, Development, Network, Security, and Recovery views. | Graphical tests completed; slow-task notices alone are not a lockup. |
+| Checkpoints | Preserves context and separates chat recovery from operation recovery. | Full recovery only exists when a linked operation is recoverable. |
+| Operational records | Sanitized results, size/count limits, and a seven-day policy for new records. | No full environment, credentials, or private reasoning. |
+| Recovery | Plans five system boundaries and bounded project recovery. | Full Restic automation and disaster recovery remain separate scopes. |
+| Packaging | Manifest and inventory are calculated from the delivery root. | Empty manifests caused by a parent `runtime` directory are rejected. |
+| Installation | Pinned hashes, existing-destination rejection, and cleanup of newly created objects on failure. | Installation completed; it does not create operation approvals. |
 
-## Cómo funcionan los permisos
+## How permissions work
 
-La terminal normal trabaja como tu usuario. La ruta privilegiada pasa por
-Polkit y puede mostrar una ventana del sistema para autenticarte. Autenticarse
-no aprueba cualquier cambio: la operación debe coincidir con su solicitud,
-estado previo y autorización independiente, y cumplir la recuperación exigida.
+The normal terminal runs as the current user. Privileged paths use Polkit and
+may show a system authentication dialog. Authentication alone does not approve a
+change: the operation must match its request, prior state, independent approval,
+and recovery requirements.
 
-La instalación creó estos archivos:
+The installation created:
 
 ```text
 /usr/libexec/jarvis-boot-control
@@ -203,60 +184,55 @@ La instalación creó estos archivos:
 /usr/share/polkit-1/actions/org.jarvis.update-control.policy
 ```
 
-El estado protegido está en `/var/lib/jarvis/privileged-control`. Sus carpetas
-contienen aprobaciones, reservas, resultados, transacciones y copias necesarias.
-No se ha creado ninguna aprobación para modificar paquetes o arranque.
+Protected state is stored under `/var/lib/jarvis/privileged-control`, including
+approvals, reservations, results, transactions, and required copies. No approval
+to change packages or boot state was created.
 
-Los ejecutores rechazaron las peticiones vacías enviadas por Polkit con
-`blocked_or_indeterminate`: era el resultado esperado de ese ensayo. Ante una
-operación real, ese mismo estado necesita revisión y no equivale a éxito.
+Executors rejected empty Polkit requests with `blocked_or_indeterminate`; that
+was the expected result of the probe. In a real operation the same state requires
+review and is not success.
 
-## Pruebas y comprobaciones disponibles
+## Available checks
 
-Para comprobar la disponibilidad de tu acceso habitual sin iniciar un turno:
+To check usual account availability without starting a turn:
 
 ```bash
 .venv/bin/python scripts/smoke-authenticated.py --approve-account-probe
 ```
 
-El resultado correcto es `account_available: true`. Su alcance es
-`authenticated_connection_only`: no prueba una conversación completa.
+The expected result is `account_available: true`. Its scope is
+`authenticated_connection_only`; it does not test a complete conversation.
 
-Para verificar los archivos de la entrega:
+To verify delivery files:
 
 ```bash
 .venv/bin/python scripts/verify-release-manifest.py
 ```
 
-Para ejecutar la batería general de validación:
+To run the complete validation gate:
 
 ```bash
 bash scripts/quality-gate.sh --full
 ```
 
-Déjala finalizar: incluye pruebas gráficas que pueden tardar varios minutos.
-En una sandbox, las pruebas de sockets pueden estar restringidas; durante
-esta entrega se comprobaron por separado en el anfitrión. No se afirma que
-la última repetición conjunta fuera de la sandbox llegara a ejecutarse.
+Let it finish because graphical tests may take several minutes. In a sandbox,
+socket tests can be restricted; those tests were checked separately on the host.
 
-## Lo que todavía no debe darse por terminado
+## What is not yet complete
 
-- La sustitución de la instalación principal por esta versión.
-- Un turno completo autenticado del agente en el perfil propio de esta entrega.
-- Una operación real aprobada de kernel, initramfs o paquetes y su verificación.
-- La automatización completa de backup al conectar el disco y conservación de
-  las últimas diez copias: son requisitos aceptados, no prestaciones certificadas
-  por esta instalación.
-- La demostración de arranque de recuperación y restauración actual completa
-  del equipo. La comprobación Restic aportada pasó, pero las comparaciones rsync
-  sin checksum no prueban por sí solas todos los contenidos.
+- Replacing the previous main installation with this version.
+- A complete authenticated agent turn using this delivery's private profile.
+- A real approved kernel, initramfs, or package operation and its verification.
+- Full backup automation when the external disk is connected and retention of the
+  last ten copies.
+- Demonstrated recovery boot and a complete current restore of the workstation.
 
-## Dónde encontrar los detalles
+## Where to find details
 
-- [Registro actualizado de instalación y autenticación](runtime/staged/INSTALACION-2026-09-11.md).
-- [Validación de la copia recuperada](runtime/staged/jarvis-2026-09-11-recovered/VALIDACION.md).
-- [Guía técnica del parche](runtime/staged/jarvis-2026-09-11-recovered/docs/PARCHE-GUIDE-2026-09.md).
+- [Updated installation and authentication record](runtime/staged/INSTALACION-2026-09-11.md).
+- [Validation of the recovered copy](runtime/staged/jarvis-2026-09-11-recovered/VALIDACION.md).
+- [Technical patch guide](runtime/staged/jarvis-2026-09-11-recovered/docs/PARCHE-GUIDE-2026-09.md).
 
-Esta guía recoge el estado posterior a la instalación de los ejecutores.
-Cuando un documento histórico los describa como pendientes, consulta el registro
-actualizado de instalación para esa parte del estado.
+This guide describes the state after executor installation. When a historical
+document says that a component is pending, use the current installation record
+for the current status.

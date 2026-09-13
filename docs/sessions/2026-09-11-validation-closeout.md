@@ -1,88 +1,86 @@
-# Correcciones de cierre — 11 de septiembre de 2026
+# Closeout corrections — September 11, 2026
 
-Trabajo en el candidato aislado. La versión activa y los helpers instalados
-no se han sustituido durante estas correcciones.
+Work was performed in the isolated candidate. The active version and installed
+helpers were not replaced during these corrections.
 
-## Diagnóstico corregido
+## Corrected diagnosis
 
-El registro `/tmp/jarvis-headless-final.log` terminó con 36 pruebas aprobadas en
-109,777 segundos. Las afirmaciones anteriores de bloqueo del driver no estaban
-justificadas: varias ejecuciones se interrumpieron antes de ese tiempo. Se
-retiró la cancelación global añadida sin evidencia a `on_unmount`; Textual conserva
-su gestión de cierre normal. La nueva validación espera la finalización real.
+`/tmp/jarvis-headless-final.log` ended with 36 passed tests in 109.777 seconds.
+Earlier claims that the driver was blocked were unsupported because several runs
+were interrupted before that time. The unverified global cancellation added to
+`on_unmount` was removed; Textual keeps its normal shutdown handling. The new
+validation waits for actual completion.
 
-## Terminal normal
+## Normal terminal
 
-Se corrigió la llamada incompatible a `run_blocking_once` y se trasladó
-`App.suspend()` al hilo de la interfaz. El modo normal tiene una propuesta,
-digest y aprobación distintos del modo aislado. Se reserva la operación antes
-de ejecutar y se conserva un recibo durable. El entorno heredado se vincula
-mediante HMAC con clave efímera; no se persisten sus valores. Se revalida después
-de adquirir el bloqueo y se descarta al rechazar la revisión. La ruta normal no
-se admite si JARVIS se ejecuta como root.
+The incompatible `run_blocking_once` call was corrected and `App.suspend()` was
+moved to the interface thread. Normal mode has a proposal, digest, and approval
+separate from isolated execution. The operation is reserved before launch and a
+durable receipt is retained. The inherited environment is HMAC-bound with an
+ephemeral key and its values are not persisted. State is rechecked after the lock
+is acquired, and the reservation is discarded when review is rejected. Normal
+execution is not admitted when JARVIS runs as root.
 
-La prueba del botón de revisión aprobó en 2,726 segundos. La prueba real con
-PTY y controlador Textual visible ejecutó exactamente un printf, produjo
-`JARVIS_NORMAL_TERMINAL_OK`, terminó con código 0 y generó capturas de la revisión
-y del resultado. El App Server de esa prueba era una fixture, sin cuenta ni
-modelo real. Esa distinción se conserva en la guía.
+The review-button test passed in 2.726 seconds. The visible PTY/Textual test ran
+exactly one `printf`, produced `JARVIS_NORMAL_TERMINAL_OK`, exited 0, and created
+review and result captures. Its App Server was a fixture with no real account or
+model. The guide preserves that distinction.
 
-## Helpers privilegiados
+## Privileged helpers
 
-La revisión independiente detectó rutas no validadas, escrituras sin reserva
-atómica, recuperación basada en valores del solicitante y una selección de
-kernel persistente distinta del próximo arranque pedido. Se sustituyeron esos
-prototipos por entradas que cargan un ejecutor instalado bajo control de root.
+Independent review found unvalidated paths, writes without atomic reservation,
+requester-controlled recovery values, and a persistent kernel selection that did
+not match the requested next boot. Those prototypes were replaced with entries
+that load a root-owned installed executor.
 
-El ejecutor exige una revisión independiente, propiedad de root, por UID e ID,
-con digest de la solicitud, caducidad y evidencia R2 ligada al preestado. No
-crea esa aprobación ni la deduce de booleanos del modelo. Reserva y resultado
-son registros distintos y no se sobrescriben. Un resultado pendiente bloquea
-otra operación. Las políticas preparadas usan auth_admin, sin autorización
-persistente; el cliente comprueba también sus hashes antes de invocar.
+The executor requires an independent root-owned review bound to UID and ID, with
+request digest, expiry, and R2 evidence linked to pre-state. It cannot create or
+infer that approval from model booleans. Reservation and result are separate
+records and are never overwritten. A pending result blocks another operation.
+Prepared policies use `auth_admin` without persistent authorization; the client
+also checks their hashes before invocation.
 
-La selección usa grub2-reboot para un único arranque. La reparación genera una
-imagen nueva; publicarla es otra operación revisada, con copia previa e
-intercambio atómico que conserva el inode desplazado. La revisión se repite
-antes de reservar y antes del efecto.
+Selection uses `grub2-reboot` for one boot. Repair generates a new image;
+publishing it is another reviewed operation with a prior copy and atomic exchange
+that preserves the displaced inode. Review is repeated before reservation and
+before the effect.
 
-Las actualizaciones reproducen un árbol DNF5 --store, sin ignore/skip ni nueva
-resolución libre. Se validan rutas relativas internas, firmas y NEVRA de los
-RPM referenciados. El conjunto instalado final se compara con el esperado a
-partir de las acciones aprobadas, incluidos los paquetes no afectados. Las
-pruebas son fixtures; no se ha ejecutado una actualización o cambio de arranque.
+Updates replay a DNF5 `--store` tree without `ignore`/`skip` or new free
+resolution. Internal relative paths, signatures, and NEVRA of referenced RPMs
+are validated. The final installed set is compared with the expected set derived
+from approved actions, including unaffected packages. Tests use fixtures; no
+update or boot change was run.
 
-Base del formato: https://dnf5.readthedocs.io/en/latest/commands/replay.8.html
-y el serializador público libdnf5/transaction/transaction_sr.cpp del proyecto DNF5.
+Format basis: <https://dnf5.readthedocs.io/en/latest/commands/replay.8.html> and
+the public `libdnf5/transaction/transaction_sr.cpp` serializer in DNF5.
 
-## Recuperación: límite de la evidencia anterior
+## Recovery: limit of earlier evidence
 
-La salida del usuario demuestra una comprobación íntegra del repositorio y una
-restauración realizada. El comparador reportó seis diferencias en boot/EFI
-contra el estado vivo. Los rsync posteriores usaron -naiHAX, sin -c: su salida
-vacía no equivale a una comparación independiente del contenido por checksum.
-Comparar dos restauraciones del mismo snapshot tampoco aporta una fuente
-original distinta. La causa temporal es plausible, no una certificación.
-La prueba sparse quedó sin testigo. No se convierte esta evidencia en una
-aprobación R2 vigente para un cambio crítico futuro.
+The user's output demonstrates an integrity check of the repository and a restore.
+The comparator reported six boot/EFI differences against live state. Later
+`rsync` runs used `-naiHAX` without `-c`; empty output is not an independent
+checksum comparison. Comparing two restores of the same snapshot adds no separate
+original source. A temporal cause is plausible, not certified. The sparse test
+has no witness. This evidence is not promoted to a current R2 approval for a
+future critical change.
 
-## Evidencia final
+## Final evidence
 
-Los resultados completos y la copia del candidato se publican junto al
-manifiesto en el directorio de entrega. No se confunden fixtures, un PTY real,
-un turno autenticado y pruebas privilegiadas sobre el equipo.
+Complete results and the candidate copy are published with the manifest in the
+delivery directory. Fixtures, a real PTY, an authenticated turn, and privileged
+workstation tests are kept distinct.
 
-La ejecución restringida final de interfaz, terminal, helpers y planificación
-completó 61 pruebas en 113,673 segundos, salida 0. El validador del bundle sin
-repetir TUI también pasó. Una solicitud de validación fuera del sandbox fue
-rechazada antes de ejecutar por cuota de la revisión automática de permisos;
-no fue una prohibición del usuario. La primera pasada del gate completo dentro
-del sandbox detectó inventario desactualizado tras añadir una protección al
-fixture; se regeneró antes de la siguiente validación, sin omitir comprobaciones.
+The final restricted run of interface, terminal, helpers, and planning completed
+61 tests in 113.673 seconds with exit code 0. Bundle validation also passed
+without rerunning the TUI. A validation request outside the sandbox was rejected
+before execution because of the automatic permission-review quota; it was not a
+user prohibition. The first sandbox quality-gate run found stale inventory after
+a fixture guard was added; inventory was regenerated before the next validation
+without skipping checks.
 
-La pasada completa restringida ejecutó 352 pruebas: detectó un fallo real en el
-registro de Recovery Specialist (faltaba admitir recovery_plan) y una restricción
-de socket Unix del sandbox. Se corrigió el registro, cuyas cinco pruebas pasaron.
-La nueva solicitud limitada de las dos pruebas jarvisd fuera del sandbox fue
-autorizada y ambas pasaron. No se atribuyen esos fallos a Textual ni se ocultan
-mediante exclusiones del quality gate.
+The restricted full run reached 352 tests, found a real Recovery Specialist
+registration defect (missing `recovery_plan`), and hit the sandbox Unix-socket
+restriction. The registration was corrected and its five tests passed. A new
+limited request for the two `jarvisd` tests outside the sandbox was authorized and
+both passed. These failures are not attributed to Textual or hidden by quality-
+gate exclusions.

@@ -7,6 +7,9 @@ time where the source record supplied local timestamps.
 
 ### Added
 
+- English is now the primary documentation language. A mirrored documentation
+  tree is available under `docs/es/`, with `README.es.md` as the Spanish
+  repository entry point.
 - Clean domain views for Health, Development, Network, Security and Recovery,
   with a Raw JSON view retained behind a per-domain selector.
 - Per-field `[i]` explanations that open a short floating information dialog.
@@ -52,14 +55,14 @@ time where the source record supplied local timestamps.
 ### Validation
 
 - App Server, session, broker, activity, Clean/Raw and specialist tests pass in
-  the staged candidate; the final manifest contains 830 source artifacts.
+  the staged candidate; the release manifest is regenerated after documentation
+  changes.
 - Restic repository integrity check supplied by the user completed with no errors;
   no package, boot or disk mutation was performed during development.
 
 ### Known limits
 
-- The staged candidate is not a published Git commit and the empty `.git`
-  directory must be replaced by `git init` before GitHub publication.
+- GitHub publication uses the repository's SSH remote and the `main` branch.
 - Real privileged package/boot mutations and a full authenticated agent turn
   remain separate deployment tests; fixture tests do not certify them.
 - Context usage is unavailable until the App Server sends a usage event; the UI

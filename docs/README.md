@@ -37,3 +37,10 @@ product state.
 Every code-changing session updates its session record. Update current contracts
 when behavior changes, regenerate the inventory when source membership changes,
 and run the documentation/manifest checks before completion.
+
+## Language versions
+
+The English documentation in this tree is the primary version. A parallel Spanish
+mirror is available under [`docs/es/`](es/README.md); it preserves the same file
+layout and includes Spanish copies of documents that were originally written in
+Spanish. `README.es.md` provides the repository-level Spanish entry point.
