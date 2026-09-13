@@ -78,6 +78,25 @@ class GitHubToolsTests(unittest.TestCase):
         self.assertTrue(result["network_accessed"])
         self.assertEqual(result["data"]["nameWithOwner"], "rrvraygun/JARVIS")
 
+    def test_preflight_reports_binary_archive_lfs_and_repository_metadata(self) -> None:
+        with self._repository() as directory:
+            root = Path(directory)
+            (root / "LICENSE").write_text("MIT\n", encoding="utf-8")
+            (root / ".github" / "workflows").mkdir(parents=True)
+            (root / ".github" / "workflows" / "ci.yml").write_text("name: CI\n", encoding="utf-8")
+            (root / "image.bin").write_bytes(b"header\x00binary")
+            (root / "bundle.zip").write_bytes(b"archive")
+            (root / "large.lfs").write_text(
+                "version https://git-lfs.github.com/spec/v1\n", encoding="utf-8"
+            )
+            result = github_tools.github_preflight(directory)
+
+        self.assertIn("image.bin", result["binary_changed_files"])
+        self.assertIn("bundle.zip", result["archive_changed_files"])
+        self.assertIn("large.lfs", result["lfs_pointer_files"])
+        self.assertTrue(result["repository_files"]["license_present"])
+        self.assertEqual(result["repository_files"]["workflow_files"], [".github/workflows/ci.yml"])
+
     def test_subdirectory_is_rejected_as_repository_root(self) -> None:
         with self._repository() as directory:
             nested = Path(directory) / "nested"

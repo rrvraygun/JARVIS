@@ -51,9 +51,10 @@ workflow; the agent does not resolve them automatically.
    releases with explicit network and publication approvals. Repository forks,
    templates, labels, milestones, discussions, settings, and branch operations
    use structured CLI plans; destructive settings still require dedicated review.
-5. Hardening and acceptance: add large-file and LFS handling, branch-protection
-   checks, audit projections, rollback records, and full acceptance tests. The
-   bounded path-and-kind secret-pattern scan is already implemented.
+5. Hardening and acceptance: large-file, binary/archive, LFS, workflow, README,
+   license, and bounded secret-pattern checks are implemented. Remaining work is
+   branch-protection coverage, audit projections, rollback records, and full
+   acceptance tests.
 
 ## Acceptance criteria
 

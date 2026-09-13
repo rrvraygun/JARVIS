@@ -50,9 +50,9 @@ nueva. Un conflicto detiene el flujo; el agente no lo resuelve automáticamente.
    releases con autorización explícita de red y publicación. Forks, plantillas,
    etiquetas, milestones, discusiones, ajustes y ramas usan planes CLI
    estructurados; los ajustes destructivos requieren revisión dedicada.
-5. Endurecimiento: archivos grandes y LFS, protecciones de rama, auditoría,
-   recuperación y pruebas de aceptación. El escaneo acotado de patrones de
-   secretos por ruta y tipo ya está implementado.
+5. Endurecimiento: controles de archivos grandes, binarios/archivos comprimidos,
+   LFS, workflows, README, licencia y patrones de secretos ya están implementados.
+   Quedan protecciones de rama, auditoría, recuperación y pruebas de aceptación.
 
 ## Criterios de aceptación
 

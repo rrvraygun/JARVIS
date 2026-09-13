@@ -12,6 +12,7 @@ MAX_OUTPUT_CHARS = 24_000
 MAX_ITEMS = 200
 MAX_PATH_CHARS = 4096
 LARGE_FILE_BYTES = 5 * 1024 * 1024
+ARCHIVE_SUFFIXES = (".zip", ".tar", ".tar.gz", ".tgz", ".gz", ".bz2", ".xz", ".7z")
 SENSITIVE_BASENAMES = frozenset(
     {
         ".env",
@@ -213,7 +214,7 @@ def _sensitive_path(path: str) -> bool:
 
 
 def github_preflight(project_root: object) -> dict[str, Any]:
-    """Inspect publication-risk metadata without reading file contents."""
+    """Inspect bounded publication-risk metadata without returning file contents."""
     root = _path(project_root)
     evidence = _status(root)
     repository = Path(evidence["repository_root"])
@@ -230,6 +231,9 @@ def github_preflight(project_root: object) -> dict[str, Any]:
     )
     secret_matches = _secret_scan(repository, scan_paths)
     large: list[dict[str, Any]] = []
+    binary: list[str] = []
+    archives: list[str] = []
+    lfs_pointers: list[str] = []
     for relative in changed:
         candidate = repository / relative
         try:
@@ -238,6 +242,26 @@ def github_preflight(project_root: object) -> dict[str, Any]:
             continue
         if info.st_size > LARGE_FILE_BYTES:
             large.append({"path": relative, "bytes": info.st_size})
+        if Path(relative).name.casefold().endswith(ARCHIVE_SUFFIXES):
+            archives.append(relative)
+        if info.st_size <= 1_048_576:
+            try:
+                sample = candidate.read_bytes()[:8192]
+                if b"\x00" in sample:
+                    binary.append(relative)
+                elif sample.startswith(b"version https://git-lfs.github.com/spec/v1"):
+                    lfs_pointers.append(relative)
+            except OSError:
+                pass
+    names = {path.name.casefold() for path in repository.iterdir()}
+    workflow_dir = repository / ".github" / "workflows"
+    workflows = (
+        [str(path.relative_to(repository)) for path in workflow_dir.iterdir() if path.is_file()]
+        if workflow_dir.is_dir()
+        else []
+    )
+    readme_present = any(name.startswith("readme") for name in names)
+    license_present = any(name.startswith(("license", "copying")) for name in names)
     return {
         "available": True,
         "read_only": True,
@@ -250,15 +274,31 @@ def github_preflight(project_root: object) -> dict[str, Any]:
         "sensitive_filename_candidates": sensitive,
         "secret_matches": secret_matches,
         "large_changed_files": large,
+        "binary_changed_files": binary,
+        "archive_changed_files": archives,
+        "lfs_pointer_files": lfs_pointers,
+        "repository_files": {
+            "readme_present": readme_present,
+            "license_present": license_present,
+            "workflow_files": workflows[:MAX_ITEMS],
+        },
+        "warnings": [
+            *([] if readme_present else ["repository_readme_missing"]),
+            *([] if license_present else ["repository_license_missing"]),
+            *(["binary_files_require_manual_review"] if binary else []),
+            *(["archive_files_require_manual_review"] if archives else []),
+            *(["lfs_pointers_require_lfs_review"] if lfs_pointers else []),
+        ],
         "limitations": [
-            "No file contents or credentials were read.",
+            "Only bounded samples of changed regular files are read; values are never returned.",
             "Secret detection returns only path and pattern kind; it never returns values.",
             "Remote GitHub checks, CI, and Actions require a separately approved capability.",
         ],
         "publication_ready": not evidence["conflicts"]
         and not sensitive
         and not large
-        and not secret_matches,
+        and not secret_matches
+        and not binary,
     }
 
 

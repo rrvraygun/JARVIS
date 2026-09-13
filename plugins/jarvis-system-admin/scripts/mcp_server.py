@@ -256,7 +256,7 @@ TOOLS = [
     },
     {
         "name": "github_preflight",
-        "description": "Inspect local publication risks: conflicts, changed paths, likely secret-bearing filenames, and large files. Read-only; file contents and GitHub network access are excluded.",
+        "description": "Inspect local publication risks: conflicts, changed paths, bounded secret patterns, large/binary/archive/LFS files, workflows, README, and license metadata. Read-only; values are never returned and GitHub network access is excluded.",
         "inputSchema": {
             "type": "object",
             "required": ["project_root"],
