@@ -80,14 +80,14 @@ ambiente controlado.
 Incluso R3 no puede prometer recuperación tras la actualización del firmware o hardware no relacionado.
 fracaso. Los cambios de firmware siguen siendo un flujo de trabajo excepcional independiente.
 
-## Direct-host operating modes
+## Modos de funcionamiento del anfitrión directo
 
 1. **Dispositivo:** modo actual. No hay lecturas ni cambios de host.
 2. **Sombra:** observaciones, diagnósticos, planos y vistas previas aprobados acotados;
    sin cambios de estado.
 3. **Supervisado:** un intento de cambio de estado aprobado exactamente después de su recuperación
 Se verifican los requisitos previos.
-4. **Lista segura obtenida:** deshabilitado inicialmente. An exact procedure revision may
+4. **Lista segura obtenida:** deshabilitado inicialmente. Una revisión exacta del procedimiento puede
    convertirse en candidato a ascenso sólo después de repetidos éxitos revisados, y el
 El propietario debe aprobar el cambio de política.
 
@@ -114,7 +114,7 @@ Cinco, vincular la identidad del artefacto, el estado previo, la revisión del p
 10. requerir una aprobación separada para la restauración porque la restauración también es destructiva;
 11. finalizar el registro de auditoría inmutable.
 
-Automatic rollback is deliberately disabled. Un retroceso a ciegas tras un parcial
+La reversión automática está deshabilitada deliberadamente. Un retroceso a ciegas tras un cambio parcial de
 El cambio de arranque, paquete o almacenamiento puede destruir datos de nuevos usuarios o agravar la situación.
 fracaso. Jarvis debe presentar qué cambió, qué cubre el artefacto de recuperación,
 y las consecuencias exactas de la restauración.
@@ -159,7 +159,7 @@ entorno Python y no otorga al intermediario acceso a shell o sudo. Máquina de t
 hechos y datos de auditoría localmente con la redacción/cifrado ya diseñado
 límites. Observe y planifique antes de agregar cualquier ejecutor.
 
-### H6 — first lighting case
+### H6 — primer caso de iluminación
 
 El primer flujo de trabajo físico sigue siendo el diagnóstico de brillo y luz del teclado.
 bajo la hipótesis de bajo consumo de NVIDIA. La primera capa operativa es la fija.
@@ -167,7 +167,7 @@ adaptador `lighting-tier0-readonly` sin privilegios: lee solo los existentes del
 proveedor, adaptador, nombre del conector y metadatos del kernel filtrados. Diagnóstico
 entonces puede utilizar el adaptador pasivo `lighting-tier1-platform-readonly` para
 identidad de máquina no secreta, interfaces de plataforma relevantes, topología de retroiluminación,
-y la identidad del dispositivo de teclas de acceso rápido candidato. Diagnosis stops if an observation may
+y la identidad del dispositivo de teclas de acceso rápido candidato. El diagnóstico se detiene si una observación puede requerir
 hardware de activación; sondeo de estado, clientes GPU de proveedores, registros protegidos,
 Las llamadas de escritorio/sesión y el monitoreo interactivo de eventos no son parte de estos
 capas. Una reparación es una nueva transacción clasificada por su valor real.
@@ -177,7 +177,7 @@ ejecutar hasta verificar el nivel de recuperación correspondiente.
 ## Límite actual
 
 El sistema de archivos de usuario actual controlado por aprobación de la TUI y la transacción exacta del paquete
-las rutas se definen en `tui-mutation-executor.md`. Their operation-level Trash
+las rutas se definen en `tui-mutation-executor.md`. Su recuperación de Papelera a nivel de operación
 o la recuperación por DNF no es equivalente a la cobertura de recuperación R1-R3 a continuación. un
 La confirmación gráfica de un solo uso no renuncia a una puerta de recuperación requerida por el
 radio de explosión real del cambio.
