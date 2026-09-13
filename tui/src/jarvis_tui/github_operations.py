@@ -25,6 +25,8 @@ SUPPORTED_OPERATIONS = frozenset(
         "initialize_repository",
         "create_worktree",
         "clone_repository",
+        "fork_repository",
+        "create_from_template",
         "create_repository",
         "create_branch",
         "commit",
@@ -33,6 +35,9 @@ SUPPORTED_OPERATIONS = frozenset(
         "create_pull_request",
         "merge_pull_request",
         "create_issue",
+        "create_label",
+        "create_milestone",
+        "create_discussion",
         "create_release",
         "download_artifact",
         "rerun_workflow",
@@ -170,6 +175,7 @@ def prepare(bundle: Path, operation: str, target: str, arguments: dict[str, Any]
     }
     if operation in REMOTE_CONNECTOR_OPERATIONS:
         proposal.update(github_cli.prepare(operation, str(root), requested_target, args))
+        args.clear()
     elif operation == "initialize_repository":
         if args:
             branch = _name(args.pop("branch", "main"), BRANCH_RE, "github_branch_invalid")

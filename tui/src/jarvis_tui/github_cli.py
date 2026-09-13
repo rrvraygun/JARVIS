@@ -13,10 +13,15 @@ from typing import Any
 REMOTE_OPERATIONS = frozenset(
     {
         "clone_repository",
+        "fork_repository",
+        "create_from_template",
         "create_repository",
         "create_pull_request",
         "merge_pull_request",
         "create_issue",
+        "create_label",
+        "create_milestone",
+        "create_discussion",
         "create_release",
         "download_artifact",
         "rerun_workflow",
@@ -26,7 +31,9 @@ REMOTE_OPERATIONS = frozenset(
         "delete_repository",
     }
 )
-REMOTE_VIEWS = frozenset({"repository", "pull_requests", "issues", "runs", "releases"})
+REMOTE_VIEWS = frozenset(
+    {"repository", "pull_requests", "issues", "runs", "releases", "checks", "workflow_logs"}
+)
 DESTRUCTIVE = frozenset({"merge_pull_request", "delete_branch", "delete_repository"})
 SLUG_RE = re.compile(r"^(?:github\.com/)?[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$")
 NAME_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]{0,99}$")
@@ -162,15 +169,54 @@ def prepare(
         executable = "/usr/bin/gh"
         blockers.append("github_cli_unavailable")
 
-    if operation in {"force_push", "modify_repository_settings"}:
+    if operation == "force_push":
+        remote = _name(args.pop("remote", "origin"), "github_remote_invalid")
+        ref = _branch(args.pop("ref"), "github_ref_invalid")
         plan = _common(
             operation,
             repository_root,
             target,
-            [],
+            ["/usr/bin/git", "push", "--force-with-lease", remote, ref],
             risk=4,
-            expected_effect=f"Prepare the exact {operation} request after a dedicated adapter is reviewed.",
-            blockers=[*blockers, "github_operation_adapter_not_implemented"],
+            expected_effect=f"Force-push {ref} to {remote} using force-with-lease.",
+            blockers=[],
+            network="One Git network operation; exact approval required.",
+        )
+    elif operation == "modify_repository_settings":
+        repository = _slug(target)
+        visibility = args.pop("visibility", None)
+        description = args.pop("description", None)
+        if visibility not in {None, "public", "private", "internal"} or (
+            visibility is None and description is None
+        ):
+            raise ValueError("github_settings_invalid")
+        argv = [executable, "repo", "edit", repository]
+        if visibility is not None:
+            argv.extend(["--visibility", visibility, "--accept-visibility-change-consequences"])
+        if description is not None:
+            argv.extend(["--description", _safe(description, 1_000)])
+        plan = _common(
+            operation,
+            repository_root,
+            target,
+            argv,
+            risk=4,
+            expected_effect=f"Change the reviewed settings of {repository}.",
+            blockers=blockers,
+        )
+    elif operation == "delete_branch":
+        repository = _slug(target)
+        remote = _name(args.pop("remote", "origin"), "github_remote_invalid")
+        branch = _branch(args.pop("branch"))
+        plan = _common(
+            operation,
+            repository_root,
+            target,
+            ["/usr/bin/git", "push", remote, "--delete", branch],
+            risk=3,
+            expected_effect=f"Delete branch {branch} from {repository} through remote {remote}.",
+            blockers=blockers,
+            network="One Git network operation; exact approval required.",
         )
     elif operation == "clone_repository":
         repository = _slug(target)
@@ -184,6 +230,37 @@ def prepare(
             risk=2,
             expected_effect=f"Clone {repository} into the reviewed destination over SSH.",
             blockers=[],
+        )
+    elif operation == "fork_repository":
+        repository = _slug(target)
+        argv = [executable, "repo", "fork", repository, "--remote=false"]
+        plan = _common(
+            operation,
+            repository_root,
+            target,
+            argv,
+            risk=2,
+            expected_effect=f"Create one fork of {repository} for the active GitHub profile.",
+            blockers=blockers,
+        )
+    elif operation == "create_from_template":
+        template = _slug(target)
+        name = args.pop("name", "")
+        repository = (
+            _slug(name) if "/" in str(name) else _name(name, "github_repository_name_invalid")
+        )
+        visibility = args.pop("visibility", None)
+        if visibility not in {"public", "private", "internal"}:
+            raise ValueError("github_visibility_required")
+        argv = [executable, "repo", "create", repository, f"--{visibility}", "--template", template]
+        plan = _common(
+            operation,
+            repository_root,
+            target,
+            argv,
+            risk=2,
+            expected_effect=f"Create {repository} from the reviewed template {template}.",
+            blockers=blockers,
         )
     elif operation == "create_repository":
         repository = _safe(target, 300)
@@ -303,6 +380,76 @@ def prepare(
             expected_effect=f"Create one issue in {repository}.",
             blockers=blockers,
         )
+    elif operation == "create_label":
+        repository = _slug(target)
+        name = _name(args.pop("name"), "github_label_name_invalid")
+        color = _safe(args.pop("color"), 6)
+        if not re.fullmatch(r"[0-9A-Fa-f]{6}", color):
+            raise ValueError("github_label_color_invalid")
+        description = _safe(args.pop("description", ""), 1_000)
+        argv = [executable, "label", "create", name, "--repo", repository, "--color", color]
+        if description:
+            argv.extend(["--description", description])
+        plan = _common(
+            operation,
+            repository_root,
+            target,
+            argv,
+            risk=2,
+            expected_effect=f"Create or update one label in {repository}.",
+            blockers=blockers,
+        )
+    elif operation == "create_milestone":
+        repository = _slug(target)
+        title = _safe(args.pop("title"), 500)
+        description = _safe(args.pop("description", ""), 10_000)
+        argv = [
+            executable,
+            "api",
+            "--method",
+            "POST",
+            f"repos/{repository}/milestones",
+            "-f",
+            f"title={title}",
+        ]
+        if description:
+            argv.extend(["-f", f"description={description}"])
+        plan = _common(
+            operation,
+            repository_root,
+            target,
+            argv,
+            risk=2,
+            expected_effect=f"Create one milestone in {repository}.",
+            blockers=blockers,
+        )
+    elif operation == "create_discussion":
+        repository = _slug(target)
+        title = _safe(args.pop("title"), 500)
+        body = _safe(args.pop("body", ""), 10_000)
+        category = _name(args.pop("category"), "github_discussion_category_invalid")
+        argv = [
+            executable,
+            "discussion",
+            "create",
+            "--repo",
+            repository,
+            "--title",
+            title,
+            "--body",
+            body,
+            "--category",
+            category,
+        ]
+        plan = _common(
+            operation,
+            repository_root,
+            target,
+            argv,
+            risk=2,
+            expected_effect=f"Create one discussion in {repository}.",
+            blockers=blockers,
+        )
     elif operation == "create_release":
         repository = _slug(target)
         tag = _tag(args.pop("tag"))
@@ -351,17 +498,6 @@ def prepare(
             risk=2,
             expected_effect=f"Download one reviewed Actions artifact from run {run_id} into the existing destination.",
             blockers=blockers,
-        )
-    elif operation == "delete_branch":
-        branch = _branch(args.pop("branch"))
-        plan = _common(
-            operation,
-            repository_root,
-            target,
-            [],
-            risk=3,
-            expected_effect=f"Delete branch {branch} from the reviewed repository.",
-            blockers=[*blockers, "github_branch_delete_adapter_not_implemented"],
         )
     else:
         repository = _slug(target)
@@ -416,11 +552,17 @@ def execute(plan: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def inspect(repository: object, view: object = "repository") -> dict[str, Any]:
+def inspect(
+    repository: object, view: object = "repository", reference: object = None
+) -> dict[str, Any]:
     """Read bounded GitHub metadata through allowlisted gh commands."""
     repo = _slug(repository)
     if not isinstance(view, str) or view not in REMOTE_VIEWS:
         raise ValueError("github_remote_view_invalid")
+    if view in {"checks", "workflow_logs"}:
+        reference = _safe(reference, 100)
+        if not reference or not re.fullmatch(r"[A-Za-z0-9._/-]+", reference):
+            raise ValueError("github_remote_reference_required")
     executable = _gh()
     commands = {
         "repository": [
@@ -471,8 +613,14 @@ def inspect(repository: object, view: object = "repository") -> dict[str, Any]:
             "tagName,name,isDraft,isLatest,url",
         ],
     }
+    if view == "checks":
+        command = ["pr", "checks", str(reference), "--repo", repo]
+    elif view == "workflow_logs":
+        command = ["run", "view", str(reference), "--repo", repo, "--log"]
+    else:
+        command = commands[view]
     result = subprocess.run(
-        [executable, *commands[view]],
+        [executable, *command],
         check=False,
         cwd=None,
         stdin=subprocess.DEVNULL,
@@ -493,10 +641,13 @@ def inspect(repository: object, view: object = "repository") -> dict[str, Any]:
             "view": view,
             "error": "github_remote_read_failed",
         }
-    try:
-        data = json.loads(result.stdout)
-    except json.JSONDecodeError as exc:
-        raise ValueError("github_remote_response_invalid") from exc
+    if view in {"checks", "workflow_logs"}:
+        data: Any = _safe(result.stdout, 24_000)
+    else:
+        try:
+            data = json.loads(result.stdout)
+        except json.JSONDecodeError as exc:
+            raise ValueError("github_remote_response_invalid") from exc
     return {
         "available": True,
         "read_only": True,

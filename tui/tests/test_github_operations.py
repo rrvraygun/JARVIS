@@ -88,7 +88,7 @@ class GitHubOperationWorkflowTests(unittest.TestCase):
                 self.assertEqual(plan["risk"], 2)
                 self.assertIn("one Git network operation", plan["network"])
 
-    def test_remote_github_operations_are_catalogued_but_blocked_without_connector(self) -> None:
+    def test_repository_settings_require_structured_arguments(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             repository = Path(directory) / "project"
             repository.mkdir()
@@ -100,11 +100,10 @@ class GitHubOperationWorkflowTests(unittest.TestCase):
                 "github",
                 "modify_repository_settings",
                 str(repository),
-                {"requested_target": "owner/repo"},
+                {"requested_target": "owner/repo", "visibility": "private"},
             )
-            self.assertIn("github_operation_adapter_not_implemented", plan["blockers"])
-            with self.assertRaises(ValueError):
-                workflow.approve(plan["id"], plan["digest"])
+            self.assertNotIn("github_operation_adapter_not_implemented", plan["blockers"])
+            self.assertEqual(plan["risk"], 4)
 
     def test_clone_uses_ssh_without_requiring_github_cli(self) -> None:
         from jarvis_tui import github_cli

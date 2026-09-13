@@ -23,7 +23,7 @@ las credenciales nunca se copian, muestran ni guardan en el proyecto.
 | --- | --- | --- |
 | github_inspect | Rama, estado, diferencias, historial, rutas ignoradas, conflictos, remotos y versión de Git | Solo lectura |
 | github_preflight | Rutas modificadas e ignoradas, nombres potencialmente sensibles, archivos grandes y conflictos | Solo lectura |
-| github_remote_inspect | Metadatos de repositorios, PR, issues, releases y Actions | Solo lectura; red CLI configurada |
+| github_remote_inspect | Metadatos de repositorios, PR, issues, releases, checks y ejecuciones/logs de Actions | Solo lectura; red CLI configurada |
 | github_operation_plan | Init, clonación, ramas, commit, pull/push, repositorios, issues, PR, release, Actions, borrado y configuración | Solo plan; exige aprobación exacta nueva |
 
 GitHub CLI está instalado y autenticado mediante el protocolo Git SSH del usuario.
@@ -47,7 +47,9 @@ nueva. Un conflicto detiene el flujo; el agente no lo resuelve automáticamente.
    issues, PR, etiquetas y milestones mediante el adaptador CLI acotado, y añadir
    MCP oficial solo cuando aporte contexto de lectura adicional.
 4. CI y releases: checks, logs y reejecuciones de Actions, artefactos, tags y
-   releases con autorización explícita de red y publicación.
+   releases con autorización explícita de red y publicación. Forks, plantillas,
+   etiquetas, milestones, discusiones, ajustes y ramas usan planes CLI
+   estructurados; los ajustes destructivos requieren revisión dedicada.
 5. Endurecimiento: archivos grandes y LFS, protecciones de rama, auditoría,
    recuperación y pruebas de aceptación. El escaneo acotado de patrones de
    secretos por ruta y tipo ya está implementado.

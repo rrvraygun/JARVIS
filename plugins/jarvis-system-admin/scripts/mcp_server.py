@@ -272,7 +272,18 @@ TOOLS = [
             "required": ["repository"],
             "properties": {
                 "repository": {"type": "string"},
-                "view": {"enum": ["repository", "pull_requests", "issues", "runs", "releases"]},
+                "view": {
+                    "enum": [
+                        "repository",
+                        "pull_requests",
+                        "issues",
+                        "runs",
+                        "releases",
+                        "checks",
+                        "workflow_logs",
+                    ]
+                },
+                "reference": {"type": "string"},
             },
             "additionalProperties": False,
         },
@@ -291,6 +302,8 @@ TOOLS = [
                         "initialize_repository",
                         "create_worktree",
                         "clone_repository",
+                        "fork_repository",
+                        "create_from_template",
                         "create_repository",
                         "create_branch",
                         "commit",
@@ -299,6 +312,9 @@ TOOLS = [
                         "create_pull_request",
                         "merge_pull_request",
                         "create_issue",
+                        "create_label",
+                        "create_milestone",
+                        "create_discussion",
                         "create_release",
                         "download_artifact",
                         "rerun_workflow",
@@ -321,6 +337,8 @@ TOOLS = [
                         "set_upstream": {"type": "boolean"},
                         "visibility": {"enum": ["public", "private", "internal"]},
                         "description": {"type": "string"},
+                        "category": {"type": "string"},
+                        "color": {"type": "string"},
                         "push": {"type": "boolean"},
                         "destination": {"type": "string"},
                         "base": {"type": "string"},
@@ -842,7 +860,11 @@ def dispatch(name: str, args: dict[str, Any]) -> dict[str, Any]:
     if name == "github_remote_inspect":
         try:
             return content(
-                github_tools.inspect(args.get("repository"), args.get("view", "repository"))
+                github_tools.inspect(
+                    args.get("repository"),
+                    args.get("view", "repository"),
+                    args.get("reference"),
+                )
             )
         except (OSError, RuntimeError, TypeError, ValueError, TimeoutError):
             return content({"error": "github_remote_inspect_failed", "read_only": True}, True)
