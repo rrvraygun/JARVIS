@@ -295,6 +295,19 @@ TOOLS = [
                     ],
                 },
                 "target": {"type": "string"},
+                "arguments": {
+                    "type": "object",
+                    "properties": {
+                        "branch": {"type": "string"},
+                        "name": {"type": "string"},
+                        "message": {"type": "string"},
+                        "paths": {"type": "array", "items": {"type": "string"}, "maxItems": 100},
+                        "remote": {"type": "string"},
+                        "ref": {"type": "string"},
+                        "set_upstream": {"type": "boolean"},
+                    },
+                    "additionalProperties": False,
+                },
             },
             "additionalProperties": False,
         },
@@ -777,11 +790,14 @@ def dispatch(name: str, args: dict[str, Any]) -> dict[str, Any]:
                 return content(github_tools.github_inspect(root))
             if name == "github_preflight":
                 return content(github_tools.github_preflight(root))
-            return content(
-                github_tools.github_operation_plan(
-                    root, args.get("operation"), args.get("target", "")
-                )
-            )
+            operation = args.get("operation")
+            operation_target = str(Path(root).resolve())
+            arguments = dict(args.get("arguments") or {})
+            if args.get("target") is not None:
+                arguments["requested_target"] = args.get("target")
+            if not isinstance(operation, str) or not isinstance(arguments, dict):
+                return content({"error": "invalid_github_operation_plan"}, True)
+            return content(operations.propose("github", operation, operation_target, arguments))
         except (OSError, RuntimeError, TypeError, ValueError, TimeoutError):
             return content(
                 {
@@ -938,6 +954,8 @@ def call(name: str, args: dict[str, Any]) -> dict[str, Any]:
         "health_logs",
         "development_toolchains",
         "development_project_inspect",
+        "github_inspect",
+        "github_preflight",
         "network_inventory",
         "security_inventory",
         "recovery_inventory",

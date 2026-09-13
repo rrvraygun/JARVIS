@@ -27,6 +27,7 @@ from . import (
     cargo_download,
     configuration_operations,
     dependency_apply,
+    github_operations,
     isolated_execution,
     private_records,
     privileged_operations,
@@ -45,7 +46,7 @@ CARGO_COMMANDS = {
     "fmt": ("fmt", "--all", "--", "--check"),
     "clippy": ("clippy", "--offline", "--locked"),
 }
-DOMAINS = {"development", "health", "network", "security", "recovery"}
+DOMAINS = {"development", "health", "network", "security", "recovery", "github"}
 
 
 def digest(value: Any) -> str:
@@ -395,6 +396,8 @@ class OperationWorkflow:
                     "independent_verifier",
                 ],
             )
+        elif domain == "github":
+            proposal.update(github_operations.prepare(self.bundle, operation, target, args))
         else:
             # High-impact adapter identity must exist before an execution review.
             supported = {
@@ -556,6 +559,11 @@ class OperationWorkflow:
                 value["arguments"]["argv"]
             ) != value.get("argv"):
                 raise ValueError("command_binding_invalid")
+        if value.get("domain") == "github":
+            if value.get("github_operation") not in github_operations.SUPPORTED_OPERATIONS:
+                raise ValueError("github_operation_not_registered")
+            if value.get("target") != str(Path(value["target"]).resolve()):
+                raise ValueError("github_target_not_canonical")
         if "snapshot" in value and value["snapshot"] != str(self.root / "snapshots" / operation_id):
             raise ValueError("snapshot_target_not_bound")
         return value
@@ -657,7 +665,7 @@ class OperationWorkflow:
         }
         privileged = plan["domain"] == "security" and bool(plan.get("privileged_request"))
         if (
-            plan["domain"] != "development"
+            plan["domain"] not in {"development", "github"}
             and not (plan["domain"] == "recovery" and plan["operation"] in {"backup", "restore"})
             and not external
             and not service
@@ -703,20 +711,34 @@ class OperationWorkflow:
                             error=type(exc).__name__,
                         )
             else:
-                if project_snapshot.inspect(Path(plan["target"]))[1] != plan["source_tree"]:
-                    raise ValueError("pre_state_drift")
-                if plan["operation"] == "fetch_dependency":
-                    result.update(self._fetch_dependency(plan))
-                elif plan["operation"] == "apply_dependencies":
-                    result.update(dependency_apply.apply(self.root, plan))
-                elif plan["operation"] in {"dependencies", "backup", "restore"}:
-                    result.update(self._dependencies(plan))
+                if plan["domain"] == "github":
+                    result.update(github_operations.apply(self.bundle, plan))
                 else:
-                    result.update(self._cargo(plan))
-                result["post_state"] = project_snapshot.inspect(Path(plan["target"]))[1]
+                    if project_snapshot.inspect(Path(plan["target"]))[1] != plan["source_tree"]:
+                        raise ValueError("pre_state_drift")
+                    if plan["operation"] == "fetch_dependency":
+                        result.update(self._fetch_dependency(plan))
+                    elif plan["operation"] == "apply_dependencies":
+                        result.update(dependency_apply.apply(self.root, plan))
+                    elif plan["operation"] in {"dependencies", "backup", "restore"}:
+                        result.update(self._dependencies(plan))
+                    else:
+                        result.update(self._cargo(plan))
+                    result["post_state"] = project_snapshot.inspect(Path(plan["target"]))[1]
         except (OSError, ValueError, RuntimeError, subprocess.SubprocessError) as exc:
             result["error"] = type(exc).__name__
         private_records.write_once(self.root / "results", plan["id"] + ".json", sanitized(result))
+        if plan["domain"] == "github":
+            report = github_operations.verify(plan, result)
+            private_records.write_once(self.root / "verification", plan["id"] + ".json", report)
+            result = self.result(plan["id"])
+            try:
+                append_transcript(self.bundle, "operation_result", plan["id"], result)
+            except (OSError, ValueError):
+                result["transcript_status"] = (
+                    "unavailable; durable result and verification remain available"
+                )
+            return result
         verification = bounded_process(
             (
                 "/usr/bin/bwrap",

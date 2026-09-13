@@ -152,9 +152,11 @@ do not inherit previous conversation history.
 - GitHub Agent is selectable in both Agents and Conversation. Its initial tools inspect
   a user-selected repository's local Git state, publication risks, ignored paths,
   conflicts, remotes, likely secret-bearing filenames, and large changed files.
-  It neither reads file contents nor contacts GitHub in this phase. It can prepare
-  but never execute a commit, push, repository, issue, pull-request, release, or
-  Actions operation; each future write needs a fresh exact approval.
+  It neither reads file contents nor contacts GitHub during inspection. It can
+  prepare local init, branch, commit, fast-forward pull, and push operations for
+  the existing one-use TUI review; each write needs a fresh exact approval.
+  Remote repository, issue, pull-request, release, and Actions operations remain
+  plans until their approved GitHub connector is integrated.
 - It supplies bounded host-inspection evidence to a conversation request. The
   model receives formatted evidence, not terminal or root access.
 

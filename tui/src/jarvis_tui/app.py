@@ -3921,6 +3921,7 @@ class JarvisTui(App[None]):
             self._agent_delta_count = 0
             if event.text:
                 self._ingest_agent_power_draft(event.text)
+                self._ingest_agent_github_plan(event.text)
                 if self._agent_requested_power_activation(event.text):
                     self.run_worker(
                         self._review_agent_power_activation(),
@@ -4046,6 +4047,40 @@ class JarvisTui(App[None]):
         except (KeyError, TypeError, ValueError, json.JSONDecodeError):
             self._system_message(
                 "Power Expert draft marker was rejected; no configuration was staged."
+            )
+
+    def _ingest_agent_github_plan(self, text: str) -> None:
+        """Open one exact GitHub operation review emitted by GitHub Agent."""
+        match = re.search(
+            r"<jarvis_github_operation_plan>(.*?)</jarvis_github_operation_plan>",
+            text,
+            flags=re.DOTALL,
+        )
+        if match is None:
+            return
+        try:
+            payload = json.loads(match.group(1))
+            operation_id = payload.get("operation_id") or payload.get("id")
+            if not isinstance(operation_id, str):
+                raise ValueError("operation_id_missing")
+            plan = self.operation_workflow.load(operation_id)
+            if plan.get("domain") != "github":
+                raise ValueError("operation_domain_mismatch")
+            if (
+                self._active_specialist is None
+                or self._active_specialist.id != "jarvis-github-agent"
+                or plan.get("target") != str(self.bundle_root.resolve())
+            ):
+                raise ValueError("operation_scope_mismatch")
+            self.push_screen(
+                OperationReview(plan),
+                lambda decision, operation_id=operation_id: self._operation_decision(
+                    operation_id, decision
+                ),
+            )
+        except (OSError, TypeError, ValueError, json.JSONDecodeError):
+            self._system_message(
+                "GitHub operation plan marker was rejected; no repository change was staged."
             )
 
     async def _review_agent_power_activation(self) -> None:
