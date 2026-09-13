@@ -97,13 +97,13 @@ class GitHubOperationWorkflowTests(unittest.TestCase):
             )
             workflow = OperationWorkflow(Path(directory))
             plan = workflow.propose(
-                "github", "create_pull_request", str(repository), {"requested_target": "owner/repo"}
+                "github",
+                "modify_repository_settings",
+                str(repository),
+                {"requested_target": "owner/repo"},
             )
-            self.assertIn("github_connector_not_integrated", plan["blockers"])
-            self.assertEqual(
-                plan["network"],
-                "GitHub connector or GitHub CLI required; no remote request was made.",
-            )
+            self.assertIn("github_cli_unavailable", plan["blockers"])
+            self.assertIn("github_operation_adapter_not_implemented", plan["blockers"])
             with self.assertRaises(ValueError):
                 workflow.approve(plan["id"], plan["digest"])
 

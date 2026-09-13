@@ -9,6 +9,8 @@ import subprocess
 from pathlib import Path
 from typing import Any
 
+from . import github_cli
+
 MAX_MESSAGE_CHARS = 500
 MAX_PATHS = 100
 BRANCH_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._/-]{0,199}$")
@@ -39,22 +41,7 @@ SUPPORTED_OPERATIONS = frozenset(
         "delete_repository",
     }
 )
-REMOTE_CONNECTOR_OPERATIONS = frozenset(
-    {
-        "clone_repository",
-        "create_repository",
-        "create_pull_request",
-        "merge_pull_request",
-        "create_issue",
-        "create_release",
-        "download_artifact",
-        "rerun_workflow",
-        "delete_branch",
-        "force_push",
-        "modify_repository_settings",
-        "delete_repository",
-    }
-)
+REMOTE_CONNECTOR_OPERATIONS = github_cli.REMOTE_OPERATIONS
 
 
 def _run(root: Path, argv: list[str], *, timeout: int = 30) -> subprocess.CompletedProcess[str]:
@@ -176,17 +163,7 @@ def prepare(bundle: Path, operation: str, target: str, arguments: dict[str, Any]
         "requested_target": requested_target,
     }
     if operation in REMOTE_CONNECTOR_OPERATIONS:
-        proposal.update(
-            network="GitHub connector or GitHub CLI required; no remote request was made.",
-            privilege="current-user GitHub profile",
-            risk=3
-            if operation in {"delete_repository", "force_push", "modify_repository_settings"}
-            else 2,
-            expected_effect=f"Prepare the exact {operation} request for a later approved GitHub connector.",
-            rollback="The connector is not integrated in this phase; no remote state has changed.",
-            blockers=["github_connector_not_integrated"],
-            postconditions=["remote_operation_receipt"],
-        )
+        proposal.update(github_cli.prepare(operation, str(root), requested_target, args))
     elif operation == "initialize_repository":
         if args:
             branch = _name(args.pop("branch", "main"), BRANCH_RE, "github_branch_invalid")
@@ -276,6 +253,8 @@ def apply(bundle: Path, plan: dict[str, Any]) -> dict[str, Any]:
     ) != plan.get("pre_state"):
         raise ValueError("github_pre_state_drift")
     operation = plan.get("github_operation")
+    if operation in github_cli.REMOTE_OPERATIONS:
+        return github_cli.execute(plan)
     if operation == "commit":
         paths = plan.get("commit_paths")
         staged = _run(root, ["/usr/bin/git", "add", "--", *paths], timeout=15)
@@ -298,6 +277,8 @@ def apply(bundle: Path, plan: dict[str, Any]) -> dict[str, Any]:
 
 
 def verify(plan: dict[str, Any], result: dict[str, Any]) -> dict[str, Any]:
+    if plan.get("github_operation") in github_cli.REMOTE_OPERATIONS:
+        return github_cli.verify(plan, result)
     passed = result.get("status") == "completed" and result.get("exit_code") == 0
     return {
         "verdict": "pass" if passed else "fail",
