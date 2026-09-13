@@ -38,6 +38,8 @@ Every code-changing session updates its session record. Update current contracts
 when behavior changes, regenerate the inventory when source membership changes,
 and run the documentation/manifest checks before completion.
 
+- GitHub Agent implementation plan: github-agent-implementation-plan.md
+
 ## Language versions
 
 The English documentation in this tree is the primary version. A parallel Spanish

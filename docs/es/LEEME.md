@@ -28,6 +28,7 @@ español para que las rutas y el contenido coincidan.
 - [Despliegue directo y recuperación](despliegue-directo-anfitrion-y-recuperacion.md)
 - [Conjunto de recuperación R2](conjunto-recuperacion-sistema-r2.md)
 - [Manual operativo](manual-operativo.md)
+- [Plan de implementación de GitHub Agent](plan-implementacion-github.md)
 
 ## Registros de evolución
 
