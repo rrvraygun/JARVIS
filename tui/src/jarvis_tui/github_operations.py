@@ -23,6 +23,7 @@ SENSITIVE_SUFFIXES = (".key", ".pem", ".p12", ".pfx")
 SUPPORTED_OPERATIONS = frozenset(
     {
         "initialize_repository",
+        "create_worktree",
         "clone_repository",
         "create_repository",
         "create_branch",
@@ -189,6 +190,26 @@ def prepare(bundle: Path, operation: str, target: str, arguments: dict[str, Any]
             argv=["/usr/bin/git", "switch", "-c", branch],
             expected_effect=f"Create and select local branch {branch}.",
             postconditions=["branch_selected", "repository_state_recorded"],
+        )
+    elif operation == "create_worktree":
+        destination = Path(arguments.get("destination", "")).expanduser()
+        if (
+            not destination.is_absolute()
+            or destination.exists()
+            or destination.is_symlink()
+            or not destination.parent.is_dir()
+            or destination.parent.is_symlink()
+        ):
+            raise ValueError("github_worktree_destination_invalid")
+        ref = _name(arguments.get("ref", "HEAD"), REF_RE, "github_worktree_ref_invalid")
+        if args.pop("destination", None) is None or args.pop("ref", None) is None:
+            raise ValueError("github_worktree_arguments_invalid")
+        if args:
+            raise ValueError("github_worktree_arguments_invalid")
+        proposal.update(
+            argv=["/usr/bin/git", "worktree", "add", str(destination), ref],
+            expected_effect=f"Create one isolated worktree at {destination} from {ref}.",
+            postconditions=["worktree_created", "repository_state_recorded"],
         )
     elif operation == "commit":
         message = args.pop("message", "")

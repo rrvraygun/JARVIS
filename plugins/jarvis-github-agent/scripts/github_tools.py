@@ -37,6 +37,7 @@ SECRET_PATTERNS = (
 OPERATIONS = frozenset(
     {
         "initialize_repository",
+        "create_worktree",
         "clone_repository",
         "create_repository",
         "create_branch",

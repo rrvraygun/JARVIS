@@ -39,9 +39,9 @@ workflow; the agent does not resolve them automatically.
 ## Delivery phases
 
 1. Inspection: complete. Local status, preflight and exact plan tools are live.
-2. Local Git actions: init, clone over SSH, branch, commit, fast-forward pull,
-   and push are implemented behind the existing one-use TUI review. Worktree
-   execution remains next in this phase.
+2. Local Git actions: init, clone over SSH, branch, worktree, commit,
+   fast-forward pull, and push are implemented behind the existing one-use TUI
+   review.
 3. GitHub repository actions: enable the guarded GitHub CLI/API or official MCP
    adapter for repository creation, forks, templates, issues, PRs, labels and
    milestones after the connector is installed and independently checked.

@@ -40,8 +40,8 @@ nueva. Un conflicto detiene el flujo; el agente no lo resuelve automáticamente.
 ## Fases de entrega
 
 1. Inspección: completada.
-2. Acciones Git locales: init, clonación por SSH, ramas, commit, pull rápido y
-   push detrás de la revisión TUI de un solo uso. Los worktrees quedan siguientes.
+2. Acciones Git locales: init, clonación por SSH, ramas, worktrees, commit, pull
+   rápido y push detrás de la revisión TUI de un solo uso.
 3. Acciones de repositorio GitHub: habilitar el adaptador GitHub CLI/API acotado o
    MCP oficial para repositorios, forks, plantillas, issues, PR, etiquetas y
    milestones después de instalarlo y comprobarlo de forma independiente.

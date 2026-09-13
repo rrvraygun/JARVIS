@@ -10,9 +10,9 @@ time where the source record supplied local timestamps.
 - GitHub Agent, selectable in Agents and Conversation, with bounded local Git
   inspection, publication preflight, and exact operation plans.
 - Exact GitHub Agent plans can open the existing one-use TUI review for local
-  repository initialization, branch creation, commits, fast-forward pulls, and
-  pushes. Remote GitHub API operations remain plan-only until their connector is
-  integrated.
+  repository initialization, SSH cloning, branch/worktree creation, commits,
+  fast-forward pulls, and pushes. Remote GitHub API operations remain plan-only
+  until their connector is integrated.
 - A guarded GitHub CLI adapter with structured validation for repositories, PRs,
   issues, releases, Actions artifacts and reruns; unavailable connectors fail
   closed without a remote request.

@@ -122,6 +122,25 @@ class GitHubOperationWorkflowTests(unittest.TestCase):
         self.assertEqual(plan["argv"][:3], ["/usr/bin/git", "clone", "--"])
         self.assertEqual(plan["blockers"], [])
 
+    def test_worktree_plan_is_local_and_exact(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            repository = Path(directory) / "project"
+            repository.mkdir()
+            subprocess.run(
+                ["/usr/bin/git", "init", str(repository)], check=True, capture_output=True
+            )
+            destination = Path(directory) / "worktree"
+            workflow = OperationWorkflow(Path(directory))
+            plan = workflow.propose(
+                "github",
+                "create_worktree",
+                str(repository),
+                {"destination": str(destination), "ref": "HEAD"},
+            )
+
+        self.assertEqual(plan["network"], "denied")
+        self.assertIn("worktree", plan["argv"])
+
 
 if __name__ == "__main__":
     unittest.main()

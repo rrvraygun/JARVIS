@@ -276,6 +276,7 @@ TOOLS = [
                     "type": "string",
                     "enum": [
                         "initialize_repository",
+                        "create_worktree",
                         "clone_repository",
                         "create_repository",
                         "create_branch",
