@@ -18,6 +18,8 @@ time where the source record supplied local timestamps.
   closed without a remote request.
 - Read-only remote inspection for repository, pull-request, issue, release, and
   Actions metadata through bounded `gh` JSON queries.
+- Acceptance tests cover agent registration, MCP command allowlists, remote
+  readback verification, and sensitive/binary/large-file publication blocking.
 - English is now the primary documentation language. A mirrored Spanish
   documentation tree is available under `docs/es/`.
 - Clean domain views for Health, Development, Network, Security and Recovery,

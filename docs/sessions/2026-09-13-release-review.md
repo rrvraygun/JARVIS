@@ -17,6 +17,8 @@ virtual environments and Python caches remain excluded from publication.
 - Normal terminal, Cargo isolation, package inspection and reviewed privileged
   helper contracts.
 - Live activity and streaming projection with sanitized tool metadata.
+- GitHub Agent with local and remote read-only inspection, structured operation
+  plans, exact-review execution, and bounded publication preflight.
 
 ## Documentation policy
 
@@ -34,11 +36,13 @@ historical rather than silently deleted.
 - Ruff, generated inventory, documentation checks and release manifest passed.
 - Final root inventory: 832 files; runtime/staged candidate inventory remains
   separately tracked and is not part of the GitHub publication tree.
+- GitHub Agent acceptance suite: 17 focused tests, including MCP command
+  allowlists, remote readback, and publication-risk blocking.
 
 ## Publication prerequisites
 
-The workspace contains an empty `.git` directory, so no reliable commit diff or
-remote can be generated here. Before pushing to GitHub, initialize a fresh Git
-repository, review `CHANGELOG.md`, inspect the complete diff, and ensure runtime
-and credential paths remain ignored. Privileged installation and real package or
-boot mutations remain separately gated; this review does not certify them.
+The workspace uses an SSH-authenticated GitHub remote. The current local branch
+contains unpublished GitHub Agent commits. Before pushing, review the complete
+diff and ensure runtime and credential paths remain ignored. Privileged
+installation and real package or boot mutations remain separately gated; this
+review does not certify them.

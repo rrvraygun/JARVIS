@@ -52,9 +52,10 @@ workflow; the agent does not resolve them automatically.
    templates, labels, milestones, discussions, settings, and branch operations
    use structured CLI plans; destructive settings still require dedicated review.
 5. Hardening and acceptance: large-file, binary/archive, LFS, workflow, README,
-   license, and bounded secret-pattern checks are implemented. Remaining work is
-   branch-protection coverage, audit projections, rollback records, and full
-   acceptance tests.
+   license, and bounded secret-pattern checks are implemented. Acceptance tests
+   now cover registration, MCP read-only commands, remote readback, and blocking
+   publication risks. Remaining work is branch-protection coverage, audit
+   projections, rollback records, and user-approved live acceptance.
 
 ## Acceptance criteria
 

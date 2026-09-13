@@ -52,7 +52,9 @@ nueva. Un conflicto detiene el flujo; el agente no lo resuelve automáticamente.
    estructurados; los ajustes destructivos requieren revisión dedicada.
 5. Endurecimiento: controles de archivos grandes, binarios/archivos comprimidos,
    LFS, workflows, README, licencia y patrones de secretos ya están implementados.
-   Quedan protecciones de rama, auditoría, recuperación y pruebas de aceptación.
+   Las pruebas de aceptación cubren registro, comandos MCP de solo lectura,
+   lectura posterior remota y bloqueo de riesgos de publicación. Quedan
+   protecciones de rama, auditoría, recuperación y aceptación en vivo aprobada.
 
 ## Criterios de aceptación
 
