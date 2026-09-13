@@ -20,6 +20,7 @@ class SpecialistTests(unittest.TestCase):
         self.assertIn("jarvis-system-architect", ids)
         self.assertIn("jarvis-power-expert", ids)
         self.assertIn("jarvis-installation-specialist", ids)
+        self.assertIn("jarvis-github-agent", ids)
 
     def test_registry_exposes_only_user_selectable_initial_agents(self) -> None:
         registry = AgentRegistry(ROOT.parent)
@@ -34,6 +35,7 @@ class SpecialistTests(unittest.TestCase):
                 "jarvis-network-specialist",
                 "jarvis-recovery-specialist",
                 "jarvis-security-specialist",
+                "jarvis-github-agent",
             },
         )
 

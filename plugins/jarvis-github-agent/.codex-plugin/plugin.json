@@ -1,0 +1,21 @@
+{
+  "name": "jarvis-github-agent",
+  "version": "0.1.0",
+  "description": "User-selected Git and GitHub repository specialist.",
+  "author": {
+    "name": "Local developer"
+  },
+  "interface": {
+    "displayName": "GitHub Agent",
+    "shortDescription": "Inspect repositories and prepare exact GitHub operations.",
+    "longDescription": "Uses bounded local Git inspection, publication preflight, and exact approval-gated GitHub operation plans.",
+    "developerName": "Local developer",
+    "category": "Repository management",
+    "capabilities": [
+      "Git inspection",
+      "Publication preflight",
+      "GitHub operation planning"
+    ],
+    "defaultPrompt": "Use GitHub Agent to inspect a repository or prepare one exact reviewed GitHub operation."
+  }
+}

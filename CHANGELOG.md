@@ -7,6 +7,8 @@ time where the source record supplied local timestamps.
 
 ### Added
 
+- GitHub Agent, selectable in Agents and Conversation, with bounded local Git
+  inspection, publication preflight, and non-executable GitHub operation plans.
 - English is now the primary documentation language. A mirrored Spanish
   documentation tree is available under `docs/es/`.
 - Clean domain views for Health, Development, Network, Security and Recovery,

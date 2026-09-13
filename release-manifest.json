@@ -7,8 +7,8 @@
     },
     {
       "path": ".git/COMMIT_EDITMSG",
-      "sha256": "52c7bfeb8decad8cf57bcf8af49001468d41f8a1179cbb3ed3f0b69ac42d13b6",
-      "size": 40
+      "sha256": "8eab44ff4fe62e98dfcd7bdba224fbaa7c1d3ef5abbd43f3b92a5e4af270453a",
+      "size": 37
     },
     {
       "path": ".git/HEAD",
@@ -97,7 +97,7 @@
     },
     {
       "path": ".git/index",
-      "sha256": "6678baaf16d086ddda284a14a29a228e18187dde5bfe37b113393fb1a71a164a",
+      "sha256": "3cad5ebff17726c606614ccbef59332d933ef9fb949edf96691fae8adf78fb29",
       "size": 113115
     },
     {
@@ -112,18 +112,23 @@
     },
     {
       "path": ".git/logs/HEAD",
-      "sha256": "342a0d54c17e738d15c7311fc62e99b7d4dc37d8f36a1f07e9b9d66b163f8d3d",
-      "size": 1269
+      "sha256": "4aff5f5427360c4eab453a0b2892fa122626f6fcf2e3c67f8dfe50c83e23b026",
+      "size": 1446
     },
     {
       "path": ".git/logs/refs/heads/main",
-      "sha256": "e5f83fb600286adce7ce1b31117c15fb458fc020212e1b62290958fe583eb859",
-      "size": 901
+      "sha256": "cb1e20300b04de744221602ec8fd14c975060477b651054e7eef5a033a3a297f",
+      "size": 1078
     },
     {
       "path": ".git/logs/refs/remotes/origin/main",
-      "sha256": "bb1e850e72edaba8e45aba5bec57c00a4ec9abb25756f825535888cd56146181",
-      "size": 441
+      "sha256": "87f286919fed3e39e08f0268879611bd6e3fae7473664fcfcf6c4d07eeb2cc28",
+      "size": 588
+    },
+    {
+      "path": ".git/objects/00/99c5625adcedc16ebd8fe567d1b00ed7282977",
+      "sha256": "ff6dfb367ef347872ef280016473558142c50459c81e7aa87e09ee7abab1131a",
+      "size": 2187
     },
     {
       "path": ".git/objects/03/6560a7ef5e0951c92d9d619adc9ee31abda7a8",
@@ -154,6 +159,11 @@
       "path": ".git/objects/0f/2b42b18d2633ceb37efa57a246160e00ae0f2d",
       "sha256": "7c684dbb8c901b4c5489ef221fb9937b527053437e2ed9982757ae9bf16e6469",
       "size": 4919
+    },
+    {
+      "path": ".git/objects/12/b8bddddd5399d3a087c0ad6b104a8128656b76",
+      "sha256": "c97a4498613739a4f6e0dc5821e325aba18bfba004b3f556b42d791cd8c7c0e1",
+      "size": 59698
     },
     {
       "path": ".git/objects/18/1993e5930a2f37f4580e6bd504ac1cd1511cb1",
@@ -201,6 +211,11 @@
       "size": 7150
     },
     {
+      "path": ".git/objects/31/2b1b9c779654f593b5114b5d444e0ab1841da7",
+      "sha256": "bbcd4673cafc65368637c1143399dc9d6096fb74d6f051bf66ec152732a19ec2",
+      "size": 6534
+    },
+    {
       "path": ".git/objects/37/9d6122753de92f9f45bd0d1b73ad376d45e439",
       "sha256": "4ad70a05cd1bde82ad14f30b57e1f057d77ee7dc0468aa00f8dd2ef25943cbf3",
       "size": 9649
@@ -214,6 +229,11 @@
       "path": ".git/objects/3b/79824b1a19db9e3a2d1f3e045166357b008fa6",
       "sha256": "dd9a94ee2d7ef9e347b305d03013126e801faa0ed87ca3c98f1a65ca2855e664",
       "size": 186
+    },
+    {
+      "path": ".git/objects/3c/018687a479f14ea1eb498437285f406d8712ae",
+      "sha256": "37950718b4e86bdcfa40cf92049c888591782a05f8393faac9a8bf3f3631bf24",
+      "size": 2010
     },
     {
       "path": ".git/objects/3c/963b5274eff8a2987a03056279d8e3db295274",
@@ -526,6 +546,11 @@
       "size": 2354
     },
     {
+      "path": ".git/objects/be/284498d9b1897591b2bdc6c8f4f134f8535586",
+      "sha256": "a0e4ded2cba1da6faeabbb4d8cbfecc2cdda6ce2fb97c53d8b4a01afe934c314",
+      "size": 834
+    },
+    {
       "path": ".git/objects/be/607dd7c073702a157cdc55ab4794e9f5167209",
       "sha256": "44dc7f5ab0f058d8d906ca40217f832ffdafc082cdead1a7c8a9c7a2600bef02",
       "size": 659
@@ -559,6 +584,11 @@
       "path": ".git/objects/c3/5ffb08ba869a35c3ad36f1292252b32ca24ecd",
       "sha256": "43213b17d6ccdb1e65f00da8457302e9d19de63f269edcf66d7b702f3870e865",
       "size": 2296
+    },
+    {
+      "path": ".git/objects/c7/090b9cb52feafaacfcbd0da3fcc51b633322ec",
+      "sha256": "b5c94f56b59b9e62c2ab84dd692b768fc46ebaf80ba595dc30eef36217218ce9",
+      "size": 178
     },
     {
       "path": ".git/objects/c8/68485b29cdfc453d840c7d6e7332a33f34f770",
@@ -721,23 +751,23 @@
       "size": 3932
     },
     {
-      "path": ".git/refs/codex/turn-diffs/captures/1789293912579/4ce59e28-100a-44a9-891d-7456356b25e6/base",
-      "sha256": "cea5ec128f6653429f8f9560fc433cd1487f531109ee8aba1e3e067e34f8048e",
+      "path": ".git/refs/codex/turn-diffs/captures/1789304035967/6ab9ab78-c459-4284-82d6-d3dc3c518d61/base",
+      "sha256": "3bbf18b16a4af1dae9ea06d422ed9525d68093e8677d65fe6a95a0c20f5e467e",
       "size": 41
     },
     {
-      "path": ".git/refs/codex/turn-diffs/checkpoints/2616047e588821dcd1dca9e4f7f67e33785b03053cf8c9eb3298f61120fdd499/743aea18a026770441643496fbb8e817325671020add5a88a353d63069a96014/1789293891176/7b22d9c1-e865-44cb-b6ae-1e57affbbd8f",
-      "sha256": "cea5ec128f6653429f8f9560fc433cd1487f531109ee8aba1e3e067e34f8048e",
+      "path": ".git/refs/codex/turn-diffs/checkpoints/2616047e588821dcd1dca9e4f7f67e33785b03053cf8c9eb3298f61120fdd499/8790fe850df530b7755dc2b2a20cba7eb33cef0bd5ac638610ca35e717e23531/1789295941384/4ca23601-a7d6-42f8-81b1-72c279447cef",
+      "sha256": "3bbf18b16a4af1dae9ea06d422ed9525d68093e8677d65fe6a95a0c20f5e467e",
       "size": 41
     },
     {
       "path": ".git/refs/heads/main",
-      "sha256": "63ad256acc4f36013dbbcfea6b6810bc7500839358b5806a4267226be72ae9bc",
+      "sha256": "c6320a1e31b6fb8f8610d93039fc878374239a756cc0f17e1e1c8a377d2b49fe",
       "size": 41
     },
     {
       "path": ".git/refs/remotes/origin/main",
-      "sha256": "63ad256acc4f36013dbbcfea6b6810bc7500839358b5806a4267226be72ae9bc",
+      "sha256": "c6320a1e31b6fb8f8610d93039fc878374239a756cc0f17e1e1c8a377d2b49fe",
       "size": 41
     },
     {
@@ -752,8 +782,8 @@
     },
     {
       "path": "CHANGELOG.md",
-      "sha256": "68ab38cf2ff58f0d8d421c0ec28e4bc32aa945f2d9d6e128876d8a43ea0c12a7",
-      "size": 3683
+      "sha256": "6d171837bd816228e68d5bc80164cacf73f4ca18fbbdc163c8bf274faa24da1c",
+      "size": 3841
     },
     {
       "path": "JARVIS-UPDATE-AND-STARTUP-GUIDE.md",
@@ -1202,8 +1232,8 @@
     },
     {
       "path": "docs/current-product-state.md",
-      "sha256": "4a2632d1264971137afdabb80fc8bc845171f218b5f11ba44d86eda80d891a4f",
-      "size": 23075
+      "sha256": "a8dd1f32e6062a9c501fe01096d5126fb6ed2dffa13ce9943eec17862e93ea4b",
+      "size": 23775
     },
     {
       "path": "docs/data-lifecycle.md",
@@ -1242,8 +1272,8 @@
     },
     {
       "path": "docs/es/REGISTRO-DE-CAMBIOS.md",
-      "sha256": "a8a570a776748beba998285175a414d9e5f6a2cd84af969b7290c0061a933ff3",
-      "size": 4540
+      "sha256": "db80f2b9988bb553cd3e76dbd7a8698b1b2cd59f2fe31924a7ef3ee1adbc5eeb",
+      "size": 4705
     },
     {
       "path": "docs/es/VALIDACION.md",
@@ -1357,8 +1387,8 @@
     },
     {
       "path": "docs/es/estado-actual-producto.md",
-      "sha256": "d3302e6ebf725df4b0ff071686aa897075e78357066c693500f85b3c1ad53a70",
-      "size": 28504
+      "sha256": "b3f233dacde5ff927fe50155722c5c81a247078855a17794536e8b9dbf5e7337",
+      "size": 29298
     },
     {
       "path": "docs/es/evaluacion.md",
@@ -1582,8 +1612,8 @@
     },
     {
       "path": "docs/generated/codebase-inventory.md",
-      "sha256": "1d219421cf739073fafd6fa79afb99537322a9bfd2b3a0a561e8f09025610976",
-      "size": 2336
+      "sha256": "446442f4b16f2d38892a71abbbc1e3070442889faa4727b386c2180e95bf8062",
+      "size": 2337
     },
     {
       "path": "docs/governed-operations.md",
@@ -1869,6 +1899,21 @@
       "path": "plugins/jarvis-cargo-builder/specialist.json",
       "sha256": "aef06938c164f0afa0a30162021ce255f3c6115a05955406d9d7fd7b140db129",
       "size": 2227
+    },
+    {
+      "path": "plugins/jarvis-github-agent/.codex-plugin/plugin.json",
+      "sha256": "88bb1606f1009cf534d34258d1c751058a73158442dce8965d2d18a17cae931c",
+      "size": 765
+    },
+    {
+      "path": "plugins/jarvis-github-agent/scripts/github_tools.py",
+      "sha256": "b207ee3a86d8b2d92e3d1ce2f849b0827af0d6e80d0e07f0ab5cfac5fbbace7a",
+      "size": 9131
+    },
+    {
+      "path": "plugins/jarvis-github-agent/specialist.json",
+      "sha256": "cd8970684a16c53ea9ee6f44794b1db8a221b299e2da9c7f95d1b050243c5aa4",
+      "size": 1943
     },
     {
       "path": "plugins/jarvis-installation-specialist/.codex-plugin/plugin.json",
@@ -2267,8 +2312,8 @@
     },
     {
       "path": "plugins/jarvis-system-admin/scripts/mcp_server.py",
-      "sha256": "9ac6c130211140c27563aeae8957182faf3c4af4869fa419362b639f881fb992",
-      "size": 39089
+      "sha256": "4ad69160503845ad8f3a9d8248a617e9af8f79cc731ed4b706738f7c9cda965c",
+      "size": 42595
     },
     {
       "path": "plugins/jarvis-system-admin/scripts/schema_validate.py",
@@ -2362,8 +2407,8 @@
     },
     {
       "path": "plugins/jarvis-system-admin/tests/test_mcp_server.py",
-      "sha256": "e7d764155a06045eca6a977d82206b5675f4d6ec999d0c1a8900e022b5d891c1",
-      "size": 3616
+      "sha256": "2ed1dabe958d2b1bdf5258d6f0ab2d4815b1fe386dbbda94e12bd2a80437dae2",
+      "size": 3703
     },
     {
       "path": "plugins/jarvis-system-architect/.codex-plugin/plugin.json",
@@ -2862,8 +2907,8 @@
     },
     {
       "path": "tui/src/jarvis_tui/session.py",
-      "sha256": "88571f2638c7dd448c6db3adccd96bc4420a2670c731e083dafe76716f5797cf",
-      "size": 65683
+      "sha256": "9daa88f7a70c578f496d23348ee99529f0f8b0a4fb0d84b83daff9bbea3c46c6",
+      "size": 65766
     },
     {
       "path": "tui/src/jarvis_tui/specialist_factory.py",
@@ -2872,8 +2917,8 @@
     },
     {
       "path": "tui/src/jarvis_tui/specialists.py",
-      "sha256": "4967bcee02b81f6fbd367d2f24aabb790c48f1472b07fe0352b935920a08f398",
-      "size": 9985
+      "sha256": "28269fbfd14bb0e46866e8f08e390de209b1b4a3b1105182bb7c12826087a127",
+      "size": 10072
     },
     {
       "path": "tui/src/jarvis_tui/terminal_safety.py",
@@ -3019,6 +3064,11 @@
       "path": "tui/tests/test_extended_tools.py",
       "sha256": "b3de9a4595eddf92921fead207c553fe21acbe3b229f6f96538437227e8ceeda",
       "size": 1377
+    },
+    {
+      "path": "tui/tests/test_github_tools.py",
+      "sha256": "70c6c8906930bfcd45188a30512dc53851bc920212dc62a98fd906d3595a9599",
+      "size": 2742
     },
     {
       "path": "tui/tests/test_governed_operations.py",
@@ -3167,8 +3217,8 @@
     },
     {
       "path": "tui/tests/test_specialists.py",
-      "sha256": "c825912508bde2e3e503b75c41c37acce97f22f44b3576ee769453941bc878ea",
-      "size": 2728
+      "sha256": "5432d5b0ef36bf7aa4d42e644623d5eb14f324a1af7fad67c889cb594bc1eab2",
+      "size": 2817
     },
     {
       "path": "tui/tests/test_terminal_safety.py",

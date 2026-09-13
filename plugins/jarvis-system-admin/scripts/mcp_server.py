@@ -40,6 +40,12 @@ extended_spec = importlib.util.spec_from_file_location(
 extended_tools = importlib.util.module_from_spec(extended_spec)
 assert extended_spec.loader
 extended_spec.loader.exec_module(extended_tools)
+github_spec = importlib.util.spec_from_file_location(
+    "github_tools", ROOT.parent / "jarvis-github-agent/scripts/github_tools.py"
+)
+github_tools = importlib.util.module_from_spec(github_spec)
+assert github_spec.loader
+github_spec.loader.exec_module(github_tools)
 sys.path.insert(0, str(ROOT.parent.parent / "tui/src"))
 from jarvis_tui import private_records  # noqa: E402
 from jarvis_tui.local_control import ReadOnlyLocalControl  # noqa: E402
@@ -235,6 +241,61 @@ TOOLS = [
             "type": "object",
             "required": ["project_root"],
             "properties": {"project_root": {"type": "string"}},
+            "additionalProperties": False,
+        },
+    },
+    {
+        "name": "github_inspect",
+        "description": "Inspect bounded local Git status, branch, diffs, ignored paths, conflicts, recent commits, and remotes. Read-only; no GitHub network access.",
+        "inputSchema": {
+            "type": "object",
+            "required": ["project_root"],
+            "properties": {"project_root": {"type": "string"}},
+            "additionalProperties": False,
+        },
+    },
+    {
+        "name": "github_preflight",
+        "description": "Inspect local publication risks: conflicts, changed paths, likely secret-bearing filenames, and large files. Read-only; file contents and GitHub network access are excluded.",
+        "inputSchema": {
+            "type": "object",
+            "required": ["project_root"],
+            "properties": {"project_root": {"type": "string"}},
+            "additionalProperties": False,
+        },
+    },
+    {
+        "name": "github_operation_plan",
+        "description": "Prepare one exact GitHub operation plan. It never executes, contacts GitHub, commits, pushes, merges, creates repositories, or changes settings.",
+        "inputSchema": {
+            "type": "object",
+            "required": ["project_root", "operation"],
+            "properties": {
+                "project_root": {"type": "string"},
+                "operation": {
+                    "type": "string",
+                    "enum": [
+                        "initialize_repository",
+                        "clone_repository",
+                        "create_repository",
+                        "create_branch",
+                        "commit",
+                        "pull",
+                        "push",
+                        "create_pull_request",
+                        "merge_pull_request",
+                        "create_issue",
+                        "create_release",
+                        "download_artifact",
+                        "rerun_workflow",
+                        "delete_branch",
+                        "force_push",
+                        "modify_repository_settings",
+                        "delete_repository",
+                    ],
+                },
+                "target": {"type": "string"},
+            },
             "additionalProperties": False,
         },
     },
@@ -609,7 +670,13 @@ def dispatch(name: str, args: dict[str, Any]) -> dict[str, Any]:
 
     project_target = (
         args.get("project_root")
-        if name == "development_project_inspect"
+        if name
+        in {
+            "development_project_inspect",
+            "github_inspect",
+            "github_preflight",
+            "github_operation_plan",
+        }
         else args.get("target")
         if name == "operation_plan" and args.get("domain") in {"development", "recovery"}
         else None
@@ -703,6 +770,26 @@ def dispatch(name: str, args: dict[str, Any]) -> dict[str, Any]:
             return content(health_tools.development_project_inspect(root))
         except (OSError, RuntimeError, TypeError, ValueError, TimeoutError):
             return content({"error": "development_project_inspect_failed", "read_only": True}, True)
+    if name in {"github_inspect", "github_preflight", "github_operation_plan"}:
+        root = args.get("project_root")
+        try:
+            if name == "github_inspect":
+                return content(github_tools.github_inspect(root))
+            if name == "github_preflight":
+                return content(github_tools.github_preflight(root))
+            return content(
+                github_tools.github_operation_plan(
+                    root, args.get("operation"), args.get("target", "")
+                )
+            )
+        except (OSError, RuntimeError, TypeError, ValueError, TimeoutError):
+            return content(
+                {
+                    "error": f"{name}_failed",
+                    "read_only": name != "github_operation_plan",
+                },
+                True,
+            )
     if name in {"package_catalog", "package_search", "inspect_packages"}:
         query = args.get("query", "")
         if not isinstance(query, str) or len(query) > 500:

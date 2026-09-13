@@ -39,6 +39,7 @@ la puerta de liberación completa sigue siendo `./scripts/validate-bundle.sh`.
 | Inventario/control de energía | `tui/src/jarvis_tui/power_inventory.py`, `power_profiles.py`, `power_profile_results.py`, `power_control_client.py`, `vm-lab/scripts/jarvis_power_control.py`, `plugins/jarvis-power-expert/scripts/power_tools.py` | Recomendaciones de energía impulsadas por agentes a través de herramientas MCP escritas, topología/telemetría desinfectadas, planificación persistente de perfiles de CA/batería, mutaciones de control único/perfiles atómicos incluidos por separado y comparaciones de aplicaciones verificadas vinculadas a resumen sincronizadas con Conversation. |
 | Controles de iluminación | `tui/src/jarvis_tui/lighting_controls.py`, `lighting_widgets.py` | Detección de conductores, vista previa y rutas de iluminación registradas. |
 | Especialistas | `plugins/*/specialist.json`, `tui/src/jarvis_tui/specialists.py`, `tui/src/jarvis_tui/agent_registry.py` | Especialistas seleccionados por el usuario, definiciones validadas, selección persistente y anulaciones activas exclusivas del propietario. |
+| GitHub Agent | `plugins/jarvis-github-agent/`, `plugins/jarvis-system-admin/scripts/mcp_server.py` | Inspección Git local acotada, preflight de publicación y planificación no ejecutable de operaciones GitHub. |
 | Acciones y conocimientos tipificados | `plugins/jarvis-system-admin/` | Registros, esquemas, habilidades, definiciones de recopiladores y almacenamiento de conocimientos. |
 | Soporte de host directo y VM | `deployment/host/`, `vm-lab/` | Guiones de implementación, artefactos de políticas, ayudantes y contratos de ensayo. |
 
@@ -138,7 +139,14 @@ no heredar el historial de conversaciones anteriores.
 - La pestaña Agentes expone resúmenes operativos y tanto estructurados como sin procesar.
   edición de definiciones. La activación requiere validación, una diferencia exacta, una nueva
   aprobación y conserva la definición activa anterior para la reversión.
-- Se pueden seleccionar ocho especialistas: arquitecto JARVIS, especialista en instalación, experto en energía, especialista en salud del sistema, constructor de carga, especialista en redes, especialista en seguridad y especialista en recuperación.
+- Se pueden seleccionar nueve especialistas: arquitecto JARVIS, especialista en instalación, experto en energía, especialista en salud del sistema, constructor de carga, especialista en redes, especialista en seguridad, especialista en recuperación y GitHub Agent.
+- GitHub Agent se puede seleccionar en Agents y Conversation. Sus herramientas iniciales
+  inspeccionan el estado Git local de un repositorio elegido por el usuario, riesgos
+  de publicación, rutas ignoradas, conflictos, remotos, nombres de archivo con
+  posible información sensible y archivos modificados grandes. En esta fase no lee
+  contenido de archivos ni contacta GitHub. Puede preparar, pero nunca ejecutar,
+  operaciones de commit, push, repositorio, issue, pull request, release o Actions;
+  cada escritura futura exige una aprobación exacta nueva.
 - Proporciona evidencia limitada de inspección del host a una solicitud de conversación. el
   El modelo recibe evidencia formateada, no acceso de terminal o raíz.
 

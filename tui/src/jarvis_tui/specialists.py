@@ -64,6 +64,9 @@ REGISTERED_TOOL_REFS = frozenset(
         "security_inventory",
         "recovery_inventory",
         "recovery_plan",
+        "github_inspect",
+        "github_preflight",
+        "github_operation_plan",
     }
 )
 

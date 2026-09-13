@@ -43,6 +43,7 @@ the complete release gate remains `./scripts/validate-bundle.sh`.
 | Power inventory/control | `tui/src/jarvis_tui/power_inventory.py`, `power_profiles.py`, `power_profile_results.py`, `power_control_client.py`, `vm-lab/scripts/jarvis_power_control.py`, `plugins/jarvis-power-expert/scripts/power_tools.py` | Agent-driven Power recommendations through typed MCP tools, sanitized topology/telemetry, persistent AC/battery profile planning, separately allowlisted atomic profile/single-control mutations, and digest-bound verified application comparisons synchronized to Conversation. |
 | Lighting controls | `tui/src/jarvis_tui/lighting_controls.py`, `lighting_widgets.py` | Driver detection, preview, and registered lighting paths. |
 | Specialists | `plugins/*/specialist.json`, `tui/src/jarvis_tui/specialists.py`, `tui/src/jarvis_tui/agent_registry.py` | User-selected specialists, validated definitions, persisted selection, and owner-only active overrides. |
+| GitHub Agent | `plugins/jarvis-github-agent/`, `plugins/jarvis-system-admin/scripts/mcp_server.py` | Bounded local Git inspection, publication preflight, and non-executable GitHub operation planning. |
 | Typed actions and knowledge | `plugins/jarvis-system-admin/` | Registries, schemas, skills, collector definitions, and knowledge storage. |
 | Direct-host and VM support | `deployment/host/`, `vm-lab/` | Deployment scripts, policy artifacts, helpers, and rehearsal contracts. |
 
@@ -147,7 +148,13 @@ do not inherit previous conversation history.
 - The Agents tab exposes operational summaries and both structured/raw
   definition editing. Activation requires validation, an exact diff, one fresh
   approval, and retains the previous active definition for rollback.
-- Eight specialists are selectable: JARVIS Architect, Installation Specialist, Power Expert, System Health Specialist, Cargo Builder, Network Specialist, Security Specialist, and Recovery Specialist.
+- Nine specialists are selectable: JARVIS Architect, Installation Specialist, Power Expert, System Health Specialist, Cargo Builder, Network Specialist, Security Specialist, Recovery Specialist, and GitHub Agent.
+- GitHub Agent is selectable in both Agents and Conversation. Its initial tools inspect
+  a user-selected repository's local Git state, publication risks, ignored paths,
+  conflicts, remotes, likely secret-bearing filenames, and large changed files.
+  It neither reads file contents nor contacts GitHub in this phase. It can prepare
+  but never execute a commit, push, repository, issue, pull-request, release, or
+  Actions operation; each future write needs a fresh exact approval.
 - It supplies bounded host-inspection evidence to a conversation request. The
   model receives formatted evidence, not terminal or root access.
 
