@@ -584,6 +584,16 @@ class CheckpointButton(Button):
     """Button with a local handler so parent layout propagation cannot swallow clicks."""
 
 
+class MultilineComposer(Input):
+    """Keep every clipboard line while retaining Input's existing submit contract."""
+
+    def _on_paste(self, event: Any) -> None:
+        if event.text:
+            start, end = self.selection
+            self.replace(event.text, start, end)
+        event.stop()
+
+
 class CheckpointChoiceScreen(ModalScreen[str | None]):
     """Native checkpoint chooser, independent of the conversation layout."""
 
@@ -1627,7 +1637,7 @@ class JarvisTui(App[None]):
                 )
                 yield RichLog(id="operations-log", classes="pane-log", wrap=True, markup=False)
         with Horizontal(id="composer-row"):
-            yield Input(placeholder="Ask Jarvis or describe a symptom…", id="composer")
+            yield MultilineComposer(placeholder="Ask Jarvis or describe a symptom…", id="composer")
             yield Button("Send", id="send-request", variant="primary")
             yield Button("Cancel", id="cancel-turn", disabled=True)
         yield Static(id="status")

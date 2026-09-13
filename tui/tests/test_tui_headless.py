@@ -1420,6 +1420,15 @@ class TextualHeadlessTests(unittest.IsolatedAsyncioTestCase):
             )
             scan_rpm_mock.assert_called_once_with()
 
+    async def test_composer_paste_preserves_all_clipboard_lines(self):
+        app = self.app()
+        async with app.run_test(size=(100, 34)):
+            composer = app.query_one("#composer", Input)
+            event = mock.Mock(text="first line\nsecond line\nthird line")
+            composer._on_paste(event)
+            self.assertEqual(composer.value, "first line\nsecond line\nthird line")
+            event.stop.assert_called_once()
+
     async def test_login_button_reconnects_before_starting_managed_login(self):
         app = self.app()
 
