@@ -66,6 +66,12 @@ Current branch/status/repository metadata questions require fresh
 `github_inspect` evidence. Threshold-gated compaction waits for
 `contextCompaction` and preserves the thread on failure.
 
+The operational domains share one `System` tab. `System overview` is read-only;
+the sidebar selects `Health`, `Development`, `Network`, `Security`, or
+`Recovery`. The selected domain reuses its Clean/Raw evidence and refresh/review
+controls without refreshing on selection. Only Development exposes the normal
+terminal action.
+
 The synchronized projection is usable as bounded observational evidence, not
 only conversational prose. When exactly one recent compatible result resolves
 a reference such as “that directory,” a follow-up count, summary, comparison,

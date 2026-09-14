@@ -397,3 +397,10 @@ Server, no permite llamadas durante preflight y limita la ejecución a las
 herramientas del especialista. Las preguntas sobre rama, estado o metadatos
 actuales requieren evidencia fresca de `github_inspect`. La compactación espera
 `contextCompaction` y conserva el hilo si falla.
+
+Los cinco dominios operativos se presentan dentro de una sola pestaña `System`.
+Abre en `System overview` con tarjetas de estado de solo lectura. Un sidebar
+permite elegir `Health`, `Development`, `Network`, `Security` o `Recovery`; el
+dominio elegido conserva sus vistas Clean/Raw y controles comunes de refresco y
+revisión. Cambiar de dominio no refresca evidencia; solo Development muestra la
+acción de terminal normal.

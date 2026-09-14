@@ -419,3 +419,10 @@ preflight, and limits execution to the selected specialist's registered tools.
 Current Git branch/status/repository metadata questions require fresh
 `github_inspect` evidence. Threshold-gated compaction waits for
 `contextCompaction`; failures preserve the thread.
+
+The five operational domains are presented inside one `System` tab. It opens on
+`System overview` with read-only status cards. A sidebar selects `Health`,
+`Development`, `Network`, `Security`, or `Recovery`; the selected domain shows
+its existing Clean/Raw evidence view and shared refresh/review controls. Domain
+selection does not refresh evidence, and only Development exposes the normal
+terminal action.

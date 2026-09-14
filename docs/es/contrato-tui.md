@@ -65,6 +65,12 @@ herramientas del especialista. Las preguntas sobre rama, estado o metadatos
 actuales requieren evidencia fresca de `github_inspect`. La compactación espera
 `contextCompaction` y conserva el hilo si falla.
 
+Los dominios operativos comparten una pestaña `System`. `System overview` es de
+solo lectura; el sidebar selecciona `Health`, `Development`, `Network`,
+`Security` o `Recovery`. El dominio elegido reutiliza su evidencia Clean/Raw y
+controles de refresco/revisión sin refrescar al seleccionarlo. Solo Development
+expone la acción de terminal normal.
+
 La proyección sincronizada se puede utilizar como evidencia observacional limitada, no
 sólo prosa conversacional. Cuando se resuelve exactamente un resultado compatible reciente
 una referencia como “ese directorio”, un recuento de seguimiento, un resumen, una comparación,

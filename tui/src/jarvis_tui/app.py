@@ -142,11 +142,7 @@ from .specialists import Specialist
 from .terminal_safety import sanitize_terminal_text
 
 VIEW_IDS = {
-    "health": "health-pane",
-    "development": "development-pane",
-    "network": "network-pane",
-    "security": "security-pane",
-    "recovery": "recovery-pane",
+    "system": "system-pane",
     "overview": "overview-pane",
     "conversation": "conversation-pane",
     "agents": "agents-pane",
@@ -825,6 +821,9 @@ class ConversationHistoryModal(ModalScreen[tuple[str, str] | None]):
 
     def on_button_pressed(self, event: Button.Pressed) -> None:
         button_id = event.button.id or ""
+        if button_id.startswith("system-domain-"):
+            self._select_system_domain(button_id.removeprefix("system-domain-"))
+            return
 
         if button_id == "history-close":
             self.dismiss(None)
@@ -921,10 +920,17 @@ class JarvisTui(App[None]):
     #package-toolbar, #package-tools {
         height: auto; margin-bottom: 1; align: left middle;
     }
-    #domain-toolbar-health, #domain-toolbar-development, #domain-toolbar-network, #domain-toolbar-security, #domain-toolbar-recovery { height: auto; margin-bottom: 1; align: left middle; }
-    #domain-toolbar-health Label, #domain-toolbar-development Label, #domain-toolbar-network Label, #domain-toolbar-security Label, #domain-toolbar-recovery Label { width: auto; margin-left: 1; }
-    #domain-view-health, #domain-view-development, #domain-view-network, #domain-view-security, #domain-view-recovery { width: 16; margin-left: 1; }
-    #domain-clean-health, #domain-clean-development, #domain-clean-network, #domain-clean-security, #domain-clean-recovery { height: 1fr; border: round $secondary; padding: 1 4 1 1; }
+    #system-layout { width: 1fr; height: 1fr; }
+    #system-sidebar { width: 22; min-width: 22; height: 1fr; border: round $secondary; padding: 1; }
+    #system-sidebar Button { width: 1fr; margin-bottom: 1; }
+    #system-sidebar .system-domain-active { background: $accent; color: $text; }
+    #system-main { width: 1fr; height: 1fr; padding-left: 1; }
+    #system-overview, #system-domain-detail { width: 1fr; height: 1fr; }
+    #system-toolbar { height: auto; margin-bottom: 1; align: left middle; }
+    #system-toolbar Label { width: auto; margin-left: 1; }
+    #system-view { width: 16; margin-left: 1; }
+    #system-clean { height: 1fr; border: round $secondary; padding: 1 4 1 1; }
+    #system-overview-card { width: 1fr; height: auto; min-height: 4; border: round $secondary; padding: 1 2; margin-bottom: 1; }
     .domain-field { width: 1fr; height: 3; min-height: 3; border-bottom: solid #30363d; align: left middle; }
     .domain-field-label { width: 44; min-width: 44; color: $text-muted; text-style: bold; padding-right: 2; }
     .domain-field-value { width: 1fr; min-width: 12; padding-left: 1; }
@@ -1596,32 +1602,30 @@ class JarvisTui(App[None]):
                         id="package-details-content",
                         markup=False,
                     )
-            for domain in ("health", "development", "network", "security", "recovery"):
-                with TabPane(domain.title(), id=VIEW_IDS[domain]):
-                    yield Label(
-                        "Evidence is collected only when requested. Plans do not authorize execution."
-                    )
-                    with Horizontal(id=f"domain-toolbar-{domain}"):
-                        yield Button("Refresh evidence", id=f"domain-refresh-{domain}")
-                        yield Label("View")
-                        yield Select(
-                            [("Clean", "clean"), ("Raw", "raw")],
-                            value="clean",
-                            allow_blank=False,
-                            id=f"domain-view-{domain}",
-                        )
-                    yield Input(
-                        placeholder="Operation ID supplied by the agent",
-                        id=f"domain-operation-{domain}",
-                    )
-                    yield Button("Review proposal", id=f"domain-review-{domain}")
-                    if domain == "development":
-                        yield Button("Run in normal terminal", id="domain-terminal-development")
-                    with ContentSwitcher(
-                        initial=f"domain-clean-{domain}", id=f"domain-switcher-{domain}"
-                    ):
-                        yield VerticalScroll(id=f"domain-clean-{domain}")
-                        yield RichLog(id=f"domain-log-{domain}", wrap=True, markup=False)
+            with TabPane("System", id=VIEW_IDS["system"]):
+                with Horizontal(id="system-layout"):
+                    with Vertical(id="system-sidebar"):
+                        yield Label("System domains", classes="pane-title")
+                        for domain in ("overview", "health", "development", "network", "security", "recovery"):
+                            yield Button(domain.title(), id=f"system-domain-{domain}", variant="primary" if domain == "overview" else "default")
+                    with Vertical(id="system-main"):
+                        with ContentSwitcher(initial="system-overview", id="system-switcher"):
+                            with VerticalScroll(id="system-overview"):
+                                yield Label("System overview", classes="pane-title")
+                                yield Label("Evidence is collected only when requested. Select a domain to inspect it.", classes="pane-help")
+                                yield Static(id="system-overview-cards", markup=False)
+                            with Vertical(id="system-domain-detail"):
+                                yield Label("Select a system domain", id="system-domain-title", classes="pane-title")
+                                with Horizontal(id="system-toolbar"):
+                                    yield Button("Refresh evidence", id="system-refresh", display=False)
+                                    yield Label("View")
+                                    yield Select([("Clean", "clean"), ("Raw", "raw")], value="clean", allow_blank=False, id="system-view")
+                                    yield Button("Review proposal", id="system-review", display=False)
+                                    yield Button("Run in normal terminal", id="system-terminal", display=False)
+                                yield Input(placeholder="Operation ID supplied by the agent", id="system-operation")
+                                with ContentSwitcher(initial="system-clean", id="system-detail-switcher"):
+                                    yield VerticalScroll(id="system-clean")
+                                    yield RichLog(id="system-log", wrap=True, markup=False)
             with TabPane("Timeline", id=VIEW_IDS["timeline"]):
                 with Horizontal(classes="pane-controls"):
                     yield Label("Auditable timeline projection", classes="pane-title")
@@ -1663,9 +1667,7 @@ class JarvisTui(App[None]):
         if self.connect_app_server:
             self.session.set_catalog_specialist(self._active_specialist)
             self.run_worker(self._connect_app_server(), group="app-server-connect", exclusive=True)
-        for domain in ("health", "development", "network", "security", "recovery"):
-            self._set_domain_view(domain, "clean")
-            await self._render_domain_clean(domain)
+        self._system_domain = "overview"
 
     async def on_unmount(self) -> None:
         await self._persist_conversations()
@@ -2121,6 +2123,7 @@ class JarvisTui(App[None]):
         self._render_agents()
         self._render_packages()
         self._render_power()
+        self._render_system_overview()
         snapshot = self.session.snapshot
         auth = snapshot.plan_type or snapshot.auth_mode or "not-connected"
         turns = "enabled" if self.enable_live_turns else "disabled"
@@ -4924,11 +4927,10 @@ class JarvisTui(App[None]):
             self._system_message(f"Global context window set for new turns: {event.value}.")
             return
         if (
-            event.select.id
-            and event.select.id.startswith("domain-view-")
+            event.select.id == "system-view"
             and isinstance(event.value, str)
         ):
-            self._set_domain_view(event.select.id.removeprefix("domain-view-"), event.value)
+            self._set_domain_view(getattr(self, "_system_domain", "overview"), event.value)
             return
         if event.select.id == "agent-editor-mode" and isinstance(event.value, str):
             self._render_agent_editor_mode()
@@ -5025,18 +5027,19 @@ class JarvisTui(App[None]):
                 break
 
     async def _refresh_domain(self, domain: str) -> None:
-        view = self.query_one(f"#domain-log-{domain}", RichLog)
+        view = self.query_one("#system-log", RichLog)
         try:
             evidence = await run_blocking_once(inspect_domain, self.bundle_root, domain)
             self._domain_evidence[domain] = evidence
             view.clear()
             view.write(json.dumps(evidence, indent=2, ensure_ascii=False))
             await self._render_domain_clean(domain)
+            self._render_system_overview()
         except (OSError, ValueError, RuntimeError):
             view.write("Evidence unavailable; no automatic retry.")
 
     async def _render_domain_clean(self, domain: str) -> None:
-        panel = self.query_one(f"#domain-clean-{domain}", VerticalScroll)
+        panel = self.query_one("#system-clean", VerticalScroll)
         await panel.remove_children()
         evidence = self._domain_evidence.get(domain)
         if evidence is None:
@@ -5056,12 +5059,39 @@ class JarvisTui(App[None]):
         await panel.mount(*rows)
 
     def _set_domain_view(self, domain: str, mode: str) -> None:
-        switcher = self.query_one(f"#domain-switcher-{domain}", ContentSwitcher)
-        switcher.current = f"domain-clean-{domain}" if mode == "clean" else f"domain-log-{domain}"
+        switcher = self.query_one("#system-detail-switcher", ContentSwitcher)
+        switcher.current = "system-clean" if mode == "clean" else "system-log"
+
+    def _render_system_overview(self) -> None:
+        cards = self.query_one("#system-overview-cards", Static)
+        lines = []
+        for domain in ("health", "development", "network", "security", "recovery"):
+            evidence = self._domain_evidence.get(domain)
+            status = "Available" if evidence is not None else "Not loaded"
+            summary = (
+                f"{len(clean_domain_fields(evidence))} clean evidence fields loaded."
+                if evidence is not None
+                else "Select the domain to inspect and refresh evidence."
+            )
+            lines.append(f"{domain.title()} · {status}\n{summary}")
+        cards.update("\n\n".join(lines))
+
+    def _select_system_domain(self, domain: str) -> None:
+        switcher = self.query_one("#system-switcher", ContentSwitcher)
+        if domain == "overview":
+            switcher.current = "system-overview"
+            return
+        self._system_domain = domain
+        switcher.current = "system-domain-detail"
+        self.query_one("#system-domain-title", Label).update(domain.title())
+        self.query_one("#system-refresh", Button).display = True
+        self.query_one("#system-review", Button).display = True
+        self.query_one("#system-terminal", Button).display = domain == "development"
+        self._render_domain_clean(domain)
 
     def _review_domain(self, domain: str) -> None:
         try:
-            operation_id = self.query_one(f"#domain-operation-{domain}", Input).value.strip()
+            operation_id = self.query_one("#system-operation", Input).value.strip()
             plan = self.operation_workflow.load(operation_id)
             if plan["domain"] != domain or self._operation_busy or self._submission_busy:
                 raise ValueError("operation_scope_or_busy")
@@ -5070,13 +5100,13 @@ class JarvisTui(App[None]):
                 lambda decision: self._operation_decision(operation_id, decision),
             )
         except (OSError, ValueError):
-            self.query_one(f"#domain-log-{domain}", RichLog).write(
+            self.query_one("#system-log", RichLog).write(
                 "Proposal unavailable or outside this view."
             )
 
     def _review_normal_terminal(self) -> None:
         try:
-            operation_id = self.query_one("#domain-operation-development", Input).value.strip()
+            operation_id = self.query_one("#system-operation", Input).value.strip()
             plan = self.operation_workflow.load(operation_id)
             if plan.get("domain") != "development" or plan.get("operation") != "command":
                 raise ValueError("normal_terminal_requires_command")
@@ -5090,7 +5120,7 @@ class JarvisTui(App[None]):
                 lambda decision: self._normal_terminal_decision(terminal_plan["id"], decision),
             )
         except (OSError, ValueError):
-            self.query_one("#domain-log-development", RichLog).write(
+            self.query_one("#system-log", RichLog).write(
                 "Normal-terminal proposal unavailable or outside Development."
             )
 
@@ -5136,7 +5166,7 @@ class JarvisTui(App[None]):
                 raise failure
             message = f"Normal terminal operation {approval.operation_id}: {result['status']}; exit={result.get('exit_code', 'unknown')}. Foreground exit only; objective not independently verified."
             self._system_message(message)
-            self.query_one("#domain-log-development", RichLog).write(message)
+            self.query_one("#system-log", RichLog).write(message)
         except Exception:
             self._system_message("Normal terminal outcome unavailable; no retry was made.")
         finally:
@@ -5196,15 +5226,19 @@ class JarvisTui(App[None]):
             if detail is not None:
                 self.push_screen(DomainInfoScreen(*detail))
             return
-        if button_id.startswith("domain-refresh-"):
-            domain = button_id.removeprefix("domain-refresh-")
-            self.run_worker(self._refresh_domain(domain), group="domain-" + domain, exclusive=True)
+        if button_id == "system-refresh":
+            domain = getattr(self, "_system_domain", "overview")
+            if domain != "overview":
+                self.run_worker(self._refresh_domain(domain), group="domain-" + domain, exclusive=True)
             return
-        if button_id.startswith("domain-review-"):
-            self._review_domain(button_id.removeprefix("domain-review-"))
+        if button_id == "system-review":
+            domain = getattr(self, "_system_domain", "overview")
+            if domain != "overview":
+                self._review_domain(domain)
             return
-        if button_id == "domain-terminal-development":
-            self._review_normal_terminal()
+        if button_id == "system-terminal":
+            if getattr(self, "_system_domain", "") == "development":
+                self._review_normal_terminal()
             return
 
         # Conversation controls

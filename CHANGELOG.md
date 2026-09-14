@@ -17,6 +17,8 @@
   thread's baseline.
 - Merged the redundant Clear conversation control into New; New now saves the
   current conversation and performs the complete context/thread reset.
+- Unified Health, Development, Network, Security, and Recovery into one System
+  view with an overview, domain sidebar, and shared evidence controls.
 
 ## 2026-09-13 — Context accounting
 

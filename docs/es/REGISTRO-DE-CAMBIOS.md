@@ -16,6 +16,8 @@
   turno se muestra como incremento, no como un baseline aislado.
 - Se fusionó el control redundante Clear con New; New guarda la conversación y
   realiza el reinicio completo de contexto e hilo.
+- Health, Development, Network, Security y Recovery ahora comparten una vista
+  System con overview, sidebar de dominios y controles de evidencia comunes.
 
 ## 2026-09-13 — Context accounting
 

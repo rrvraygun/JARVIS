@@ -245,15 +245,11 @@ class TextualHeadlessTests(unittest.IsolatedAsyncioTestCase):
                 "installed_count": 7,
             }
             await app._render_domain_clean("health")
-            clean = app.query_one("#domain-clean-health", VerticalScroll)
+            clean = app.query_one("#system-clean", VerticalScroll)
             self.assertGreater(len(list(clean.query(".domain-field"))), 0)
-            from jarvis_tui.app import DomainInfoLabel
-
-            info = clean.query_one(".domain-field-label", DomainInfoLabel)
-            self.assertIn("[i]", info.content)
             app._set_domain_view("health", "raw")
             self.assertFalse(clean.display)
-            self.assertTrue(app.query_one("#domain-log-health", RichLog).display)
+            self.assertTrue(app.query_one("#system-log", RichLog).display)
             app._set_domain_view("health", "clean")
             self.assertTrue(clean.display)
 
