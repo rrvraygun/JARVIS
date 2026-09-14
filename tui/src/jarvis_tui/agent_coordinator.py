@@ -25,9 +25,10 @@ class SpecialistContext:
         )
         if specialist.id == "jarvis-github-agent":
             text += (
-                "\nRepository inspections must use the registered github_inspect tool; "
-                "never substitute shell or arbitrary git commands. If the request text is "
-                "duplicated, normalize it and perform one inspection with the exact target."
+                "\nPrefer the registered github_inspect tool for repository state. Native repository "
+                "tools may be used when needed, but commands and edits remain behind their exact "
+                "one-use approval. If the request text is duplicated, normalize it and perform one "
+                "inspection with the exact target."
             )
         return text
 

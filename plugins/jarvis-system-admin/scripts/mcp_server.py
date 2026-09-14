@@ -869,8 +869,12 @@ def dispatch(name: str, args: dict[str, Any]) -> dict[str, Any]:
             )
     if name == "github_remote_inspect":
         try:
+            if not hasattr(github_tools, "github_remote_inspect"):
+                return content(
+                    {"error": "github_remote_inspect_unavailable", "read_only": True}, True
+                )
             return content(
-                github_tools.inspect(
+                github_tools.github_remote_inspect(
                     args.get("repository"),
                     args.get("view", "repository"),
                     args.get("reference"),

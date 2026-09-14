@@ -2,6 +2,13 @@
 
 ## 2026-09-14 — Contexto y ejecución de especialistas
 
+- Los contratos de los especialistas exigen responder en el idioma de la
+  petición actual, sin heredar el idioma de un turno anterior.
+
+- Todos los especialistas reciben lectura, búsqueda, edición nativa de Codex y
+  shell sandboxed en el repositorio activo. Cada comando y cambio de archivo
+  sigue requiriendo una aprobación exacta de un uso.
+
 - El preflight no determinista usa un hilo efímero y solo transfiere su
   evaluación tipada a la conversación persistente.
 - Los snapshots recalculan digest tras recortar, las peticiones aceptadas siguen

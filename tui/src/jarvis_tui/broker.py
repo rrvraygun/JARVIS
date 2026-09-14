@@ -1474,6 +1474,15 @@ class JarvisBroker:
                 "result, and answer with the outcome first in 2-4 concise sentences unless detail "
                 "is requested. "
             )
+        if task.agent_id == "jarvis-github-agent" and task.assessment.intent_class == IntentClass.INSPECT:
+            target = next(iter(task.assessment.targets), "")
+            operation_guidance = (
+                "This is a fresh GitHub Agent repository inspection. You MUST call the registered "
+                "github_inspect tool before answering, with project_root exactly equal to "
+                + json.dumps(target, ensure_ascii=False)
+                + ". Do not answer branch, status, commit, remote, or publication questions from "
+                "the specialist contract or prior prose. Use the tool result as the sole current-state evidence. "
+            )
         package_inspection = (
             task.agent_id in {"jarvis-installation-specialist", "jarvis-power-expert"}
             and task.assessment is not None

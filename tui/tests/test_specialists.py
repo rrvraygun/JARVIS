@@ -65,6 +65,13 @@ class SpecialistTests(unittest.TestCase):
         with self.subTest("valid descriptors remain discoverable"):
             self.assertTrue(load_specialists(ROOT.parent))
 
+    def test_context_contract_preserves_current_request_language(self) -> None:
+        specialist = load_specialists(ROOT.parent)[0]
+        context = specialist.context_prompt()
+        self.assertIn("answer in the language of the current user request", context)
+        self.assertIn("For an English request, answer only in English", context)
+        self.assertIn("Keep system, UI, status, and diagnostic labels in English", context)
+
 
 if __name__ == "__main__":
     unittest.main()

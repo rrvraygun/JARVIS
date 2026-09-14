@@ -391,6 +391,15 @@ usa una referencia de continuidad.
 
 ### Comportamiento actual de ejecución — 2026-09-14
 
+Los contratos de los especialistas siguen el idioma de la petición actual en
+vez de arrastrar el idioma de un turno anterior. Las etiquetas del sistema, la
+interfaz, el estado y los diagnósticos permanecen en inglés; el análisis de
+entradas localizadas sigue disponible donde está definido.
+
+Todos los especialistas reciben lectura, búsqueda, edición nativa de Codex y
+shell sandboxed dentro del repositorio activo. Cada comando y cambio de archivo
+sigue estando protegido por la revisión exacta de un uso del App Server.
+
 El preflight no determinista usa un hilo efímero y solo transfiere la evaluación
 tipada a la conversación persistente. El scope MCP se inicializa antes del App
 Server, no permite llamadas durante preflight y limita la ejecución a las

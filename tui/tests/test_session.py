@@ -180,8 +180,9 @@ class SessionTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(thread_start["model"], "gpt-5.6-terra")
         self.assertEqual(thread_start["config"]["model_reasoning_effort"], "medium")
         start = next(params for method, params in self.client.requests if method == "turn/start")
-        self.assertEqual(start["sandboxPolicy"]["type"], "readOnly")
-        self.assertFalse(start["approvalPolicy"]["granular"]["sandbox_approval"])
+        self.assertEqual(start["sandboxPolicy"]["type"], "workspaceWrite")
+        self.assertEqual(start["sandboxPolicy"]["writableRoots"], [str(BUNDLE_ROOT)])
+        self.assertEqual(start["approvalPolicy"], "on-request")
         self.assertIn("Do not broaden scope", start["input"][0]["text"])
 
         with self.assertRaisesRegex(AppServerError, "preflight"):

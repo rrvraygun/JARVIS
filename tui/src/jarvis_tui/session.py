@@ -14,6 +14,7 @@ from pathlib import Path
 from typing import Any
 
 from .agent_coordinator import SpecialistContext
+from .agent_registry import AgentRegistry
 from .app_server import (
     AppServerClient,
     AppServerError,
@@ -309,6 +310,7 @@ class AppServerSessionController:
         self._stream_event_counts: dict[str, int] = {}
         self._turn_error_categories: dict[str, str] = {}
         self._thread_generation = 0
+        self._recovered_thread_reference = False
         self._active_context_epoch: int | None = None
         self._context_entry_digests: dict[str, dict[str, str]] = {}
         self._thread_specialist_digests: dict[str, set[str]] = {}
@@ -332,6 +334,7 @@ class AppServerSessionController:
         if recovered:
             self.snapshot.thread_id = recovered
             self.snapshot.thread_status = "not_loaded"
+            self._recovered_thread_reference = True
         return recovered
 
     async def connect(self) -> SessionSnapshot:
@@ -345,6 +348,11 @@ class AppServerSessionController:
         self.snapshot.last_error = None
         self._journal_session("app_server.connecting", "starting", {"transport": "stdio"})
         try:
+            if self._catalog_specialist is None and hasattr(self.client, "scope_id"):
+                try:
+                    self._catalog_specialist = AgentRegistry(self.workspace).selected()
+                except (OSError, ValueError, TypeError):
+                    self._catalog_specialist = None
             if self._catalog_specialist is not None and hasattr(self.client, "process"):
                 publish_scope(
                     self.workspace,
@@ -353,6 +361,15 @@ class AppServerSessionController:
                     getattr(self.client, "scope_id", ""),
                     project_roots=(str(self.workspace),),
                     execution_ready=False,
+                )
+                self._journal_session(
+                    "catalog.bootstrap",
+                    "prepared",
+                    {
+                        "specialist_id": self._catalog_specialist.id,
+                        "specialist_version": self._catalog_specialist.version,
+                        "scope_id_present": bool(getattr(self.client, "scope_id", "")),
+                    },
                 )
             await self.client.start()
             self._event_task = asyncio.create_task(self._consume_events())
@@ -497,6 +514,20 @@ class AppServerSessionController:
     async def start_thread(self) -> str:
         self._require_authenticated()
         sandbox_mode, approval_policy = execution_policy(self.workspace)
+        if self.snapshot.thread_id and self._recovered_thread_reference:
+            self.broker.journal.append(
+                "thread.resume.discarded",
+                "broker",
+                "recovered",
+                {"thread_id_present": True, "reason": "recovered_reference_requires_explicit_resume"},
+            )
+            self.snapshot.thread_id = None
+            self.snapshot.thread_status = "closed"
+            self._thread_generation += 1
+            self._active_context_epoch = None
+            self._context_entry_digests.clear()
+            self._thread_specialist_digests.clear()
+            self._recovered_thread_reference = False
         if self.snapshot.thread_id:
             if self.snapshot.thread_status in {"not_loaded", "closed"}:
                 # A recovered reference is only an identifier from a prior
@@ -556,6 +587,7 @@ class AppServerSessionController:
         if not thread_id:
             raise AppServerError("thread/start returned no thread id")
         self.snapshot.thread_id = str(thread_id)
+        self._recovered_thread_reference = False
         self.snapshot.thread_status = "idle"
         self._journal_session("thread.started", "idle", {"thread_id": thread_id})
         return str(thread_id)
@@ -755,6 +787,7 @@ class AppServerSessionController:
         if not resumed_id:
             raise AppServerError("thread/resume returned no thread id")
         self.snapshot.thread_id = str(resumed_id)
+        self._recovered_thread_reference = False
         self.snapshot.thread_status = "idle"
         self._journal_session("thread.resumed", "idle", {"thread_id": resumed_id})
         return str(resumed_id)
@@ -1119,6 +1152,45 @@ class AppServerSessionController:
             task_id,
         )
 
+    def prepare_execution_scope(self, task: TaskRecord) -> None:
+        """Publish the task scope before the main conversation thread starts."""
+        scope_id = getattr(self.client, "scope_id", "")
+        revoke_scope(self.workspace, scope_id)
+        if not scope_id or task.assessment is None or task.assessment.intent_class == IntentClass.EXPLAIN:
+            return
+        specialist = self._task_specialists.get(task.task_id)
+        if specialist is None:
+            raise AppServerError("specialist_scope_unavailable")
+        evidence_tools = {
+            "jarvis-installation-specialist": ("package_catalog", "package_search", "inspect_packages"),
+            "jarvis-power-expert": ("power_inventory", "inspect_power_inventory"),
+            "jarvis-system-health": ("health_inventory",),
+            "jarvis-cargo-builder": ("development_project_inspect",),
+            "jarvis-network-specialist": ("network_inventory",),
+            "jarvis-security-specialist": ("security_inventory",),
+            "jarvis-recovery-specialist": ("recovery_inventory",),
+            "jarvis-github-agent": ("github_inspect", "github_preflight", "github_remote_inspect"),
+        }.get(specialist.id, ("no_registered_current_state_evidence",))
+        evidence_arguments: dict[str, object] = {}
+        if "package-catalog" in task.assessment.targets or specialist.id == "jarvis-installation-specialist":
+            evidence_tools = ("package_catalog", "package_search", "inspect_packages")
+            evidence_arguments["query"] = (task.intent.text or "")[:500]
+        if specialist.id == "jarvis-cargo-builder":
+            paths = [target for target in task.assessment.targets if target.startswith("/")]
+            if len(paths) == 1:
+                evidence_arguments["project_root"] = paths[0]
+        publish_scope(
+            self.workspace,
+            specialist,
+            task.task_id,
+            scope_id,
+            project_roots=tuple(target for target in task.assessment.targets if target.startswith("/"))
+            or (str(self.workspace),),
+            evidence_tools=evidence_tools,
+            evidence_arguments=evidence_arguments,
+            execution_ready=True,
+        )
+
     async def start_turn(self, task: TaskRecord) -> str:
         if not self.live_turns_enabled:
             raise AppServerError("live turn submission is disabled; restart with explicit opt-in")
@@ -1232,6 +1304,17 @@ class AppServerSessionController:
                 specialist=specialist,
                 include_specialist_context=include_specialist_context,
             )
+            sandbox_mode, approval_mode = execution_policy(self.workspace)
+            if sandbox_mode == "danger-full-access" and approval_mode == "on-request":
+                # Every specialist can inspect, search, edit, and propose shell
+                # work within the active repository. App Server still asks for
+                # one exact approval before each command or file change.
+                request["params"]["sandboxPolicy"] = {
+                    "type": "workspaceWrite",
+                    "writableRoots": [str(self.workspace)],
+                    "networkAccess": False,
+                }
+                request["params"]["approvalPolicy"] = "on-request"
             try:
                 result = await self._request("turn/start", request["params"])
             except Exception as exc:
@@ -1240,7 +1323,12 @@ class AppServerSessionController:
                     "turn.submission.failed",
                     "broker",
                     "failed",
-                    {"operation_key": operation_key, "error_type": type(exc).__name__},
+                    {
+                        "operation_key": operation_key,
+                        "error_type": type(exc).__name__,
+                        "error_category": classify_preflight_turn_error(str(exc)),
+                        "error_message": " ".join(str(exc).split())[:500],
+                    },
                     task.task_id,
                 )
                 self.broker.transition(task, TaskState.BLOCKED, reason="turn_submission_uncertain")
@@ -1781,8 +1869,14 @@ class AppServerSessionController:
         if assessment is None or assessment.decision != AssessmentDecision.EXECUTE:
             decision = "cancel"
         command = pending.command or ""
-        # Generic App Server approvals cannot bind a typed registered operation.
-        if decision == "accept":
+        if (
+            decision == "accept"
+            and assessment is not None
+            and assessment.risk >= 2
+            and assessment.targets
+            and command
+            and not any(target in command for target in assessment.targets)
+        ):
             decision = "cancel"
         self.snapshot.pending_requests.pop(request_id, None)
         self.broker.journal.append(

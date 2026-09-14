@@ -2,6 +2,13 @@
 
 ## 2026-09-14 — Context and specialist execution
 
+- Specialist contracts now require each answer to follow the current request's
+  language, preventing a previous Spanish turn from changing an English reply.
+
+- All specialists now receive native Codex repository read/search/edit and
+  sandboxed shell capability in the active repository. Every command and file
+  change still requires its own exact one-use App Server approval.
+
 - Non-deterministic preflight uses an ephemeral App Server thread; only its
   typed assessment reaches the persistent conversation.
 - Snapshots recalculate digests after trimming, accepted requests remain known

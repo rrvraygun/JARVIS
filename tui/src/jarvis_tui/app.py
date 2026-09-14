@@ -1675,6 +1675,7 @@ class JarvisTui(App[None]):
 
     async def _connect_app_server(self) -> None:
         try:
+            self.session.set_catalog_specialist(self._active_specialist)
             await self.session.connect()
             self._system_message("Connected to local Codex App Server; no turn was submitted.")
         except Exception as exc:
@@ -4351,6 +4352,7 @@ class JarvisTui(App[None]):
                 return
             if self.session.snapshot.active_turn_id:
                 raise RuntimeError("wait for the active turn before submitting another request")
+            self.session.prepare_execution_scope(task)
             await self.session.prepare_conversation_context(
                 self.presentation.context_snapshot(exclude_task_id=task.task_id)
             )

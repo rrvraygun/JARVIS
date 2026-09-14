@@ -412,6 +412,14 @@ continuity reference instead of repeating the full contract.
 
 ### Current execution behavior — 2026-09-14
 
+Specialist contracts follow the language of the current user request instead of
+carrying the language from an earlier turn. System, UI, status, and diagnostic
+labels remain English; localized input parsing remains supported where defined.
+
+Every specialist receives native Codex read/search/edit and sandboxed shell
+capability within the active repository. Command executions and file changes
+remain individually approval-gated by the existing one-use App Server review.
+
 Non-deterministic preflight runs on an ephemeral App Server thread. Only the
 typed assessment reaches the persistent conversation. The selected MCP scope is
 bootstrapped before App Server initialization, is non-executable during
