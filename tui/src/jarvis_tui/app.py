@@ -1617,11 +1617,11 @@ class JarvisTui(App[None]):
                             with Vertical(id="system-domain-detail"):
                                 yield Label("Select a system domain", id="system-domain-title", classes="pane-title")
                                 with Horizontal(id="system-toolbar"):
-                                    yield Button("Refresh evidence", id="system-refresh", display=False)
+                                    yield Button("Refresh evidence", id="system-refresh")
                                     yield Label("View")
                                     yield Select([("Clean", "clean"), ("Raw", "raw")], value="clean", allow_blank=False, id="system-view")
-                                    yield Button("Review proposal", id="system-review", display=False)
-                                    yield Button("Run in normal terminal", id="system-terminal", display=False)
+                                    yield Button("Review proposal", id="system-review")
+                                    yield Button("Run in normal terminal", id="system-terminal")
                                 yield Input(placeholder="Operation ID supplied by the agent", id="system-operation")
                                 with ContentSwitcher(initial="system-clean", id="system-detail-switcher"):
                                     yield VerticalScroll(id="system-clean")
@@ -1648,6 +1648,9 @@ class JarvisTui(App[None]):
 
     async def on_mount(self) -> None:
         self.set_interval(0.1, self._render_live_activity)
+        self.query_one("#system-refresh", Button).display = False
+        self.query_one("#system-review", Button).display = False
+        self.query_one("#system-terminal", Button).display = False
         if self.plain_mode:
             self.add_class("plain")
         self.presentation.load_journal(self.broker.journal.read())
