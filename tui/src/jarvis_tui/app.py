@@ -5680,6 +5680,8 @@ class JarvisTui(App[None]):
             self._synced_entry_state.clear()
             self._conversation_message_indices.clear()
 
+            self.session.reset_conversation_thread()
+
             # Clear display
             self._clear_conversation_display()
 
@@ -5698,6 +5700,10 @@ class JarvisTui(App[None]):
         """Clear the active view and its matching model-context epoch."""
         try:
             self.presentation.reset_conversation()
+            configured_context = getattr(self, "_selected_context", "auto")
+            self._live_activity = LiveActivity()
+            if configured_context.isdigit():
+                self._live_activity.context_window = int(configured_context)
             self._checkpoint_selector_id = None
             self._synced_entry_state.clear()
             self._conversation_message_indices.clear()

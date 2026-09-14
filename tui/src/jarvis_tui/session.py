@@ -392,6 +392,15 @@ class AppServerSessionController:
         """Select the MCP catalog before the App Server initializes it."""
         self._catalog_specialist = specialist
 
+    def reset_conversation_thread(self) -> None:
+        """Detach the persistent model thread for a newly started conversation."""
+        if self.snapshot.active_turn_id:
+            raise AppServerError("cannot reset conversation while a turn is active")
+        revoke_scope(self.workspace, getattr(self.client, "scope_id", ""))
+        self._detach_thread_for_context_epoch()
+        self.snapshot.active_task_id = None
+        self.snapshot.thread_status = "not_loaded"
+
     async def disconnect(self) -> None:
         revoke_scope(self.workspace, getattr(self.client, "scope_id", ""))
         if self._event_task and not self._event_task.done():

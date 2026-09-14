@@ -213,6 +213,15 @@ class SessionTests(unittest.IsolatedAsyncioTestCase):
             await self.session.preflight_task(task)
         self.assertFalse(any(method == "turn/start" for method, _ in self.client.requests))
 
+    async def test_new_conversation_detaches_model_thread_without_disconnect(self) -> None:
+        await self.session.connect()
+        self.session.snapshot.thread_id = "old-thread"
+        self.session.snapshot.thread_status = "idle"
+        self.session.reset_conversation_thread()
+        self.assertIsNone(self.session.snapshot.thread_id)
+        self.assertEqual(self.session.snapshot.thread_status, "not_loaded")
+        self.assertTrue(self.session.client.running)
+
     async def test_api_key_session_can_start_a_scoped_thread(self) -> None:
         client = FakeAppServerClient(
             {

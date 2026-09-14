@@ -10,6 +10,8 @@
   during preflight, and expose only the selected specialist's registered tools.
 - Explanation envelopes are compact; threshold-gated compaction waits for the
   authoritative `contextCompaction` item.
+- `New` now resets the live activity projection and detaches the previous model
+  thread, so a new conversation cannot reuse old context.
 
 ## 2026-09-13 — Context accounting
 

@@ -10,6 +10,8 @@
   seleccionado; durante preflight las llamadas se rechazan.
 - Los envelopes de explicación son compactos y la compactación condicionada
   espera el item autoritativo `contextCompaction`.
+- `New` reinicia la actividad visible y separa el hilo anterior para que una
+  conversación nueva no reutilice contexto antiguo.
 
 ## 2026-09-13 — Context accounting
 
