@@ -821,10 +821,6 @@ class ConversationHistoryModal(ModalScreen[tuple[str, str] | None]):
 
     def on_button_pressed(self, event: Button.Pressed) -> None:
         button_id = event.button.id or ""
-        if button_id.startswith("system-domain-"):
-            self._select_system_domain(button_id.removeprefix("system-domain-"))
-            return
-
         if button_id == "history-close":
             self.dismiss(None)
             return
@@ -5224,6 +5220,9 @@ class JarvisTui(App[None]):
 
     def on_button_pressed(self, event: Button.Pressed) -> None:
         button_id = event.button.id or ""
+        if button_id.startswith("system-domain-"):
+            self._select_system_domain(button_id.removeprefix("system-domain-"))
+            return
         if button_id.startswith("domain-info-"):
             detail = self._domain_help.get(button_id)
             if detail is not None:
