@@ -24,6 +24,7 @@ from jarvis_tui.models import (  # noqa: E402
     TaskState,
 )
 from jarvis_tui.preflight import preflight_prompt  # noqa: E402
+from jarvis_tui.specialists import load_specialists  # noqa: E402
 
 
 class Ids:
@@ -210,6 +211,37 @@ class BrokerTests(unittest.TestCase):
         self.assertIn("State relevant snapshot limits", prompt)
         self.assertNotIn("reviewed Bash", prompt)
         self.assertNotIn("submit the exact command/file approval", prompt)
+
+    def test_specialist_contract_is_supplied_once_then_referenced(self) -> None:
+        specialist = next(
+            item for item in load_specialists(BUNDLE_ROOT) if item.id == "jarvis-github-agent"
+        )
+        task = self.broker.capture_text(
+            "Inspect this repository.",
+            agent_id=specialist.id,
+            agent_version=specialist.version,
+        )
+        self.broker.record_assessment(
+            task,
+            IntentAssessment(
+                assessment_id=self.broker.identifier("assessment"),
+                decision=AssessmentDecision.EXECUTE,
+                intent_class=IntentClass.INSPECT,
+                operation="inspect repository",
+                targets=(str(BUNDLE_ROOT),),
+                risk=0,
+                route=ExecutionRoute.REGISTERED_WORKFLOW,
+                reason="exact fixture target",
+            ),
+        )
+        first = self.broker.compile_agent_prompt(task, specialist=specialist)
+        later = self.broker.compile_agent_prompt(
+            task, specialist=specialist, include_specialist_context=False
+        )
+        self.assertIn("Act as JARVIS GitHub Agent", first)
+        self.assertIn("Specialist contract digest:", first)
+        self.assertNotIn("Act as JARVIS GitHub Agent", later)
+        self.assertIn("same specialist contract was already supplied", later)
 
     def test_journal_redacts_and_detects_tampering(self) -> None:
         self.journal.append(

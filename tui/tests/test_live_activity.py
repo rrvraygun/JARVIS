@@ -17,7 +17,7 @@ class LiveActivityTests(unittest.TestCase):
     def test_checkpoint_reset_returns_usage_to_zero(self):
         state = LiveActivity(context_window=65536, context_used=11000)
         state.reset_context()
-        self.assertIn("Context · 0k / 64k · 100% left", state.text())
+        self.assertIn("Context estimate · 0k / 64k · 100% left", state.text())
 
     def test_context_usage_is_compact_and_calculated(self):
         state = LiveActivity(context_window=800_000)
@@ -27,10 +27,10 @@ class LiveActivityTests(unittest.TestCase):
                 "turn/tokenUsage/updated",
                 "token_usage_updated",
                 "received",
-                metadata={"total_tokens": 58_000},
+                metadata={"total_tokens": 158_000, "last_total_tokens": 58_000},
             )
         )
-        self.assertIn("Context · 57k / 781k · 93% left", state.text())
+        self.assertIn("Context estimate · 57k / 781k · 93% left", state.text())
 
     def test_nested_app_server_token_usage_is_read(self):
         from jarvis_tui.event_reducer import AppServerEventReducer
@@ -61,7 +61,28 @@ class LiveActivityTests(unittest.TestCase):
         )
         self.assertEqual(event.kind, "token_usage_updated")
         self.assertEqual(event.metadata["total_tokens"], 58000)
+        self.assertEqual(event.metadata["last_total_tokens"], 1200)
+        self.assertEqual(event.metadata["total_input_tokens"], 50000)
+        self.assertEqual(event.metadata["total_output_tokens"], 8000)
+        self.assertEqual(event.metadata["last_input_tokens"], 900)
         self.assertEqual(event.metadata["context_window"], 800000)
+        self.assertTrue(event.metadata["usage_valid"])
+
+    def test_invalid_usage_is_marked_and_not_displayed(self):
+        from jarvis_tui.event_reducer import AppServerEventReducer
+
+        event = AppServerEventReducer().normalize(
+            {
+                "method": "thread/tokenUsage/updated",
+                "params": {
+                    "tokenUsage": {"modelContextWindow": 1000, "total": {"totalTokens": -1}}
+                },
+            }
+        )
+        self.assertFalse(event.metadata["usage_valid"])
+        state = LiveActivity(context_window=1000)
+        state.update(event)
+        self.assertIsNone(state.context_used)
 
     def test_disconnect_stops_unfinished_tool_without_claiming_success(self):
         state = LiveActivity()

@@ -54,7 +54,18 @@ Las acciones claras y cargadas de historia avanzan una época contextual; el sig
 La solicitud inicia un hilo nuevo en lugar de combinar vistas incompatibles. Contexto
 la sincronización se intenta una vez. El fallo se detiene antes del clasificador/ejecución
 `turn/start`, informa `conversation_context.sync_failed`, restaura el envío y
-no repite la tarea.La proyección sincronizada se puede utilizar como evidencia observacional limitada, no
+no repite la tarea.
+
+### Comportamiento actual de ejecución — 2026-09-14
+
+El preflight no determinista usa un hilo efímero y solo transfiere la evaluación
+tipada a la conversación persistente. El scope MCP se inicializa antes del App
+Server, no permite llamadas durante preflight y limita la ejecución a las
+herramientas del especialista. Las preguntas sobre rama, estado o metadatos
+actuales requieren evidencia fresca de `github_inspect`. La compactación espera
+`contextCompaction` y conserva el hilo si falla.
+
+La proyección sincronizada se puede utilizar como evidencia observacional limitada, no
 sólo prosa conversacional. Cuando se resuelve exactamente un resultado compatible reciente
 una referencia como “ese directorio”, un recuento de seguimiento, un resumen, una comparación,
 o explicación se clasifica como un turno de conversación de sólo respuesta. el agente
@@ -223,3 +234,43 @@ palabras clave de restricción específicas de tipo para esta ruta de modelo. Un
 categorizado sin persistir su mensaje como `output_schema`,
 `model_unavailable`, `capacity`, `authentication`, `transport`, o
 `server_error`.
+
+### Contabilidad de contexto (2026-09-13)
+
+`context.usage` conserva cifras de última respuesta, acumulado del hilo y petición
+completa, separando preflight y ejecución e incluyendo entrada en caché. Los campos
+del diario terminan en `_count` (por ejemplo `total_count`) para mantener intacta la
+redacción de claves de credenciales. Se calculan diferencias del acumulado; no se
+suman notificaciones repetidas de `last`. Una base desconocida tras reanudar o un
+contador decreciente marca el intervalo como incompleto. El uso sin tarea vinculada
+no se atribuye a una petición. La interfaz muestra una **estimación de contexto**
+basada en la última respuesta y separa consumo acumulado y entrada en caché.
+
+`context.payload` mide bytes de JSON UTF-8 canónico de solicitudes; `context.tool_payload`
+mide argumentos, resultados y errores de herramientas sin guardar su contenido.
+No son tokens y no incluyen las instrucciones, esquemas o historial añadidos por el
+servidor. Las restricciones estables preceden a los datos variables del clasificador;
+se eliminan repeticiones exactas y formato JSON innecesario. Se mantienen evaluación
+tipada, aprobaciones, observaciones verificadas, aislamiento y puntos de control.
+Acotar nuevas entradas de preflight no elimina el historial previo del hilo.
+
+Una comparación real de explicación con la configuración existente `gpt-5.6-luna` /
+`none` midió 29.380 tokens antes y 29.908 después, con 13.056 y 6.912 tokens de entrada
+en caché. Ambas respuestas fueron correctas y de dos frases. **No demuestra ahorro
+ni paridad con CLI**. El caso controlado de prompts pasó de 8.299 a 8.092 caracteres.
+El MCP contiene 52 definiciones (18.001 bytes JSON compacto); cuatro son de GitHub
+(3.011 bytes). El catálogo anunciado es más amplio que los permisos de ejecución.
+No se activan filtrado de herramientas, cambios de modelo, compactación automática
+ni métodos nuevos. La compactación asíncrona documentada requiere validar su ciclo
+de vida y los puntos de control antes de adoptarla:
+https://learn.chatgpt.com/docs/app-server#trigger-thread-compaction
+
+
+El prompt de preflight del especialista ahora solo lleva identidad, versión y número de restricciones vinculados por el corredor. El contrato completo permanece en la ejecución. Un fixture redujo el prompt del clasificador de 6,7 KB a 3,7 KB; no es una afirmación de ahorro de tokens.
+
+La visibilidad de herramientas MCP se filtra por el scope del especialista. El
+preflight ve el catálogo seleccionado para conservar el esquema, pero el scope
+rechaza toda llamada hasta la admisión tipada. La ejecución recibe únicamente
+las herramientas MCP registradas para ese especialista y los metadatos comunes.
+El contrato personalizado se suministra una vez por digest e hilo y se referencia
+en los turnos posteriores.

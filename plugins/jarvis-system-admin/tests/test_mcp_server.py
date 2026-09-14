@@ -73,34 +73,28 @@ with tempfile.TemporaryDirectory() as directory:
 
     assert responses[0]["result"]["serverInfo"]["version"] == "0.2.0"
     names = {tool["name"] for tool in responses[1]["result"]["tools"]}
-    assert {
+    assert names <= {
+        "capabilities",
         "list_actions",
         "get_action",
+        "evaluate_policy",
+        "action_digest",
+        "verify_ledger",
+        "knowledge_status",
+        "read_project",
         "query_knowledge",
-        "revise_error",
-        "power_inventory",
-        "inspect_power_inventory",
-        "power_telemetry",
-        "inspect_power_telemetry",
-        "health_inventory",
-        "health_telemetry",
-        "health_processes",
-        "health_services",
-        "health_storage",
-        "health_logs",
-        "development_toolchains",
-        "development_project_inspect",
-        "github_inspect",
-        "github_preflight",
-        "github_remote_inspect",
-        "github_operation_plan",
-        "network_inventory",
-        "security_inventory",
-        "recovery_inventory",
-        "package_catalog",
-        "package_search",
-        "inspect_packages",
-    } <= names
+        "inspect_host_read_only",
+        "generate_specialist",
+        "run_tests_in_worktree",
+        "bash",
+        "read",
+        "write",
+        "edit",
+        "grep",
+    }
+    assert "github_inspect" not in names
+    assert "power_inventory" not in names
+    assert "package_catalog" not in names
     assert not ({"shell", "bash", "sudo", "execute"} & names)
     status = json.loads(responses[2]["result"]["content"][0]["text"])
     assert status["valid"]

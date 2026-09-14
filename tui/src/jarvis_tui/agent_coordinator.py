@@ -18,13 +18,18 @@ class SpecialistContext:
     transcript_policy: str
 
     def prompt_constraint(self, specialist: Specialist) -> str:
-        return (
+        text = (
             specialist.context_prompt()
-            + "\nSelected agent routing: this specialist was explicitly selected by the user; "
-            "do not infer or switch specialists from the request."
             + "\nContext contract: the visible conversation is authoritative continuity data; "
             "use it when sufficient and keep any additional evidence bounded and evidence-labeled."
         )
+        if specialist.id == "jarvis-github-agent":
+            text += (
+                "\nRepository inspections must use the registered github_inspect tool; "
+                "never substitute shell or arbitrary git commands. If the request text is "
+                "duplicated, normalize it and perform one inspection with the exact target."
+            )
+        return text
 
 
 class AgentCoordinator:

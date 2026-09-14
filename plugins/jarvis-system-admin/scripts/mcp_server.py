@@ -52,6 +52,7 @@ from jarvis_tui.local_control import ReadOnlyLocalControl  # noqa: E402
 from jarvis_tui.operation_workflow import OperationWorkflow  # noqa: E402
 from jarvis_tui.recovery_plan import prepare as prepare_recovery_plan  # noqa: E402
 from jarvis_tui.tool_scope import allowed as scoped_tools  # noqa: E402
+from jarvis_tui.tool_scope import catalog_allowed as catalog_tools  # noqa: E402
 
 package_reader = ReadOnlyLocalControl(ROOT.parent.parent)
 operations = OperationWorkflow(ROOT.parent.parent)
@@ -1091,21 +1092,14 @@ while True:
         elif method == "notifications/initialized":
             continue
         elif method == "tools/list":
+            selected = catalog_tools(ROOT.parent.parent, SCOPE_ID)
             respond(
                 identifier,
                 {
                     "tools": [
                         tool
                         for tool in TOOLS
-                        if tool["name"]
-                        not in {
-                            "activate_lesson",
-                            "verify_approval",
-                            "append_audit_event",
-                            "record_decision",
-                            "record_command_attempt",
-                            "promote_lesson_candidate",
-                        }
+                        if tool["name"] in selected
                     ]
                 },
             )

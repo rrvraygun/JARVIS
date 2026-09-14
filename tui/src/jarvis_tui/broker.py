@@ -11,6 +11,7 @@ from pathlib import Path
 from typing import Any
 
 from .actions import ActionRegistry
+from .agent_coordinator import SpecialistContext
 from .app_server import turn_start_request
 from .event_store import EventJournal
 from .local_control import ReadOnlyLocalControl
@@ -47,6 +48,7 @@ from .models import (
 )
 from .package_mutation import PackageMutationPlanner
 from .specialist_factory import build_specialist_proposal, write_proposal
+from .specialists import Specialist
 
 _GREETING = re.compile(r"(?:hey+|hello+|hi+|hola+)[!?.\s]*", re.IGNORECASE)
 
@@ -1363,13 +1365,66 @@ class JarvisBroker:
             )
         return tuple(result)
 
-    def compile_agent_prompt(self, task: TaskRecord) -> str:
+    def compile_agent_prompt(
+        self,
+        task: TaskRecord,
+        *,
+        specialist: Specialist | None = None,
+        include_specialist_context: bool = True,
+    ) -> str:
         """Compile an already captured intent; do not execute or send it."""
         if task.assessment is None or task.assessment.decision != AssessmentDecision.EXECUTE:
             raise RuntimeError("only an executable preflight assessment can compile a prompt")
-        envelope = json.dumps(task.intent.to_dict(), indent=2, sort_keys=True, ensure_ascii=False)
+        intent_payload = task.intent.to_dict()
+        specialist_context = ""
+        if specialist is not None:
+            contract = SpecialistContext(
+                specialist.id,
+                specialist.version,
+                specialist.context_limit,
+                specialist.retention,
+            ).prompt_constraint(specialist)
+            specialist_context = (
+                f"Selected specialist: {specialist.id}@{specialist.version}.\n"
+                f"Specialist contract digest: {hashlib.sha256(contract.encode()).hexdigest()}.\n"
+                + (
+                    "Specialist contract follows. Apply it to this turn; the broker-bound tool scope is authoritative.\n"
+                    + contract
+                    if include_specialist_context
+                    else "The same specialist contract was already supplied earlier in this thread; retain and apply it unchanged.\n"
+                )
+            )
+        if isinstance(intent_payload.get("constraints"), list):
+            intent_payload["constraints"] = [
+                f"{len(intent_payload['constraints'])} active specialist constraint(s)"
+            ]
+        if task.assessment.intent_class == IntentClass.EXPLAIN:
+            # Answer-only turns need the evidence request and typed decision,
+            # not the full execution envelope. Keeping this compact also avoids
+            # repeating mutation/approval fields that cannot apply to explain.
+            intent_payload = {
+                "source": task.intent.source.value,
+                "requested_mode": task.intent.requested_mode.value,
+                "text": task.intent.text,
+            }
+            authority_payload = {
+                key: getattr(task.assessment, key)
+                for key in (
+                    "assessment_id",
+                    "decision",
+                    "intent_class",
+                    "operation",
+                    "risk",
+                    "route",
+                )
+            }
+        else:
+            authority_payload = task.assessment.to_dict()
+        envelope = json.dumps(
+            intent_payload, separators=(",", ":"), sort_keys=True, ensure_ascii=False
+        )
         authority = json.dumps(
-            task.assessment.to_dict(), indent=2, sort_keys=True, ensure_ascii=False
+            authority_payload, separators=(",", ":"), sort_keys=True, ensure_ascii=False
         )
         if task.action:
             lead = (
@@ -1402,11 +1457,10 @@ class JarvisBroker:
             operation_guidance = (
                 "This is an answer-only conversation turn. Answer from the active Conversation "
                 "evidence and ordinary reasoning. Do not call tools, run commands, read files, use "
-                "the network, or request approval. Do not refresh prior evidence unless the user "
-                "explicitly asked for current or fresh state. State relevant snapshot limits when "
-                "they affect the answer; if the existing evidence is insufficient, say what is "
-                "missing without performing a new operation. Answer with the outcome first in "
-                "2-4 concise sentences unless detail is requested. "
+                "the network, or request approval. Do not refresh prior evidence unless explicitly "
+                "asked for current state. State relevant snapshot limits. If evidence is insufficient, "
+                "say what is missing without a new operation. Answer with the outcome first in 2-4 "
+                "concise sentences. "
             )
         else:
             operation_guidance = (
@@ -1445,6 +1499,7 @@ class JarvisBroker:
             )
         return (
             f"{lead}\n\n"
+            f"{specialist_context}\n"
             f"{operation_guidance}"
             "\n"
             "<jarvis_authority_envelope>\n"
@@ -1461,11 +1516,37 @@ class JarvisBroker:
         thread_id: str,
         workspace: Path,
         request_id: int = 1,
+        *,
+        specialist: Specialist | None = None,
+        include_specialist_context: bool = True,
     ) -> dict[str, Any]:
         """Prepare but never transmit the App Server request."""
+        prompt = self.compile_agent_prompt(
+            task,
+            specialist=specialist,
+            include_specialist_context=include_specialist_context,
+        )
+        assert task.assessment is not None
+        self.journal.append(
+            "context.metrics",
+            "broker",
+            "observed",
+            {
+                "prompt_characters": len(prompt),
+                "prompt_lines": prompt.count("\n") + 1,
+                "intent_constraints_characters": sum(
+                    len(value) for value in task.intent.constraints
+                ),
+                "envelope_characters": len(json.dumps(task.intent.to_dict(), ensure_ascii=False)),
+                "assessment_characters": len(
+                    json.dumps(task.assessment.to_dict(), ensure_ascii=False)
+                ),
+            },
+            task.task_id,
+        )
         return turn_start_request(
             thread_id=thread_id,
-            text=self.compile_agent_prompt(task),
+            text=prompt,
             cwd=workspace,
             request_id=request_id,
             sandbox_policy={

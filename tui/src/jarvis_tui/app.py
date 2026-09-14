@@ -1662,6 +1662,7 @@ class JarvisTui(App[None]):
         if self.connect_jarvisd:
             self.run_worker(self._refresh_jarvisd(), group="jarvisd-status", exclusive=True)
         if self.connect_app_server:
+            self.session.set_catalog_specialist(self._active_specialist)
             self.run_worker(self._connect_app_server(), group="app-server-connect", exclusive=True)
         for domain in ("health", "development", "network", "security", "recovery"):
             self._set_domain_view(domain, "clean")
@@ -4353,12 +4354,19 @@ class JarvisTui(App[None]):
                 self.presentation.context_snapshot(exclude_task_id=task.task_id)
             )
             turn_id = await self.session.start_turn(task)
+            # turn/start returned a turn id, so the current user/action entry
+            # is already model-visible. Record it before waiting for a final
+            # status to prevent failed or interrupted turns being reinjected.
+            self.session.acknowledge_model_context(self.presentation.context_snapshot())
             self._system_message(f"Started scoped turn {turn_id}.")
             status = await self.session.wait_for_turn(turn_id, task)
             self.presentation.update_task_status(task)
             self.presentation.mark_task_terminal(task, f"agent turn {status}")
-            if status == "completed":
-                self.session.acknowledge_model_context(self.presentation.context_snapshot())
+            self.session.acknowledge_model_context(self.presentation.context_snapshot())
+            try:
+                await self.session.compact_if_needed()
+            except AppServerError as exc:
+                self._system_message(f"Context compaction unavailable: {type(exc).__name__}")
         except ConversationContextSyncError as exc:
             if task.state not in {
                 TaskState.COMPLETED,
@@ -4392,10 +4400,16 @@ class JarvisTui(App[None]):
                 TaskState.FAILED,
             }:
                 self.broker.transition(task, TaskState.FAILED, reason="task_dispatch_failed")
-            self._system_message(
-                f"Task dispatch failed safely (task_dispatch.{type(exc).__name__.casefold()}); "
-                "no task was replayed."
-            )
+            if "capacity" in str(exc).casefold() or self.session.snapshot.connection == ConnectionState.CAPACITY_LIMITED:
+                self._system_message(
+                    "Codex capacity is currently limited; no model turn was submitted. "
+                    "Wait for the reset time shown in SESSION capacity."
+                )
+            else:
+                self._system_message(
+                    f"Task dispatch failed safely (task_dispatch.{type(exc).__name__.casefold()}); "
+                    "no task was replayed."
+                )
             self.presentation.mark_task_terminal(task, "task_dispatch_failed")
         finally:
             self.presentation.update_task_status(task)
@@ -4719,6 +4733,13 @@ class JarvisTui(App[None]):
             return
         composer = self.query_one("#composer", Input)
         text = composer.value.strip()
+        # Clipboard/paste paths can duplicate a complete prompt back-to-back.
+        # Collapse only an exact two-halves repetition; ordinary repeated words
+        # or intentionally duplicated sections remain untouched.
+        if len(text) >= 2 and len(text) % 2 == 0:
+            midpoint = len(text) // 2
+            if text[:midpoint] == text[midpoint:]:
+                text = text[:midpoint].strip()
         if not text:
             self._system_message("Enter a request before sending it.")
             self._render_all()

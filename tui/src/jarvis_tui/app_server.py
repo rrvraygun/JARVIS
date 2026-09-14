@@ -35,6 +35,7 @@ ALLOWED_REQUEST_METHODS = frozenset(
         "thread/start",
         "thread/resume",
         "thread/inject_items",
+        "thread/compact/start",
         "turn/start",
         "turn/interrupt",
     }

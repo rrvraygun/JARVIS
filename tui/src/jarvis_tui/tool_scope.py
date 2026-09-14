@@ -65,6 +65,7 @@ def publish(
     project_roots: tuple[str, ...] = (),
     evidence_tools: tuple[str, ...] = (),
     evidence_arguments: dict[str, object] | None = None,
+    execution_ready: bool = True,
 ) -> None:
     if len(scope_id) != 32 or any(c not in "0123456789abcdef" for c in scope_id):
         raise ValueError("invalid_scope_id")
@@ -99,6 +100,7 @@ def publish(
             "task_id": task_id,
             "expires_at": time.time() + 600,
             "allowed": sorted((set(specialist.allowed_tools) | COMMON) - FORBIDDEN),
+            "execution_ready": execution_ready,
         },
     )
     fd = private_records.directory(root)
@@ -122,6 +124,25 @@ def allowed(bundle: Path, scope_id: str) -> frozenset[str]:
             return frozenset()
         start = Path(f"/proc/{pid}/stat").read_text().rsplit(")", 1)[1].split()[19]
         if start != scope.get("controller_start"):
+            return frozenset()
+        names = scope.get("allowed")
+        if not isinstance(names, list) or not all(isinstance(n, str) for n in names):
+            return frozenset()
+        if scope.get("execution_ready") is not True:
+            return frozenset()
+        return frozenset(names) - FORBIDDEN
+    except (OSError, ValueError, IndexError):
+        return frozenset()
+
+
+def catalog_allowed(bundle: Path, scope_id: str) -> frozenset[str]:
+    """Return the selected specialist's tool catalog without granting calls."""
+    try:
+        scope = private_records.read(bundle / "runtime/tool-scope", scope_id + ".json", 16000)
+        if (
+            not isinstance(scope.get("expires_at"), (float, int))
+            or not time.time() < scope["expires_at"] <= time.time() + 601
+        ):
             return frozenset()
         names = scope.get("allowed")
         if not isinstance(names, list) or not all(isinstance(n, str) for n in names):

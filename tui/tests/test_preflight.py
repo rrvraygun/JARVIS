@@ -3,21 +3,25 @@ from __future__ import annotations
 
 import importlib.util
 import json
-from pathlib import Path
 import sys
 import unittest
-
+from pathlib import Path
 
 TUI_ROOT = Path(__file__).resolve().parents[1]
 BUNDLE_ROOT = TUI_ROOT.parent
 sys.path.insert(0, str(TUI_ROOT / "src"))
 
-from jarvis_tui.models import (  # noqa: E402
+from jarvis_tui.models import (  # noqa: E402  # noqa: E402
     AssessmentDecision,
     ExecutionRoute,
     IntentAssessment,
     IntentAssessmentValidationError,
     IntentClass,
+    IntentEnvelope,
+    IntentSource,
+    TaskMode,
+    TaskRecord,
+    TaskState,
 )
 from jarvis_tui.preflight import (  # noqa: E402
     PREFLIGHT_OUTPUT_SCHEMA,
@@ -25,8 +29,6 @@ from jarvis_tui.preflight import (  # noqa: E402
     parse_preflight_output,
     preflight_prompt,
 )
-from jarvis_tui.models import IntentEnvelope, IntentSource, TaskMode, TaskRecord, TaskState  # noqa: E402
-
 
 VALID = (
     {
@@ -264,6 +266,8 @@ class TypedPreflightTests(unittest.TestCase):
         prompt = preflight_prompt(task, "/workspace")
         self.assertIn("outside the project", prompt)
         self.assertIn("exact one-use approval", prompt)
+        self.assertIn("current branch", prompt)
+        self.assertIn("fresh registered repository inspection", prompt)
 
 
 if __name__ == "__main__":

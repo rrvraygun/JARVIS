@@ -365,3 +365,57 @@ The earlier claim of a permanently hung Textual suite was not supported:
 the retained log completed 36 tests in 109.777 seconds. A new real PTY smoke
 exercised the review button, one printf and UI resumption. See
 `sessions/2026-09-11-validation-closeout.md` and `PATCH-GUIDE-2026-09.md`.
+
+### Context usage accounting (2026-09-13)
+
+`context.usage` records numeric last-response, cumulative-thread and logical-request
+usage, split into preflight and execution, including cached input. Journal counters
+use `_count` suffixes (for example `total_count`); credential-key redaction stays
+unchanged. Logical requests use cumulative deltas, not sums of repeated `last`
+snapshots. Missing baselines after resume or decreasing counters mark the observed
+interval incomplete. Unbound usage is not charged to a task. The activity view uses
+last-response usage as a **context estimate**, never accumulated thread usage, and
+shows thread usage/cached input separately. Checkpoint resets retain conversation
+isolation and do not grant authority.
+
+`context.payload` measures canonical UTF-8 JSON byte sizes for outgoing thread,
+context-injection and turn payloads; `context.tool_payload` measures incoming tool
+arguments/results/errors without retaining their content. These are byte counts,
+not tokenizer measurements, and exclude server-added system instructions, tool
+schemas and cached history. Stable classifier constraints precede variable request
+data; exact repeated constraints and duplicate routing prose are removed, and
+execution envelopes use compact JSON. All typed assessments and approval gates
+remain active. Full history still resides in the conversation thread: limiting new
+preflight projection entries does not isolate the classifier from existing history.
+
+A single real answer-only comparison using the existing `gpt-5.6-luna` / `none`
+settings measured 29,380 before versus 29,908 after total tokens; cached input was
+13,056 versus 6,912. Both replies were correct two-sentence explanations. This is
+**not evidence of a token reduction or CLI parity**. The controlled prompt fixture
+shrunk from 8,299 to 8,092 characters across preflight and execution. The MCP source
+contains 52 definitions (18,001 compact JSON bytes), including four GitHub tools
+(3,011 bytes); schema discovery is broader than execution permission. No tool
+filtering, model changes, automatic compaction, or new protocol methods were enabled.
+OpenAI documents asynchronous `thread/compact/start`; adopting it still needs its
+own lifecycle/checkpoint validation, not a guessed context reset:
+https://learn.chatgpt.com/docs/app-server#trigger-thread-compaction
+
+
+The specialist preflight prompt now carries only broker-bound identity, version, and constraint count. The full specialist contract remains on execution turns. A fixture reduced classifier prompt bytes from 6.7 KB to 3.7 KB; this is not a token saving claim.
+
+Specialist tool visibility is scope-bound. The MCP server filters `tools/list` to
+the selected specialist's registered MCP tools and shared read-only metadata tools.
+The same scope is non-executable during preflight and becomes executable only
+after typed admission. The selected specialist contract is included once per
+specialist digest and conversation thread; later turns carry its digest and a
+continuity reference instead of repeating the full contract.
+
+### Current execution behavior — 2026-09-14
+
+Non-deterministic preflight runs on an ephemeral App Server thread. Only the
+typed assessment reaches the persistent conversation. The selected MCP scope is
+bootstrapped before App Server initialization, is non-executable during
+preflight, and limits execution to the selected specialist's registered tools.
+Current Git branch/status/repository metadata questions require fresh
+`github_inspect` evidence. Threshold-gated compaction waits for
+`contextCompaction`; failures preserve the thread.

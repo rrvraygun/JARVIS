@@ -13,6 +13,7 @@ from enum import StrEnum
 from pathlib import Path
 from typing import Any
 
+from .agent_coordinator import SpecialistContext
 from .app_server import (
     AppServerClient,
     AppServerError,
@@ -44,6 +45,7 @@ from .specialists import Specialist
 from .tool_scope import has_observation
 from .tool_scope import publish as publish_scope
 from .tool_scope import revoke as revoke_scope
+from .usage_metrics import UsageLedger, journal_usage, payload_metrics
 
 JARVIS_PRIMARY_MODEL = "gpt-5.6-terra"
 JARVIS_PRIMARY_REASONING_EFFORT = "medium"
@@ -295,7 +297,11 @@ class AppServerSessionController:
         self._listeners: list[Callable[[NormalizedEvent], None]] = []
         self._turn_agent_text: dict[str, str] = {}
         self._completion_waiters: dict[str, asyncio.Future[str]] = {}
+        self._compaction_waiters: dict[str, asyncio.Future[str]] = {}
+        self._latest_usage: dict[str, int] = {}
         self._preflight_turns: set[str] = set()
+        self._usage = UsageLedger()
+        self._preflight_usage_ledgers: dict[str, UsageLedger] = {}
         self._preflight_pending = False
         self._preflight_task_id: str | None = None
         self._stream_summaries: dict[tuple[str, str], StreamSummaryAccumulator] = {}
@@ -305,6 +311,8 @@ class AppServerSessionController:
         self._thread_generation = 0
         self._active_context_epoch: int | None = None
         self._context_entry_digests: dict[str, dict[str, str]] = {}
+        self._thread_specialist_digests: dict[str, set[str]] = {}
+        self._catalog_specialist: Specialist | None = None
         self.recover_thread_reference()
 
     def add_listener(self, listener: Callable[[NormalizedEvent], None]) -> None:
@@ -337,6 +345,15 @@ class AppServerSessionController:
         self.snapshot.last_error = None
         self._journal_session("app_server.connecting", "starting", {"transport": "stdio"})
         try:
+            if self._catalog_specialist is not None and hasattr(self.client, "process"):
+                publish_scope(
+                    self.workspace,
+                    self._catalog_specialist,
+                    "catalog-bootstrap",
+                    getattr(self.client, "scope_id", ""),
+                    project_roots=(str(self.workspace),),
+                    execution_ready=False,
+                )
             await self.client.start()
             self._event_task = asyncio.create_task(self._consume_events())
             await self.refresh_account()
@@ -371,6 +388,10 @@ class AppServerSessionController:
             self._event_task = None
             raise
 
+    def set_catalog_specialist(self, specialist: Specialist | None) -> None:
+        """Select the MCP catalog before the App Server initializes it."""
+        self._catalog_specialist = specialist
+
     async def disconnect(self) -> None:
         revoke_scope(self.workspace, getattr(self.client, "scope_id", ""))
         if self._event_task and not self._event_task.done():
@@ -387,7 +408,7 @@ class AppServerSessionController:
         self._journal_session("app_server.disconnected", "offline", {"graceful": True})
 
     async def refresh_account(self) -> SessionSnapshot:
-        result = await self.client.request("account/read", {"refreshToken": False})
+        result = await self._request("account/read", {"refreshToken": False})
         status = subscription_account_status(result)
         self.snapshot.auth_mode = status["auth_mode"]
         self.snapshot.plan_type = status["plan_type"]
@@ -407,7 +428,7 @@ class AppServerSessionController:
             ConnectionState.UNSUPPORTED_AUTH,
         }:
             raise AppServerError("ChatGPT login is not required")
-        result = await self.client.request(
+        result = await self._request(
             "account/login/start",
             {
                 "type": "chatgpt",
@@ -428,7 +449,7 @@ class AppServerSessionController:
     async def refresh_rate_limits(self) -> SessionSnapshot:
         if self.snapshot.auth_mode != "chatgpt":
             raise AppServerError("rate limits are available only for ChatGPT-managed auth")
-        result = await self.client.request("account/rateLimits/read", {})
+        result = await self._request("account/rateLimits/read", {})
         self.snapshot.rate_limits = summarize_rate_limits(result)
         self.snapshot.connection = (
             ConnectionState.CAPACITY_LIMITED
@@ -489,6 +510,7 @@ class AppServerSessionController:
                 self._thread_generation += 1
                 self._active_context_epoch = None
                 self._context_entry_digests.clear()
+                self._thread_specialist_digests.clear()
             if self.snapshot.thread_id:
                 return self.snapshot.thread_id
         _, reserved = self.broker.journal.append_once(
@@ -502,7 +524,7 @@ class AppServerSessionController:
             raise AppServerError(
                 "thread creation is already reserved; recover or resume it explicitly"
             )
-        result = await self.client.request(
+        result = await self._request(
             "thread/start",
             {
                 "cwd": str(self.workspace),
@@ -529,6 +551,37 @@ class AppServerSessionController:
         self._journal_session("thread.started", "idle", {"thread_id": thread_id})
         return str(thread_id)
 
+    async def start_ephemeral_thread(self) -> str:
+        """Start a classifier-only thread that never becomes conversation history."""
+        self._require_authenticated()
+        sandbox_mode, _ = execution_policy(self.workspace)
+        result = await self._request(
+            "thread/start",
+            {
+                "cwd": str(self.workspace),
+                "approvalPolicy": "never",
+                "sandbox": sandbox_mode,
+                "ephemeral": True,
+                "serviceName": "jarvis_tui_preflight",
+                "model": self.model,
+                "config": {
+                    "model_reasoning_effort": self.reasoning_effort,
+                },
+            },
+        )
+        thread = result.get("thread") if isinstance(result, dict) else None
+        thread_id = thread.get("id") if isinstance(thread, dict) else None
+        if not thread_id:
+            raise AppServerError("ephemeral thread/start returned no thread id")
+        self.broker.journal.append(
+            "preflight.thread.started",
+            "broker",
+            "ephemeral",
+            {"thread_id_present": True, "persistent_conversation": False},
+            self._preflight_task_id,
+        )
+        return str(thread_id)
+
     def _detach_thread_for_context_epoch(self) -> None:
         if self.snapshot.active_turn_id:
             raise AppServerError("cannot replace conversation context during an active turn")
@@ -537,6 +590,7 @@ class AppServerSessionController:
         self._thread_generation += 1
         self._active_context_epoch = None
         self._context_entry_digests.clear()
+        self._thread_specialist_digests.clear()
 
     async def _record_context_sync_failure(
         self,
@@ -590,6 +644,15 @@ class AppServerSessionController:
 
     async def prepare_conversation_context(self, snapshot: ConversationContextSnapshot) -> str:
         """Synchronize missing visible entries once before any model turn."""
+        entries = list(snapshot.entries)
+        while len(entries) > 8 or sum(len(entry.text) for entry in entries) > 16000:
+            entries.pop(0)
+        snapshot = replace(
+            snapshot,
+            entries=tuple(entries),
+            character_count=sum(len(entry.text) for entry in entries),
+            digest="",
+        )
         if self.snapshot.active_turn_id:
             raise AppServerError("wait for the active turn before synchronizing context")
         if self._active_context_epoch is not None and self._active_context_epoch != snapshot.epoch:
@@ -611,7 +674,7 @@ class AppServerSessionController:
         if not missing:
             return thread_id
         try:
-            await self.client.request(
+            await self._request(
                 "thread/inject_items",
                 {
                     "threadId": thread_id,
@@ -670,7 +733,7 @@ class AppServerSessionController:
         sandbox_mode, approval_policy = execution_policy(self.workspace)
         if not thread_id:
             raise ValueError("thread_id cannot be empty")
-        result = await self.client.request(
+        result = await self._request(
             "thread/resume",
             {
                 "threadId": thread_id,
@@ -687,6 +750,84 @@ class AppServerSessionController:
         self._journal_session("thread.resumed", "idle", {"thread_id": resumed_id})
         return str(resumed_id)
 
+    async def _request(self, method: str, params: dict[str, Any] | None = None) -> Any:
+        if method in {"thread/start", "thread/resume", "thread/inject_items", "turn/start"}:
+            self.broker.journal.append(
+                "context.payload",
+                "broker",
+                "prepared",
+                {
+                    "method": method,
+                    "phase": "preflight" if self._preflight_pending else "execution_or_sync",
+                    **payload_metrics(params or {}),
+                },
+                self._preflight_task_id or self.snapshot.active_task_id,
+            )
+        result = await self.client.request(method, params)
+        if (
+            method == "thread/start"
+            and isinstance(result, dict)
+            and isinstance(result.get("thread"), dict)
+            and result["thread"].get("id")
+        ):
+            thread = result.get("thread", {})
+            if (params or {}).get("ephemeral"):
+                ledger = self._preflight_usage_ledgers.setdefault(
+                    str(thread["id"]), UsageLedger()
+                )
+                ledger.start_thread(str(thread["id"]))
+            else:
+                self._usage.start_thread(str(thread["id"]))
+        return result
+
+    async def compact_thread(self, *, timeout: float = 60.0) -> str:
+        """Compact only the persistent conversation thread via App Server."""
+        if not self.snapshot.thread_id:
+            raise AppServerError("cannot compact without a conversation thread")
+        if self.snapshot.active_turn_id or self._preflight_pending:
+            raise AppServerError("cannot compact while a turn is active")
+        thread_id = self.snapshot.thread_id
+        waiter = asyncio.get_running_loop().create_future()
+        self._compaction_waiters[thread_id] = waiter
+        self.broker.journal.append(
+            "context.compaction.started",
+            "broker",
+            "requested",
+            {"thread_id_present": True},
+        )
+        try:
+            await self._request("thread/compact/start", {"threadId": thread_id})
+            status = await asyncio.wait_for(waiter, timeout=timeout)
+            if status != "completed":
+                raise AppServerError("context_compaction_failed")
+            self.broker.journal.append(
+                "context.compaction.completed",
+                "broker",
+                "completed",
+                {"thread_id_present": True},
+            )
+            self._usage.reset_baseline()
+            return status
+        except Exception as exc:
+            self.broker.journal.append(
+                "context.compaction.failed",
+                "broker",
+                "failed",
+                {"error_type": type(exc).__name__},
+            )
+            raise
+        finally:
+            self._compaction_waiters.pop(thread_id, None)
+
+    async def compact_if_needed(self, *, ratio: float = 0.8) -> bool:
+        """Compact after a completed turn when last input nears the window."""
+        window = self._latest_usage.get("context_window")
+        last_input = self._latest_usage.get("last_input_tokens")
+        if not window or not last_input or last_input < int(window * ratio):
+            return False
+        await self.compact_thread()
+        return True
+
     async def preflight_task(
         self,
         task: TaskRecord,
@@ -697,14 +838,55 @@ class AppServerSessionController:
         """Run a typed, non-mutating classifier turn before broker admission."""
         if not self.live_turns_enabled:
             raise AppServerError("live turn submission is disabled; restart with explicit opt-in")
+        if self.snapshot.connection == ConnectionState.CAPACITY_LIMITED:
+            raise AppServerError(
+                "ChatGPT Codex capacity is currently limited; wait for the displayed reset time"
+            )
         self._require_authenticated()
         if self.snapshot.active_turn_id:
             raise AppServerError("wait for the active turn before assessing a new request")
+        # Seed the MCP catalog before thread/start. The server may cache
+        # tools/list for the lifetime of its process, so the selected
+        # specialist's catalog must exist before the classifier turn starts.
+        # The scope is deliberately non-executable until admission completes.
+        # Only the real stdio App Server can cache and refresh the MCP catalog;
+        # fixture clients intentionally do not persist scopes.
+        catalog_scope_enabled = hasattr(self.client, "process")
+        if catalog_scope_enabled:
+            revoke_scope(self.workspace, getattr(self.client, "scope_id", ""))
+        specialist = self._task_specialists.get(task.task_id)
+        if specialist is not None and catalog_scope_enabled:
+            publish_scope(
+                self.workspace,
+                specialist,
+                task.task_id,
+                getattr(self.client, "scope_id", ""),
+                project_roots=(str(self.workspace),),
+                execution_ready=False,
+            )
+        isolated_preflight = hasattr(self.client, "process")
+        preflight_context: tuple[dict[str, str], ...] = ()
         if context is not None:
-            await self.prepare_conversation_context(context)
+            # Preflight context is carried in the ephemeral classifier input,
+            # never injected into the main conversation thread.
+            entries = list(context.entries)
+            while len(entries) > 4 or sum(len(entry.text) for entry in entries) > 8000:
+                entries.pop(0)
+            preflight_context = tuple(
+                {"role": entry.role, "text": entry.text} for entry in entries
+            )
+            if not isolated_preflight:
+                compact_context = replace(
+                    context,
+                    entries=tuple(entries),
+                    character_count=sum(len(entry.text) for entry in entries),
+                    digest="",
+                )
+                await self.prepare_conversation_context(compact_context)
         started = time.monotonic()
         turn_id: str | None = None
         raw = ""
+        preflight_succeeded = False
         self._preflight_pending = True
         self._preflight_task_id = task.task_id
         if task.state == TaskState.CAPTURED:
@@ -728,12 +910,16 @@ class AppServerSessionController:
             task.task_id,
         )
         try:
-            if not self.snapshot.thread_id or self.snapshot.thread_status in {
-                "not_loaded",
-                "closed",
-            }:
-                await self.start_thread()
-            assert self.snapshot.thread_id
+            if isolated_preflight:
+                preflight_thread = await self.start_ephemeral_thread()
+            else:
+                if not self.snapshot.thread_id or self.snapshot.thread_status in {
+                    "not_loaded",
+                    "closed",
+                }:
+                    await self.start_thread()
+                assert self.snapshot.thread_id
+                preflight_thread = self.snapshot.thread_id
             text = task.intent.text.casefold() if task.intent.text else ""
             package_catalog = None
             if any(
@@ -760,8 +946,13 @@ class AppServerSessionController:
                 except Exception:
                     package_catalog = {"available": False, "stale": True, "matches": []}
             request = turn_start_request(
-                thread_id=self.snapshot.thread_id,
-                text=preflight_prompt(task, str(self.workspace), package_catalog),
+                thread_id=preflight_thread,
+                text=preflight_prompt(
+                    task,
+                    str(self.workspace),
+                    package_catalog,
+                    preflight_context,
+                ),
                 cwd=self.workspace,
                 sandbox_policy={
                     "type": "readOnly",
@@ -770,7 +961,7 @@ class AppServerSessionController:
                 approval_policy="never",
                 output_schema=PREFLIGHT_OUTPUT_SCHEMA,
             )
-            result = await self.client.request("turn/start", request["params"])
+            result = await self._request("turn/start", request["params"])
             turn = result.get("turn") if isinstance(result, dict) else None
             turn_id = str(turn.get("id")) if isinstance(turn, dict) and turn.get("id") else ""
             if not turn_id:
@@ -805,6 +996,7 @@ class AppServerSessionController:
                 )
             if record_assessment:
                 self.broker.record_assessment(task, assessment)
+            preflight_succeeded = True
             self._journal_preflight_outcome(
                 task,
                 turn_id,
@@ -858,6 +1050,9 @@ class AppServerSessionController:
                 self._turn_error_categories.pop(turn_id, None)
             self._preflight_pending = False
             self._preflight_task_id = None
+            self._preflight_usage_ledgers.clear()
+            if not preflight_succeeded and catalog_scope_enabled:
+                revoke_scope(self.workspace, getattr(self.client, "scope_id", ""))
             if turn_id and self.snapshot.active_turn_id == turn_id:
                 self.snapshot.active_turn_id = None
                 self.snapshot.active_task_id = None
@@ -899,7 +1094,7 @@ class AppServerSessionController:
         if not self.snapshot.thread_id:
             return
         try:
-            await self.client.request(
+            await self._request(
                 "turn/interrupt",
                 {"threadId": self.snapshot.thread_id, "turnId": turn_id},
             )
@@ -999,11 +1194,37 @@ class AppServerSessionController:
                     evidence_tools=evidence_tools,
                     evidence_arguments=evidence_arguments,
                 )
+            specialist = self._task_specialists.get(task.task_id)
+            specialist_contract = (
+                SpecialistContext(
+                    specialist.id,
+                    specialist.version,
+                    specialist.context_limit,
+                    specialist.retention,
+                ).prompt_constraint(specialist)
+                if specialist is not None
+                else ""
+            )
+            specialist_digest = (
+                hashlib.sha256(specialist_contract.encode()).hexdigest()
+                if specialist_contract
+                else ""
+            )
+            supplied_digests = self._thread_specialist_digests.setdefault(
+                self.snapshot.thread_id, set()
+            )
+            include_specialist_context = bool(
+                specialist_digest and specialist_digest not in supplied_digests
+            )
             request = self.broker.prepare_turn_request(
-                task, self.snapshot.thread_id, self.workspace
+                task,
+                self.snapshot.thread_id,
+                self.workspace,
+                specialist=specialist,
+                include_specialist_context=include_specialist_context,
             )
             try:
-                result = await self.client.request("turn/start", request["params"])
+                result = await self._request("turn/start", request["params"])
             except Exception as exc:
                 revoke_scope(self.workspace, getattr(self.client, "scope_id", ""))
                 self.broker.journal.append(
@@ -1023,6 +1244,8 @@ class AppServerSessionController:
 
             turn_id = str(turn_id)
             self.snapshot.active_turn_id = turn_id
+            if specialist_digest:
+                supplied_digests.add(specialist_digest)
             self.snapshot.active_task_id = task.task_id
             self.snapshot.thread_status = "active"
             self._turn_tasks[turn_id] = [task]
@@ -1123,7 +1346,7 @@ class AppServerSessionController:
         revoke_scope(self.workspace, getattr(self.client, "scope_id", ""))
         if not self.snapshot.thread_id or not self.snapshot.active_turn_id:
             raise AppServerError("there is no active turn to interrupt")
-        await self.client.request(
+        await self._request(
             "turn/interrupt",
             {
                 "threadId": self.snapshot.thread_id,
@@ -1216,6 +1439,28 @@ class AppServerSessionController:
         event = self.reducer.normalize(message)
         if event is None:
             return None
+        if event.kind == "tool_execution":
+            params = message.get("params", {})
+            item = params.get("item", {}) if isinstance(params, dict) else {}
+            if isinstance(item, dict):
+                self.broker.journal.append(
+                    "context.tool_payload",
+                    "codex",
+                    event.status,
+                    {
+                        "thread_id": event.thread_id,
+                        "turn_id": event.turn_id,
+                        "item_id": event.item_id,
+                        **payload_metrics(
+                            {
+                                key: item[key]
+                                for key in ("arguments", "result", "error")
+                                if key in item
+                            }
+                        ),
+                    },
+                    self.snapshot.active_task_id,
+                )
         is_preflight_event = self._preflight_pending and (
             event.turn_id in self._preflight_turns
             or event.turn_id in {None, self.snapshot.active_turn_id}
@@ -1232,6 +1477,41 @@ class AppServerSessionController:
             task = self.broker.task(self.snapshot.active_task_id)
             if task is not None:
                 tasks = [task]
+
+        if event.kind == "token_usage_updated":
+            if is_preflight_event and event.thread_id:
+                ledger = self._preflight_usage_ledgers.setdefault(event.thread_id, UsageLedger())
+            else:
+                ledger = self._usage
+            if event.thread_id and event.thread_id != self.snapshot.thread_id and not is_preflight_event:
+                return None
+            if not is_preflight_event:
+                self._latest_usage = {
+                    key: value
+                    for key, value in event.metadata.items()
+                    if key in {"context_window", "last_input_tokens", "last_total_tokens"}
+                    and type(value) is int
+                }
+            usage_task_id = (
+                self._preflight_task_id if is_preflight_event else (task.task_id if task else None)
+            )
+            details = ledger.observe(
+                event.thread_id or self.snapshot.thread_id,
+                usage_task_id,
+                "preflight" if is_preflight_event else "execution",
+                event.metadata,
+            )
+            self.broker.journal.append(
+                "context.usage", "codex", "observed", journal_usage(details), usage_task_id
+            )
+            event = replace(
+                event,
+                metadata={
+                    **event.metadata,
+                    "logical_total_tokens": details["logical_turn"].get("total_tokens"),
+                    "logical_usage_complete": details["complete"],
+                },
+            )
 
         scope_id = getattr(self.client, "scope_id", "")
         needs_observation = (
@@ -1278,6 +1558,12 @@ class AppServerSessionController:
 
         if event.kind in {"disconnected", "protocol_error"}:
             revoke_scope(self.workspace, getattr(self.client, "scope_id", ""))
+
+        if event.kind == "context_compaction" and event.thread_id:
+            waiter = self._compaction_waiters.get(event.thread_id)
+            if waiter is not None and event.status in {"completed", "failed", "cancelled"}:
+                if not waiter.done():
+                    waiter.set_result(event.status)
 
         if event.kind == "account_updated":
             auth_mode = event.metadata.get("auth_mode")

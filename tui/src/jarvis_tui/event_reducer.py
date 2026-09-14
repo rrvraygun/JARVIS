@@ -198,18 +198,31 @@ class AppServerEventReducer:
             )
             total = _object(usage.get("total"))
             last = _object(usage.get("last"))
-            metadata["total_tokens"] = total.get("totalTokens") or total.get("total_tokens")
-            metadata["context_window"] = usage.get("modelContextWindow") or usage.get(
-                "contextWindow"
-            )
-            metadata["input_tokens"] = total.get("inputTokens") or last.get("inputTokens")
-            metadata["output_tokens"] = total.get("outputTokens") or last.get("outputTokens")
-            metadata["reasoning_output_tokens"] = total.get("reasoningOutputTokens") or last.get(
-                "reasoningOutputTokens"
-            )
-            metadata = {
-                key: value for key, value in metadata.items() if isinstance(value, (int, float))
+            fields = {
+                "total_tokens": "totalTokens",
+                "input_tokens": "inputTokens",
+                "cached_input_tokens": "cachedInputTokens",
+                "cache_write_input_tokens": "cacheWriteInputTokens",
+                "output_tokens": "outputTokens",
+                "reasoning_output_tokens": "reasoningOutputTokens",
             }
+            for prefix, values in (("total", total), ("last", last)):
+                for name, wire in fields.items():
+                    key = f"{prefix}_{name}" if name != "total_tokens" else f"{prefix}_total_tokens"
+                    value = values.get(wire, values.get(name))
+                    if value is not None:
+                        metadata[key] = value
+            if "total_total_tokens" in metadata:
+                metadata["total_tokens"] = metadata.pop("total_total_tokens")
+            window = usage.get("modelContextWindow", usage.get("contextWindow"))
+            if window is not None:
+                metadata["context_window"] = window
+            valid = all(type(value) is int and value >= 0 for value in metadata.values())
+            metadata = {
+                key: value for key, value in metadata.items() if type(value) is int and value >= 0
+            }
+            # Cumulative usage can exceed a context window across many responses.
+            metadata["usage_valid"] = valid
         elif method == "thread/status/changed":
             kind = "thread_status"
             raw_status = params.get("status")
@@ -243,7 +256,9 @@ class AppServerEventReducer:
         elif method in {"item/started", "item/completed"}:
             kind = "item"
             status = _item_lifecycle_status(method, status)
-            if item_type == "agentMessage":
+            if item_type == "contextCompaction":
+                kind = "context_compaction"
+            elif item_type == "agentMessage":
                 kind = "agent_message"
                 text, changed = _safe_text(item.get("text"))
             elif item_type == "plan":

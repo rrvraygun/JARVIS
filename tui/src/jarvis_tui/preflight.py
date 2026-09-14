@@ -129,7 +129,10 @@ def parse_preflight_output(raw: str, assessment_id: str) -> IntentAssessment:
 
 
 def preflight_prompt(
-    task: TaskRecord, workspace: str, package_catalog: dict[str, Any] | None = None
+    task: TaskRecord,
+    workspace: str,
+    package_catalog: dict[str, Any] | None = None,
+    context_entries: tuple[dict[str, str], ...] = (),
 ) -> str:
     """Build a concise classifier prompt; this turn has no mutation authority."""
     action = task.action.to_dict() if task.action else None
@@ -139,7 +142,6 @@ def preflight_prompt(
         "text": task.intent.text,
         "action": action,
         "parameters": task.intent.parameters,
-        "constraints": list(task.intent.constraints),
         "workspace": workspace,
         "package_candidate": (
             {
@@ -150,6 +152,15 @@ def preflight_prompt(
             else None
         ),
         "package_catalog": package_catalog,
+        # The specialist definition is already validated and bound by the
+        # broker. Preflight only needs its identity; sending the full contract
+        # here duplicates stable instructions and inflates the classifier turn.
+        "selected_specialist": {
+            "id": task.agent_id,
+            "version": task.agent_version,
+            "constraint_count": len(dict.fromkeys(task.intent.constraints)),
+        },
+        "active_context": list(context_entries),
     }
     return (
         "Classify this Jarvis request before any execution. Do not use tools. Return only the "
@@ -189,6 +200,11 @@ def preflight_prompt(
         "package_install for a root absent from cached available evidence; clarify or explain the "
         "missing catalog evidence instead. "
         "ask one clarification for a likely spelling/transposition error (for example, rsut versus rust) "
-        "or an unclear installation source.\n\n"
-        + json.dumps(request, ensure_ascii=False, sort_keys=True)
+        "or an unclear installation source. For the selected GitHub Agent, questions about the "
+        "current branch, working-tree status, commits, remotes, pull requests, releases, Actions, "
+        "checks, or repository metadata always require a fresh registered repository inspection; "
+        "never answer those from the specialist contract or prior prose. Resolve the selected "
+        "repository as the target when the user asks about the current repository.\n\n"
+        + "The selected specialist identity is broker-bound; do not switch agents.\n\nCurrent request:\n"
+        + json.dumps(request, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
     )

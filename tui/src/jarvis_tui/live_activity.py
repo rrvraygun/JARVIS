@@ -22,10 +22,18 @@ class LiveActivity:
     tools: dict[str, dict] = field(default_factory=dict)
     context_window: int | None = None
     context_used: int | None = None
+    last_turn_used: int | None = None
+    cumulative_used: int | None = None
+    cached_input_used: int | None = None
+    _turn_context_baseline: int = 0
 
     def reset_context(self) -> None:
         """Reset usage after a conversation checkpoint or new conversation."""
+        self.cumulative_used = None
+        self.cached_input_used = None
         self.context_used = 0
+        self.last_turn_used = 0
+        self._turn_context_baseline = 0
 
     def update(self, event: NormalizedEvent) -> None:
         now = time.monotonic()
@@ -35,13 +43,24 @@ class LiveActivity:
             self.ended = self.characters = self.fragments = 0
             self.unverified = False
             self.tools.clear()
+            self._turn_context_baseline = self.context_used or 0
         if self.turn_id and event.turn_id and event.turn_id != self.turn_id:
             return
         if event.kind == "token_usage_updated":
-            total = event.metadata.get("total_tokens")
+            if event.metadata.get("usage_valid") is False:
+                return
+            self.cumulative_used = event.metadata.get("total_tokens")
+            self.cached_input_used = event.metadata.get("total_cached_input_tokens")
+            last = event.metadata.get("last_total_tokens")
             window = event.metadata.get("context_window")
-            if isinstance(total, (int, float)):
-                self.context_used = max(0, int(total))
+            # Last response usage is only an estimate of occupied context.
+            self.context_used = int(last) if type(last) is int else None
+            logical = event.metadata.get("logical_total_tokens")
+            self.last_turn_used = (
+                int(logical)
+                if type(logical) is int and event.metadata.get("logical_usage_complete")
+                else None
+            )
             if isinstance(window, (int, float)) and window > 0:
                 self.context_window = int(window)
             return
@@ -105,7 +124,7 @@ class LiveActivity:
                     return f"○ Ready\nContext · unavailable / {self.context_window / 1024:.0f}k · — left"
                 remaining = max(0, self.context_window - self.context_used)
                 percent = max(0, min(100, remaining * 100 / self.context_window))
-                return f"○ Ready\nContext · {self.context_used / 1024:.0f}k / {self.context_window / 1024:.0f}k · {percent:.0f}% left"
+                return f"○ Ready\nContext estimate · {self.context_used / 1024:.0f}k / {self.context_window / 1024:.0f}k · {percent:.0f}% left"
             return "○ Ready"
         now = time.monotonic()
         elapsed = (now if self.active else self.ended) - self.started
@@ -126,10 +145,16 @@ class LiveActivity:
                 remaining = max(0, self.context_window - self.context_used)
                 percent = max(0, min(100, remaining * 100 / self.context_window))
                 lines.append(
-                    f"Context · {compact(self.context_used)} / {compact(self.context_window)} · {percent:.0f}% left"
+                    f"Context estimate · {compact(self.context_used)} / {compact(self.context_window)} · {percent:.0f}% left"
                 )
+                if self.last_turn_used is not None:
+                    lines[-1] += f" · request usage {compact(self.last_turn_used)}"
         else:
             lines.append("Context · unavailable / auto · — left")
+        if self.cumulative_used is not None:
+            lines.append(f"Thread usage · {compact(self.cumulative_used)}")
+            if self.cached_input_used is not None:
+                lines[-1] += f" · cached input {compact(self.cached_input_used)}"
         for tool in self.tools.values():
             running = tool["ended"] is None
             duration = (now if running else tool["ended"]) - tool["started"]

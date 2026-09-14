@@ -56,6 +56,16 @@ synchronization is attempted once. Failure stops before classifier/execution
 `turn/start`, reports `conversation_context.sync_failed`, restores Send, and
 does not replay the task.
 
+### Current execution behavior — 2026-09-14
+
+Non-deterministic preflight runs on an ephemeral App Server thread. Only the
+typed assessment reaches the persistent conversation. The selected MCP scope is
+bootstrapped before App Server initialization, remains non-executable during
+preflight, and limits execution to the selected specialist's registered tools.
+Current branch/status/repository metadata questions require fresh
+`github_inspect` evidence. Threshold-gated compaction waits for
+`contextCompaction` and preserves the thread on failure.
+
 The synchronized projection is usable as bounded observational evidence, not
 only conversational prose. When exactly one recent compatible result resolves
 a reference such as “that directory,” a follow-up count, summary, comparison,
@@ -231,3 +241,47 @@ type-specific constraint keywords for this model path. A failed turn is
 categorized without persisting its message as `output_schema`,
 `model_unavailable`, `capacity`, `authentication`, `transport`, or
 `server_error`.
+
+### Context usage accounting (2026-09-13)
+
+`context.usage` records numeric last-response, cumulative-thread and logical-request
+usage, split into preflight and execution, including cached input. Journal counters
+use `_count` suffixes (for example `total_count`); credential-key redaction stays
+unchanged. Logical requests use cumulative deltas, not sums of repeated `last`
+snapshots. Missing baselines after resume or decreasing counters mark the observed
+interval incomplete. Unbound usage is not charged to a task. The activity view uses
+last-response usage as a **context estimate**, never accumulated thread usage, and
+shows thread usage/cached input separately. Checkpoint resets retain conversation
+isolation and do not grant authority.
+
+`context.payload` measures canonical UTF-8 JSON byte sizes for outgoing thread,
+context-injection and turn payloads; `context.tool_payload` measures incoming tool
+arguments/results/errors without retaining their content. These are byte counts,
+not tokenizer measurements, and exclude server-added system instructions, tool
+schemas and cached history. Stable classifier constraints precede variable request
+data; exact repeated constraints and duplicate routing prose are removed, and
+execution envelopes use compact JSON. All typed assessments and approval gates
+remain active. Full history still resides in the conversation thread: limiting new
+preflight projection entries does not isolate the classifier from existing history.
+
+A single real answer-only comparison using the existing `gpt-5.6-luna` / `none`
+settings measured 29,380 before versus 29,908 after total tokens; cached input was
+13,056 versus 6,912. Both replies were correct two-sentence explanations. This is
+**not evidence of a token reduction or CLI parity**. The controlled prompt fixture
+shrunk from 8,299 to 8,092 characters across preflight and execution. The MCP source
+contains 52 definitions (18,001 compact JSON bytes), including four GitHub tools
+(3,011 bytes); schema discovery is broader than execution permission. No tool
+filtering, model changes, automatic compaction, or new protocol methods were enabled.
+OpenAI documents asynchronous `thread/compact/start`; adopting it still needs its
+own lifecycle/checkpoint validation, not a guessed context reset:
+https://learn.chatgpt.com/docs/app-server#trigger-thread-compaction
+
+
+The specialist preflight prompt now carries only broker-bound identity, version, and constraint count. The full specialist contract remains on execution turns. A fixture reduced classifier prompt bytes from 6.7 KB to 3.7 KB; this is not a token saving claim.
+
+MCP tool visibility is filtered by the selected specialist scope. Preflight can
+see the selected catalog for schema consistency, but the scope rejects every
+tool call until typed admission. Execution receives only the registered MCP
+tools for that specialist plus shared metadata tools. The personalized
+specialist contract is supplied once per digest/thread and referenced on later
+turns.

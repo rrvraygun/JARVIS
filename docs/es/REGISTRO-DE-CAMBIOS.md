@@ -1,5 +1,24 @@
 # Registro de cambios
 
+## 2026-09-14 — Contexto y ejecución de especialistas
+
+- El preflight no determinista usa un hilo efímero y solo transfiere su
+  evaluación tipada a la conversación persistente.
+- Los snapshots recalculan digest tras recortar, las peticiones aceptadas siguen
+  conocidas aunque fallen y la contabilidad de preflight queda separada.
+- El catálogo MCP se inicializa antes del App Server y se limita al especialista
+  seleccionado; durante preflight las llamadas se rechazan.
+- Los envelopes de explicación son compactos y la compactación condicionada
+  espera el item autoritativo `contextCompaction`.
+
+## 2026-09-13 — Context accounting
+
+Medición de contexto: conservar cifras de respuesta/hilo/petición y caché, corregir estimación de contexto y compactar texto repetido. Regresiones y comparación real de explicación validadas; sin ahorro demostrado ni paridad con CLI.
+
+Aislamiento de contexto y herramientas por especialista: filtrar el catálogo MCP
+por scope, rechazar llamadas durante el preflight no ejecutable y enviar una vez
+por digest/hilo el contrato personalizado antes de usar una referencia.
+
 Todos los cambios notables en JARVIS se registran aquí. Las fechas utilizan Europa/Madrid local
 hora en la que el registro de origen proporcionó marcas de tiempo locales.
 

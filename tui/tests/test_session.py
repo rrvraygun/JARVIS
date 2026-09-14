@@ -34,6 +34,7 @@ from jarvis_tui.session import (  # noqa: E402
     classify_preflight_turn_error,
 )
 from jarvis_tui.testing import FakeAppServerClient  # noqa: E402
+from jarvis_tui.usage_metrics import UsageLedger  # noqa: E402
 
 
 class Ids:
@@ -84,6 +85,64 @@ class SessionTests(unittest.IsolatedAsyncioTestCase):
             BUNDLE_ROOT,
             live_turns_enabled=True,
         )
+
+    async def test_usage_journal_preserves_numbers_without_payload_content(self):
+        await self.session.connect()
+        await self.session.start_thread()
+        task = self.broker.capture_text("Explain the prior observation")
+        self.session.snapshot.active_task_id = task.task_id
+        self.session._preflight_task_id = task.task_id
+        self.session._preflight_pending = True
+        self.session._preflight_turns.add("usage-preflight")
+        self.session._preflight_usage_ledgers["thr_fixture"] = UsageLedger()
+        self.session._preflight_usage_ledgers["thr_fixture"].start_thread("thr_fixture")
+        await self.session.process_event(
+            {
+                "method": "thread/tokenUsage/updated",
+                "params": {
+                    "threadId": "thr_fixture",
+                    "turnId": "usage-preflight",
+                    "tokenUsage": {
+                        "total": {"totalTokens": 100, "cachedInputTokens": 0},
+                        "last": {"totalTokens": 100},
+                    },
+                },
+            }
+        )
+        event = await self.session.process_event(
+            {
+                "method": "thread/tokenUsage/updated",
+                "params": {
+                    "threadId": "thr_fixture",
+                    "turnId": "usage-preflight",
+                    "tokenUsage": {
+                        "total": {"totalTokens": 350, "cachedInputTokens": 90},
+                        "last": {"totalTokens": 250},
+                    },
+                },
+            }
+        )
+        self.session._preflight_pending = False
+        self.session._preflight_task_id = None
+        self.assertEqual(event.metadata["logical_total_tokens"], 350)
+        rows = [r for r in self.journal.read() if r["event_type"] == "context.usage"]
+        self.assertEqual(rows[-1]["details"]["phase_totals"]["preflight"]["total_count"], 350)
+        self.assertEqual(rows[-1]["task_id"], task.task_id)
+
+    async def test_foreign_thread_usage_does_not_pollute_conversation(self):
+        await self.session.connect()
+        await self.session.start_thread()
+        event = await self.session.process_event(
+            {
+                "method": "thread/tokenUsage/updated",
+                "params": {
+                    "threadId": "foreign_thread",
+                    "tokenUsage": {"total": {"totalTokens": 9000}},
+                },
+            }
+        )
+        self.assertIsNone(event)
+        self.assertFalse(any(r["event_type"] == "context.usage" for r in self.journal.read()))
 
     def assess(self, task) -> None:
         self.broker.record_assessment(
@@ -144,6 +203,14 @@ class SessionTests(unittest.IsolatedAsyncioTestCase):
         self.assess(task)
         with self.assertRaisesRegex(AppServerError, "disabled"):
             await disabled.start_turn(task)
+        self.assertFalse(any(method == "turn/start" for method, _ in self.client.requests))
+
+    async def test_capacity_limited_session_rejects_before_preflight(self) -> None:
+        await self.session.connect()
+        self.session.snapshot.connection = ConnectionState.CAPACITY_LIMITED
+        task = self.broker.capture_text("Explain the prior observation")
+        with self.assertRaisesRegex(AppServerError, "capacity is currently limited"):
+            await self.session.preflight_task(task)
         self.assertFalse(any(method == "turn/start" for method, _ in self.client.requests))
 
     async def test_api_key_session_can_start_a_scoped_thread(self) -> None:
@@ -231,6 +298,99 @@ class SessionTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(request["approvalPolicy"], "never")
         methods = [method for method, _ in self.client.requests]
         self.assertLess(methods.index("thread/inject_items"), methods.index("turn/start"))
+
+    async def test_real_preflight_uses_ephemeral_thread_and_does_not_touch_main_history(self) -> None:
+        client = FakeAppServerClient(
+            {
+                "account/read": [self.fixture["account_read"]],
+                "account/rateLimits/read": [self.fixture["rate_limits"]],
+                "thread/start": [{"thread": {"id": "preflight_thread"}}],
+                "turn/start": [self.fixture["turn_start"]],
+            }
+        )
+        client.process = object()
+        session = AppServerSessionController(client, self.broker, BUNDLE_ROOT, live_turns_enabled=True)
+        self.addAsyncCleanup(session.disconnect)
+        await session.connect()
+        task = self.broker.capture_text("List files in /srv/example.")
+        pending = asyncio.create_task(session.preflight_task(task))
+        await asyncio.sleep(0)
+        await session.process_event(
+            {
+                "method": "item/completed",
+                "params": {
+                    "threadId": "preflight_thread",
+                    "turnId": "turn_fixture",
+                    "item": {
+                        "id": "item_preflight",
+                        "type": "agentMessage",
+                        "status": "completed",
+                        "text": json.dumps(
+                            {
+                                "assessment": {
+                                    "decision": "execute",
+                                    "intent_class": "inspect",
+                                    "operation": "inspect",
+                                    "targets": ["/srv/example"],
+                                    "risk": 0,
+                                    "route": "registered_workflow",
+                                    "reason": "exact",
+                                    "clarification_question": None,
+                                    "clarification_options": [],
+                                }
+                            }
+                        ),
+                    },
+                },
+            }
+        )
+        await session.process_event(
+            {
+                "method": "turn/completed",
+                "params": {
+                    "threadId": "preflight_thread",
+                    "turn": {"id": "turn_fixture", "status": "completed"},
+                },
+            }
+        )
+        assessment = await pending
+        self.assertEqual(assessment.operation, "inspect")
+        starts = [params for method, params in client.requests if method == "thread/start"]
+        self.assertTrue(starts[0]["ephemeral"])
+        self.assertIsNone(session.snapshot.thread_id)
+
+    async def test_compact_thread_waits_for_authoritative_context_compaction_item(self) -> None:
+        client = FakeAppServerClient(
+            {
+                "account/read": [self.fixture["account_read"]],
+                "account/rateLimits/read": [self.fixture["rate_limits"]],
+                "thread/start": [self.fixture["thread_start"]],
+                "thread/compact/start": [{}],
+            }
+        )
+        client.process = object()
+        session = AppServerSessionController(client, self.broker, BUNDLE_ROOT, live_turns_enabled=True)
+        self.addAsyncCleanup(session.disconnect)
+        await session.connect()
+        session.snapshot.thread_id = "thr_fixture"
+        pending = asyncio.create_task(session.compact_thread(timeout=1))
+        await asyncio.sleep(0)
+        await session.process_event(
+            {
+                "method": "item/completed",
+                "params": {
+                    "threadId": "thr_fixture",
+                    "turnId": "compaction_turn",
+                    "item": {
+                        "id": "compaction_item",
+                        "type": "contextCompaction",
+                        "status": "completed",
+                    },
+                },
+            }
+        )
+        self.assertEqual(await pending, "completed")
+        self.assertTrue(any(method == "thread/compact/start" for method, _ in client.requests))
 
     async def test_unverified_inspection_uses_activity_events_not_canned_chat(self):
         task = self.broker.capture_text("check node")
@@ -816,6 +976,29 @@ class SessionTests(unittest.IsolatedAsyncioTestCase):
         self.assertIn("conversation.context.synchronized", journal_text)
         self.assertNotIn("visible.txt", journal_text)
         self.assertNotIn("list the files inside Escritorio", journal_text)
+
+    async def test_large_context_is_trimmed_and_rehashed_before_injection(self) -> None:
+        self.client._responses["thread/inject_items"].append({})
+        await self.session.connect()
+        entries = tuple(
+            ConversationContextEntry(
+                key=f"task:{index}", role="user", text=f"entry-{index}-" + ("x" * 3_000)
+            )
+            for index in range(8)
+        )
+        snapshot = ConversationContextSnapshot(
+            epoch=0,
+            entries=entries,
+            character_count=sum(len(entry.text) for entry in entries),
+        )
+        await self.session.prepare_conversation_context(snapshot)
+        injected = [
+            params for method, params in self.client.requests if method == "thread/inject_items"
+        ][0]
+        text = injected["items"][0]["content"][0]["text"]
+        self.assertLessEqual(len(text), 16_000 + 2_000)
+        self.assertNotIn("entry-0-", text)
+        self.assertIn("entry-7-", text)
 
     async def test_context_sync_failure_submits_no_classifier_turn_and_does_not_retry(self) -> None:
         client = FakeAppServerClient(

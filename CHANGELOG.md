@@ -1,5 +1,24 @@
 # Changelog
 
+## 2026-09-14 — Context and specialist execution
+
+- Non-deterministic preflight uses an ephemeral App Server thread; only its
+  typed assessment reaches the persistent conversation.
+- Snapshots recalculate digests after trimming, accepted requests remain known
+  after failed/cancelled turns, and preflight token usage has a separate ledger.
+- MCP catalogs bootstrap before App Server initialization, remain non-executable
+  during preflight, and expose only the selected specialist's registered tools.
+- Explanation envelopes are compact; threshold-gated compaction waits for the
+  authoritative `contextCompaction` item.
+
+## 2026-09-13 — Context accounting
+
+Context measurement: preserve numeric response/thread/request and cache counts; correct context estimates; compact redundant prompt text. Regression suite and live answer-only comparison validated; no demonstrated token saving or CLI parity.
+
+Specialist context/tool isolation: filter the MCP catalog by the selected scope,
+reject calls while preflight is non-executable, and send each personalized
+specialist contract once per digest/thread before using a continuity reference.
+
 All notable changes to JARVIS are recorded here. Dates use Europe/Madrid local
 time where the source record supplied local timestamps.
 
