@@ -50,7 +50,7 @@ if a later agent request needs conversational continuity.
 Active context follows the selected per-conversation token window and remains
 bounded to 500 presentation entries. When the cap is reached, the oldest complete exchanges are removed from both the
 view and model snapshot and one visible omission marker is inserted. New,
-Clear, and loaded-history actions advance a context epoch; the next model
+New and loaded-history actions advance a context epoch; the next model
 request starts a fresh thread instead of combining incompatible views. Context
 synchronization is attempted once. Failure stops before classifier/execution
 `turn/start`, reports `conversation_context.sync_failed`, restores Send, and

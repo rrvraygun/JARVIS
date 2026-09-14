@@ -15,6 +15,8 @@
 - Loading a saved conversation restores its persisted usage summary before the
   next turn and adds new usage as an increment instead of showing only the new
   thread's baseline.
+- Merged the redundant Clear conversation control into New; New now saves the
+  current conversation and performs the complete context/thread reset.
 
 ## 2026-09-13 — Context accounting
 

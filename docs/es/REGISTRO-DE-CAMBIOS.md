@@ -14,6 +14,8 @@
   conversación nueva no reutilice contexto antiguo.
 - Al cargar una conversación guardada se restaura su resumen de uso y el nuevo
   turno se muestra como incremento, no como un baseline aislado.
+- Se fusionó el control redundante Clear con New; New guarda la conversación y
+  realiza el reinicio completo de contexto e hilo.
 
 ## 2026-09-13 — Context accounting
 

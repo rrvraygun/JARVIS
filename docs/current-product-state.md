@@ -119,7 +119,7 @@ do not inherit previous conversation history.
 - Active conversation context follows the global token-window setting (Auto, 8k,
   16k, 32k, 64k, 128k, 256k, 512k, 800k, 1M or 1.05M) and remains bounded to
   500 presentation entries. Oldest complete exchanges are pruned from both
-  together with a visible omission marker. New, Clear, and loaded-history actions start a new context
+  together with a visible omission marker. New and loaded-history actions start a new context
   epoch and therefore a fresh App Server thread on the next model request.
 - Visible local-read results are persisted in the conversation after terminal
   sanitization/redaction so specialist transcripts and history reloads retain

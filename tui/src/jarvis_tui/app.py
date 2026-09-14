@@ -1233,7 +1233,6 @@ class JarvisTui(App[None]):
                                 yield Button("New", id="conv-new", variant="primary")
                                 yield Button("History", id="conv-history")
                                 yield Button("Copy", id="conv-copy")
-                                yield Button("Clear", id="conv-clear", variant="error")
                     yield Static(id="conversation-gap")
                     with Vertical(id="conversation-main"):
                         yield Label(
@@ -5222,14 +5221,6 @@ class JarvisTui(App[None]):
             return
         if button_id == "conv-copy":
             self._copy_conversation_to_clipboard()
-            return
-        if button_id == "conv-clear":
-            if self._submission_busy:
-                self._system_message(
-                    "Wait for or cancel the active submission before clearing its conversation context."
-                )
-                return
-            self._clear_conversation_display()
             return
         if button_id == "copy-timeline":
             self._copy_timeline_to_clipboard()
