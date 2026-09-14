@@ -12,6 +12,8 @@
   espera el item autoritativo `contextCompaction`.
 - `New` reinicia la actividad visible y separa el hilo anterior para que una
   conversación nueva no reutilice contexto antiguo.
+- Al cargar una conversación guardada se restaura su resumen de uso y el nuevo
+  turno se muestra como incremento, no como un baseline aislado.
 
 ## 2026-09-13 — Context accounting
 

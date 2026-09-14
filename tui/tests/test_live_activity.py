@@ -19,6 +19,28 @@ class LiveActivityTests(unittest.TestCase):
         state.reset_context()
         self.assertIn("Context estimate · 0k / 64k · 100% left", state.text())
 
+    def test_restored_usage_is_visible_and_new_usage_is_added(self):
+        state = LiveActivity(context_window=258400)
+        state.restore_usage(cumulative=30000, cached_input=14000, last_response=15000)
+        self.assertIn("Thread usage · 29k · cached input 14k", state.text())
+        state.update(
+            NormalizedEvent(
+                "usage",
+                "thread/tokenUsage/updated",
+                "token_usage_updated",
+                "received",
+                metadata={
+                    "total_tokens": 12000,
+                    "total_cached_input_tokens": 5000,
+                    "last_total_tokens": 12000,
+                    "context_window": 258400,
+                    "usage_valid": True,
+                },
+            )
+        )
+        self.assertEqual(state.cumulative_used, 42000)
+        self.assertEqual(state.cached_input_used, 19000)
+
     def test_context_usage_is_compact_and_calculated(self):
         state = LiveActivity(context_window=800_000)
         state.update(

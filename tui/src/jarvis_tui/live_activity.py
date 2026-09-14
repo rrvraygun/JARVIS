@@ -25,12 +25,16 @@ class LiveActivity:
     last_turn_used: int | None = None
     cumulative_used: int | None = None
     cached_input_used: int | None = None
+    cumulative_offset: int = 0
+    cached_input_offset: int = 0
     _turn_context_baseline: int = 0
 
     def reset_context(self) -> None:
         """Reset usage after a conversation checkpoint or new conversation."""
         self.cumulative_used = None
         self.cached_input_used = None
+        self.cumulative_offset = 0
+        self.cached_input_offset = 0
         self.context_used = 0
         self.last_turn_used = 0
         self._turn_context_baseline = 0
@@ -49,8 +53,14 @@ class LiveActivity:
         if event.kind == "token_usage_updated":
             if event.metadata.get("usage_valid") is False:
                 return
-            self.cumulative_used = event.metadata.get("total_tokens")
-            self.cached_input_used = event.metadata.get("total_cached_input_tokens")
+            total = event.metadata.get("total_tokens")
+            cached = event.metadata.get("total_cached_input_tokens")
+            self.cumulative_used = (
+                self.cumulative_offset + total if type(total) is int else None
+            )
+            self.cached_input_used = (
+                self.cached_input_offset + cached if type(cached) is int else None
+            )
             last = event.metadata.get("last_total_tokens")
             window = event.metadata.get("context_window")
             # Last response usage is only an estimate of occupied context.
@@ -119,13 +129,21 @@ class LiveActivity:
 
     def text(self) -> str:
         if not self.started:
+            lines = ["○ Ready"]
             if self.context_window:
                 if self.context_used is None:
-                    return f"○ Ready\nContext · unavailable / {self.context_window / 1024:.0f}k · — left"
-                remaining = max(0, self.context_window - self.context_used)
-                percent = max(0, min(100, remaining * 100 / self.context_window))
-                return f"○ Ready\nContext estimate · {self.context_used / 1024:.0f}k / {self.context_window / 1024:.0f}k · {percent:.0f}% left"
-            return "○ Ready"
+                    lines.append(f"Context · unavailable / {self.context_window / 1024:.0f}k · — left")
+                else:
+                    remaining = max(0, self.context_window - self.context_used)
+                    percent = max(0, min(100, remaining * 100 / self.context_window))
+                    lines.append(f"Context estimate · {self.context_used / 1024:.0f}k / {self.context_window / 1024:.0f}k · {percent:.0f}% left")
+            else:
+                lines.append("Context · unavailable / auto · — left")
+            if self.cumulative_used is not None:
+                lines.append(f"Thread usage · {self.cumulative_used / 1024:.0f}k")
+                if self.cached_input_used is not None:
+                    lines[-1] += f" · cached input {self.cached_input_used / 1024:.0f}k"
+            return "\n".join(lines)
         now = time.monotonic()
         elapsed = (now if self.active else self.ended) - self.started
         glyph = (
@@ -164,3 +182,21 @@ class LiveActivity:
                 f"{icon} {tool['name']}{query} · {tool.get('status', 'running')} · {duration:.1f}s"
             )
         return "\n".join(lines)
+
+    def restore_usage(
+        self,
+        *,
+        cumulative: int | None,
+        cached_input: int | None,
+        last_response: int | None,
+        context_window: int | None = None,
+    ) -> None:
+        """Restore persisted conversation usage before a new App Server turn."""
+        self.cumulative_offset = max(0, cumulative or 0)
+        self.cached_input_offset = max(0, cached_input or 0)
+        self.cumulative_used = cumulative
+        self.cached_input_used = cached_input
+        self.context_used = last_response
+        self.last_turn_used = last_response
+        if context_window:
+            self.context_window = context_window

@@ -12,6 +12,9 @@
   authoritative `contextCompaction` item.
 - `New` now resets the live activity projection and detaches the previous model
   thread, so a new conversation cannot reuse old context.
+- Loading a saved conversation restores its persisted usage summary before the
+  next turn and adds new usage as an increment instead of showing only the new
+  thread's baseline.
 
 ## 2026-09-13 — Context accounting
 

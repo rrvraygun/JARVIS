@@ -5781,6 +5781,8 @@ class JarvisTui(App[None]):
                             for idx, msg in enumerate(conversation.messages)
                         )
                         self.presentation.reset_conversation(loaded_entries)
+                        self._live_activity = LiveActivity()
+                        self._restore_conversation_usage(loaded_entries)
                         self._synced_entry_state.clear()
                         self._conversation_message_indices.clear()
                         for message_index, entry in enumerate(self.presentation.conversation):
@@ -5815,6 +5817,37 @@ class JarvisTui(App[None]):
             self._system_message(
                 f"Conversation history action failed (conversation.history_{type(exc).__name__.casefold()})."
             )
+
+    def _restore_conversation_usage(self, entries: tuple[ConversationEntry, ...]) -> None:
+        """Restore persisted usage for a loaded conversation before new input."""
+        task_ids = {entry.task_id for entry in entries if entry.task_id}
+        if not task_ids:
+            return
+        latest_by_task: dict[str, dict[str, Any]] = {}
+        for event in self.broker.journal.read():
+            if event.get("event_type") != "context.usage" or event.get("task_id") not in task_ids:
+                continue
+            latest_by_task[str(event["task_id"])] = event.get("details", {})
+        if not latest_by_task:
+            return
+        logical_total = 0
+        cached_total = 0
+        last_response = None
+        for details in latest_by_task.values():
+            logical = details.get("logical_turn", {})
+            response = details.get("response", {})
+            logical_total += int(logical.get("total_count", 0) or 0)
+            cached_total += int(logical.get("total_cached_input_count", 0) or 0)
+            if isinstance(response.get("last_total_count"), int):
+                last_response = response["last_total_count"]
+        configured = getattr(self, "_selected_context", "auto")
+        window = int(configured) if isinstance(configured, str) and configured.isdigit() else None
+        self._live_activity.restore_usage(
+            cumulative=logical_total or None,
+            cached_input=cached_total or None,
+            last_response=last_response,
+            context_window=window,
+        )
 
     def _copy_conversation_to_clipboard(self):
         """Copy conversation text to system clipboard."""
